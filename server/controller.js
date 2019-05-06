@@ -1,6 +1,7 @@
+
 module.exports.getAll = async (ctx, next) => {
   try {
-    ctx.body = "hello";
+    ctx.body = 'hello';
     ctx.status = 200;
     await next();
   } catch (error) {
@@ -10,7 +11,7 @@ module.exports.getAll = async (ctx, next) => {
 
 module.exports.lobby = async (ctx, next) => {
   try {
-    ctx.body = "welcome to the lobby";
+    ctx.body = 'welcome to the lobby';
     ctx.status = 200;
     await next();
   } catch (error) {
@@ -20,7 +21,7 @@ module.exports.lobby = async (ctx, next) => {
 
 module.exports.create = async (ctx, next) => {
   try {
-    ctx.body = "create a game";
+    ctx.body = 'create a game';
     ctx.status = 200;
     await next();
   } catch (error) {
@@ -30,7 +31,7 @@ module.exports.create = async (ctx, next) => {
 
 module.exports.join = async (ctx, next) => {
   try {
-    ctx.body = "join a game";
+    ctx.body = 'join a game';
     ctx.status = 200;
     await next();
   } catch (error) {
