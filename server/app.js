@@ -11,11 +11,16 @@ function create() {
     .use(cors())
     .use(bodyparser())
     .use(router.routes());
-  return app.listen(port, () => {
+  return (server = app.listen(port, () => {
     console.log(`🚀 Server Running on ${port}`); //eslint-disable-line
-  });
+  }));
+}
+
+async function close () {
+  await new Promise(resolve => server.close(resolve));
 }
 
 module.exports = {
-  create
+  create,
+  close
 };
