@@ -1,15 +1,9 @@
 /* eslint-disable no-console */
 const Key = require('./model/gamekey');
-const io = require('socket.io-client');
-
-module.exports.newGame = async (ctx, next) => {
-  io('/key');
-  ctx.status = 200;
-}
 
 module.exports.getAll = async (ctx, next) => {
   try {
-    ctx.body = 'hello';
+    ctx.body = await 'hello';
     ctx.status = 200;
     await next();
   } catch (error) {
@@ -19,9 +13,8 @@ module.exports.getAll = async (ctx, next) => {
 
 module.exports.getKey = async (ctx, next) => {
   try {
-    const index = Math.floor(Math.random() * Key.length);
-    const selected = await Key[index];
-    ctx.body = JSON.stringify(selected.id);
+    const key = Key.generate();
+    ctx.body = key;
     ctx.status = 200;
     await next();
   } catch (error) {
