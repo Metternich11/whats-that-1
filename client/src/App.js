@@ -1,6 +1,7 @@
 import React from "react";
 import { createGlobalStyle } from "styled-components";
 import ComponentsCatalogue from "./containers/ComponentsCatalogue";
+import "./App.css";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -12,14 +13,12 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-function App () {
+function App() {
   return (
     <>
       <GlobalStyle />
       <div className="App">
-        <header className="App-header">
-          <ComponentsCatalogue />
-        </header>
+        <ComponentsCatalogue />
       </div>
     </>
   );
