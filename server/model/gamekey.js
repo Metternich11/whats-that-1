@@ -7,13 +7,13 @@ const Key = {};
 
 Key.generate = () => {
   const key = {};
-  const filteredAdj = adjectives.filter(word => word.length > BENCHMARK);
+  const filteredAdj = adjectives.filter(word => word.length < BENCHMARK);
   const randAdj = filteredAdj[Math.floor(Math.random() * filteredAdj.length)];
-  const filteredNoun = nouns.filter(word => word.length > BENCHMARK);
+  const filteredNoun = nouns.filter(word => word.length < BENCHMARK);
   const randNoun = filteredNoun[Math.floor(Math.random() * filteredNoun.length)];
   const randCate = categories[Math.floor(Math.random() * categories.length)];
   key.id = randAdj + '-' + randNoun;
-  key.target = randCate;
+  key.key = randCate;
   return key;
 }
 
