@@ -17,18 +17,19 @@ function createServer() {
       .use(cors())
       .use(bodyparser())
       .use(router.routes());
-    ioConfig(io);
-    server = http.listen(port, () => {
-      console.log(`🚀 Server Running on ${port}`);
+    server = app.listen(port, () => {
+      console.log(`🚀 Server Running on ${port}`); //eslint-disable-line
+      io.listen(server);
+      ioConfig(io);
       resolve(server);
     });
   });
 }
 
   function close () {
-    console.log('Closing server…');
+    console.log('Closing server…'); //eslint-disable-line
     return new Promise(resolve => app._io.close(() => {
-      console.log('server closed');
+      console.log('server closed'); //eslint-disable-line
       resolve(server);
     }));
   }
