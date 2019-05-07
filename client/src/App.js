@@ -1,6 +1,7 @@
 import React from "react";
 import { createGlobalStyle } from "styled-components";
 import ComponentsCatalogue from "./containers/ComponentsCatalogue";
+import Create from "./containers/Create";
 import "./App.css";
 
 const GlobalStyle = createGlobalStyle`
