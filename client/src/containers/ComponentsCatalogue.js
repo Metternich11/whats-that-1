@@ -6,6 +6,10 @@ import CanvasDrawButtons from "../components/CanvasDrawButtons";
 import PlayerList from "../components/PlayerList";
 import PlayerListItem from "../components/PlayerListItem";
 import PlayerAvatar from "../components/PlayerAvatar";
+import Create from "./Create";
+import ImageCarousel from "../components/ImageCarousel";
+import SingleDrawing from "../components/SingleDrawing";
+import TestVG from "./TestVG";
 
 export const ComponentsCatalogue = () => {
   return (
@@ -22,15 +26,15 @@ export const ComponentsCatalogue = () => {
       </div>
       <div className="divider">
         <h2>Input fields</h2>
-        <p>Coming Soon</p>
+        <Create />
       </div>
       <div className="divider">
         <h2>Drawing Area</h2>
         <CanvasDraw
           brushColor="#fff"
-          brushRadius="1"
+          brushRadius={1}
           catenaryColor="#fff"
-          lazyRadius="0"
+          lazyRadius={0}
           backgroundColor="rgba(0,0,0,0.2)"
           gridColor="rgba(0,0,0,0)"
         />
@@ -52,6 +56,26 @@ export const ComponentsCatalogue = () => {
             <PlayerAvatar src="https://avataaars.io/?avatarStyle=Transparent&topType=WinterHat1&accessoriesType=Prescription02&hatColor=Pink&hairColor=SilverGray&facialHairType=BeardMedium&facialHairColor=Red&clotheType=BlazerShirt&clotheColor=White&eyeType=Default&eyebrowType=RaisedExcitedNatural&mouthType=Disbelief&skinColor=DarkBrown" />
           </PlayerListItem>
         </PlayerList>
+      </div>
+      <div className="divider">
+        <h2>ImageCarousel</h2>
+        <ImageCarousel>
+          <SingleDrawing >
+            <TestVG />
+          </SingleDrawing>
+          <SingleDrawing >
+            <TestVG />
+          </SingleDrawing>
+          <SingleDrawing >
+            <TestVG />
+          </SingleDrawing>
+          <SingleDrawing >
+            <TestVG />
+          </SingleDrawing>
+          <SingleDrawing >
+            <TestVG />
+          </SingleDrawing>
+        </ImageCarousel>
       </div>
     </>
   );
