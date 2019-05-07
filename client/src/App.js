@@ -3,6 +3,7 @@ import { createGlobalStyle } from "styled-components";
 import ComponentsCatalogue from "./containers/ComponentsCatalogue";
 import Create from "./containers/Create";
 import Lobby from "./containers/Lobby";
+import Results from "./containers/Results";
 import "./App.css";
 
 const GlobalStyle = createGlobalStyle`
@@ -15,7 +16,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-function App() {
+function App () {
   return (
     <>
       <GlobalStyle />
@@ -25,6 +26,8 @@ function App() {
         <Create />
         <h2>VIEW: LOBBY</h2>
         <Lobby />
+        <h2>VIEW: RESULTS</h2>
+        <Results />
       </div>
     </>
   );
