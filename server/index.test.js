@@ -1,10 +1,14 @@
 const App = require('./app');
-const app = App.create();
+let app;
 const request = require('supertest');
 
-afterAll(async () => {
-  App.close();
+beforeAll(async () => {
+  app = await App.createServer();
 });
+
+afterAll(async () => {
+ await App.close();
+})
 
 describe('check basic http response', () => {
   test('/', async () => {
