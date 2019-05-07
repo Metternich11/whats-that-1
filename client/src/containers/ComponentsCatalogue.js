@@ -9,21 +9,21 @@ import PlayerListItem from "../components/PlayerListItem";
 export const ComponentsCatalogue = () => {
   return (
     <>
-      <div>
+      <div className="divider">
         <h2>Buttons</h2>
         <Button>default</Button>
         <Button primary>primary</Button>
         <Button secondary>secondary</Button>
       </div>
-      <div>
+      <div className="divider">
         <h2>NavBar</h2>
         <NavBar>Logo and name</NavBar>
       </div>
-      <div>
+      <div className="divider">
         <h2>Input fields</h2>
         <p>Coming Soon</p>
       </div>
-      <div>
+      <div className="divider">
         <h2>Drawing Area</h2>
         <CanvasDraw
           brushColor="#fff"
@@ -35,7 +35,7 @@ export const ComponentsCatalogue = () => {
         />
         <CanvasDrawButtons />
       </div>
-      <div>
+      <div className="divider">
         <h2>Player List & Player List Item</h2>
         <PlayerList>
           <PlayerListItem />

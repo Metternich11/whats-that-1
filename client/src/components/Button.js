@@ -9,10 +9,10 @@ const Button = styled.button`
   margin: 0 1em;
   padding: 0.5em 1em;
   font-size: 16px;
-  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.3);
+  text-shadow: 0 1px 0px rgba(0, 0, 0, 0.05);
   text-transform: uppercase;
+  transform: all 0.15s ease;
   :hover {
-    color: rgba(255, 255, 255, 0.7);
     box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
     transform: translateY(-1px);
   }
