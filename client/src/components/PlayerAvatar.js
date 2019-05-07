@@ -8,7 +8,7 @@ const PlayerAvatar = styled.img`
   box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
   transform: all 0.15s ease;
   &:hover {
-    transform: translateY(-4px);
+    transform: translateY(-1px);
   }
 `;
 

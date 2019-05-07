@@ -2,6 +2,7 @@ import React from "react";
 import { createGlobalStyle } from "styled-components";
 import ComponentsCatalogue from "./containers/ComponentsCatalogue";
 import Create from "./containers/Create";
+import Lobby from "./containers/Lobby";
 import "./App.css";
 
 const GlobalStyle = createGlobalStyle`
@@ -20,6 +21,10 @@ function App() {
       <GlobalStyle />
       <div className="App">
         <ComponentsCatalogue />
+        <h2>VIEW: CREATE</h2>
+        <Create />
+        <h2>VIEW: LOBBY</h2>
+        <Lobby />
       </div>
     </>
   );
