@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "../components/Button";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 const stateTest = { name: "" };
 
@@ -14,7 +14,7 @@ const handleSubmitTest = event => {
   // would save the name
 };
 
-function Create () {
+function Create() {
   return (
     <ContainerWrapper>
       <form onSubmit={handleSubmitTest}>
@@ -23,7 +23,9 @@ function Create () {
           <NameInput type="text" name="name" onChange={handleChangeTest} />
         </label>
         <GameName>Zebra.Lion.123</GameName>
-        <Button primary type="submit">Create</Button>
+        <Button primary type="submit">
+          Create
+        </Button>
       </form>
     </ContainerWrapper>
   );
