@@ -13,7 +13,8 @@
     "koa": "^2.7.0",
     "koa-body": "^4.1.0",
     "koa-router": "^7.4.0",
-    "socket.io": "^2.2.0"
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
@@ -29,7 +30,6 @@
   },
   "lint-staged": {
     "*.{js,css,json,md}": [
-      "prettier --write",
       "git add"
     ],
     "*.js": [

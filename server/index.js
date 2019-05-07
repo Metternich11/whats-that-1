@@ -1,2 +1,2 @@
-const App = require("./app");
-App.create();
+const App = require('./app');
+App.createServer();
