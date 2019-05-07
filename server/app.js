@@ -1,11 +1,12 @@
 const Koa = require('koa');
 const app = new Koa();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 const cors = require('kcors');
 const bodyparser = require('koa-body');
 const router = require('./router');
 const port = 3000;
-const IO = require('koa-socket-2');
-const io = new IO();
+
 let server;
 
 const ioConfig = require('./socket');
@@ -16,9 +17,8 @@ function createServer() {
       .use(cors())
       .use(bodyparser())
       .use(router.routes());
-    io.attach(app);
     ioConfig(io);
-    server = app.listen(port, () => {
+    server = http.listen(port, () => {
       console.log(`🚀 Server Running on ${port}`);
       resolve(server);
     });

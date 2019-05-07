@@ -1,5 +1,11 @@
 /* eslint-disable no-console */
 const Key = require('./model/gamekey');
+const io = require('socket.io-client');
+
+module.exports.newGame = async (ctx, next) => {
+  io('/key');
+  ctx.status = 200;
+}
 
 module.exports.getAll = async (ctx, next) => {
   try {
