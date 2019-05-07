@@ -5,6 +5,7 @@ import CanvasDraw from "../components/CanvasDraw";
 import CanvasDrawButtons from "../components/CanvasDrawButtons";
 import PlayerList from "../components/PlayerList";
 import PlayerListItem from "../components/PlayerListItem";
+import PlayerAvatar from "../components/PlayerAvatar";
 
 export const ComponentsCatalogue = () => {
   return (
@@ -38,7 +39,18 @@ export const ComponentsCatalogue = () => {
       <div className="divider">
         <h2>Player List & Player List Item</h2>
         <PlayerList>
-          <PlayerListItem />
+          <PlayerListItem>
+            <PlayerAvatar src="https://avataaars.io/?avatarStyle=Circle&topType=ShortHairFrizzle&accessoriesType=Wayfarers&hairColor=PastelPink&facialHairType=BeardLight&facialHairColor=Black&clotheType=CollarSweater&clotheColor=PastelYellow&eyeType=Close&eyebrowType=FlatNatural&mouthType=Concerned&skinColor=Brown" />
+          </PlayerListItem>
+          <PlayerListItem>
+            <PlayerAvatar src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairFroBand&accessoriesType=Prescription01&hairColor=Platinum&facialHairType=Blank&facialHairColor=Brown&clotheType=ShirtVNeck&clotheColor=White&eyeType=WinkWacky&eyebrowType=Default&mouthType=Twinkle&skinColor=Tanned" />
+          </PlayerListItem>
+          <PlayerListItem>
+            <PlayerAvatar src="https://avataaars.io/?avatarStyle=Circle&topType=ShortHairDreads02&accessoriesType=Prescription01&hatColor=Red&hairColor=BrownDark&facialHairType=BeardLight&facialHairColor=BrownDark&clotheType=ShirtScoopNeck&clotheColor=Blue01&eyeType=Hearts&eyebrowType=AngryNatural&mouthType=Twinkle&skinColor=Yellow" />
+          </PlayerListItem>
+          <PlayerListItem>
+            <PlayerAvatar src="https://avataaars.io/?avatarStyle=Circle&topType=WinterHat1&accessoriesType=Prescription02&hatColor=Pink&hairColor=SilverGray&facialHairType=BeardMedium&facialHairColor=Red&clotheType=BlazerShirt&clotheColor=White&eyeType=Default&eyebrowType=RaisedExcitedNatural&mouthType=Disbelief&skinColor=DarkBrown" />
+          </PlayerListItem>
         </PlayerList>
       </div>
     </>
