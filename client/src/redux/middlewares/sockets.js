@@ -14,7 +14,7 @@ export const socket = store => {
           socket.emit('message', payload);
           break;
         case 'CONNECT':
-        console.log('PPPPP', payload);
+          console.log('whatever, friend')
         break;
         default:
           break;

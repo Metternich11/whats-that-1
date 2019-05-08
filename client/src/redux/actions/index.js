@@ -15,11 +15,10 @@ export const joinRoom = () => ({
   socket: {
     command: 'CONNECT'
   }
+});
+
+export const addName = (playerName) => ({
+  type: ActionTypes.PLAYER_NAME,
+  playerName
 })
 
-// export const socketConnect = () => ({
-//   type: ActionTypes.SOCKET_CONNECT,
-//   socket: {
-//     command: 'CONNECT'
-//   }
-// });
