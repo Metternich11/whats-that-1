@@ -5,6 +5,16 @@ const createGame = game => ({
   game
 });
 
+const startGame = game => ({
+  type: ActionTypes.START_GAME,
+  game
+});
+
+const deleteGame = gameId => ({
+  type: ActionTypes.DELETE_GAME,
+  gameId
+});
+
 const addPlayer = player => ({
   type: ActionTypes.ADD_PLAYER,
   player
@@ -15,8 +25,8 @@ const addDrawToPlayer = draw => ({
   draw
 });
 
-const playerWinRound = win => ({
-  type: ActionTypes.PLAYER_WIN_ROUND,
+const setPlayerRoundWins = win => ({
+  type: ActionTypes.SET_PLAYER_ROUND_WINS,
   win
 });
 
@@ -24,5 +34,7 @@ module.exports = {
   createGame,
   addPlayer,
   addDrawToPlayer,
-  playerWinRound
+  setPlayerRoundWins,
+  startGame,
+  deleteGame
 };
