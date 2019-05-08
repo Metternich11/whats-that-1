@@ -5,6 +5,7 @@ import Create from "./containers/Create";
 import Lobby from "./containers/Lobby";
 import Game from "./containers/Game";
 import Results from "./containers/Results";
+import BetweenRounds from "./containers/BetweenRounds";
 import "./App.css";
 import { connect } from "react-redux";
 import { createGame } from "./redux/actions/index";
@@ -35,6 +36,8 @@ const App = props => {
         <Game />
         <h2>VIEW: RESULTS</h2>
         <Results />
+        <h2>VIEW: BETWEEN ROUNDS</h2>
+        <BetweenRounds />
       </div>
     </>
   );
