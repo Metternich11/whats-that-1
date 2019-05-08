@@ -4,9 +4,6 @@ const controller = require('./controller');
 
 router
   .get('/', controller.getAll)
-  .get('/lobby', controller.lobby)
-  .get('/create', controller.create)
-  .get('/join', controller.join)
-  .get('/game/:key', controller.newGame);
+  .get('/getGameKey', controller.getKey);
 
 module.exports = router;

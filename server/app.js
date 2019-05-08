@@ -5,7 +5,7 @@ const io = require('socket.io')(http);
 const cors = require('kcors');
 const bodyparser = require('koa-body');
 const router = require('./router');
-const port = 3000;
+const port = 2000;
 
 let server;
 
