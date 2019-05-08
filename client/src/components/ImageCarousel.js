@@ -1,11 +1,12 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 const ImageCarousel = styled.div`
   display: flex;
-  flex-direction: row;
+  overflow: hidden;
   overflow-x: scroll;
-  margin-top: 2vh;
-  height: 450px;
+  width: 100%;
+  margin: 0 0 4vh 0;
+  text-align: center;
 `;
 
 export default ImageCarousel;
