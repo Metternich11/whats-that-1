@@ -43,6 +43,7 @@ const ContainerWrapper = styled.div`
   width: 50vw;
   text-align: center;
   align-items: center;
+  margin: 5vh 0;
 `;
 
 export default Join;

@@ -13,15 +13,19 @@ import BetweenRounds from "./containers/BetweenRounds";
 import Main from "./containers/Main";
 import "./App.css";
 
-import { BrowserRouter as Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom"; // eslint-disable-line
 
 const GlobalStyle = createGlobalStyle`
   body {
     background-color: #764ad7;
     color: #ffffff;
     margin: 0;
-    @import url("https://fonts.googleapis.com/css?family=Nunito:400,600");
+    @import url("https://fonts.googleapis.com/css?family=Nunito:400,600|Yeon+Sung");
     font-family: 'Nunito', sans-serif;
+  }
+  .gameTitle {
+    font-size: 1.6rem;
+    font-family: 'Yeon Sung', cursive;
   }
 `;
 
