@@ -6,12 +6,14 @@ import PlayerList from "../components/PlayerList";
 import PlayerListItem from "../components/PlayerListItem";
 import PlayerAvatar from "../components/PlayerAvatar";
 import Button from "../components/Button";
+import GameWinner from "../components/GameWinner";
 
 export const Results = () => {
   return (
     <>
       <PlayerList>
-        <PlayerListItem >
+        <PlayerListItem>
+          <GameWinner />
           <PlayerAvatar src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairFrizzle&accessoriesType=Wayfarers&hairColor=PastelPink&facialHairType=BeardLight&facialHairColor=Black&clotheType=CollarSweater&clotheColor=PastelYellow&eyeType=Close&eyebrowType=FlatNatural&mouthType=Concerned&skinColor=Brown" />
         </PlayerListItem>
         <PlayerListItem>
