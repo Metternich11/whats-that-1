@@ -20,12 +20,8 @@ const GlobalStyle = createGlobalStyle`
     background-color: #764ad7;
     color: #ffffff;
     margin: 0;
-    @import url("https://fonts.googleapis.com/css?family=Nunito:400,600|Yeon+Sung");
+    @import url("https://fonts.googleapis.com/css?family=Nunito:400,600");
     font-family: 'Nunito', sans-serif;
-  }
-  .gameTitle {
-    font-size: 1.6rem;
-    font-family: 'Yeon Sung', cursive;
   }
 `;
 
