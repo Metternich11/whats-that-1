@@ -16,7 +16,7 @@ export const ComponentsCatalogue = () => {
         <h2>Buttons</h2>
         <Button>default</Button>
         <Button primary>primary</Button>
-        <Button secondary>secondary</Button>
+        <Button gradient>Gradient</Button>
       </div>
       <div className="divider">
         <h2>NavBar</h2>

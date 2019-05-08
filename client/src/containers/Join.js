@@ -1,12 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-
 import Button from "../components/Button";
 import FormField from "../components/FormField";
 import FormLabel from "../components/FormLabel";
 import InputField from "../components/InputField";
 
-const stateTest = { name: "" };
+const stateTest = { name: "", gameName: "" };
 
 const handleChangeTest = event => {
   const value = event.target.value;
@@ -18,7 +17,7 @@ const handleSubmitTest = event => {
   // would save the name
 };
 
-function Create() {
+const Join = () => {
   return (
     <ContainerWrapper>
       <form onSubmit={handleSubmitTest}>
@@ -27,16 +26,16 @@ function Create() {
           <InputField type="text" name="name" onChange={handleChangeTest} />
         </FormField>
         <FormField>
-          <FormLabel>Game Name: </FormLabel>
-          <GameName>Awesome-Battle-436</GameName>
+          <FormLabel>Enter Game Name: </FormLabel>
+          <InputField type="text" name="gameName" onChange={handleChangeTest} />
         </FormField>
         <Button primary form type="submit">
-          Create
+          Join
         </Button>
       </form>
     </ContainerWrapper>
   );
-}
+};
 
 const ContainerWrapper = styled.div`
   display: flex;
@@ -44,17 +43,7 @@ const ContainerWrapper = styled.div`
   width: 50vw;
   text-align: center;
   align-items: center;
+  margin: 5vh 0;
 `;
 
-const GameName = styled.div`
-  color: #472c81;
-  background-color: white;
-  margin: 10px;
-  padding: 5px 10px;
-  font-weight: bold;
-  border-radius: 5px;
-  text-align: center;
-  width: 100%;
-`;
-
-export default Create;
+export default Join;

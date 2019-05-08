@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const PlayerAvatar = styled.img`
   width: 60px;
@@ -10,6 +10,14 @@ const PlayerAvatar = styled.img`
   &:hover {
     transform: translateY(-1px);
   }
+
+  ${props =>
+    props.solo &&
+    css`
+      margin: 0 20px 0 0;
+      width: 60px;
+      height: 60px;
+    `};
 `;
 
 export default PlayerAvatar;
