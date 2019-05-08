@@ -13,8 +13,7 @@ import BetweenRounds from "./containers/BetweenRounds";
 import Main from "./containers/Main";
 import "./App.css";
 
-import Button from "./components/Button";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Route } from "react-router-dom";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -26,23 +25,24 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const App = props => {
+const App = () => {
   // <Button onClick={props.createGame}>CLICK ME FOR REDUX</Button>
 
   return (
     <>
       <GlobalStyle />
       <div className="App">
-        <Route exact path='/' component={Main}></Route>
-        <Route path='/create' component={Create}></Route>
-        <Route path='/components' component={ComponentsCatalogue}></Route>
-        <Route path='/lobby' component={Lobby}></Route>
-        <Route path='/game' component={Game}></Route>
-        <Route path='/results' component={Results}></Route>
+        <Route exact path="/" component={Main} />
+        <Route path="/create" component={Create} />
+        <Route path="/components" component={ComponentsCatalogue} />
+        <Route path="/lobby" component={Lobby} />
+        <Route path="/game" component={Game} />
+        <Route path="/results" component={Results} />
+        <Route path="/join" component={Join} />
+        <Route path="/between-rounds" component={BetweenRounds} />
       </div>
     </>
-
-  )
+  );
 };
 
 const mapStateToProps = state => ({
