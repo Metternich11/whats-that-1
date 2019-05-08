@@ -1,1 +1,3 @@
-export const CREATE_GAME = "CREATE_GAME";
+export const GET_GAME_KEY = 'GET_GAME_KEY'
+export const SOCKET_CONNECT = 'SOCKET_CONNECT'
+

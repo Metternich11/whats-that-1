@@ -7,7 +7,7 @@ import Game from "./containers/Game";
 import Results from "./containers/Results";
 import "./App.css";
 import { connect } from "react-redux";
-import { createGame } from "./redux/actions/index";
+import * as Actions from './redux/actions';
 import Button from "./components/Button";
 
 const GlobalStyle = createGlobalStyle`
@@ -25,7 +25,7 @@ const App = props => {
     <>
       <GlobalStyle />
       <div className="App">
-        <Button onClick={props.createGame}>CLICK ME FOR REDUX</Button>
+        <Button onClick={props.getGameKey}>CLICK ME FOR REDUX</Button>
         <ComponentsCatalogue />
         <h2>VIEW: CREATE</h2>
         <Create />
@@ -41,11 +41,11 @@ const App = props => {
 };
 
 const mapStateToProps = state => ({
-  createGame: state.createGame
+  getKey: state.getKey
 });
 
 const mapDispatchToProps = dispatch => ({
-  createGame: () => dispatch(createGame())
+  getGameKey: key => dispatch(Actions.getKey(key))
 });
 
 export default connect(
