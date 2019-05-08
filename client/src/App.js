@@ -10,9 +10,11 @@ import Lobby from "./containers/Lobby";
 import Game from "./containers/Game";
 import Results from "./containers/Results";
 import BetweenRounds from "./containers/BetweenRounds";
+import Main from "./containers/Main";
 import "./App.css";
 
 import Button from "./components/Button";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -25,27 +27,22 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const App = props => {
+  // <Button onClick={props.createGame}>CLICK ME FOR REDUX</Button>
+
   return (
     <>
       <GlobalStyle />
       <div className="App">
-        <Button onClick={props.createGame}>CLICK ME FOR REDUX</Button>
-        <ComponentsCatalogue />
-        <h2>VIEW: CREATE</h2>
-        <Create />
-        <h2>VIEW: JOIN</h2>
-        <Join />
-        <h2>VIEW: LOBBY</h2>
-        <Lobby />
-        <h2>VIEW: GAME</h2>
-        <Game />
-        <h2>VIEW: RESULTS</h2>
-        <Results />
-        <h2>VIEW: BETWEEN ROUNDS</h2>
-        <BetweenRounds />
+        <Route exact path='/' component={Main}></Route>
+        <Route path='/create' component={Create}></Route>
+        <Route path='/components' component={ComponentsCatalogue}></Route>
+        <Route path='/lobby' component={Lobby}></Route>
+        <Route path='/game' component={Game}></Route>
+        <Route path='/results' component={Results}></Route>
       </div>
     </>
-  );
+
+  )
 };
 
 const mapStateToProps = state => ({
