@@ -8,7 +8,14 @@ export const Lobby = () => {
   return (
     <>
       <p>Room Name</p>
-      <CanvasDraw />
+      <CanvasDraw
+        brushColor="#fff"
+        brushRadius={1}
+        catenaryColor="#fff"
+        lazyRadius={0}
+        backgroundColor="rgba(0,0,0,0.2)"
+        gridColor="rgba(0,0,0,0)"
+      />
       <Button onClick={null}>Clear Canvas</Button>
       <PlayerList>
         <PlayerListItem />
