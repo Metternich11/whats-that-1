@@ -4,75 +4,55 @@ const request = require('supertest');
 const io = require('socket.io-client');
 const mock = require('../mocks/mocks.js');
 
-let sender;
-let receiver;
-const testMsg = 'hello';
-const ioOptions = { 
-  transports: ['websocket']
-, forceNew: true
-, reconnection: false
-}
 
-describe('check basic http response', () => {
+// describe('check basic http response', () => {
 
-  beforeAll(async () => {
-    app = await App.createServer();
-  });
+//   beforeAll(async () => {
+//     app = await App.createServer();
+//   });
   
-  afterAll(async () => {
-   app = await App.close();
-  })
+//   afterAll(async () => {
+//    app = await App.close();
+//   })
 
-  test('/', async () => {
-    await request(app)
-      .get('/')
-      .expect(200);
-  })
-  test('/lobby', async () => {
-    await request(app)
-      .get('/lobby')
-      .expect(200);
-  })
-  test('/create', async () => {
-    await request(app)
-      .get('/create')
-      .expect(200);
-  })
-  test('/join', async () => {
-    await request(app)
-      .get('/join')
-      .expect(200);
-  })
-})
+//   test('/', async () => {
+//     await request(app)
+//       .get('/')
+//       .expect(200);
+//   })
+//   test('/getGameKey', async () => {
+//     await request(app)
+//       .get('/getGameKey')
+//       .expect(200);
+//   })
+// })
 
-describe('check basic socket' , () => {
-  beforeAll(async () => {
-    app = await App.createServer();
-    await new Promise(resolve => {
-      sender = io.connect('http://localhost:3000/', ioOptions);
-      receiver = io.connect('http://localhost:3000/', ioOptions);
-  
-      let first = false;
-      sender.on('connect', () => {
-        first && resolve();
-        first = true;
-      });
-      receiver.on('connect', () => {
-        first && resolve();
-        first = true;
-      });
-      
+describe.only('check basic socket' , () => {
+  let sender;
+  let receiver;
+  const testMsg = 'hello';
+  const ioOptions = { 
+    transports: ['websocket'],
+    forceNew: true, 
+    reconnection: false,
+  }
+  beforeAll(async (done) => {
+    await App.createServer();
+    sender = await io.connect('http://localhost:2000', ioOptions );
+    done();
     });
-  });
-  
-  afterAll(async () => {
+
+  afterAll(async (done) => {
     await sender.disconnect()
-    await receiver.disconnect()
+    // await receiver.disconnect()
     await App.close();
+    done()
   })
 
-  test('/', async () => {
-    expect(true).toBe(true);
+  test('/', async (done) => {
+    await sender.emit('connect', 'test');
+    await expect(true).toBe(true);
+    done();
   })
 })
 
