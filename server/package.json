@@ -13,11 +13,11 @@
     "koa": "^2.7.0",
     "koa-body": "^4.1.0",
     "koa-router": "^7.4.0",
+    "node-fetch": "^2.5.0",
     "lodash": "^4.17.11",
     "redux": "^4.0.1",
     "socket.io": "^2.2.0",
-    "socket.io-client": "^2.2.0",
-    "title.js": "^1.1.0"
+    "socket.io-client": "^2.2.0"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
