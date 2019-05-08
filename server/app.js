@@ -9,7 +9,7 @@ const port = 3000;
 
 let server;
 
-const ioConfig = require('./socket');
+const ioConfig = require('./socketio/socketConfig');
 
 function createServer() {
   return new Promise(resolve => {
@@ -27,8 +27,8 @@ function createServer() {
 }
 
   function close () {
-    console.log('Closing server…'); //eslint-disable-line
-    return new Promise(resolve => app._io.close(() => {
+    return new Promise(resolve => io.close(() => {
+      server.close();
       console.log('server closed'); //eslint-disable-line
       resolve(server);
     }));
