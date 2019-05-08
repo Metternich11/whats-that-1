@@ -13,7 +13,12 @@ export const Game = () => {
     <>
       <GameHeader>
         <Timer>00:20</Timer>
-        <WordToDraw>🎨 ANIMAL MIGRATION</WordToDraw>
+        <WordToDraw>
+          <span role="img" aria-label="Currently Drawing:">
+            🎨
+          </span>{" "}
+          ANIMAL MIGRATION
+        </WordToDraw>
       </GameHeader>
 
       <CanvasDraw

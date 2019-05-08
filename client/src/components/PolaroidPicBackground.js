@@ -12,7 +12,7 @@ const PolaroidPicBackground = styled.div`
   align-items: center;
   transition: 75ms linear all;
   &:hover {
-    transform: rotate(3deg);
+    transform: rotate(1deg);
   }
 `;
 
