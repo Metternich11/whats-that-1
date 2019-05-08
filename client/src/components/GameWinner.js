@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-const RoundWinner = styled.div`
+const GameWinner = styled.div`
   &:before {
     content: "⭐️";
   }
 `;
 
-export default RoundWinner;
+export default GameWinner;
