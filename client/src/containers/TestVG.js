@@ -29,7 +29,7 @@ const TestVG = () => {
         <title>Layer 1</title>
         <path
           fill="none"
-          stroke="#fff"
+          stroke="#000"
           strokeWidth="1.5"
           strokeOpacity="null"
           fillOpacity="null"
@@ -38,7 +38,7 @@ const TestVG = () => {
         />
         <path
           fill="none"
-          stroke="#fff"
+          stroke="#000"
           strokeWidth="1.5"
           strokeOpacity="null"
           fillOpacity="null"

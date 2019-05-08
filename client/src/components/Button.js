@@ -31,6 +31,13 @@ const Button = styled.button`
       background-image: linear-gradient(90deg, #fa709a 0%, #f5c964 87%);
       border-color: pink;
     `};
+
+  ${props =>
+    props.form &&
+    css`
+      margin-top: 2vh;
+      width: 40%;
+    `};
 `;
 
 export default Button;

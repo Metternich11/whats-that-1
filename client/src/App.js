@@ -1,14 +1,18 @@
 import React from "react";
 import { createGlobalStyle } from "styled-components";
+import { connect } from "react-redux";
+import { createGame } from "./redux/actions/index";
+
 import ComponentsCatalogue from "./containers/ComponentsCatalogue";
 import Create from "./containers/Create";
+import Join from "./containers/Join";
 import Lobby from "./containers/Lobby";
 import Game from "./containers/Game";
 import Results from "./containers/Results";
+import BetweenRounds from "./containers/BetweenRounds";
 import Main from "./containers/Main";
 import "./App.css";
-import { connect } from "react-redux";
-import { createGame } from "./redux/actions/index";
+
 import Button from "./components/Button";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 

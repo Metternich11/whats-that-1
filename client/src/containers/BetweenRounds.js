@@ -1,37 +1,38 @@
 import React from "react";
-import CanvasDraw from "../components/CanvasDraw";
-import CanvasDrawButtons from "../components/CanvasDrawButtons";
+import NextRoundCountdown from "../components/NextRoundCountdown";
+import DrawingStack from "../components/DrawingStack";
 import PlayerList from "../components/PlayerList";
 import PlayerListItem from "../components/PlayerListItem";
 import PlayerAvatar from "../components/PlayerAvatar";
-import GameHeader from "../components/GameHeader";
-import Timer from "../components/Timer";
-import WordToDraw from "../components/WordToDraw";
+import SingleDrawing from "../components/SingleDrawing";
+import PolaroidPicBackground from "../components/PolaroidPicBackground";
+import TestVG from "../containers/TestVG";
+import ArtistDetails from "../containers/ArtistDetails";
+import CurrentWord from "../components/CurrentWord";
+import PlayerHasSolvedRound from "../components/PlayerHasSolvedRound";
 
-export const Game = () => {
+export const BetweenRounds = () => {
   return (
     <>
-      <GameHeader>
-        <Timer>00:20</Timer>
-        <WordToDraw>
-          <span role="img" aria-label="Currently Drawing:">
-            🎨
-          </span>{" "}
-          ANIMAL MIGRATION
-        </WordToDraw>
-      </GameHeader>
-
-      <CanvasDraw
-        brushColor="#fff"
-        brushRadius={1}
-        catenaryColor="#fff"
-        lazyRadius={0}
-        backgroundColor="rgba(0,0,0,0.2)"
-        gridColor="rgba(0,0,0,0)"
-      />
-      <CanvasDrawButtons />
+      <NextRoundCountdown>Next round starts in... 00:04</NextRoundCountdown>
+      <DrawingStack>
+        <SingleDrawing>
+          <PolaroidPicBackground>
+            <TestVG />
+            <ArtistDetails>
+              <PlayerHasSolvedRound />
+              <PlayerAvatar
+                solo
+                src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairFrizzle&accessoriesType=Wayfarers&hairColor=PastelPink&facialHairType=BeardLight&facialHairColor=Black&clotheType=CollarSweater&clotheColor=PastelYellow&eyeType=Close&eyebrowType=FlatNatural&mouthType=Concerned&skinColor=Brown"
+              />
+              <CurrentWord>Animal Migration</CurrentWord>
+            </ArtistDetails>
+          </PolaroidPicBackground>
+        </SingleDrawing>
+      </DrawingStack>
       <PlayerList>
         <PlayerListItem>
+          <PlayerHasSolvedRound />
           <PlayerAvatar src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairFrizzle&accessoriesType=Wayfarers&hairColor=PastelPink&facialHairType=BeardLight&facialHairColor=Black&clotheType=CollarSweater&clotheColor=PastelYellow&eyeType=Close&eyebrowType=FlatNatural&mouthType=Concerned&skinColor=Brown" />
         </PlayerListItem>
         <PlayerListItem>
@@ -48,4 +49,4 @@ export const Game = () => {
   );
 };
 
-export default Game;
+export default BetweenRounds;
