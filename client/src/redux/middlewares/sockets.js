@@ -8,12 +8,14 @@ export const socket = store => {
     const { command, payload } = action.socket;
     if (command) {
       switch (command) {
-        case 'CONNECT':
+        case 'CREATE':
           // socket = io(`${process.env.REACT_APP_SERVER_BASE_URL}`);
-          console.log('payload', payload)
           socket = io('http://localhost:3100');
           socket.emit('message', payload);
           break;
+        case 'CONNECT':
+        console.log('PPPPP', payload);
+        break;
         default:
           break;
       }
