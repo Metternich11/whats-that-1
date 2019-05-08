@@ -29,7 +29,7 @@ const Join = () => {
           <FormLabel>Enter Game Name: </FormLabel>
           <InputField type="text" name="gameName" onChange={handleChangeTest} />
         </FormField>
-        <Button primary form type="submit">
+        <Button primary marginTop type="submit">
           Join
         </Button>
       </form>
