@@ -30,7 +30,7 @@ function Create() {
           <FormLabel>Game Name: </FormLabel>
           <GameName>Awesome-Battle-436</GameName>
         </FormField>
-        <Button primary form type="submit">
+        <Button primary marginTop type="submit">
           Create
         </Button>
       </form>

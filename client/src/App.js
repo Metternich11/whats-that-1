@@ -34,12 +34,12 @@ const App = () => {
       <div className="App">
         <Route exact path="/" component={Main} />
         <Route path="/create" component={Create} />
+        <Route path="/join" component={Join} />
         <Route path="/components" component={ComponentsCatalogue} />
         <Route path="/lobby" component={Lobby} />
         <Route path="/game" component={Game} />
-        <Route path="/results" component={Results} />
-        <Route path="/join" component={Join} />
         <Route path="/between-rounds" component={BetweenRounds} />
+        <Route path="/results" component={Results} />
       </div>
     </>
   );
