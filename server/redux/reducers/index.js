@@ -1,4 +1,5 @@
 const ActionTypes = require('../actions/types');
+const { omit } = require('lodash');
 
 const initialState = {
   games: {},
@@ -9,10 +10,12 @@ const initialState = {
   games: {
     'dog-big': {
       round: 0,
-      players: ['playerid1', 'playerid2', 'playerid3']
+      playing: false
+      players: ['playerid1', 'playerid2', 'playerid3'],
     },
     'cat-small': {
       round: 1,
+      playing: true
       players: ['playerid5', 'playerid6', 'playerid8']
     }
   },
@@ -45,9 +48,29 @@ exports.reducer = (state = initialState, action) => {
         games: {
           ...state.games,
           [action.game]: {
+            round: 0,
+            playing: false,
             players: []
           }
         }
+      };
+
+    case ActionTypes.START_GAME:
+      return {
+        ...state,
+        games: {
+          ...state.games,
+          [action.game]: {
+            ...state.games[action.game.gameId],
+            round: 0,
+            playing: true
+          }
+        }
+      };
+    case ActionTypes.DELETE_GAME:
+      return {
+        ...state,
+        games: omit(state.games, action.gameId)
       };
 
     case ActionTypes.ADD_PLAYER:
@@ -89,7 +112,7 @@ exports.reducer = (state = initialState, action) => {
           }
         }
       };
-    case ActionTypes.PLAYER_WIN_ROUND:
+    case ActionTypes.SET_PLAYER_ROUND_WINS:
       return {
         ...state,
         players: {

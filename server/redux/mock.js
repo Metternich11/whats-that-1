@@ -8,16 +8,22 @@ const demoPlayer = {
   draws: []
 };
 
-const createGame = { games: { 'test-game': { players: [] } }, players: {} };
+const createGame = {
+  games: { 'test-game': { round: 0, playing: false, players: [] } },
+  players: {}
+};
 const createSecondGame = {
-  games: { 'test-game': { players: [] }, 'test-game2': { players: [] } },
+  games: {
+    'test-game': { round: 0, playing: false, players: [] },
+    'test-game2': { round: 0, playing: false, players: [] }
+  },
   players: {}
 };
 
 const addPlayer = {
   games: {
     'test-game': { players: ['fm4cNa0eWqYrX3kCAAAH'] },
-    'test-game2': { players: [] }
+    'test-game2': { round: 0, playing: false, players: [] }
   },
   players: {
     fm4cNa0eWqYrX3kCAAAH: {

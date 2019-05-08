@@ -20,6 +20,14 @@ describe('Testing adding Players to existing Game', () => {
   });
 });
 
+describe('Start Game', () => {
+  test('Should change state of game playing to true', async () => {
+    await store.dispatch(Actions.startGame('test-game'));
+    const state = store.getState();
+    expect(state.games['test-game'].playing).toBe(true);
+  });
+});
+
 describe('Add a draw to Player', () => {
   test('should add a draw to player', async () => {
     await store.dispatch(Actions.addDrawToPlayer(mockRedux.addDrawToPlayer));
@@ -32,8 +40,16 @@ describe('Add a draw to Player', () => {
 
 describe('Player Wins a Game', () => {
   test('should add a draw to player', async () => {
-    await store.dispatch(Actions.playerWinRound(mockRedux.playerWinARound));
+    await store.dispatch(Actions.setPlayerRoundWins(mockRedux.playerWinARound));
     const state = await store.getState();
     expect(state.players.fm4cNa0eWqYrX3kCAAAH.roundWins).toEqual(2);
+  });
+});
+
+describe('Delete Game', () => {
+  test('Should delete a Game', async () => {
+    await store.dispatch(Actions.deleteGame('test-game2'));
+    const state = await store.getState();
+    expect(state.games).toEqual({ 'test-game': { round: 0, playing: true } });
   });
 });
