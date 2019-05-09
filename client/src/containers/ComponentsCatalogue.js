@@ -40,6 +40,7 @@ export const ComponentsCatalogue = () => {
           backgroundColor="rgba(0,0,0,0.2)"
           gridColor="rgba(0,0,0,0)"
         />
+
         <CanvasDrawButtons />
       </div>
       <div className="divider">

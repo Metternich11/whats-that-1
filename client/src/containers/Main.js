@@ -4,10 +4,12 @@ import styled from "styled-components";
 
 export const Main = () => {
   return (
-    <ContainerWrapper>
-      <Button>CREATE</Button>
-      <Button>JOIN</Button>
-    </ContainerWrapper>
+    <>
+      <ContainerWrapper>
+        <Button>CREATE</Button>
+        <Button>JOIN</Button>
+      </ContainerWrapper>
+    </>
   );
 };
 
