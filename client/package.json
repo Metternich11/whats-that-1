@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "avataaars": "^1.2.1",
     "react": "^16.8.6",
     "react-canvas-draw": "^1.0.1-hotfix.4",
     "react-dom": "^16.8.6",

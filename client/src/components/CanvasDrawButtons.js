@@ -9,8 +9,12 @@ const Container = styled.div`
 export const CanvasDrawButtons = () => {
   return (
     <Container>
-      <Button onClick={() => this.saveableCanvas.clear()}>Clear</Button>
-      <Button onClick={() => this.saveableCanvas.undo()}>Undo</Button>
+      <Button marginTop onClick={() => this.saveableCanvas.clear()}>
+        Clear
+      </Button>
+      <Button marginTop onClick={() => this.saveableCanvas.undo()}>
+        Undo
+      </Button>
     </Container>
   );
 };

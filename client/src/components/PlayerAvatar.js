@@ -1,11 +1,10 @@
+import React from "react";
 import styled, { css } from "styled-components";
+import generateAvatarProps from "../utils/generateAvatarProps";
+import Avatar from "avataaars";
 
-const PlayerAvatar = styled.img`
-  width: 60px;
-  background-color: rgba(0, 0, 0, 0.1);
-  border-radius: 50%;
-  margin-left: -20px;
-  box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+const AvatarContainer = styled.div`
+  cursor: pointer;
   transform: all 0.15s ease;
   &:hover {
     transform: translateY(-1px);
@@ -19,5 +18,21 @@ const PlayerAvatar = styled.img`
       height: 60px;
     `};
 `;
+
+const PlayerAvatar = () => {
+  const props = generateAvatarProps();
+  //TOODO: Save the props above into the Redux store for the current user
+  return (
+    <AvatarContainer>
+      <Avatar
+        style={{
+          width: "60px",
+          height: "60px"
+        }}
+        {...props}
+      />
+    </AvatarContainer>
+  );
+};
 
 export default PlayerAvatar;

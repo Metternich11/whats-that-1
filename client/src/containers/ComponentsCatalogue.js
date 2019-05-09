@@ -8,10 +8,11 @@ import PlayerList from "../components/PlayerList";
 import PlayerListItem from "../components/PlayerListItem";
 import PlayerAvatar from "../components/PlayerAvatar";
 import Create from "./Create";
+import Wrapper from "../components/Wrapper";
 
 export const ComponentsCatalogue = () => {
   return (
-    <>
+    <Wrapper>
       <div className="divider">
         <h2>Buttons</h2>
         <Button>default</Button>
@@ -40,6 +41,7 @@ export const ComponentsCatalogue = () => {
           backgroundColor="rgba(0,0,0,0.2)"
           gridColor="rgba(0,0,0,0)"
         />
+
         <CanvasDrawButtons />
       </div>
       <div className="divider">
@@ -59,7 +61,7 @@ export const ComponentsCatalogue = () => {
           </PlayerListItem>
         </PlayerList>
       </div>
-    </>
+    </Wrapper>
   );
 };
 
