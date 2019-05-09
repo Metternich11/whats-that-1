@@ -7,6 +7,8 @@ import Button from "../components/Button";
 import FormField from "../components/FormField";
 import FormLabel from "../components/FormLabel";
 import InputField from "../components/InputField";
+import PlayerAvatar from "../components/PlayerAvatar";
+import Wrapper from "../components/Wrapper";
 
 
 function Create (props) {
@@ -23,8 +25,12 @@ function Create (props) {
   };
 
   return (
-    <ContainerWrapper>
+    <Wrapper>
       <form onSubmit={submitName}>
+        <FormField>
+          <FormLabel>Your Avatar: </FormLabel>
+          <PlayerAvatar />
+        </FormField>
         <FormField>
           <FormLabel>Enter your name: </FormLabel>
           <InputField type="text" name="name" onChange={handlePlayerName} />
@@ -37,17 +43,9 @@ function Create (props) {
           Create
         </Button>
       </form>
-    </ContainerWrapper>
+    </Wrapper>
   );
 }
-
-const ContainerWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 50vw;
-  text-align: center;
-  align-items: center;
-`;
 
 const GameName = styled.div`
   color: #472c81;

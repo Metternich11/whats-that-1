@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-const Key = require('./model/gamekey');
+const Key = require('./helpers/requestGameKey');
 
 module.exports.getAll = async (ctx, next) => {
   try {

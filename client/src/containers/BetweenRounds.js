@@ -10,10 +10,11 @@ import TestVG from "../containers/TestVG";
 import ArtistDetails from "../containers/ArtistDetails";
 import CurrentWord from "../components/CurrentWord";
 import PlayerHasSolvedRound from "../components/PlayerHasSolvedRound";
+import Wrapper from "../components/Wrapper";
 
 export const BetweenRounds = () => {
   return (
-    <>
+    <Wrapper>
       <NextRoundCountdown>Next round starts in... 00:04</NextRoundCountdown>
       <DrawingStack>
         <SingleDrawing>
@@ -45,7 +46,7 @@ export const BetweenRounds = () => {
           <PlayerAvatar src="https://avataaars.io/?avatarStyle=Transparent&topType=WinterHat1&accessoriesType=Prescription02&hatColor=Pink&hairColor=SilverGray&facialHairType=BeardMedium&facialHairColor=Red&clotheType=BlazerShirt&clotheColor=White&eyeType=Default&eyebrowType=RaisedExcitedNatural&mouthType=Disbelief&skinColor=DarkBrown" />
         </PlayerListItem>
       </PlayerList>
-    </>
+    </Wrapper>
   );
 };
 

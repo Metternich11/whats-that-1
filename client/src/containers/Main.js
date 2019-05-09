@@ -1,5 +1,8 @@
 import React from "react";
 import Button from "../components/Button";
+
+import Wrapper from "../components/Wrapper";
+
 import styled from "styled-components";
 import { connect } from "react-redux";
 import * as Actions from '../redux/actions/index'
@@ -7,20 +10,14 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom"; // esli
 
 export const Main = (props) => {
   return (
-    <ContainerWrapper>
+
+
+    <Wrapper>
       <Link to="/create"><Button onClick={props.getGameKey}>Create</Button></Link>
       <Link to="/join"><Button>Join</Button></Link>
-    </ContainerWrapper>
+    </Wrapper>
   );
 };
-
-const ContainerWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 20%;
-  height: 100px;
-`;
 
 const mapStateToProps = state => ({
   getKey: state.getKey
@@ -34,3 +31,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Main);
+
