@@ -11,7 +11,6 @@ const clientController = {
   },
   joinRoom: (socket, message) => {
     if (socket.adapter.rooms[message.payload.key] === undefined) {
-      console.log(`Room ${message.payload.key} does not exist`);
       socket.emit('messageToClient', 'Room does not exist!');
     }
     else {
@@ -40,7 +39,6 @@ const clientController = {
     })
   },
   createPlayer: (socket, message) => {
-    // store.dispatch(Actions.addPlayer(mocks.demoPlayer));
     socket.player = message.payload.player;
   },
   startGame: (socket, message) => {
