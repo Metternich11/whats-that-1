@@ -12,16 +12,15 @@ export default (state = initialState, action) => {
       ...state,
       gameKey: action.data.key
     };
-    case ActionTypes.PLAYER_NAME:
+    case ActionTypes.PLAYER_INFO:
     return {
       ...state,
-      playerName: action.playerName,
-      gameKey: action.socket.payload
+      playerName: action.playerName
     };
-    case ActionTypes.JOIN_ROOM:
+    case ActionTypes.USER_AVATAR:
     return {
       ...state,
-      joinGameKey: action.data.key
+      userAvatar: action.avatar
     }
     case 'GET_KEY_SUCCESS':
     case 'GET_KEY_FAILURE':

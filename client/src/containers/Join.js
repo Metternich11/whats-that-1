@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import { connect } from "react-redux";
 import * as Actions from '../redux/actions/index'
 
@@ -10,6 +9,7 @@ import FormLabel from "../components/FormLabel";
 import InputField from "../components/InputField";
 import PlayerAvatar from "../components/PlayerAvatar";
 import Wrapper from "../components/Wrapper";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom"; // eslint-disable-line
 
 const Join = (props) => {
 
@@ -28,7 +28,8 @@ const Join = (props) => {
 
   const submitAndConnect = (e) => {
     e.preventDefault();
-    props.addName(playerName, game);
+    props.addName(playerName, props.userAvatar, game, 'Join');
+    props.history.push('/lobby'); //not sure about this line, maybe ask Arol
   }
 
   return (
@@ -46,20 +47,21 @@ const Join = (props) => {
           <FormLabel>Enter Game Name: </FormLabel>
           <InputField type="text" name="gameName" onChange={handleGameName} />
         </FormField>
-        <Button primary marginTop type="submit">
-          Join
-        </Button>
+          <Button primary marginTop type="submit">
+            Join
+          </Button>
       </form>
     </Wrapper>
   );
 };
 
 const mapStateToProps = state => ({
+  userAvatar: state.userAvatar,
   gameKey: state.gameKey
 });
 
 const mapDispatchToProps = dispatch => ({
-  addName: (player, game) => dispatch(Actions.addName(player, game))
+  addName: (player, avatar, gameKey, socketType) => dispatch(Actions.addName(player, avatar, gameKey, socketType)),
 });
 
 export default connect(

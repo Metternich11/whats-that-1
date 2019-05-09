@@ -5,7 +5,7 @@ export const socket = store => {
 
   return next => action => {
     if (!action.socket) return next(action);
-    const { command, payload } = action.socket;
+    const { command, payload, type } = action.socket;
     if (command) {
       switch (command) {
         case 'CONNECT':
@@ -25,7 +25,10 @@ export const socket = store => {
 
     // Outputs (emit)
     if (payload) {
-      socket.emit('message', payload);
+      socket.emit('message', {
+        type,
+        payload
+      });
     }
   };
 };

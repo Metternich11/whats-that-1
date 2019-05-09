@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
+import { connect } from "react-redux";
+import * as Actions from '../redux/actions/index'
+
 import generateAvatarProps from "../utils/generateAvatarProps";
 import Avatar from "avataaars";
 
@@ -19,9 +22,14 @@ const AvatarContainer = styled.div`
     `};
 `;
 
-const PlayerAvatar = () => {
-  const props = generateAvatarProps();
-  //TOODO: Save the props above into the Redux store for the current user
+const PlayerAvatar = props => {
+
+  const localProps = generateAvatarProps();
+
+  useEffect(() => {
+    props.userAvatar(localProps)
+  }, [localProps]);
+
   return (
     <AvatarContainer>
       <Avatar
@@ -29,10 +37,18 @@ const PlayerAvatar = () => {
           width: "60px",
           height: "60px"
         }}
-        {...props}
+        {...localProps}
       />
     </AvatarContainer>
   );
 };
 
-export default PlayerAvatar;
+
+const mapDispatchToProps = dispatch => ({
+  userAvatar: avatar => dispatch(Actions.saveAvatar(avatar))
+});
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(PlayerAvatar); 

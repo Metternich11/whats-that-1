@@ -7,16 +7,25 @@ export const getKey = () => ({
   }
 });
 
-export const addName = (playerName, game) => {
-  return {
-  type: ActionTypes.PLAYER_NAME,
+export const addName = (playerName, playerAvatar, game, type) => ({
+  type: ActionTypes.PLAYER_INFO,
   playerName,
   socket: {
     command: 'CONNECT',
-    payload: game
+    type,
+    payload: {
+      playerName,
+      playerAvatar,
+      game,
+    }
   }
-  }
-}
+});
+
+export const saveAvatar = (avatar) => ({
+  type: ActionTypes.USER_AVATAR,
+  avatar
+})
+
 
 
 // export const joinRoom = game => ({

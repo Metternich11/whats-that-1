@@ -9,6 +9,7 @@ import FormLabel from "../components/FormLabel";
 import InputField from "../components/InputField";
 import PlayerAvatar from "../components/PlayerAvatar";
 import Wrapper from "../components/Wrapper";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom"; // eslint-disable-line
 
 
 function Create (props) {
@@ -21,9 +22,10 @@ function Create (props) {
   
   const submitName = (e) => {
     e.preventDefault();
-    props.addName(playerName, props.gameKey);
+    props.addName(playerName, props.userAvatar, props.gameKey, 'Create');
+    props.history.push('/lobby'); //not sure about this line, maybe ask Arol
   };
-
+  
   return (
     <Wrapper>
       <form onSubmit={submitName}>
@@ -39,9 +41,9 @@ function Create (props) {
           <FormLabel>Game Name: </FormLabel>
           <GameName>{props.gameKey}</GameName>
         </FormField>
-        <Button primary marginTop type="submit">
-          Create
-        </Button>
+          <Button primary marginTop type="submit">
+            Create
+          </Button>
       </form>
     </Wrapper>
   );
@@ -59,11 +61,12 @@ const GameName = styled.div`
 `;
 
 const mapStateToProps = state => ({
-  gameKey: state.gameKey,
+  userAvatar: state.userAvatar,
+  gameKey: state.gameKey
 });
 
 const mapDispatchToProps = dispatch => ({
-  addName: (player, gameKey) => dispatch(Actions.addName(player, gameKey)),
+  addName: (player, avatar, gameKey, socketType) => dispatch(Actions.addName(player, avatar, gameKey, socketType)),
 });
 
 export default connect(
