@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-function requestQuickDraw (socket, message) {
+function requestQuickDraw (message) {
   const url = 'https://inputtools.google.com/request?ime=handwriting&app=quickdraw&dbg=1&cs=1&oe=UTF-8';
   const data = JSON.stringify(message.draw);
   const options = {
@@ -19,6 +19,9 @@ function requestQuickDraw (socket, message) {
     })
     .then(data => {
       return data[1][0][1][0];
+      // const bestGuesses = data[1][0][1];
+      // console.log(bestGuesses);
+      // return bestGuesses[0];
     })
     .catch(err => console.error(err)); // eslint-disable-line
 }

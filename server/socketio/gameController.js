@@ -1,4 +1,5 @@
-const key = require('../model/gamekey');
+const key = require('../helpers/requestGameKey');
+const requestQuickDraw = require('../helpers/requestGuess'); 
 
 const gameController = {
   createPlayer: (socket, message) => {
@@ -16,8 +17,16 @@ const gameController = {
       socket.to(message.payload.key).emit('messageFromServer', socket.id)
     }
   },
-  draw: (socket, message) => {
-
+  draw: async (socket, message) => {
+    // get the best guess and update state - "add draw to player"?
+    const guess = await requestQuickDraw(message.payload);
+    // pass the best guess to the player
+    socket.emit('message', {
+      type: 'receiveWord',
+      payload: {
+        guess
+      }
+    })
   },
   startGame: (socket, message) => {
     const category = key.generate();

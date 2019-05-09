@@ -2,7 +2,7 @@ const gameController = require('./gameController');
 
 const ioConfig = io => {
 
-  io.on('connect', socket => {
+  io.of('/game').on('connect', socket => {
     console.log('connected: ', socket.id);
     socket.on('clientAction', message => {
       gameController[message.type](socket, message);
