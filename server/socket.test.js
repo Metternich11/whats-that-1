@@ -1,49 +1,39 @@
 const App = require('./app');
 const io = require('socket.io-client');
-
-let sender;
-let receiver;
-const testMsg = 'hello';
-const ioOptions = { 
-  transports: ['websocket']
-, forceNew: true
-, reconnection: false
-}
-
+const port = 2001;
 let app;
 
-beforeAll(async () => {
-  app = await App.createServer();
-  await new Promise(resolve => {
-    sender = io.connect('http://localhost:3000/', ioOptions);
-    receiver = io.connect('http://localhost:3000/', ioOptions);
+let sender;
+const testMsg = 'hello';
+const ioOptions = {
+  transports: ['websocket'],
+  forceNew: true,
+  reconnection: false
+};
 
-    let first = false;
+beforeAll(done => {
+  App(port).then(instance => {
+    app = instance;
+    sender = io.connect(`http://localhost:${port}/`, ioOptions);
     sender.on('connect', () => {
-      first && resolve();
-      first = true;
+      done();
     });
-    receiver.on('connect', () => {
-      first && resolve();
-      first = true;
+    sender.on('error', error => {
+      console.error(error);
     });
-    
   });
 });
 
 afterAll(async () => {
-  await sender.disconnect()
-  await receiver.disconnect()
-  await App.close();
-})
-
+  await sender.disconnect();
+  await app.teardown();
+});
 
 describe('check basic http response', () => {
-  test('/', async () => {
-    expect(true).toBe(true);
-    // sender.emit('message', testMsg);
-    // receiver.on('message', msg => {
-    //   console.log('this is the', msg);
-    // });
-  })
+  test('/', done => {
+    sender.emit('message', testMsg);
+    sender.on('message', () => {
+      done();
+    });
+  });
 });
