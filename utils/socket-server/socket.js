@@ -2,7 +2,8 @@ let numPlayers = 1;
 const ioConfig = io => {
   io.on('connect', client => {
     console.log('Client conected', client.id);
-    client.on('messageClient', message => {
+    client.on('message', message => {
+      console.log(message)
       switch (message.type) {
         case 'connect':
           io.emit('messageServer', {

@@ -9,29 +9,24 @@ const port = 2000;
 
 let server;
 
-const ioConfig = require('./socket');
+const ioConfig = require('./socketio/socketConfig');
 
 function createServer() {
-  return new Promise(resolve => {
     app
       .use(cors())
       .use(bodyparser())
       .use(router.routes());
     server = app.listen(port, () => {
       console.log(`🚀 Server Running on ${port}`); //eslint-disable-line
-      io.listen(server);
-      ioConfig(io);
-      resolve(server);
-    });
   });
+  io.listen(server);
+  ioConfig(io);
+  return server;
 }
 
   function close () {
-    console.log('Closing server…'); //eslint-disable-line
-    return new Promise(resolve => app._io.close(() => {
-      console.log('server closed'); //eslint-disable-line
-      resolve(server);
-    }));
+    server.close();
+    console.log('server closed'); //eslint-disable-line
   }
 
 module.exports = {
