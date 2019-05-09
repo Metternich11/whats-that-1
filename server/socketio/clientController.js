@@ -7,7 +7,6 @@ const mocks= require('../redux/mock');
 const clientController = {
   createRoom: (socket, message) => {
     store.dispatch(createGame(message.payload.key))
-    // console.log('room created', store.getState());
     socket.join(message.payload.key);
   },
   joinRoom: (socket, message) => {
@@ -18,7 +17,6 @@ const clientController = {
     else {
       store.dispatch(addPlayer(mocks.demoPlayer));
       socket.join(message.payload.key);
-      // console.log(store.getState())
       const obj = {
         type: message.type,
         payload: {
@@ -31,7 +29,7 @@ const clientController = {
     }
   },
   draw: async (socket, message) => {
-    // get the best guess and update state - "add draw to player"?
+    // get the best guess
     const guess = await requestQuickDraw(message.payload);
     // pass the best guess to the player
     socket.emit('message', {
