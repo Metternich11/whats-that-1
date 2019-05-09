@@ -1,24 +1,16 @@
 import React from "react";
 import Button from "../components/Button";
-import styled from "styled-components";
+import Wrapper from "../components/Wrapper";
 
 export const Main = () => {
   return (
-    <>
-      <ContainerWrapper>
+    <Wrapper>
+      <div>
         <Button>CREATE</Button>
         <Button>JOIN</Button>
-      </ContainerWrapper>
-    </>
+      </div>
+    </Wrapper>
   );
 };
-
-const ContainerWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 20%;
-  height: 100px;
-`;
 
 export default Main;

@@ -7,10 +7,11 @@ import PlayerListItem from "../components/PlayerListItem";
 import PlayerAvatar from "../components/PlayerAvatar";
 import Button from "../components/Button";
 import GameWinner from "../components/GameWinner";
+import Wrapper from "../components/Wrapper";
 
 export const Results = () => {
   return (
-    <>
+    <Wrapper>
       <PlayerList>
         <PlayerListItem>
           <GameWinner />
@@ -43,7 +44,7 @@ export const Results = () => {
         </SingleDrawing>
       </ImageCarousel>
       <Button>Play Again</Button>
-    </>
+    </Wrapper>
   );
 };
 

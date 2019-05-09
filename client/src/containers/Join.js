@@ -1,9 +1,10 @@
 import React from "react";
-import styled from "styled-components";
 import Button from "../components/Button";
 import FormField from "../components/FormField";
 import FormLabel from "../components/FormLabel";
 import InputField from "../components/InputField";
+import PlayerAvatar from "../components/PlayerAvatar";
+import Wrapper from "../components/Wrapper";
 
 const stateTest = { name: "", gameName: "" };
 
@@ -19,8 +20,12 @@ const handleSubmitTest = event => {
 
 const Join = () => {
   return (
-    <ContainerWrapper>
+    <Wrapper>
       <form onSubmit={handleSubmitTest}>
+        <FormField>
+          <FormLabel>Your Avatar: </FormLabel>
+          <PlayerAvatar />
+        </FormField>
         <FormField>
           <FormLabel>Enter your name: </FormLabel>
           <InputField type="text" name="name" onChange={handleChangeTest} />
@@ -33,17 +38,8 @@ const Join = () => {
           Join
         </Button>
       </form>
-    </ContainerWrapper>
+    </Wrapper>
   );
 };
-
-const ContainerWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 50vw;
-  text-align: center;
-  align-items: center;
-  margin: 5vh 0;
-`;
 
 export default Join;
