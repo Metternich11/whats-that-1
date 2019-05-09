@@ -28,7 +28,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getGameKey: () => dispatch(Actions.getKey()),
-  joinRoom: () => dispatch(Actions.joinRoom())
 });
 
 export default connect(

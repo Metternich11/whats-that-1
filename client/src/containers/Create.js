@@ -9,7 +9,6 @@ import FormLabel from "../components/FormLabel";
 import InputField from "../components/InputField";
 
 
-
 function Create (props) {
   const [ playerName, setPlayerName ] = useState('');
   
@@ -20,7 +19,7 @@ function Create (props) {
   
   const submitName = (e) => {
     e.preventDefault();
-    props.addName(playerName)
+    props.addName(playerName, props.gameKey);
   };
 
   return (
@@ -62,11 +61,11 @@ const GameName = styled.div`
 `;
 
 const mapStateToProps = state => ({
-  gameKey: state.gameKey
+  gameKey: state.gameKey,
 });
 
 const mapDispatchToProps = dispatch => ({
-  addName: playerName => dispatch(Actions.addName(playerName))
+  addName: (player, gameKey) => dispatch(Actions.addName(player, gameKey)),
 });
 
 export default connect(

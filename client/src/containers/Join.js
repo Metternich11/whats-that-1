@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import * as Actions from '../redux/actions/index'
@@ -8,31 +8,38 @@ import FormField from "../components/FormField";
 import FormLabel from "../components/FormLabel";
 import InputField from "../components/InputField";
 
-const stateTest = { name: "", gameName: "" };
-
-const handleChangeTest = event => {
-  const value = event.target.value;
-  stateTest.name = value;
-};
-
-const handleSubmitTest = event => {
-  event.preventDefault();
-  // would save the name
-};
-
 const Join = (props) => {
+
+  const [ playerName, setPlayerName ] = useState('');
+  const [ game, setGame ] = useState('');
+
+  const handlePlayerName = event => {
+    const value = event.target.value;
+    setPlayerName(value);
+  };
+
+  const handleGameName = event => {
+    const value = event.target.value;
+    setGame(value);
+  };
+
+  const submitAndConnect = (e) => {
+    e.preventDefault();
+    props.addName(playerName, game);
+  }
+
   return (
     <ContainerWrapper>
-      <form onSubmit={handleSubmitTest}>
+      <form onSubmit={submitAndConnect}>
         <FormField>
           <FormLabel>Enter your name: </FormLabel>
-          <InputField type="text" name="name" onChange={handleChangeTest} />
+          <InputField type="text" name="name" onChange={handlePlayerName} />
         </FormField>
         <FormField>
           <FormLabel>Enter Game Name: </FormLabel>
-          <InputField type="text" name="gameName" onChange={handleChangeTest} />
+          <InputField type="text" name="gameName" onChange={handleGameName} />
         </FormField>
-        <Button primary marginTop type="submit" onClick={props.joinRoom}>
+        <Button primary marginTop type="submit">
           Join
         </Button>
       </form>
@@ -54,7 +61,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  joinRoom: () => dispatch(Actions.joinRoom())
+  addName: (player, game) => dispatch(Actions.addName(player, game))
 });
 
 export default connect(

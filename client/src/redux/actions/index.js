@@ -4,21 +4,25 @@ export const getKey = () => ({
   type: ActionTypes.GET_GAME_KEY,
   api: {
     url: `${process.env.REACT_APP_SERVER_BASE_URL}/getGameKey`
-  },
-  socket: {
-    command: 'CREATE'
   }
 });
 
-export const joinRoom = () => ({
-  type: ActionTypes.JOIN_ROOM,
-  socket: {
-    command: 'CONNECT'
-  }
-});
-
-export const addName = (playerName) => ({
+export const addName = (playerName, game) => {
+  return {
   type: ActionTypes.PLAYER_NAME,
-  playerName
-})
+  playerName,
+  socket: {
+    command: 'CONNECT',
+    payload: game
+  }
+  }
+}
 
+
+// export const joinRoom = game => ({
+//   type: ActionTypes.JOIN_ROOM,
+//   socket: {
+//     command: 'CONNECT',
+//     payload: game
+//   }
+// });
