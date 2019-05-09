@@ -9,10 +9,12 @@ import PlayerListItem from "../components/PlayerListItem";
 import PlayerAvatar from "../components/PlayerAvatar";
 import Create from "./Create";
 import Wrapper from "../components/Wrapper";
+import Canvas from "../components/Canvas";
 
 export const ComponentsCatalogue = () => {
   return (
     <Wrapper>
+      <Canvas />
       <div className="divider">
         <h2>Buttons</h2>
         <Button>default</Button>
