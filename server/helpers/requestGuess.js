@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-function requestQuickDraw (socket, message) {
+function requestQuickDraw (message) {
   const url = 'https://inputtools.google.com/request?ime=handwriting&app=quickdraw&dbg=1&cs=1&oe=UTF-8';
   const data = JSON.stringify(message.draw);
   const options = {
