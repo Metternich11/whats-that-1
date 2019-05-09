@@ -1,10 +1,7 @@
 import React from "react";
 import { createGlobalStyle } from "styled-components";
-import { connect } from "react-redux";
 
 import ComponentsCatalogue from "./containers/ComponentsCatalogue";
-import Button from './components/Button'
-import * as Actions from './redux/actions/index'
 import Create from "./containers/Create";
 import Join from "./containers/Join";
 import Lobby from "./containers/Lobby";
@@ -26,12 +23,10 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const App = (props) => {
+const App = () => {
   
   return (
     <>
-    <Button onClick={props.getGameKey}>CLICK ME FOR CREATION</Button>
-    <Button onClick={props.joinRoom}>CLICK ME FOR JOINING</Button>
       <GlobalStyle />
       <div className="App">
         <Route exact path="/" component={Main} />
@@ -47,16 +42,5 @@ const App = (props) => {
   );
 };
 
-const mapStateToProps = state => ({
-  getKey: state.getKey
-});
 
-const mapDispatchToProps = dispatch => ({
-  getGameKey: () => dispatch(Actions.getKey()),
-  joinRoom: () => dispatch(Actions.joinRoom())
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default App;

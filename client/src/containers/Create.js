@@ -1,34 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { connect } from "react-redux";
+import * as Actions from '../redux/actions/index'
 
 import Button from "../components/Button";
 import FormField from "../components/FormField";
 import FormLabel from "../components/FormLabel";
 import InputField from "../components/InputField";
 
-const stateTest = { name: "" };
 
-const handleChangeTest = event => {
-  const value = event.target.value;
-  stateTest.name = value;
-};
 
-const handleSubmitTest = event => {
-  event.preventDefault();
-  // would save the name
-};
+function Create (props) {
+  const [ playerName, setPlayerName ] = useState('');
+  
+  const handlePlayerName = event => {
+    const value = event.target.value;
+    setPlayerName(value);
+  };
+  
+  const submitName = (e) => {
+    e.preventDefault();
+    props.addName(playerName)
+  };
 
-function Create() {
   return (
     <ContainerWrapper>
-      <form onSubmit={handleSubmitTest}>
+      <form onSubmit={submitName}>
         <FormField>
           <FormLabel>Enter your name: </FormLabel>
-          <InputField type="text" name="name" onChange={handleChangeTest} />
+          <InputField type="text" name="name" onChange={handlePlayerName} />
         </FormField>
         <FormField>
           <FormLabel>Game Name: </FormLabel>
-          <GameName>Awesome-Battle-436</GameName>
+          <GameName>{props.gameKey}</GameName>
         </FormField>
         <Button primary marginTop type="submit">
           Create
@@ -57,4 +61,15 @@ const GameName = styled.div`
   width: 100%;
 `;
 
-export default Create;
+const mapStateToProps = state => ({
+  gameKey: state.gameKey
+});
+
+const mapDispatchToProps = dispatch => ({
+  addName: playerName => dispatch(Actions.addName(playerName))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Create); 
