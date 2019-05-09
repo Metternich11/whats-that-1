@@ -19,9 +19,6 @@ function requestQuickDraw (message) {
     })
     .then(data => {
       return data[1][0][1][0];
-      // const bestGuesses = data[1][0][1];
-      // console.log(bestGuesses);
-      // return bestGuesses[0];
     })
     .catch(err => console.error(err)); // eslint-disable-line
 }
