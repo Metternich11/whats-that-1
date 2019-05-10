@@ -16,10 +16,6 @@ export const api = store => next => action => {
         type: `${action.type}`,
         data
       });
-     if (action.socket) {
-       action.socket.payload = data.key
-       next(action);
-     }
     })
     .catch(error => {
       store.dispatch({

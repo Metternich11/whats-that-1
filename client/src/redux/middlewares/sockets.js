@@ -5,17 +5,14 @@ export const socket = store => {
 
   return next => action => {
     if (!action.socket) return next(action);
-    const { command, payload } = action.socket;
+    const { command, payload, type } = action.socket;
     if (command) {
       switch (command) {
-        case 'CREATE':
+        case 'CONNECT':
           // socket = io(`${process.env.REACT_APP_SERVER_BASE_URL}`);
           socket = io('http://localhost:3100');
-          socket.emit('message', payload);
+          next(action);
           break;
-        case 'CONNECT':
-          console.log('whatever, friend')
-        break;
         default:
           break;
       }
@@ -23,12 +20,19 @@ export const socket = store => {
 
     // Inputs (on)
     socket.on('message', message => {
-      store.dispatch(message);
+      console.log('AND OUR BE SAYS', message);  //eslint-disable-line
+      store.dispatch({
+        type: 'SOCKET_MESSAGE',     //THIS IS A TEST, THIS IS NOT CORRECT OR FINAL
+        payload: message,
+      });
     });
 
     // Outputs (emit)
     if (payload) {
-      socket.emit('message', payload);
+      socket.emit('message', {
+        type,
+        payload
+      });
     }
   };
 };

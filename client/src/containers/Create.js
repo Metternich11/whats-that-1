@@ -11,7 +11,6 @@ import PlayerAvatar from "../components/PlayerAvatar";
 import Wrapper from "../components/Wrapper";
 
 
-
 function Create (props) {
   const [ playerName, setPlayerName ] = useState('');
   
@@ -22,11 +21,17 @@ function Create (props) {
   
   const submitName = (e) => {
     e.preventDefault();
-    props.addName(playerName)
+    props.addName(playerName, props.userAvatar, props.gameKey, 'Create');
+    props.history.push('/lobby'); //not sure about this line, maybe ask Arol
   };
 
+   const goBack = () => {
+    props.history.goBack();
+  };
+  
   return (
     <Wrapper>
+      <Button onClick={goBack}>Go Back</Button>
       <form onSubmit={submitName}>
         <FormField>
           <FormLabel>Your Avatar: </FormLabel>
@@ -40,9 +45,9 @@ function Create (props) {
           <FormLabel>Game Name: </FormLabel>
           <GameName>{props.gameKey}</GameName>
         </FormField>
-        <Button primary marginTop type="submit">
-          Create
-        </Button>
+          <Button primary marginTop type="submit">
+            Create
+          </Button>
       </form>
     </Wrapper>
   );
@@ -60,11 +65,12 @@ const GameName = styled.div`
 `;
 
 const mapStateToProps = state => ({
+  userAvatar: state.userAvatar,
   gameKey: state.gameKey
 });
 
 const mapDispatchToProps = dispatch => ({
-  addName: playerName => dispatch(Actions.addName(playerName))
+  addName: (player, avatar, gameKey, socketType) => dispatch(Actions.addName(player, avatar, gameKey, socketType)),
 });
 
 export default connect(
