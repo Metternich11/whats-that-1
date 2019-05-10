@@ -31,19 +31,10 @@ function App(port = PORT) {
       .use(router.routes());
 
     this.server = this.koa.listen(port, error => {
-      if (error) return console.error('ERROR', error);
+      if (error) return console.error('ERROR', error); //eslint-disable-line
       console.log(`🚀 Server Running on ${port}`); //eslint-disable-line
       this.io.listen(this.server);
-
-      // TODO: REPLACE WITH SOCKET CONTROLLER
-      // this.io.on('connect', socket => {
-      //   socket.on('message', () => {
-      //     socket.emit('message');
-      //   });
-      // });
-
       ioConfig(this.io);
-
       resolve(this);
     });
   });
