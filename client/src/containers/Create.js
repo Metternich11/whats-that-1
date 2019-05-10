@@ -39,7 +39,7 @@ function Create (props) {
         </FormField>
         <FormField>
           <FormLabel>Enter your name: </FormLabel>
-          <InputField type="text" name="name" onChange={handlePlayerName} />
+          <InputField type="text" name="name" onChange={handlePlayerName} required/>
         </FormField>
         <FormField>
           <FormLabel>Game Name: </FormLabel>

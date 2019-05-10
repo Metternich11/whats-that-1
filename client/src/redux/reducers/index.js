@@ -11,11 +11,28 @@ export default (state = initialState, action) => {
     case ActionTypes.GET_KEY:
     return {
       ...state
-    }
+    };
+    case ActionTypes.GET_KEY_SUCCESS:
+    return {
+      ...state,
+      gameKey: action.data.key,
+      loading: false
+    };
+    case ActionTypes.GET_KEY_FAILURE:
+    return {
+      ...state,
+      loading: false
+    };
+    case ActionTypes.GET_KEY_LOADING:
+    return {
+      ...state,
+      loading: true
+    };
     case ActionTypes.PLAYER_INFO:
     return {
       ...state,
-      playerName: action.playerName
+      playerName: action.playerName,
+      gameKey: action.gameKey
     };
     case ActionTypes.USER_AVATAR:
     return {
@@ -25,23 +42,7 @@ export default (state = initialState, action) => {
     case ActionTypes.SOCKET_MESSAGE:
     return {
       ...state,
-      message: action.payload.payload.key //THIS IS A TEST, THIS IS NOT CORRECT OR FINAL
-    }
-    case ActionTypes.GET_KEY_SUCCESS:
-    return {
-      ...state,
-      gameKey: action.data.key,
-      loading: false
-    }
-    case ActionTypes.GET_KEY_FAILURE:
-    return {
-      ...state,
-      loading: false
-    }
-    case ActionTypes.GET_KEY_LOADING:
-    return {
-      ...state,
-      loading: true
+      message: action.payload.payload //THIS IS A TEST, THIS IS NOT CORRECT OR FINAL
     }
     default:
     return state;
