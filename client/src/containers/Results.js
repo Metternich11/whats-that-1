@@ -15,32 +15,32 @@ export const Results = () => {
       <PlayerList>
         <PlayerListItem>
           <GameWinner />
-          <PlayerAvatar src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairFrizzle&accessoriesType=Wayfarers&hairColor=PastelPink&facialHairType=BeardLight&facialHairColor=Black&clotheType=CollarSweater&clotheColor=PastelYellow&eyeType=Close&eyebrowType=FlatNatural&mouthType=Concerned&skinColor=Brown" />
+          <PlayerAvatar />
         </PlayerListItem>
         <PlayerListItem>
-          <PlayerAvatar src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairFroBand&accessoriesType=Prescription01&hairColor=Platinum&facialHairType=Blank&facialHairColor=Brown&clotheType=ShirtVNeck&clotheColor=White&eyeType=WinkWacky&eyebrowType=Default&mouthType=Twinkle&skinColor=Tanned" />
+          <PlayerAvatar />
         </PlayerListItem>
       </PlayerList>
       <ImageCarousel>
         <SingleDrawing>
           <TestVG />
-          <p>Lulu</p>
+          <p>Username: Lulu</p>
         </SingleDrawing>
         <SingleDrawing>
           <TestVG />
-          <p>Lala</p>
+          <p>Username: Lala</p>
         </SingleDrawing>
         <SingleDrawing>
           <TestVG />
-          <p>Lili</p>
+          <p>Username: Lili</p>
         </SingleDrawing>
         <SingleDrawing>
           <TestVG />
-          <p>Lolo</p>
+          <p>Username: Lolo</p>
         </SingleDrawing>
         <SingleDrawing>
           <TestVG />
-          <p>Lyly</p>
+          <p>Username: Lyly</p>
         </SingleDrawing>
       </ImageCarousel>
       <Button>Play Again</Button>
