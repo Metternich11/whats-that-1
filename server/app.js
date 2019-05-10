@@ -1,35 +1,43 @@
 const Koa = require('koa');
-const app = new Koa();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const http = require('http');
+const IO = require('socket.io');
 const cors = require('kcors');
 const bodyparser = require('koa-body');
-const router = require('./router');
-const port = 2000;
 
-let server;
+const router = require('./router');
+const PORT = 2000;
 
 const ioConfig = require('./socketio/socketConfig');
 
-function createServer() {
-    app
+function App(port = PORT) {
+  this.koa = new Koa();
+  this.httpServer = http.Server(this.koa);
+  this.io = IO(this.httpServer);
+  this.server;
+
+  this.teardown = () => {
+    return new Promise(resolve => {
+      this.io.close(() => {
+        console.log('Server closed'); //eslint-disable-line
+        resolve();
+      });
+    });
+  };
+
+  return new Promise(resolve => {
+    this.koa
       .use(cors())
       .use(bodyparser())
       .use(router.routes());
-    server = app.listen(port, () => {
+
+    this.server = this.koa.listen(port, error => {
+      if (error) return console.error('ERROR', error); //eslint-disable-line
       console.log(`🚀 Server Running on ${port}`); //eslint-disable-line
+      this.io.listen(this.server);
+      ioConfig(this.io);
+      resolve(this);
+    });
   });
-  io.listen(server);
-  ioConfig(io);
-  return server;
 }
 
-  function close () {
-    server.close();
-    console.log('server closed'); //eslint-disable-line
-  }
-
-module.exports = {
-  createServer,
-  close
-};
+module.exports = App;
