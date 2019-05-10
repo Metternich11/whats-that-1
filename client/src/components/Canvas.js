@@ -1,5 +1,6 @@
 import React from "react";
 
+// useReducer
 let isDrawing = false;
 let lastXCoordinate = 0;
 let lastYCoordinate = 0;
@@ -49,6 +50,7 @@ const Canvas = () => {
       if (!isDrawing) return;
       ctx.strokeStyle = "#fff";
       ctx.linecap = "round";
+      ctx.lineWidth = 5;
       xCoordinate.push(e.x);
       yCoordinate.push(e.y);
       timestamp.push(e.timeStamp);
@@ -78,17 +80,18 @@ const Canvas = () => {
       let xyCoordinates = [xCoordinate, yCoordinate, timestamp];
       drawing.push(xyCoordinates);
 
-      postDrawing(drawing);
+      postDrawing();
 
-      xCoordinate = yCoordinate = timestamp = xyCoordinates = [];
+      xCoordinate = [];
+      yCoordinate = [];
+      timestamp = [];
+      xyCoordinates = [];
     });
 
     canvas.addEventListener("mouseout", () => {
       isDrawing = false;
     });
-
-    ctx.lineWidth = 5;
-  });
+  }, []);
 
   const handleCanvasClick = e => {
     const newLocation = { x: e.clientX, y: e.clientY };
