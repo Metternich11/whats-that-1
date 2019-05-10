@@ -6,7 +6,61 @@ const initialState = {
   players: {}
 };
 
-/* sampleData = {
+/* sampleData = {const getWords = require('./getWords')
+const { startRound } = require('./redux/actions');
+
+class GameController {
+  constructor(game, socketController) {
+    this.game = game;
+    this.socket = socketController;
+
+    this.endRound = this.endRound.bind(this);
+  }
+
+  startGame () {
+    //setup game
+    try{
+      startRound();
+    } catch (e) {
+      if(typeof e === GameNotEnoughPlayersError) {
+        socket.sendNotEnoughPlayers();
+      }
+    }
+  };
+
+  adminJoin () {};
+  playerJoin () {};
+
+
+  startRound () {
+    this.game.startNewRound(); // tells the game to increase currentRound (figures out the new word)
+    socket.sendStart(this.game.currentRound); // sends the info for this round
+    this.timer = setTimeout(this.endRound, 26000);
+  };
+
+  endRound() {
+    socket.sendEndRound();
+    if (this.game.isLastRound()) {
+      this.endGame();
+    } else {
+      this.startRound();
+    }
+  };
+
+  endGame () {
+    socket.sendEndGame(this.game);
+  };
+
+  receiveDrawing(drawing) {
+    this.game.addDrawing();
+    if(this.game.isCurrentRoundComplete()) {
+      clearTimeout(this.timer);
+      this.endRound();
+    }
+  };
+}
+
+module.exports = GameController;
   games: {
     'dog-big': {
       round: 0,
@@ -48,7 +102,11 @@ exports.reducer = (state = initialState, action) => {
         games: {
           ...state.games,
           [action.game]: {
-            round: 0,
+            round: {
+              currentRound: 0,
+              word: '',
+              roundStatus: false
+            },
             playing: false,
             players: []
           }
@@ -119,6 +177,17 @@ exports.reducer = (state = initialState, action) => {
           ...state.players,
           [action.win.playerId]: {
             roundWins: action.win.roundWins
+          }
+        }
+      };
+
+    case ActionTypes.START_ROUND:
+      return {
+        ...state,
+        games: {
+          ...state.games,
+          [action.round.game]: {
+            round: action.round.round
           }
         }
       };
