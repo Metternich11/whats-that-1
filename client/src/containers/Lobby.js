@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import CanvasDraw from "../components/CanvasDraw";
+import Canvas from "../components/Canvas";
 import PlayerList from "../components/PlayerList";
 import PlayerListItem from "../components/PlayerListItem";
 import PlayerAvatar from "../components/PlayerAvatar";
@@ -22,14 +22,7 @@ export const Lobby = props => {
         <>ROOM NAME</>
         <Button primary>Start!</Button>
       </GameHeader>
-      <CanvasDraw
-        brushColor="#fff"
-        brushRadius={1}
-        catenaryColor="#fff"
-        lazyRadius={0}
-        backgroundColor="rgba(0,0,0,0.2)"
-        gridColor="rgba(0,0,0,0)"
-      />
+      <Canvas />
       <Button marginTop onClick={null}>
         Clear Canvas
       </Button>

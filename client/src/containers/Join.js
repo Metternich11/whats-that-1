@@ -1,6 +1,13 @@
+<<<<<<< HEAD
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import * as Actions from '../redux/actions/index'
+=======
+import React from "react";
+
+import { connect } from "react-redux";
+import * as Actions from "../redux/actions/index";
+>>>>>>> d9f5a0ef4bd9754f4e61417dabe135e3e3ac0a23
 
 import Button from "../components/Button";
 import FormField from "../components/FormField";
@@ -34,6 +41,7 @@ const Join = (props) => {
     props.history.goBack();
   }
 
+const Join = props => {
   return (
     <Wrapper>
       <Button onClick={goBack}>Go Back</Button>
@@ -70,5 +78,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Join); 
-
+)(Join);

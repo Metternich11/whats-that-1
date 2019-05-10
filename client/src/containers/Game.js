@@ -1,6 +1,5 @@
 import React from "react";
-import CanvasDraw from "../components/CanvasDraw";
-import CanvasDrawButtons from "../components/CanvasDrawButtons";
+import Canvas from "../components/Canvas";
 import PlayerList from "../components/PlayerList";
 import PlayerListItem from "../components/PlayerListItem";
 import PlayerAvatar from "../components/PlayerAvatar";
@@ -22,28 +21,19 @@ export const Game = () => {
         </WordToDraw>
       </GameHeader>
 
-      <CanvasDraw
-        brushColor="#fff"
-        brushRadius={1}
-        catenaryColor="#fff"
-        lazyRadius={0}
-        width="1000px"
-        backgroundColor="rgba(0,0,0,0.2)"
-        gridColor="rgba(0,0,0,0)"
-      />
-      <CanvasDrawButtons />
+      <Canvas />
       <PlayerList>
         <PlayerListItem>
-          <PlayerAvatar src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairFrizzle&accessoriesType=Wayfarers&hairColor=PastelPink&facialHairType=BeardLight&facialHairColor=Black&clotheType=CollarSweater&clotheColor=PastelYellow&eyeType=Close&eyebrowType=FlatNatural&mouthType=Concerned&skinColor=Brown" />
+          <PlayerAvatar />
         </PlayerListItem>
         <PlayerListItem>
-          <PlayerAvatar src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairFroBand&accessoriesType=Prescription01&hairColor=Platinum&facialHairType=Blank&facialHairColor=Brown&clotheType=ShirtVNeck&clotheColor=White&eyeType=WinkWacky&eyebrowType=Default&mouthType=Twinkle&skinColor=Tanned" />
+          <PlayerAvatar />
         </PlayerListItem>
         <PlayerListItem>
-          <PlayerAvatar src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairDreads02&accessoriesType=Prescription01&hatColor=Red&hairColor=BrownDark&facialHairType=BeardLight&facialHairColor=BrownDark&clotheType=ShirtScoopNeck&clotheColor=Blue01&eyeType=Hearts&eyebrowType=AngryNatural&mouthType=Twinkle&skinColor=Yellow" />
+          <PlayerAvatar />
         </PlayerListItem>
         <PlayerListItem>
-          <PlayerAvatar src="https://avataaars.io/?avatarStyle=Transparent&topType=WinterHat1&accessoriesType=Prescription02&hatColor=Pink&hairColor=SilverGray&facialHairType=BeardMedium&facialHairColor=Red&clotheType=BlazerShirt&clotheColor=White&eyeType=Default&eyebrowType=RaisedExcitedNatural&mouthType=Disbelief&skinColor=DarkBrown" />
+          <PlayerAvatar />
         </PlayerListItem>
       </PlayerList>
     </Wrapper>
