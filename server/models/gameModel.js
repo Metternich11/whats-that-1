@@ -129,9 +129,9 @@ const gameModel = {
     const imagesFromRound = [];
 
     players.forEach(player => {
-      lastRound
-        ? imagesFromRound.push(store.players[player].draws)
-        : imagesFromRound.push(store.players[player].draws[roundNumber - 1]);
+      // lastRound
+      //   ? imagesFromRound.push(store.players[player].draws)
+      //   : imagesFromRound.push(store.players[player].draws[roundNumber - 1]);
     });
 
     return imagesFromRound;
