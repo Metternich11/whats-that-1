@@ -30,11 +30,17 @@ const setPlayerRoundWins = win => ({
   win
 });
 
+const startRound = round => ({
+  type: ActionTypes.START_ROUND,
+  round
+});
+
 module.exports = {
   createGame,
   addPlayer,
   addDrawToPlayer,
   setPlayerRoundWins,
   startGame,
-  deleteGame
+  deleteGame,
+  startRound
 };

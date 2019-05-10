@@ -1,4 +1,4 @@
-const clientController = require('./clientController');
+const clientController = require('./controllers/clientController');
 
 const ioConfig = io => {
 
