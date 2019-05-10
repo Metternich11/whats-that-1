@@ -1,5 +1,4 @@
 const App = require('../app');
-let app;
 const request = require('supertest');
 const io = require('socket.io-client');
 const mock = require('../mocks/mocks.js');
@@ -37,7 +36,7 @@ describe.only('check basic socket' , () => {
     reconnection: false,
   }
   beforeAll(async (done) => {
-    await App.createServer();
+    await App();
     sender = await io.connect('http://localhost:2000', ioOptions );
     done();
     });
