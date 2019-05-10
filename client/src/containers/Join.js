@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import * as Actions from '../redux/actions/index'
 
-
 import Button from "../components/Button";
 import FormField from "../components/FormField";
 import FormLabel from "../components/FormLabel";
 import InputField from "../components/InputField";
 import PlayerAvatar from "../components/PlayerAvatar";
 import Wrapper from "../components/Wrapper";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom"; // eslint-disable-line
 
 const Join = (props) => {
 
@@ -29,7 +27,7 @@ const Join = (props) => {
   const submitAndConnect = (e) => {
     e.preventDefault();
     props.addName(playerName, props.userAvatar, game, 'Join');
-    props.history.push('/lobby'); //not sure about this line, maybe ask Arol
+    props.history.push('/lobby');
   }
 
   const goBack = () => {

@@ -49,15 +49,6 @@ export const Lobby = props => {
         <PlayerListItem>
           <PlayerAvatar />
         </PlayerListItem>
-        <PlayerListItem>
-          <PlayerAvatar />
-        </PlayerListItem>
-        <PlayerListItem>
-          <PlayerAvatar />
-        </PlayerListItem>
-        <PlayerListItem>
-          <PlayerAvatar />
-        </PlayerListItem>
       </PlayerList>
     </Wrapper>
   );

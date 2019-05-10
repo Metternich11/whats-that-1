@@ -9,7 +9,6 @@ import FormLabel from "../components/FormLabel";
 import InputField from "../components/InputField";
 import PlayerAvatar from "../components/PlayerAvatar";
 import Wrapper from "../components/Wrapper";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom"; // eslint-disable-line
 
 
 function Create (props) {
