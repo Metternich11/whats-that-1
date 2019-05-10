@@ -1,7 +1,7 @@
 import * as ActionTypes from "./types";
 
 export const getKey = () => ({
-  type: ActionTypes.GET_GAME_KEY,
+  type: ActionTypes.GET_KEY,
   api: {
     url: `${process.env.REACT_APP_SERVER_BASE_URL}/getGameKey`
   }

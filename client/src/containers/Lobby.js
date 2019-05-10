@@ -10,16 +10,21 @@ import Wrapper from '../components/Wrapper';
 import GameHeader from '../components/GameHeader';
 
 export const Lobby = props => {
+
   const goBack = () => {
     props.history.goBack();
   };
+
+  const startGame = () => {
+    props.history.push('/game');
+  }
 
   return (
     <Wrapper>
       <Button onClick={goBack}>Go Back</Button>
       <GameHeader>
         <>ROOM NAME</>
-        <Button primary>Start!</Button>
+        <Button primary onClick={startGame}>Start!</Button>
       </GameHeader>
       <Canvas />
       <Button marginTop onClick={null}>

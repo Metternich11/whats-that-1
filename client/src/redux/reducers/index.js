@@ -1,17 +1,17 @@
-import * as ActionTypes from "../actions/types";
+import * as ActionTypes from '../actions/types';
 
 const initialState = {
   gameKey: undefined,
+  loading: false
 };
 
 export default (state = initialState, action) => {
   console.log('Here goes the ', action) //eslint-disable-line
   switch (action.type) {
-    case ActionTypes.GET_GAME_KEY:
+    case ActionTypes.GET_KEY:
     return {
-      ...state,
-      gameKey: action.data.key
-    };
+      ...state
+    }
     case ActionTypes.PLAYER_INFO:
     return {
       ...state,
@@ -27,10 +27,21 @@ export default (state = initialState, action) => {
       ...state,
       message: action.payload.payload.key //THIS IS A TEST, THIS IS NOT CORRECT OR FINAL
     }
-    case 'GET_KEY_SUCCESS':
-    case 'GET_KEY_FAILURE':
+    case ActionTypes.GET_KEY_SUCCESS:
     return {
-      ...state
+      ...state,
+      gameKey: action.data.key,
+      loading: false
+    }
+    case ActionTypes.GET_KEY_FAILURE:
+    return {
+      ...state,
+      loading: false
+    }
+    case ActionTypes.GET_KEY_LOADING:
+    return {
+      ...state,
+      loading: true
     }
     default:
     return state;
