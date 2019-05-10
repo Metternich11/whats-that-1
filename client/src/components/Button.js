@@ -33,10 +33,9 @@ const Button = styled.button`
     `};
 
   ${props =>
-    props.form &&
+    props.marginTop &&
     css`
       margin-top: 2vh;
-      width: 40%;
     `};
 `;
 

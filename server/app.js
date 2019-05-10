@@ -7,7 +7,7 @@ const bodyparser = require('koa-body');
 const router = require('./router');
 const PORT = 2000;
 
-const ioConfig = require('./socket');
+const ioConfig = require('./socketio/socketConfig');
 
 function App(port = PORT) {
   this.koa = new Koa();

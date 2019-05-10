@@ -7,10 +7,11 @@ import PlayerAvatar from "../components/PlayerAvatar";
 import GameHeader from "../components/GameHeader";
 import Timer from "../components/Timer";
 import WordToDraw from "../components/WordToDraw";
+import Wrapper from "../components/Wrapper";
 
 export const Game = () => {
   return (
-    <>
+    <Wrapper>
       <GameHeader>
         <Timer>00:20</Timer>
         <WordToDraw>
@@ -26,6 +27,7 @@ export const Game = () => {
         brushRadius={1}
         catenaryColor="#fff"
         lazyRadius={0}
+        width="1000px"
         backgroundColor="rgba(0,0,0,0.2)"
         gridColor="rgba(0,0,0,0)"
       />
@@ -44,7 +46,7 @@ export const Game = () => {
           <PlayerAvatar src="https://avataaars.io/?avatarStyle=Transparent&topType=WinterHat1&accessoriesType=Prescription02&hatColor=Pink&hairColor=SilverGray&facialHairType=BeardMedium&facialHairColor=Red&clotheType=BlazerShirt&clotheColor=White&eyeType=Default&eyebrowType=RaisedExcitedNatural&mouthType=Disbelief&skinColor=DarkBrown" />
         </PlayerListItem>
       </PlayerList>
-    </>
+    </Wrapper>
   );
 };
 

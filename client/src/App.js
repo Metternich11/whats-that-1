@@ -1,7 +1,5 @@
 import React from "react";
 import { createGlobalStyle } from "styled-components";
-import { connect } from "react-redux";
-import { createGame } from "./redux/actions/index";
 
 import ComponentsCatalogue from "./containers/ComponentsCatalogue";
 import Create from "./containers/Create";
@@ -26,34 +24,23 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const App = () => {
-  // <Button onClick={props.createGame}>CLICK ME FOR REDUX</Button>
-
+  
   return (
     <>
       <GlobalStyle />
       <div className="App">
         <Route exact path="/" component={Main} />
         <Route path="/create" component={Create} />
+        <Route path="/join" component={Join} />
         <Route path="/components" component={ComponentsCatalogue} />
         <Route path="/lobby" component={Lobby} />
         <Route path="/game" component={Game} />
-        <Route path="/results" component={Results} />
-        <Route path="/join" component={Join} />
         <Route path="/between-rounds" component={BetweenRounds} />
+        <Route path="/results" component={Results} />
       </div>
     </>
   );
 };
 
-const mapStateToProps = state => ({
-  createGame: state.createGame
-});
 
-const mapDispatchToProps = dispatch => ({
-  createGame: () => dispatch(createGame())
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default App;

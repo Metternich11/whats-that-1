@@ -1,9 +1,16 @@
 import React from "react";
+
 import styled from "styled-components";
+import { connect } from "react-redux";
+import * as Actions from '../redux/actions/index'
+
+
 import Button from "../components/Button";
 import FormField from "../components/FormField";
 import FormLabel from "../components/FormLabel";
 import InputField from "../components/InputField";
+import PlayerAvatar from "../components/PlayerAvatar";
+import Wrapper from "../components/Wrapper";
 
 const stateTest = { name: "", gameName: "" };
 
@@ -17,10 +24,14 @@ const handleSubmitTest = event => {
   // would save the name
 };
 
-const Join = () => {
+const Join = (props) => {
   return (
-    <ContainerWrapper>
+    <Wrapper>
       <form onSubmit={handleSubmitTest}>
+        <FormField>
+          <FormLabel>Your Avatar: </FormLabel>
+          <PlayerAvatar />
+        </FormField>
         <FormField>
           <FormLabel>Enter your name: </FormLabel>
           <InputField type="text" name="name" onChange={handleChangeTest} />
@@ -29,21 +40,24 @@ const Join = () => {
           <FormLabel>Enter Game Name: </FormLabel>
           <InputField type="text" name="gameName" onChange={handleChangeTest} />
         </FormField>
-        <Button primary form type="submit">
+        <Button primary marginTop type="submit" onClick={props.joinRoom}>
           Join
         </Button>
       </form>
-    </ContainerWrapper>
+    </Wrapper>
   );
 };
 
-const ContainerWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 50vw;
-  text-align: center;
-  align-items: center;
-  margin: 5vh 0;
-`;
+const mapStateToProps = state => ({
+  gameKey: state.gameKey
+});
 
-export default Join;
+const mapDispatchToProps = dispatch => ({
+  joinRoom: () => dispatch(Actions.joinRoom())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Join); 
+

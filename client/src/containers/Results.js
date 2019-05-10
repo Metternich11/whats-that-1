@@ -6,14 +6,15 @@ import PlayerList from "../components/PlayerList";
 import PlayerListItem from "../components/PlayerListItem";
 import PlayerAvatar from "../components/PlayerAvatar";
 import Button from "../components/Button";
-import RoundWinner from "../components/RoundWinner";
+import GameWinner from "../components/GameWinner";
+import Wrapper from "../components/Wrapper";
 
 export const Results = () => {
   return (
-    <>
+    <Wrapper>
       <PlayerList>
         <PlayerListItem>
-          <RoundWinner />
+          <GameWinner />
           <PlayerAvatar src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairFrizzle&accessoriesType=Wayfarers&hairColor=PastelPink&facialHairType=BeardLight&facialHairColor=Black&clotheType=CollarSweater&clotheColor=PastelYellow&eyeType=Close&eyebrowType=FlatNatural&mouthType=Concerned&skinColor=Brown" />
         </PlayerListItem>
         <PlayerListItem>
@@ -43,7 +44,7 @@ export const Results = () => {
         </SingleDrawing>
       </ImageCarousel>
       <Button>Play Again</Button>
-    </>
+    </Wrapper>
   );
 };
 
