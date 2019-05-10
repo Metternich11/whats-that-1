@@ -16,7 +16,6 @@ function App(port = PORT) {
   this.server;
 
   this.teardown = () => {
-    // console.log('Closing server…'); //eslint-disable-line
     return new Promise(resolve => {
       this.io.close(() => {
         console.log('Server closed'); //eslint-disable-line
@@ -37,12 +36,11 @@ function App(port = PORT) {
       this.io.listen(this.server);
 
       // TODO: REPLACE WITH SOCKET CONTROLLER
-      this.io.on('connect', socket => {
-        socket.on('message', () => {
-          socket.emit('message');
-        });
-      });
-      // -TODO
+      // this.io.on('connect', socket => {
+      //   socket.on('message', () => {
+      //     socket.emit('message');
+      //   });
+      // });
 
       ioConfig(this.io);
 

@@ -2,31 +2,43 @@ const key = require('../helpers/requestGameKey');
 const requestQuickDraw = require('../helpers/requestGuess'); 
 const store = require('../redux/store').createRedux();
 const { createGame, addPlayer } = require('../redux/actions/');
-const mocks= require('../redux/mock');
+const mocks = require('../redux/mock');
 
 const clientController = {
   createRoom: (socket, message) => {
-    store.dispatch(createGame(message.payload.key))
-    socket.join(message.payload.key);
+    const creationPlayer = {
+      playerId: socket.id,
+      playerName: message.payload.playerName,
+      playerAvatar: message.payload.avatarUrl,
+      isCreator: true,
+      gameKey: message.payload.key,
+      draws: []  
+    }
+    store.dispatch(createGame(creationPlayer.gameKey))
+    store.dispatch(addPlayer(creationPlayer));
+    socket.join(creationPlayer.gameKey);
   },
+
   joinRoom: (socket, message) => {
     if (socket.adapter.rooms[message.payload.key] === undefined) {
+      console.log(`Room ${message.payload.key} does not exist`);
       socket.emit('messageToClient', 'Room does not exist!');
     }
     else {
-      store.dispatch(addPlayer(mocks.demoPlayer));
-      socket.join(message.payload.key);
-      const obj = {
-        type: message.type,
-        payload: {
-          id: socket.id,
-          name: 'Shanshan',
-          url: 'www.image.com'
-        }
+      const joiningPlayer = {
+        playerId: socket.id,
+        playerName: message.payload.playerName,
+        playerAvatar: message.payload.avatarUrl,
+        isCreator: false,
+        gameKey: message.payload.key,
+        draws: []  
       }
-      socket.to(message.payload.key).emit('messageFromServer', obj)
+      store.dispatch(addPlayer(joiningPlayer));
+      socket.join(message.payload.key);
+      socket.to(message.payload.key).emit('messageFromServer', message)
     }
   },
+
   draw: async (socket, message) => {
     // get the best guess
     const guess = await requestQuickDraw(message.payload);
@@ -48,13 +60,8 @@ const clientController = {
     socket.to(message.payload.key).emit('startGamr');
   },
   leaveRoom: (socket, message) => {
+    socket.to(message.payload.key).emit('messageFromServer', message);
     socket.leave(message.payload.key);
-  },
-  roundOver: (socket, message) => {
-
-  },
-  gameOver: (socket, message) => {
-
   },
 }
 
