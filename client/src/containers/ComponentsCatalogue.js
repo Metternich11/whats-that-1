@@ -2,8 +2,6 @@ import React from "react";
 import Button from "../components/Button";
 import Main from "../containers/Main";
 import NavBar from "../components/NavBar";
-import CanvasDraw from "../components/CanvasDraw";
-import CanvasDrawButtons from "../components/CanvasDrawButtons";
 import PlayerList from "../components/PlayerList";
 import PlayerListItem from "../components/PlayerListItem";
 import PlayerAvatar from "../components/PlayerAvatar";
@@ -14,7 +12,10 @@ import Canvas from "../components/Canvas";
 export const ComponentsCatalogue = () => {
   return (
     <Wrapper>
-      <Canvas />
+      <div className="divider">
+        <h2>Canvas</h2>
+        <Canvas />
+      </div>
       <div className="divider">
         <h2>Buttons</h2>
         <Button>default</Button>
@@ -32,19 +33,6 @@ export const ComponentsCatalogue = () => {
       <div className="divider">
         <h2>Input fields</h2>
         <Create />
-      </div>
-      <div className="divider">
-        <h2>Drawing Area</h2>
-        <CanvasDraw
-          brushColor="#fff"
-          brushRadius={1}
-          catenaryColor="#fff"
-          lazyRadius={0}
-          backgroundColor="rgba(0,0,0,0.2)"
-          gridColor="rgba(0,0,0,0)"
-        />
-
-        <CanvasDrawButtons />
       </div>
       <div className="divider">
         <h2>Player List & Player List Item</h2>

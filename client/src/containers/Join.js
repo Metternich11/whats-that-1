@@ -1,9 +1,7 @@
 import React from "react";
 
-import styled from "styled-components";
 import { connect } from "react-redux";
-import * as Actions from '../redux/actions/index'
-
+import * as Actions from "../redux/actions/index";
 
 import Button from "../components/Button";
 import FormField from "../components/FormField";
@@ -24,7 +22,7 @@ const handleSubmitTest = event => {
   // would save the name
 };
 
-const Join = (props) => {
+const Join = props => {
   return (
     <Wrapper>
       <form onSubmit={handleSubmitTest}>
@@ -59,5 +57,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Join); 
-
+)(Join);
