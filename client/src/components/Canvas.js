@@ -8,14 +8,7 @@ let drawing = [];
 let xCoordinate = [];
 let yCoordinate = [];
 let timestamp = [];
-let whatYouAreDrawing = "";
-
-var seconds = document.getElementById("countdown").textContent;
-var countdown = setInterval(function() {
-  seconds--;
-  document.getElementById("countdown").textContent = seconds;
-  if (seconds <= 0) clearInterval(countdown);
-}, 1000);
+let whatYouAreDrawing = "Draw something...";
 
 const googleURL =
   // NOTE TO SELF THIS NEEDS TO BE A CALL TO THE BACKEND
@@ -53,25 +46,32 @@ const Canvas = () => {
   React.useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    locations.forEach(location => draw(ctx, location));
+
+    // canvas size
+    canvas.width = 400;
+    canvas.height = 400;
+    canvas.style.width = "400px";
+    canvas.style.height = "400px";
+
+    // canvas settings
+    ctx.strokeStyle = "#fff";
+    ctx.linecap = "round";
+    ctx.lineWidth = 3;
 
     const draw = e => {
       if (!isDrawing) return;
-      ctx.strokeStyle = "#fff";
-      ctx.linecap = "round";
-      ctx.lineWidth = 5;
+      e.preventDefault();
+      e.stopPropagation();
+
       xCoordinate.push(e.x);
       yCoordinate.push(e.y);
       timestamp.push(e.timeStamp);
 
       ctx.beginPath();
-
       ctx.moveTo(lastXCoordinate, lastYCoordinate);
-
       ctx.lineTo(e.offsetX, e.offsetY);
-
       ctx.stroke();
+
       lastXCoordinate = e.offsetX;
       lastYCoordinate = e.offsetY;
     };
@@ -109,6 +109,10 @@ const Canvas = () => {
   };
 
   const handleClear = () => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    whatYouAreDrawing = "Draw something...";
     setLocations([]);
   };
 
@@ -116,13 +120,14 @@ const Canvas = () => {
     <>
       <canvas
         ref={canvasRef}
-        width="400px"
-        height="400px"
         onClick={handleCanvasClick}
         style={{ border: "1px solid rgba(255,255,255,0.2)" }}
       />
       <Button onClick={handleClear}>Clear</Button>
-      <h2>{whatYouAreDrawing}</h2>
+      <h2>
+        {whatYouAreDrawing === "Draw something..." ? "" : "Zorb thinks it's a"}{" "}
+        {whatYouAreDrawing}
+      </h2>
     </>
   );
 };

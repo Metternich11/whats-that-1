@@ -7,6 +7,7 @@ const Wrapper = styled.div`
   text-align: center;
   align-items: center;
   margin: 0 20vw 5vh 20vw;
+  padding-top: 5vh;
   background-color: rgba(255, 255, 255, 0.1);
 
   @media (max-width: 1024px) {
