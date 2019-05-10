@@ -1,5 +1,5 @@
 import React from "react";
-
+import Button from "./Button";
 // useReducer
 let isDrawing = false;
 let lastXCoordinate = 0;
@@ -8,7 +8,14 @@ let drawing = [];
 let xCoordinate = [];
 let yCoordinate = [];
 let timestamp = [];
-let zorbThinksYouAreDrawing = "";
+let whatYouAreDrawing = "";
+
+var seconds = document.getElementById("countdown").textContent;
+var countdown = setInterval(function() {
+  seconds--;
+  document.getElementById("countdown").textContent = seconds;
+  if (seconds <= 0) clearInterval(countdown);
+}, 1000);
 
 const googleURL =
   // NOTE TO SELF THIS NEEDS TO BE A CALL TO THE BACKEND
@@ -35,7 +42,7 @@ const postDrawing = () => {
     })
   })
     .then(res => res.json())
-    .then(data => (zorbThinksYouAreDrawing = data[1][0][1][0]))
+    .then(data => (whatYouAreDrawing = data[1][0][1][0]))
     .catch(err => console.error(err)); // eslint-disable-line no-console
 };
 
@@ -46,6 +53,9 @@ const Canvas = () => {
   React.useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    locations.forEach(location => draw(ctx, location));
+
     const draw = e => {
       if (!isDrawing) return;
       ctx.strokeStyle = "#fff";
@@ -98,6 +108,10 @@ const Canvas = () => {
     setLocations([...locations, newLocation]);
   };
 
+  const handleClear = () => {
+    setLocations([]);
+  };
+
   return (
     <>
       <canvas
@@ -107,7 +121,8 @@ const Canvas = () => {
         onClick={handleCanvasClick}
         style={{ border: "1px solid rgba(255,255,255,0.2)" }}
       />
-      <h2>{zorbThinksYouAreDrawing}</h2>
+      <Button onClick={handleClear}>Clear</Button>
+      <h2>{whatYouAreDrawing}</h2>
     </>
   );
 };
