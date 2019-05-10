@@ -1,16 +1,15 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
 
-import Canvas from "../components/Canvas";
-import PlayerList from "../components/PlayerList";
-import PlayerListItem from "../components/PlayerListItem";
-import PlayerAvatar from "../components/PlayerAvatar";
-import Button from "../components/Button";
-import Wrapper from "../components/Wrapper";
-import GameHeader from "../components/GameHeader";
+import Canvas from '../components/Canvas';
+import PlayerList from '../components/PlayerList';
+import PlayerListItem from '../components/PlayerListItem';
+import PlayerAvatar from '../components/PlayerAvatar';
+import Button from '../components/Button';
+import Wrapper from '../components/Wrapper';
+import GameHeader from '../components/GameHeader';
 
 export const Lobby = props => {
-
   const goBack = () => {
     props.history.goBack();
   };
@@ -52,10 +51,9 @@ const mapStateToProps = state => ({
   gameKey: state.gameKey
 });
 
-const mapDispatchToProps = dispatch => ({
-});
+const mapDispatchToProps = dispatch => ({});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
-)(Lobby); 
+  mapDispatchToProps
+)(Lobby);

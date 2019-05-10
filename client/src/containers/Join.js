@@ -1,25 +1,18 @@
-<<<<<<< HEAD
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import * as Actions from '../redux/actions/index'
-=======
-import React from "react";
+import React, { useState } from 'react';
 
-import { connect } from "react-redux";
-import * as Actions from "../redux/actions/index";
->>>>>>> d9f5a0ef4bd9754f4e61417dabe135e3e3ac0a23
+import { connect } from 'react-redux';
+import * as Actions from '../redux/actions/index';
 
-import Button from "../components/Button";
-import FormField from "../components/FormField";
-import FormLabel from "../components/FormLabel";
-import InputField from "../components/InputField";
-import PlayerAvatar from "../components/PlayerAvatar";
-import Wrapper from "../components/Wrapper";
+import Button from '../components/Button';
+import FormField from '../components/FormField';
+import FormLabel from '../components/FormLabel';
+import InputField from '../components/InputField';
+import PlayerAvatar from '../components/PlayerAvatar';
+import Wrapper from '../components/Wrapper';
 
-const Join = (props) => {
-
-  const [ playerName, setPlayerName ] = useState('');
-  const [ game, setGame ] = useState('');
+const Join = props => {
+  const [playerName, setPlayerName] = useState('');
+  const [game, setGame] = useState('');
 
   const handlePlayerName = event => {
     const value = event.target.value;
@@ -31,17 +24,16 @@ const Join = (props) => {
     setGame(value);
   };
 
-  const submitAndConnect = (e) => {
+  const submitAndConnect = e => {
     e.preventDefault();
     props.addName(playerName, props.userAvatar, game, 'Join');
     props.history.push('/lobby');
-  }
+  };
 
   const goBack = () => {
     props.history.goBack();
-  }
+  };
 
-const Join = props => {
   return (
     <Wrapper>
       <Button onClick={goBack}>Go Back</Button>
@@ -58,9 +50,9 @@ const Join = props => {
           <FormLabel>Enter Game Name: </FormLabel>
           <InputField type="text" name="gameName" onChange={handleGameName} />
         </FormField>
-          <Button primary marginTop type="submit">
-            Join
-          </Button>
+        <Button primary marginTop type="submit">
+          Join
+        </Button>
       </form>
     </Wrapper>
   );
@@ -72,7 +64,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addName: (player, avatar, gameKey, socketType) => dispatch(Actions.addName(player, avatar, gameKey, socketType)),
+  addName: (player, avatar, gameKey, socketType) =>
+    dispatch(Actions.addName(player, avatar, gameKey, socketType))
 });
 
 export default connect(
