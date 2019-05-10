@@ -20,7 +20,11 @@ export const socket = store => {
 
     // Inputs (on)
     socket.on('message', message => {
-      store.dispatch(message);
+      console.log('AND OUR BE SAYS', message);
+      store.dispatch({
+        type: 'SOCKET_MESSAGE',     //THIS IS A TEST, THIS IS NOT CORRECT OR FINAL
+        payload: message,
+      });
     });
 
     // Outputs (emit)

@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from "react-redux";
+
 import CanvasDraw from "../components/CanvasDraw";
 import PlayerList from "../components/PlayerList";
 import PlayerListItem from "../components/PlayerListItem";
@@ -7,9 +9,15 @@ import Button from "../components/Button";
 import Wrapper from "../components/Wrapper";
 import GameHeader from "../components/GameHeader";
 
-export const Lobby = () => {
+export const Lobby = props => {
+
+  const goBack = () => {
+    props.history.goBack();
+  };
+
   return (
     <Wrapper>
+      <Button onClick={goBack}>Go Back</Button>
       <GameHeader>
         <>ROOM NAME</>
         <Button primary>Start!</Button>
@@ -55,4 +63,15 @@ export const Lobby = () => {
   );
 };
 
-export default Lobby;
+const mapStateToProps = state => ({
+  userAvatar: state.userAvatar,
+  gameKey: state.gameKey
+});
+
+const mapDispatchToProps = dispatch => ({
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Lobby); 

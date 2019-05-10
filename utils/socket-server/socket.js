@@ -1,10 +1,17 @@
 let numPlayers = 1;
 const ioConfig = io => {
   io.on('connect', client => {
-    console.log('Client conected', client.id);
+    console.log('Client connected', client.id);
     client.on('message', message => {
-      console.log(message)
+      console.log('SHANSHANSHANSHAN', message)
       switch (message.type) {
+        case 'Create': 
+          io.emit('message', {
+            type: 'HENLO', 
+            payload: {
+              key: 'SUP?'
+            }
+          });
         case 'connect':
           io.emit('messageServer', {
             type: 'CREATE',

@@ -25,9 +25,14 @@ function Create (props) {
     props.addName(playerName, props.userAvatar, props.gameKey, 'Create');
     props.history.push('/lobby'); //not sure about this line, maybe ask Arol
   };
+
+   const goBack = () => {
+    props.history.goBack();
+  };
   
   return (
     <Wrapper>
+      <Button onClick={goBack}>Go Back</Button>
       <form onSubmit={submitName}>
         <FormField>
           <FormLabel>Your Avatar: </FormLabel>

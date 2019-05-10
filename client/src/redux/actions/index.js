@@ -24,7 +24,17 @@ export const addName = (playerName, playerAvatar, game, type) => ({
 export const saveAvatar = (avatar) => ({
   type: ActionTypes.USER_AVATAR,
   avatar
-})
+});
+
+// export const socketTest = message => {  //THIS IS A TEST, THIS IS NOT CORRECT OR FINAL
+//   console.log('HEEEEEEEEEEEEEEEY!!!!!!!!!!!!!!!!!!!1')
+//   return {
+//     type: ActionTypes.SOCKET_MESSAGE,
+//     message
+//   }
+// }
+
+
 
 
 

@@ -21,6 +21,11 @@ export default (state = initialState, action) => {
     return {
       ...state,
       userAvatar: action.avatar
+    };
+    case ActionTypes.SOCKET_MESSAGE:
+    return {
+      ...state,
+      message: action.payload.payload.key //THIS IS A TEST, THIS IS NOT CORRECT OR FINAL
     }
     case 'GET_KEY_SUCCESS':
     case 'GET_KEY_FAILURE':
