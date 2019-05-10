@@ -8,9 +8,8 @@ let tracePairX = [];
 let tracePairY = [];
 let timestamp = [];
 
-const postDrawing = () => {
-  return null;
-};
+// NOTE TO SELF THIS NEEDS TO BE A CALL TO THE BACKEND
+const postDrawing = () => null;
 
 const Canvas = () => {
   const [locations, setLocations] = React.useState([]);
@@ -20,8 +19,6 @@ const Canvas = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     const draw = e => {
-      // console.log("🚀 EVENT:", event);
-      // console.log("🗽 LOCATION:", location);
       if (!isDrawing) return;
       ctx.strokeStyle = "#fff";
       ctx.linecap = "round";
@@ -41,7 +38,6 @@ const Canvas = () => {
     };
 
     canvas.addEventListener("mousedown", e => {
-      // this one works
       isDrawing = true;
       lastX = e.offsetX;
       lastY = e.offsetY;
@@ -71,8 +67,6 @@ const Canvas = () => {
     });
 
     ctx.lineWidth = 5;
-    ctx.clearRect(0, 0, window.innerHeight, window.innerWidth);
-    locations.forEach(location => draw(ctx, location));
   });
 
   const handleCanvasClick = e => {
@@ -81,25 +75,14 @@ const Canvas = () => {
     setLocations([...locations, newLocation]);
   };
 
-  const handleClear = () => {
-    setLocations([]);
-  };
-
-  const handleUndo = () => {
-    setLocations(locations.slice(0, -1));
-  };
-
   return (
-    <>
-      <button onClick={handleClear}>Clear</button>
-      <button onClick={handleUndo}>Undo</button>
-      <canvas
-        ref={canvasRef}
-        width={window.innerWidth}
-        height={window.innerHeight}
-        onClick={handleCanvasClick}
-      />
-    </>
+    <canvas
+      ref={canvasRef}
+      width="400px"
+      height="400px"
+      onClick={handleCanvasClick}
+      style={{ border: "1px solid cyan" }}
+    />
   );
 };
 
