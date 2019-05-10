@@ -7,7 +7,7 @@ const bodyparser = require('koa-body');
 const router = require('./router');
 const PORT = 2000;
 
-const ioConfig = require('./socketConfig');
+const inputRouter = require('./socketRouter/inputRouter');
 
 function App(port = PORT) {
   this.koa = new Koa();
@@ -34,7 +34,7 @@ function App(port = PORT) {
       if (error) return console.error('ERROR', error); //eslint-disable-line
       console.log(`🚀 Server Running on ${port}`); //eslint-disable-line
       this.io.listen(this.server);
-      ioConfig(this.io);
+      inputRouter(this.io);
       resolve(this);
     });
   });
