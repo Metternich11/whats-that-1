@@ -4,6 +4,8 @@ const store = require('../redux/store').createRedux();
 const { createGame, addPlayer } = require('../redux/actions/');
 const mocks = require('../redux/mock');
 
+const gameController = require('./gameController');
+
 const clientController = {
   createRoom: (socket, message) => {
     const creationPlayer = {
