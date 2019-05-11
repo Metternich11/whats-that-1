@@ -48,10 +48,10 @@ const Canvas = () => {
     const ctx = canvas.getContext("2d");
 
     // canvas size
-    canvas.width = 400;
-    canvas.height = 400;
-    canvas.style.width = "400px";
-    canvas.style.height = "400px";
+    canvas.width = 320;
+    canvas.height = 320;
+    canvas.style.width = "320px";
+    canvas.style.height = "320px";
 
     // canvas settings
     ctx.strokeStyle = "#fff";
@@ -63,19 +63,37 @@ const Canvas = () => {
       e.preventDefault();
       e.stopPropagation();
 
-      xCoordinate.push(e.x);
-      yCoordinate.push(e.y);
-      timestamp.push(e.timeStamp);
+      if (e.x || e.y) {
+        xCoordinate.push(e.x);
+        yCoordinate.push(e.y);
+        timestamp.push(e.timeStamp);
 
-      ctx.beginPath();
-      ctx.moveTo(lastXCoordinate, lastYCoordinate);
-      ctx.lineTo(e.offsetX, e.offsetY);
-      ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(lastXCoordinate, lastYCoordinate);
+        ctx.lineTo(e.offsetX, e.offsetY);
+        ctx.stroke();
 
-      lastXCoordinate = e.offsetX;
-      lastYCoordinate = e.offsetY;
+        lastXCoordinate = e.offsetX;
+        lastYCoordinate = e.offsetY;
+      } else {
+        let touch = e.touches[0];
+        let x = touch.pageX - touch.target.offsetLeft;
+        let y = touch.pageY - touch.target.offsetTop;
+        xCoordinate.push(x);
+        yCoordinate.push(y);
+        timestamp.push(e.timeStamp);
+
+        ctx.beginPath();
+        ctx.moveTo(lastXCoordinate, lastYCoordinate);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+
+        lastXCoordinate = x;
+        lastYCoordinate = y;
+      }
     };
 
+    // eventlisteners: mouse
     canvas.addEventListener("mousedown", e => {
       isDrawing = true;
       lastXCoordinate = e.offsetX;
@@ -101,6 +119,22 @@ const Canvas = () => {
     canvas.addEventListener("mouseout", () => {
       isDrawing = false;
     });
+
+    // eventlisteners: touch
+    canvas.addEventListener("touchstart", e => {
+      isDrawing = true;
+      let touch = e.touches[0];
+      lastXCoordinate = touch.pageX - touch.target.offsetLeft;
+      lastYCoordinate = touch.pageY - touch.target.offsetTop;
+    });
+
+    canvas.addEventListener("touchmove", e => {
+      draw(e);
+    });
+
+    canvas.addEventListener("touchend", () => {
+      isDrawing = false;
+    });
   }, []);
 
   const handleCanvasClick = e => {
@@ -123,7 +157,9 @@ const Canvas = () => {
         onClick={handleCanvasClick}
         style={{ border: "1px solid rgba(255,255,255,0.2)" }}
       />
-      <Button onClick={handleClear}>Clear</Button>
+      <Button marginTop onClick={handleClear}>
+        Clear
+      </Button>
       <h2>
         {whatYouAreDrawing === "Draw something..." ? "" : "Zorb thinks it's a"}{" "}
         {whatYouAreDrawing}

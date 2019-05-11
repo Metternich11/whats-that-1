@@ -7,10 +7,11 @@ const InputField = styled.input`
   font-weight: bold;
   font-size: 1.2rem;
   background-color: rgba(255, 255, 255, 0.2);
-  margin: 10px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  height: 25px;
+  margin-bottom: 20px;
+  padding-left: 10px;
+  width: 100%;
+  height: 40px;
+  border-radius: 3px;
 
   &:active,
   &:focus {
