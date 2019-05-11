@@ -13,6 +13,8 @@ import "./App.css";
 
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"; // eslint-disable-line
 
+const hunk = 4;
+
 const GlobalStyle = createGlobalStyle`
   body {
     background-color: #764ad7;

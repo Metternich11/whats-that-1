@@ -1,0 +1,33 @@
+{
+  "name": "whats-that",
+  "version": "1.0.0",
+  "scripts": {
+    "postinstall": "concurrently -p \"[{name}]\" -n \"CLIENT,SERVER\" -c \"bgBlue.bold,bgMagenta.bold\" \"npm:install:client\" \"npm:install:server\"",
+    "install:client": "cd client && npm install",
+    "install:server": "cd client && npm install",
+    "start": "concurrently -p \"[{name}]\" -n \"CLIENT,SERVER\" -c \"bgBlue.bold,bgMagenta.bold\" \"npm:start:client\" \"npm:start:server\"",
+    "start:client": "cd client && npm start",
+    "start:server": "cd client && npm start",
+    "precommit": "concurrently -p \"[{name}]\" -n \"CLIENT,SERVER\" -c \"bgBlue.bold,bgMagenta.bold\" \"npm:precommit:client\" \"npm:precommit:server\"",
+    "precommit:client": "cd client && npm run precommit",
+    "precommit:server": "cd client && npm run precommit"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run precommit"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/F-Smith/whats-that.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/F-Smith/whats-that/issues"
+  },
+  "homepage": "https://github.com/F-Smith/whats-that#readme",
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "husky": "^2.2.0"
+  }
+}

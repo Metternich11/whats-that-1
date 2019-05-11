@@ -4,7 +4,8 @@
   "description": "server for the client of what's that",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "precommit": "lint-staged"
   },
   "author": "",
   "license": "ISC",
