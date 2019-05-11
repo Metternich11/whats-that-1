@@ -1,16 +1,6 @@
+/* eslint-disable no-console */
 const store = require('../redux/store').createRedux();
 const Actions = require('../redux/actions');
-/* eslint-disable no-console */
-// games: {
-//   'dog-big': {
-//       round: {
-//             currentRound: 0,
-//             word: '',
-//             roundStatus: false
-//           },
-//       playing: false
-//       players: ['playerid1', 'playerid2', 'playerid3'],
-//   }
 
 const gameModel = {
   addGame: (gameKey, totalRounds) => {
@@ -42,7 +32,7 @@ const gameModel = {
     let currentStatus = state.games[gameKey].round.roundStatus;
     store.dispatch(Actions.setRoundStatus(gameKey, !currentStatus));
   },
-  startRound: (gameKey, word) => {
+  startRound: async (gameKey, word) => {
     // startGame
     try {
       const state = store.getState();
@@ -60,7 +50,7 @@ const gameModel = {
       );
       return true;
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   },
 
@@ -132,14 +122,12 @@ const gameModel = {
         gameKey
       };
       store.dispatch(Actions.addPlayerToGame(playerToGame));
-      console.log(store.getState());
-      return true;
     } catch (error) {
       console.error(error);
     }
   },
 
-  playerExist: playerId => {
+  playerExist: async playerId => {
     try {
       const state = store.getState();
       return state.players[playerId] ? true : false;
@@ -157,7 +145,8 @@ const gameModel = {
     playerId;
   },
 
-  getPlayersFromGame: gameKey => {
+  getPlayersFromGame: async gameKey => {
+    // DARIO
     const state = store.getState();
     const playersId = state.games[gameKey].players;
     const players = [];
@@ -171,11 +160,11 @@ const gameModel = {
         }
       });
     });
-    console.log(Array.isArray(players));
     return players;
   },
 
-  getImagesFromRound: (gameKey, roundNumber) => {
+  getImagesFromRound: async (gameKey, roundNumber) => {
+    // DARIO
     const state = store.getState();
     const players = state.games[gameKey].players;
     const imagesFromRound = [];
