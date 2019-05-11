@@ -4,7 +4,7 @@ const gameModel = require('../models/gameModel');
 const requestWords = require('../helpers/requestWords');
 const requestGuess = require('../helpers/requestGuess');
 
-const RoundsPerGame = 3;
+const TOTALROUNDS = 3;
 const MillisecondsPerRound = 23000;
 
 const GameController = () => {
@@ -28,7 +28,7 @@ const GameController = () => {
       this.game.currentRound += 1;
     },
     getWords: () => {
-      this.game.words = requestWords(RoundsPerGame);
+      this.game.words = requestWords(TOTALROUNDS);
     },
     getCurrentWord: (currentRound) => {
       return this.game.words[currentRound];
@@ -40,37 +40,62 @@ const GameController = () => {
     // for inputRouter and outputRouter
     createGame: (socket, message) => {
       try {
-        gameModel.addGame(message.payload.key, socket.id, RoundsPerGame);
-        gameModel.addPlayerToGame(message.payload.key, socket.id, true);
-        gameModel.addPlayer(message.payload, socket.id);
-        outputRouter.join(socket, message.payload.key);
-        outputRouter.sendMessageRoom(socket, message);
+        if (gameModel.addGame(message.payload.gameKey, TOTALROUNDS)) {
+          if (gameModel.addPlayer(message.payload.player, socket.id)) {
+            if(gameModel.addPlayerToGame(socket.id, message.payload.gameKey, true)) {
+              const outputMsg = {
+                type: 'gameCreated',
+                payload: {
+                  gameKey: message.payload.gameKey
+                }
+              }
+              outputRouter.sendMessageToClient(socket, outputMsg);
+            }
+          }
+        }
       } catch(err) {
         console.error(err); 
       }
     },
     joinRoom: (socket, message) => {
       try {
-        gameModel.addPlayer(socket.id);
-        outputRouter.sendMessageRoom(socket, message);
+        gameModel.addPlayerToGameaddPlayerToGame(socket.id, message.payload.player.playerName);
+        const outputMsg = {
+          type: 'playerJoin',
+          payload: {
+            // playerName: message.payload.player.playerName
+            players: [{
+              playerName: message.payload.player.playerName,
+              playerAvator: message.payload.player.avator,
+              playerId: socket.id
+            }]
+          }
+        }
+        outputRouter.sendMessageRoom(outputMsg);
       } catch (err) {
         console.error(err);
       }
     },
     startGame: (socket, message) => {
       if (gameModel.gameExists) {
-        gameModel.startGame(socket.id.key); // double-check if that's the right way to get the key
+        gameModel.startGame(socket.id.gameKey); // double-check if that's the right way to get the key
+        // also start the 1st round
+        // pass frontend gameKey, number of rounds
+        // start round
+        // pass the word of the round and timer
       } else {
         outputRouter.gameDoesNotExist(); // need to have this func in outputRouter
       }
     },
-    receiveDraw: (socket, message) => {
+    passDrawing: (socket, message) => {
       const currentWord = gameModel.getCurrentWord();
-      const guess = requestGuess(message.payload);
+      const guess = requestGuess(message.payload.drawing); // need to add info before sending to google
       outputRouter.sendMessagePlayer(socket, {guess});
       if (guess === currentWord) {
         gameModel.setPlayerRoundWins(socket.id);
       }
+      // pass frontend payload: guess, guessWord
+      // if match, broadcast victory to the room. payload with playerId
       // check if the round is active. if not, add the drawing to player's draws
       if(this.game.isCurrentRoundComplete()) {
         this.game.addDrawing();
@@ -82,6 +107,27 @@ const GameController = () => {
       gameModel.removePlayer(socket.id);
       outputRouter.sendMessageRoom(socket, message);
     },
+    roundOver: () => {
+      // when the round is over
+      // broadcast to the room the round is over
+      // collect the last drawng
+
+    },
+    passFinalDrawing: (socket, message) => {
+      const lastDrawing = message.payload.drawingSVG;
+      gameModel.saveDrawingForRound(lastDrawing, socket.id, message.payload.gameKey); // double-check gameModel
+      // send roundDrawings. payload: {
+      //  drawings: {
+      //   {playerId: , drawing: },
+      //   {playerId: , drawing: },
+      //   {playerId: , drawing: }
+      //  }
+      // }
+    },
+    gameOver: () => {
+        // payload: {{player: , drawings: }}
+        
+    }
   }
 };
 
