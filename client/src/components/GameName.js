@@ -25,6 +25,11 @@ const GameName = styled.div`
       width: 25%
       font-size: 1rem;
     `}
+    ${props =>
+      props.betweenRounds &&
+      css`
+        width: 100%;
+      `}
 `;
 
 export default GameName;

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const AvatarShelf = styled.div`
-align-items: center;
+  align-items: center;
   background-color: rgba(255,255,255,0.3);
   color: #110627;
   display: flex;

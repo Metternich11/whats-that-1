@@ -13,7 +13,6 @@ const PolaroidPicBackground = styled.div`
   height: 375px;
   width: 375px;
   transform: ${rotationDegree};
-
   transition: 75ms linear all;
 `;
 

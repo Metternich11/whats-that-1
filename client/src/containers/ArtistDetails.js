@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const ArtistDetails = styled.div`
   align-items: center;
@@ -9,6 +9,12 @@ const ArtistDetails = styled.div`
   color: #fff;
   margin-top: 4vh;
   padding: 2vh 4vw;
+
+  ${props =>
+    props.scaled &&
+    css`
+      transform: scale(1.5);
+    `};
 `;
 
 export default ArtistDetails;

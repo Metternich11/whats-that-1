@@ -15,7 +15,7 @@ import Wrapper from "../components/Wrapper";
 
 export const Game = () => {
   return (
-    <Wrapper lessPadding>
+    <Wrapper>
       <GameHeader timer>
         <GameName timer>00:20</GameName>
         <WordToDraw>

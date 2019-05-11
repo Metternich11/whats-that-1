@@ -1,9 +1,7 @@
 import styled from "styled-components";
 
 const DrawingStack = styled.div`
-  align-items: center;
-  display: flex;
-  justify-content: center;
+  margin-top: -60px;
 `;
 
 export default DrawingStack;
