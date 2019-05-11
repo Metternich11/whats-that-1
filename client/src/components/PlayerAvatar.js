@@ -55,6 +55,7 @@ const PlayerAvatar = props => {
   );
 };
 
+
 const mapDispatchToProps = dispatch => ({
   userAvatar: avatar => dispatch(Actions.saveAvatar(avatar))
 });

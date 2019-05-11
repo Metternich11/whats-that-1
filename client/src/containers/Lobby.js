@@ -21,6 +21,7 @@ export const Lobby = props => {
 
   return (
     <Wrapper>
+      {console.log('UUUUUUUUUUUUUUU', props)}
       <Button onClick={goBack}>Go Back</Button>
       <GameHeader>
         <>ROOM NAME</>

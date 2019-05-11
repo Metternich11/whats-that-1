@@ -1,4 +1,5 @@
 import * as ActionTypes from "./types";
+import * as SocketTypes from './socketTypes';
 
 export const getKey = () => ({
   type: ActionTypes.GET_KEY,
@@ -15,8 +16,10 @@ export const addName = (playerName, playerAvatar, gameKey, type) => ({
     command: 'CONNECT',
     type,
     payload: {
-      playerName,
-      playerAvatar,
+      player: {
+        playerName,
+        playerAvatar,
+      },
       gameKey,
     }
   }

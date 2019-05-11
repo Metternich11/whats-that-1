@@ -3,39 +3,25 @@ const ioConfig = io => {
   io.on('connect', client => {
     console.log('Client connected', client.id);
     client.on('message', message => {
-      console.log('SHANSHANSHANSHAN', message.payload.playerAvatar)
+      console.log('SHANSHANSHANSHAN', message)
       switch (message.type) {
-        case 'Create': 
+        case 'createGame': 
           io.emit('message', {
-            type: 'HENLO', 
+            type: 'gameCreated', 
             payload: {
               playerName: 'Connected!!!',
               gameKey: 'Added player',
-              playerAvatar: message.payload.playerAvatar
+              playerAvatar: message.payload.player.playerAvatar
             }
           });
           break;
-        case 'Join':
+        case 'joinRoom':
           io.emit('message', {
-            type: 'I ADDED',
+            type: 'joined',
             payload: {
               playerName: 'Added player',
               gameKey: 'Added player',
-              playerAvatar: {
-                accessoriesType: "Kurt",
-                avatarStyle: "circle",
-                clotheColor: "PastelGreen",
-                clotheType: "BlazerSweater",
-                eyeType: "Surprised",
-                eyebrowType: "RaisedExcitedNatural",
-                facialHairColor: "Black",
-                facialHairType: "MoustacheFancy",
-                graphicType: "Diamond",
-                hairColor: "Black",
-                mouthType: "ScreamOpen",
-                skinColor: "DarkBrown",
-                topType: "LongHairStraightStrand"
-              }
+              playerAvatar: message.payload.player.playerAvatar
             }
           });
           break;

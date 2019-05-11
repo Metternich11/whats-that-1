@@ -1,4 +1,5 @@
 import * as ActionTypes from '../actions/types';
+import * as SocketTypes from '../actions/socketTypes';
 
 const initialState = {
   gameKey: undefined,
@@ -40,10 +41,21 @@ export default (state = initialState, action) => {
       userAvatar: action.avatar
     };
     case ActionTypes.SOCKET_MESSAGE:
-    return {
-      ...state,
-      message: action.payload.payload //THIS IS A TEST, THIS IS NOT CORRECT OR FINAL
-    }
+      switch(action.payload.type) {
+        case SocketTypes.GAME_CREATED: 
+        console.log('I AM ACTUALLY HERE')
+        return {
+          ...state,
+          message: action.payload.payload
+        };
+        case SocketTypes.JOINED: 
+        console.log('Join is working too')
+        return {
+          ...state,
+          message: action.payload.payload
+        }
+      }
+      break;
     default:
     return state;
   }

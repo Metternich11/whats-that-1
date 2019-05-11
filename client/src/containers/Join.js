@@ -26,7 +26,7 @@ const Join = props => {
 
   const submitAndConnect = e => {
     e.preventDefault();
-    props.addName(playerName, props.userAvatar, game, "Join");
+    props.addName(playerName, props.userAvatar, game, "joinRoom");
     props.history.push("/lobby");
   };
 
