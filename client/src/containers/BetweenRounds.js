@@ -13,23 +13,24 @@ import PlayerList from "../components/PlayerList";
 import PlayerListItem from "../components/PlayerListItem";
 import PolaroidPicBackground from "../components/PolaroidPicBackground";
 import SingleDrawing from "../components/SingleDrawing";
+import SpeechBubble from "../components/SpeechBubble";
 import TestVG from "../containers/TestVG";
 import Wrapper from "../components/Wrapper";
 
 export const BetweenRounds = () => {
   return (
-    <Wrapper>
+    <Wrapper lessPadding>
       <NextRoundCountdown>Next round starts in... 00:04</NextRoundCountdown>
+      <CurrentWord>Hurricane</CurrentWord>
       <DrawingStack>
         <SingleDrawing>
           <PolaroidPicBackground>
             <TestVG />
-            <ArtistDetails>
-              <PlayerHasSolvedRound />
-              <PlayerAvatar solo />
-              <CurrentWord>Hurricane</CurrentWord>
-            </ArtistDetails>
           </PolaroidPicBackground>
+          <ArtistDetails>
+            <SpeechBubble inGame>I drew that!</SpeechBubble>
+            <PlayerAvatar solo />
+          </ArtistDetails>
         </SingleDrawing>
       </DrawingStack>
       <PlayerList>

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const SpeechBubble = styled.span`
   animation: shake 3s;
@@ -40,6 +40,18 @@ const SpeechBubble = styled.span`
       transform: translate(1px, 1px) rotate(0deg);
     }
   }
+
+  ${props =>
+    props.inGame &&
+    css`
+      background-color: #764ad7;
+      color: #fff;
+
+      &:after {
+        border-top-color: #764ad7;
+        margin-left: 10px;
+      }
+    `};
 `;
 
 export default SpeechBubble;

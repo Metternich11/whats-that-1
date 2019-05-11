@@ -19,6 +19,12 @@ const GameName = styled.div`
       justify-content: flex-start;
       padding-left: 4vw;
     `}
+  ${props =>
+    props.timer &&
+    css`
+      width: 25%
+      font-size: 1rem;
+    `}
 `;
 
 export default GameName;

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const GameHeader = styled.div`
   align-items: center;
@@ -8,6 +8,13 @@ const GameHeader = styled.div`
   margin: 0 0 2vh 0;
   padding: 1vh 0;
   width: 100%;
+
+  ${props =>
+    props.timer &&
+    css`
+      justify-content: flex-start;
+      padding: 1vh 4vw;
+    `}
 `;
 
 export default GameHeader;

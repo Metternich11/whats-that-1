@@ -6,8 +6,9 @@ import React from "react";
 import Button from "../components/Button";
 import Canvas from "../components/Canvas";
 import PlayerAvatar from "../components/PlayerAvatar";
-import PlayerList from "../components/PlayerList";
 import PlayerListItem from "../components/PlayerListItem";
+import PlayerList from "../components/PlayerList";
+import PolaroidPicBackground from "../components/PolaroidPicBackground";
 import Wrapper from "../components/Wrapper";
 
 export const ComponentsCatalogue = () => {
@@ -43,6 +44,10 @@ export const ComponentsCatalogue = () => {
               <PlayerAvatar />
             </PlayerListItem>
           </PlayerList>
+        </div>
+        <div className="divider">
+          <h2>Polaroid Pic Background</h2>
+          <PolaroidPicBackground />
         </div>
       </Wrapper>
     </>

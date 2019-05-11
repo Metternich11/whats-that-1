@@ -17,7 +17,7 @@ const Wrapper = styled.div`
   }
 
   ${props =>
-    props.lobby &&
+    props.lessPadding &&
     css`
       padding-top: 45px;
     `};

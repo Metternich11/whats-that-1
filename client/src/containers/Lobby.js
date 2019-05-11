@@ -19,13 +19,14 @@ export const Lobby = props => {
   };
 
   return (
-    <Wrapper lobby>
+    <Wrapper lessPadding>
       <GameHeader>
         <GameName lobby>Wild-Winter</GameName>
         <Button primary onClick={startGame}>
           Start!
         </Button>
       </GameHeader>
+
       <Canvas />
       <PlayerList>
         <PlayerListItem>

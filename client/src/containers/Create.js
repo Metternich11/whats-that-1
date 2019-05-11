@@ -54,7 +54,7 @@ const Create = props => {
         <GameName>{props.loading ? "Loading..." : props.gameKey}</GameName>
 
         <ButtonContainer>
-          <Button primary marginTop form type="submit">
+          <Button primary marginTop formButton type="submit">
             Create
           </Button>
         </ButtonContainer>
