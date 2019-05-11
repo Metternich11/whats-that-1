@@ -40,22 +40,53 @@ export default (state = initialState, action) => {
       ...state,
       userAvatar: action.avatar
     };
+    case ActionTypes.CREATOR_START_GAME:
+    return {
+      ...state,
+    };
     case ActionTypes.SOCKET_MESSAGE:
       switch(action.payload.type) {
         case SocketTypes.GAME_CREATED: 
-        console.log('I AM ACTUALLY HERE')
         return {
           ...state,
           message: action.payload.payload
         };
         case SocketTypes.JOINED: 
-        console.log('Join is working too')
         return {
           ...state,
           message: action.payload.payload
-        }
+        };
+        case SocketTypes.START_GAME:
+        return {
+          ...state
+        };
+        case SocketTypes.START_ROUND:
+        return {
+          ...state
+        };
+        case SocketTypes.GUESS:
+        return {
+          ...state
+        };
+        case SocketTypes.VICTORY:
+        return {
+          ...state
+        };
+        case SocketTypes.ROUND_OVER:
+        return {
+          ...state
+        };
+        case SocketTypes.ROUND_DRAWINGS:
+        return {
+          ...state
+        };
+        case SocketTypes.GAME_OVER:
+        return {
+          ...state
+        };
+        default: 
+        return state;
       }
-      break;
     default:
     return state;
   }

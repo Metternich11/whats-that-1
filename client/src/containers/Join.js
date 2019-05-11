@@ -24,11 +24,31 @@ const Join = props => {
     setGame(value);
   };
 
-  const submitAndConnect = e => {
+  const submitAndConnect = async e => {
     e.preventDefault();
+    
     props.addName(playerName, props.userAvatar, game, "joinRoom");
+
     props.history.push("/lobby");
-  };
+  //   const user = { name: playerName };
+
+  //   try {
+  //     setLoading(true);
+  //     const result = await joinGame(user, gameKey);
+  //     redirectToLobby();
+  //   } catch (error) {
+  //     error = error && error.message;
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  // const joinGame(user, gameKey) {
+  //   return new Promise((resolve, reject) => {
+  //     props.joinGame("randomstrings", user, gameKey);
+
+  //   });
+  }
 
   const goBack = () => {
     props.history.goBack();
@@ -60,10 +80,7 @@ const mapStateToProps = state => ({
   gameKey: state.gameKey
 });
 
-const mapDispatchToProps = dispatch => ({
-  addName: (player, avatar, gameKey, socketType) =>
-    dispatch(Actions.addName(player, avatar, gameKey, socketType))
-});
+const mapDispatchToProps = { addName: Actions.addName };
 
 export default connect(
   mapStateToProps,

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import * as Actions from "../redux/actions/index";
 
 import Canvas from '../components/Canvas';
 import PlayerList from '../components/PlayerList';
@@ -16,12 +17,12 @@ export const Lobby = props => {
   };
 
   const startGame = () => {
+    props.startGame();
     props.history.push('/game');
   }
 
   return (
     <Wrapper>
-      {console.log('UUUUUUUUUUUUUUU', props)}
       <Button onClick={goBack}>Go Back</Button>
       <GameHeader>
         <>ROOM NAME</>
@@ -35,18 +36,6 @@ export const Lobby = props => {
         <PlayerListItem>
           <PlayerAvatar info={props.beAvatar} />
         </PlayerListItem>
-        {/* <PlayerListItem>
-          <PlayerAvatar />
-        </PlayerListItem>
-        <PlayerListItem>
-          <PlayerAvatar />
-        </PlayerListItem>
-        <PlayerListItem>
-          <PlayerAvatar />
-        </PlayerListItem>
-        <PlayerListItem>
-          <PlayerAvatar />
-        </PlayerListItem> */}
       </PlayerList>
     </Wrapper>
   );
@@ -58,7 +47,9 @@ const mapStateToProps = state => ({
   beAvatar: state.message,
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  startGame: () => dispatch(Actions.startGame())
+});
 
 export default connect(
   mapStateToProps,

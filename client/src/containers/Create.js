@@ -20,8 +20,9 @@ function Create(props) {
 
   const submitName = e => {
     e.preventDefault();
+
     props.addName(playerName, props.userAvatar, props.gameKey, "createGame");
-    props.history.push("/lobby"); //not sure about this line, maybe ask Arol
+    props.history.push("/lobby");
   };
 
   const goBack = () => {
@@ -42,9 +43,9 @@ function Create(props) {
         <FormLabel>Game:</FormLabel>
         <GameName>{props.loading ? 'Loading...' : props.gameKey}</GameName>
 
-        {/* <Button primary marginTop form type="submit">
+        <Button primary marginTop form type="submit">
           Create
-        </Button> */}
+        </Button>
       </Form>
     </Wrapper>
   );

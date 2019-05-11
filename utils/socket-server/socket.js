@@ -15,7 +15,7 @@ const ioConfig = io => {
             }
           });
           break;
-        case 'joinRoom':
+        case 'joinGame':
           io.emit('message', {
             type: 'joined',
             payload: {

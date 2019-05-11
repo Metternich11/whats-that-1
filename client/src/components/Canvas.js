@@ -1,5 +1,8 @@
 import React from "react";
 import Button from "./Button";
+import { connect } from "react-redux";
+import * as Actions from "../redux/actions/index";
+
 // useReducer
 let isDrawing = false;
 let lastXCoordinate = 0;
@@ -168,4 +171,12 @@ const Canvas = () => {
   );
 };
 
-export default Canvas;
+const mapDispatchToProps = dispatch => ({
+  postDrawing: (drawing) => dispatch(Actions.postDrawing(drawing))
+});
+// For now this function is not used, revise when FE and BE are connected
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Canvas);
