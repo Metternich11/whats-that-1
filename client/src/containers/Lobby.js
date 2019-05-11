@@ -1,13 +1,16 @@
 import React from "react";
+
+// Redux Imports
 import { connect } from "react-redux";
 
+// Component & Container Imports
+import Button from "../components/Button";
 import Canvas from "../components/Canvas";
+import GameHeader from "../components/GameHeader";
+import PlayerAvatar from "../components/PlayerAvatar";
 import PlayerList from "../components/PlayerList";
 import PlayerListItem from "../components/PlayerListItem";
-import PlayerAvatar from "../components/PlayerAvatar";
-import Button from "../components/Button";
 import Wrapper from "../components/Wrapper";
-import GameHeader from "../components/GameHeader";
 
 export const Lobby = props => {
   const goBack = () => {

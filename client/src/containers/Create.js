@@ -1,16 +1,22 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+
+// Redux Imports
 import { connect } from "react-redux";
 import * as Actions from "../redux/actions/index";
 
+// Component & Container Imports
+import AvatarContainer from "../components/AvatarContainer";
 import Button from "../components/Button";
+import ButtonContainer from "../components/ButtonContainer";
 import Form from "../components/Form";
 import FormLabel from "../components/FormLabel";
+import GameName from "../components/GameName";
 import InputField from "../components/InputField";
 import PlayerAvatar from "../components/PlayerAvatar";
+import SpeechBubble from "../components/SpeechBubble";
 import Wrapper from "../components/Wrapper";
 
-function Create(props) {
+const Create = props => {
   const [playerName, setPlayerName] = useState("");
 
   const handlePlayerName = event => {
@@ -58,71 +64,7 @@ function Create(props) {
       </Button>
     </Wrapper>
   );
-}
-
-const GameName = styled.div`
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 3px;
-  color: #472c81;
-  display: flex;
-  font-size: 1.4rem;
-  font-weight: bold;
-  justify-content: center;
-  min-height: 40px;
-  width: 100%;
-`;
-
-const SpeechBubble = styled.span`
-  animation: shake 3s;
-  animation-delay: 0.2s;
-  animation-iteration-count: infinite;
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 3px;
-  color: #472c81;
-  font-size: 0.8rem;
-  padding: 4px 10px;
-  position: relative;
-
-  &:after {
-    border: 20px solid transparent;
-    border-left: 0;
-    border-bottom: 0;
-    border-top-color: rgba(255, 255, 255, 0.5);
-    bottom: 0;
-    content: "";
-    height: 0;
-    left: 50%;
-    margin-left: -20px;
-    margin-bottom: -20px;
-    position: absolute;
-    width: 0;
-  }
-
-  @keyframes shake {
-    0% {
-      transform: translate(1px, 1px) rotate(0deg);
-    }
-    25% {
-      transform: translate(-1px, 2px) rotate(1deg);
-    }
-    75% {
-      transform: translate(1px, 0px) rotate(4deg);
-    }
-    100% {
-      transform: translate(1px, 1px) rotate(0deg);
-    }
-  }
-`;
-
-const AvatarContainer = styled.div`
-  margin-bottom: 2vh;
-`;
-
-const ButtonContainer = styled.div`
-  margin: 4vh 0;
-  align-self: center;
-`;
+};
 
 const mapStateToProps = state => ({
   userAvatar: state.userAvatar,
