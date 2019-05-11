@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Wrapper = styled.div`
   align-items: center;
@@ -15,6 +15,12 @@ const Wrapper = styled.div`
   @media (max-width: 1024px) {
     margin: 0 0 5vh 0;
   }
+
+  ${props =>
+    props.lobby &&
+    css`
+      padding-top: 45px;
+    `};
 `;
 
 export default Wrapper;

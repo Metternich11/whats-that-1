@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const GameName = styled.div`
   align-items: center;
@@ -11,6 +11,14 @@ const GameName = styled.div`
   justify-content: center;
   min-height: 40px;
   width: 100%;
+
+  ${props =>
+    props.lobby &&
+    css`
+      border-radius: 0px;
+      justify-content: flex-start;
+      padding-left: 4vw;
+    `}
 `;
 
 export default GameName;

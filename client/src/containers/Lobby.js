@@ -7,25 +7,21 @@ import { connect } from "react-redux";
 import Button from "../components/Button";
 import Canvas from "../components/Canvas";
 import GameHeader from "../components/GameHeader";
+import GameName from "../components/GameName";
 import PlayerAvatar from "../components/PlayerAvatar";
 import PlayerList from "../components/PlayerList";
 import PlayerListItem from "../components/PlayerListItem";
 import Wrapper from "../components/Wrapper";
 
 export const Lobby = props => {
-  const goBack = () => {
-    props.history.goBack();
-  };
-
   const startGame = () => {
     props.history.push("/game");
   };
 
   return (
-    <Wrapper>
-      <Button onClick={goBack}>Go Back</Button>
+    <Wrapper lobby>
       <GameHeader>
-        <>ROOM NAME</>
+        <GameName lobby>Wild-Winter</GameName>
         <Button primary onClick={startGame}>
           Start!
         </Button>

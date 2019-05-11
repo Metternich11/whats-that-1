@@ -57,6 +57,14 @@ const Button = styled.button`
       margin-top: 4vh;
       text-transform: none;
     `};
+
+  ${props =>
+    props.clear &&
+    css`
+      font-size: 0.8rem;
+      text-transform: none;
+      margin: 0;
+    `};
 `;
 
 export default Button;

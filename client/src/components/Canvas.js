@@ -1,6 +1,11 @@
 import React from "react";
+
+// Component & Container Imports
 import Button from "./Button";
-// useReducer
+import CanvasFooter from "./CanvasFooter";
+import CanvasFooterItem from "./CanvasFooterItem";
+
+// arol tip: useReducer instead of having this mess of variables here.
 let isDrawing = false;
 let lastXCoordinate = 0;
 let lastYCoordinate = 0;
@@ -11,7 +16,7 @@ let timestamp = [];
 let whatYouAreDrawing = "Draw something...";
 
 const googleURL =
-  // NOTE TO SELF THIS NEEDS TO BE A CALL TO THE BACKEND
+  // REPLACE WHEN BACKEND PROVIDE ENDPOINT
   "https://inputtools.google.com/request?ime=handwriting&app=quickdraw&dbg=1&cs=1&oe=UTF-8";
 
 const postDrawing = () => {
@@ -48,10 +53,10 @@ const Canvas = () => {
     const ctx = canvas.getContext("2d");
 
     // canvas size
-    canvas.width = 400;
-    canvas.height = 400;
-    canvas.style.width = "400px";
-    canvas.style.height = "400px";
+    canvas.width = 375;
+    canvas.height = 375;
+    canvas.style.width = "375px";
+    canvas.style.height = "375px";
 
     // canvas settings
     ctx.strokeStyle = "#fff";
@@ -154,15 +159,22 @@ const Canvas = () => {
       <canvas
         ref={canvasRef}
         onClick={handleCanvasClick}
-        style={{ border: "1px solid rgba(255,255,255,0.2)", cursor: "pointer" }}
+        style={{ border: "1px solid rgba(255,255,255,0.2)" }}
       />
-      <Button marginTop onClick={handleClear}>
-        Clear
-      </Button>
-      <h2>
-        {whatYouAreDrawing === "Draw something..." ? "" : "Zorb thinks"}{" "}
-        {whatYouAreDrawing}
-      </h2>
+      <CanvasFooter>
+        <CanvasFooterItem>
+          <Button clear onClick={handleClear}>
+            Clear
+          </Button>
+        </CanvasFooterItem>
+        <CanvasFooterItem right>
+          <h4>
+            {whatYouAreDrawing === "Draw something..." ? "" : "Is it... "}
+            {whatYouAreDrawing === "Draw something..." ? "" : whatYouAreDrawing}
+            {whatYouAreDrawing === "Draw something..." ? "" : "?"}
+          </h4>
+        </CanvasFooterItem>
+      </CanvasFooter>
     </>
   );
 };
