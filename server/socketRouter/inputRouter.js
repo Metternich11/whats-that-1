@@ -4,8 +4,9 @@ const gameController = require('../controllers/gameController')();
 
 const inputRouter = httpServer => {
   const io = IO(httpServer);
+  gameController.initialize(io);
   io.on('connect', socket => {
-    console.log('socket.id')  //eslint-disable-line
+    console.log(socket.id); //eslint-disable-line
     socket.on('message', message => {
       switch (message.type) {
         case 'createGame':
@@ -27,8 +28,8 @@ const inputRouter = httpServer => {
           gameController.leaveRoom(socket, message);
           break;
       }
-    })
+    });
   });
-}
+};
 
 module.exports = inputRouter;

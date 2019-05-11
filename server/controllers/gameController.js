@@ -52,6 +52,10 @@ const GameController = () => {
       maxNumPlayers: 6
     },
 
+    initialize: io => {
+      outputRouter.initialize(io);
+    },
+
     getCurrentWord: currentRound => {
       return this.game.words[currentRound];
     },

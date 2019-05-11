@@ -45,7 +45,8 @@ const gameModel = {
   startRound: (gameKey, word) => {
     // startGame
     try {
-      let currentRound = store.games[gameKey].round.currentRound;
+      const state = store.getState();
+      let currentRound = state.games[gameKey].round.currentRound;
       currentRound++;
       store.dispatch(
         Actions.startRound({
