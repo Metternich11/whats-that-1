@@ -1,16 +1,22 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+
+// Redux Imports
 import { connect } from "react-redux";
 import * as Actions from "../redux/actions/index";
 
+// Component & Container Imports
+import AvatarContainer from "../components/AvatarContainer";
 import Button from "../components/Button";
+import ButtonContainer from "../components/ButtonContainer";
 import Form from "../components/Form";
 import FormLabel from "../components/FormLabel";
+import GameName from "../components/GameName";
 import InputField from "../components/InputField";
 import PlayerAvatar from "../components/PlayerAvatar";
+import SpeechBubble from "../components/SpeechBubble";
 import Wrapper from "../components/Wrapper";
 
-function Create(props) {
+const Create = props => {
   const [playerName, setPlayerName] = useState("");
 
   const handlePlayerName = event => {
@@ -30,37 +36,35 @@ function Create(props) {
 
   return (
     <Wrapper>
+      <Form onSubmit={submitName}>
+        <FormLabel>Your Avatar</FormLabel>
+        <SpeechBubble>Looking good!</SpeechBubble>
+        <AvatarContainer>
+          <PlayerAvatar />
+        </AvatarContainer>
+        <FormLabel>Name</FormLabel>
+        <InputField
+          type="text"
+          name="name"
+          onChange={handlePlayerName}
+          required
+        />
+
+        <FormLabel>Game ID</FormLabel>
+        <GameName>{props.loading ? "Loading..." : props.gameKey}</GameName>
+
+        <ButtonContainer>
+          <Button primary marginTop form type="submit">
+            Create
+          </Button>
+        </ButtonContainer>
+      </Form>
       <Button back marginBottom onClick={goBack}>
         Back
       </Button>
-      <Form onSubmit={submitName}>
-        <p>Your Avatar</p>
-        <PlayerAvatar />
-        <FormLabel>Name:</FormLabel>
-        <InputField type="text" name="name" onChange={handlePlayerName} required />
-
-        <FormLabel>Game:</FormLabel>
-        <GameName>{props.loading ? 'Loading...' : props.gameKey}</GameName>
-
-        <Button primary marginTop form type="submit">
-          Create
-        </Button>
-      </Form>
     </Wrapper>
   );
-}
-
-const GameName = styled.div`
-  color: #472c81;
-  background-color: white;
-  min-height: 40px;
-  font-weight: bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  border-radius: 3px;
-`;
+};
 
 const mapStateToProps = state => ({
   userAvatar: state.userAvatar,

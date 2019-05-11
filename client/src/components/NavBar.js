@@ -1,17 +1,17 @@
 import styled from "styled-components";
 
 const NavBar = styled.nav`
+  align-items: center;
   background: #472c81;
-  height: 40px;
-  width: 100%;
+  box-shadow: 0px 0px 10px 1px rgba(255, 255, 255, 0.2);
   color: white;
   display: flex;
-  padding: 0.5em 1em;
-  align-items: center;
+  height: 40px;
   justify-content: space-between;
+  padding: 0.5em 1em;
   position: fixed;
   top: 0;
-  box-shadow: 0px 0px 10px 1px rgba(255, 255, 255, 0.2);
+  width: 100%;
 
   .logo {
     font-family: "Kalam", cursive;

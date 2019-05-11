@@ -1,42 +1,36 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
 
-import Canvas from '../components/Canvas';
-import PlayerList from '../components/PlayerList';
-import PlayerListItem from '../components/PlayerListItem';
-import PlayerAvatar from '../components/PlayerAvatar';
-import Button from '../components/Button';
-import Wrapper from '../components/Wrapper';
-import GameHeader from '../components/GameHeader';
+// Redux Imports
+import { connect } from "react-redux";
+
+// Component & Container Imports
+import Button from "../components/Button";
+import Canvas from "../components/Canvas";
+import GameHeader from "../components/GameHeader";
+import GameName from "../components/GameName";
+import PlayerAvatar from "../components/PlayerAvatar";
+import PlayerList from "../components/PlayerList";
+import PlayerListItem from "../components/PlayerListItem";
+import Wrapper from "../components/Wrapper";
 
 export const Lobby = props => {
-
-  const goBack = () => {
-    props.history.goBack();
+  const startGame = () => {
+    props.history.push("/game");
   };
 
-  const startGame = () => {
-    props.history.push('/game');
-  }
-
   return (
-    <Wrapper>
-      <Button onClick={goBack}>Go Back</Button>
+    <Wrapper lobby>
       <GameHeader>
-        <>ROOM NAME</>
-        <Button primary onClick={startGame}>Start!</Button>
+        <GameName lobby>Wild-Winter</GameName>
+        <Button primary onClick={startGame}>
+          Start!
+        </Button>
       </GameHeader>
       <Canvas />
-      <Button marginTop onClick={null}>
-        Clear Canvas
-      </Button>
       <PlayerList>
         <PlayerListItem>
           <PlayerAvatar info={props.beAvatar} />
         </PlayerListItem>
-        {/* <PlayerListItem>
-          <PlayerAvatar />
-        </PlayerListItem>
         <PlayerListItem>
           <PlayerAvatar />
         </PlayerListItem>
@@ -45,7 +39,10 @@ export const Lobby = props => {
         </PlayerListItem>
         <PlayerListItem>
           <PlayerAvatar />
-        </PlayerListItem> */}
+        </PlayerListItem>
+        <PlayerListItem>
+          <PlayerAvatar />
+        </PlayerListItem>
       </PlayerList>
     </Wrapper>
   );
@@ -54,10 +51,10 @@ export const Lobby = props => {
 const mapStateToProps = state => ({
   userAvatar: state.userAvatar,
   gameKey: state.gameKey,
-  beAvatar: state.message,
+  beAvatar: state.message
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = () => ({});
 
 export default connect(
   mapStateToProps,

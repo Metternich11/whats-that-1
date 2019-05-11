@@ -1,12 +1,16 @@
 import React from "react";
+
+// Redux Imports
+
+// Component & Container Imports
+import Button from "../components/Button";
+import GameWinner from "../components/GameWinner";
 import ImageCarousel from "../components/ImageCarousel";
-import SingleDrawing from "../components/SingleDrawing";
-import TestVG from "./TestVG";
 import PlayerList from "../components/PlayerList";
 import PlayerListItem from "../components/PlayerListItem";
 import PlayerAvatar from "../components/PlayerAvatar";
-import Button from "../components/Button";
-import GameWinner from "../components/GameWinner";
+import SingleDrawing from "../components/SingleDrawing";
+import TestVG from "./TestVG";
 import Wrapper from "../components/Wrapper";
 
 export const Results = () => {

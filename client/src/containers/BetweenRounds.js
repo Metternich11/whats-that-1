@@ -1,15 +1,19 @@
 import React from "react";
-import NextRoundCountdown from "../components/NextRoundCountdown";
-import DrawingStack from "../components/DrawingStack";
-import PlayerList from "../components/PlayerList";
-import PlayerListItem from "../components/PlayerListItem";
-import PlayerAvatar from "../components/PlayerAvatar";
-import SingleDrawing from "../components/SingleDrawing";
-import PolaroidPicBackground from "../components/PolaroidPicBackground";
-import TestVG from "../containers/TestVG";
+
+// Redux Imports
+
+// Component & Container Imports
 import ArtistDetails from "../containers/ArtistDetails";
 import CurrentWord from "../components/CurrentWord";
+import DrawingStack from "../components/DrawingStack";
+import NextRoundCountdown from "../components/NextRoundCountdown";
+import PlayerAvatar from "../components/PlayerAvatar";
 import PlayerHasSolvedRound from "../components/PlayerHasSolvedRound";
+import PlayerList from "../components/PlayerList";
+import PlayerListItem from "../components/PlayerListItem";
+import PolaroidPicBackground from "../components/PolaroidPicBackground";
+import SingleDrawing from "../components/SingleDrawing";
+import TestVG from "../containers/TestVG";
 import Wrapper from "../components/Wrapper";
 
 export const BetweenRounds = () => {
@@ -22,11 +26,8 @@ export const BetweenRounds = () => {
             <TestVG />
             <ArtistDetails>
               <PlayerHasSolvedRound />
-              <PlayerAvatar
-                solo
-                src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairFrizzle&accessoriesType=Wayfarers&hairColor=PastelPink&facialHairType=BeardLight&facialHairColor=Black&clotheType=CollarSweater&clotheColor=PastelYellow&eyeType=Close&eyebrowType=FlatNatural&mouthType=Concerned&skinColor=Brown"
-              />
-              <CurrentWord>Animal Migration</CurrentWord>
+              <PlayerAvatar solo />
+              <CurrentWord>Hurricane</CurrentWord>
             </ArtistDetails>
           </PolaroidPicBackground>
         </SingleDrawing>
@@ -34,16 +35,16 @@ export const BetweenRounds = () => {
       <PlayerList>
         <PlayerListItem>
           <PlayerHasSolvedRound />
-          <PlayerAvatar src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairFrizzle&accessoriesType=Wayfarers&hairColor=PastelPink&facialHairType=BeardLight&facialHairColor=Black&clotheType=CollarSweater&clotheColor=PastelYellow&eyeType=Close&eyebrowType=FlatNatural&mouthType=Concerned&skinColor=Brown" />
+          <PlayerAvatar />
         </PlayerListItem>
         <PlayerListItem>
-          <PlayerAvatar src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairFroBand&accessoriesType=Prescription01&hairColor=Platinum&facialHairType=Blank&facialHairColor=Brown&clotheType=ShirtVNeck&clotheColor=White&eyeType=WinkWacky&eyebrowType=Default&mouthType=Twinkle&skinColor=Tanned" />
+          <PlayerAvatar />
         </PlayerListItem>
         <PlayerListItem>
-          <PlayerAvatar src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairDreads02&accessoriesType=Prescription01&hatColor=Red&hairColor=BrownDark&facialHairType=BeardLight&facialHairColor=BrownDark&clotheType=ShirtScoopNeck&clotheColor=Blue01&eyeType=Hearts&eyebrowType=AngryNatural&mouthType=Twinkle&skinColor=Yellow" />
+          <PlayerAvatar />
         </PlayerListItem>
         <PlayerListItem>
-          <PlayerAvatar src="https://avataaars.io/?avatarStyle=Transparent&topType=WinterHat1&accessoriesType=Prescription02&hatColor=Pink&hairColor=SilverGray&facialHairType=BeardMedium&facialHairColor=Red&clotheType=BlazerShirt&clotheColor=White&eyeType=Default&eyebrowType=RaisedExcitedNatural&mouthType=Disbelief&skinColor=DarkBrown" />
+          <PlayerAvatar />
         </PlayerListItem>
       </PlayerList>
     </Wrapper>
