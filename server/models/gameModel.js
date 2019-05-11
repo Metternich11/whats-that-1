@@ -24,7 +24,8 @@ const gameModel = {
   },
 
   gameExists: gameKey => {
-    return store.games[gameKey] ? true : false;
+    const state = store.getState();
+    return state.games[gameKey] ? true : false;
   },
 
   startGame: (gameKey, word) => {
@@ -50,7 +51,8 @@ const gameModel = {
 
   getCurrentWord: gameKey => {
     try {
-      return store.games[gameKey].round.word;
+      const state = store.getState();
+      return state.games[gameKey].round.word;
     } catch (error) {
       console.error(error);
     }
@@ -58,7 +60,8 @@ const gameModel = {
 
   getCurrentRoundNumber: gameKey => {
     try {
-      return store.games[gameKey].round.currentRound;
+      const state = store.getState();
+      return state.games[gameKey].round.currentRound;
     } catch (error) {
       console.error(error);
     }
@@ -67,7 +70,8 @@ const gameModel = {
   deleteGame: gameKey => {
     // DELETE_GAME
     try {
-      if (store.games[gameKey]) {
+      const state = store.getState();
+      if (state.games[gameKey]) {
         Actions.deleteGame(gameKey);
         return true;
       } else {
@@ -122,7 +126,8 @@ const gameModel = {
 
   playerExist: playerId => {
     try {
-      return store.players[playerId] ? true : false;
+      const state = store.getState();
+      return state.players[playerId] ? true : false;
     } catch (error) {
       console.error(error);
     }
@@ -135,6 +140,25 @@ const gameModel = {
   playerWinRound: playerId => {
     //SET_PLAYER_ROUND_WINS
     playerId
+  },
+
+  getPlayersFromGame: (gameKey) => {
+
+    const state = store.getState();
+    const playersId = state.games[gameKey].players;
+    const players = [];
+
+    playersId.forEach(playerId => {
+      players.push({
+        [playerId]: {
+          playerName: state.players[playerId].playerName,
+          playerAvatar: state.players[playerId].playerAvatar,
+          playerId
+        }
+      });
+    });
+    console.log(Array.isArray(players))
+    return players;
   },
 
   getImagesFromRound: (gameKey, roundNumber) => {

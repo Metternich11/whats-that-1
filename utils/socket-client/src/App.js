@@ -33,7 +33,14 @@ const handleCreatorConnect = () => {
 
 const handleAdditionalPlayer = () => {
   socket.emit('message', {
-    type: 'additionalPlayer'
+    type: 'joinGame',
+    payload: {
+      player: {
+        playerName: 'Dario',
+        playerAvatar: {ty: 'qwe'}
+      },
+      gameKey: 'one-word'
+    }
   });
 };
 

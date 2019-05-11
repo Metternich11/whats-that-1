@@ -6,13 +6,16 @@ const requestGuess = require('../helpers/requestGuess');
 
 const TOTALROUNDS = 3;
 const MillisecondsPerRound = 23000;
+const maxNumPlayers = 6;
 
 const GameController = () => {
+
   return {
     game: {
       currentRound: 0,
       words: [],
-      isCurrentRoundComplete: false
+      isCurrentRoundComplete: false,
+      maxNumPlayers: 6
     },
     timer: () => {
       return setTimeout(() =>
@@ -58,25 +61,40 @@ const GameController = () => {
         console.error(err);
       }
     },
-    joinRoom: (socket, message) => {
+
+    joinGame: (socket, message) => {
+      console.log('here')
       try {
-        gameModel.addPlayerToGameaddPlayerToGame(socket.id, message.payload.player.playerName);
-        const outputMsg = {
-          type: 'playerJoin',
-          payload: {
-            // playerName: message.payload.player.playerName
-            players: [{
-              playerName: message.payload.player.playerName,
-              playerAvator: message.payload.player.avator,
-              playerId: socket.id
-            }]
+        const gameKey = message.payload.gameKey;
+        if (gameModel.gameExists(gameKey)) {
+          const numOfPlayersOnGame = gameModel.getPlayersFromGame(gameKey);
+          if (numOfPlayersOnGame.length < maxNumPlayers) {
+            if (gameModel.addPlayer(message.payload.player, socket.id)) {
+              if (gameModel.addPlayerToGame(socket.id, gameKey, true)) {
+                const outputMsg = {
+                  type: 'playerJoin',
+                  payload: {
+                    players: gameModel.getPlayersFromGame(gameKey)
+                  }
+                }
+                outputRouter.sendMessageRoomFromServer(outputMsg, gameKey);
+              }
+            }
+          } else {
+            outputRouter.sendMessageToClient({
+              type: 'maxNumOfPlayersReached'
+            })
           }
+        } else {
+          outputRouter.sendMessageToClient({
+            type: 'gameDoesNotExist'
+          })
         }
-        outputRouter.sendMessageRoom(outputMsg);
       } catch (err) {
         console.error(err);
       }
     },
+
     startGame: (socket, message) => {
       message
       if (gameModel.gameExists) {

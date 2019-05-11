@@ -11,8 +11,8 @@ const inputRouter = httpServer => {
         case 'createGame':
           gameController.createGame(socket, message);
           break;
-        case 'joinRoom':
-          gameController.joinRoom(socket, message);
+        case 'joinGame':
+          gameController.joinGame(socket, message);
           break;
         case 'receiveDraw':
           gameController.receiveDraw(socket, message);
