@@ -1,67 +1,136 @@
+ /* eslint-disable no-console */
 const outputRouter = require('../socketRouter/outputRouter')
 const gameModel = require('../models/gameModel');
+const requestWords = require('../helpers/requestWords');
+const requestGuess = require('../helpers/requestGuess');
 
-const gameController = {
-  createGame: (socket, message) => {
-    if(gameModel.addGame(message.payload.key, socket.id)) {
-      gameModel.addPlayer(message.payload, socket.id);
-      outputRouter.join(socket, message.payload.key);
-      // outputRouter.sendMessageRoom(socket, message);
+const TOTALROUNDS = 3;
+const MillisecondsPerRound = 23000;
+
+const GameController = () => {
+  return {
+    game: {
+      currentRound: 0,
+      words: [],
+      isCurrentRoundComplete: false
+    },
+    timer: () => {
+      return setTimeout(() => 
+        this.endRound()
+      , MillisecondsPerRound)
+    },
+    startRound: () => {
+      this.game.isCurrentRoundComplete = false;
+      this.timer = this.roundTimer();
+    },
+    endRound: () => {
+      this.game.isCurrentRoundComplete = true;
+      this.game.currentRound += 1;
+    },
+    getWords: () => {
+      this.game.words = requestWords(TOTALROUNDS);
+    },
+    getCurrentWord: (currentRound) => {
+      return this.game.words[currentRound];
+    },
+    getCurrentRound: () => {
+      this.game.currentRound = gameModel.getCurrentRound();
+    },
+
+    // for inputRouter and outputRouter
+    createGame: (socket, message) => {
+      try {
+        if (gameModel.addGame(message.payload.gameKey, TOTALROUNDS)) {
+          if (gameModel.addPlayer(message.payload.player, socket.id)) {
+            if(gameModel.addPlayerToGame(socket.id, message.payload.gameKey, true)) {
+              const outputMsg = {
+                type: 'gameCreated',
+                payload: {
+                  gameKey: message.payload.gameKey
+                }
+              }
+              outputRouter.sendMessageToClient(socket, outputMsg);
+            }
+          }
+        }
+      } catch(err) {
+        console.error(err); 
+      }
+    },
+    joinRoom: (socket, message) => {
+      try {
+        gameModel.addPlayerToGameaddPlayerToGame(socket.id, message.payload.player.playerName);
+        const outputMsg = {
+          type: 'playerJoin',
+          payload: {
+            // playerName: message.payload.player.playerName
+            players: [{
+              playerName: message.payload.player.playerName,
+              playerAvator: message.payload.player.avator,
+              playerId: socket.id
+            }]
+          }
+        }
+        outputRouter.sendMessageRoom(outputMsg);
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    startGame: (socket, message) => {
+      if (gameModel.gameExists) {
+        gameModel.startGame(socket.id.gameKey); // double-check if that's the right way to get the key
+        // also start the 1st round
+        // pass frontend gameKey, number of rounds
+        // start round
+        // pass the word of the round and timer
+      } else {
+        outputRouter.gameDoesNotExist(); // need to have this func in outputRouter
+      }
+    },
+    passDrawing: (socket, message) => {
+      const currentWord = gameModel.getCurrentWord();
+      const guess = requestGuess(message.payload.drawing); // need to add info before sending to google
+      outputRouter.sendMessagePlayer(socket, {guess});
+      if (guess === currentWord) {
+        gameModel.setPlayerRoundWins(socket.id);
+      }
+      // pass frontend payload: guess, guessWord
+      // if match, broadcast victory to the room. payload with playerId
+      // check if the round is active. if not, add the drawing to player's draws
+      if(this.game.isCurrentRoundComplete()) {
+        this.game.addDrawing();
+              clearTimeout(this.timer);
+              this.endRound();
+            }
+    },
+    leaveRoom: (socket, message) => {
+      gameModel.removePlayer(socket.id);
+      outputRouter.sendMessageRoom(socket, message);
+    },
+    roundOver: () => {
+      // when the round is over
+      // broadcast to the room the round is over
+      // collect the last drawng
+
+    },
+    passFinalDrawing: (socket, message) => {
+      const lastDrawing = message.payload.drawingSVG;
+      gameModel.saveDrawingForRound(lastDrawing, socket.id, message.payload.gameKey); // double-check gameModel
+      // send roundDrawings. payload: {
+      //  drawings: {
+      //   {playerId: , drawing: },
+      //   {playerId: , drawing: },
+      //   {playerId: , drawing: }
+      //  }
+      // }
+    },
+    gameOver: () => {
+        // payload: {{player: , drawings: }}
+        
     }
-  },
-}
+  }
+};
 
-// const gameModel = require('../models/gameModel')
-
-// class GameController {
-//   constructor(game, socketController) {
-//     this.game = game;
-//     this.socket = socketController;
-
-//     this.endRound = this.endRound.bind(this);
-//   }
-
-//   startGame () {
-//     //setup game
-//     try{
-//       startRound();
-//     } catch (e) {
-//       if(typeof e === GameNotEnoughPlayersError) {
-//         socket.sendNotEnoughPlayers();
-//       }
-//     }
-//   };
-
-//   adminJoin () {};
-//   playerJoin () {};
-
-
-//   startRound () {
-//     this.game.startNewRound(); // tells the game to increase currentRound (figures out the new word)
-//     socket.sendStart(this.game.currentRound); // sends the info for this round
-//     this.timer = setTimeout(this.endRound, 26000);
-//   };
-
-//   endRound() {
-//     socket.sendEndRound();
-//     if (this.game.isLastRound()) {
-//       this.endGame();
-//     } else {
-//       this.startRound();
-//     }
-//   };
-
-//   endGame () {
-//     socket.sendEndGame(this.game);
-//   };
-
-//   receiveDrawing(drawing) {
-//     this.game.addDrawing();
-//     if(this.game.isCurrentRoundComplete()) {
-//       clearTimeout(this.timer);
-//       this.endRound();
-//     }
-//   };
-// }
-
-module.exports = gameController;
+// update inputRouter how to call it
+//const gameController = GameController();
+module.exports = GameController;
