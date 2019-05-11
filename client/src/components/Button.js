@@ -45,7 +45,7 @@ const Button = styled.button`
     `};
 
   ${props =>
-    props.form &&
+    props.formButton &&
     css`
       margin-left: 0;
       align-self: center;

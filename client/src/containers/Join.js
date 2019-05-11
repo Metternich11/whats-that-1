@@ -31,29 +31,25 @@ const Join = props => {
 
   const submitAndConnect = async e => {
     e.preventDefault();
-    
-    props.addName(playerName, props.userAvatar, game, "joinRoom");
-
-    props.history.push("/lobby");
-  //   const user = { name: playerName };
-
-  //   try {
-  //     setLoading(true);
-  //     const result = await joinGame(user, gameKey);
-  //     redirectToLobby();
-  //   } catch (error) {
-  //     error = error && error.message;
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-  // const joinGame(user, gameKey) {
-  //   return new Promise((resolve, reject) => {
-  //     props.joinGame("randomstrings", user, gameKey);
-
-  //   });
+    props.connectGame(playerName, props.userAvatar, game, 'joinGame')
+    props.history.push('/lobby')
   }
+  
+  //   try {
+  //     await connectGamePromise();
+  //     props.history.push('/lobby')
+  //   } catch (error) {
+  //     console.log(error);
+  //   } 
+  // }
+
+  // const connectGamePromise = () => {
+  //   return new Promise((resolve, reject) => {
+  //     props.connectGame(playerName, props.userAvatar, game, 'joinGame')
+  //   })
+  // }
+
+  ////////////// This thing above is WIP //////////////////////
 
   const goBack = () => {
     props.history.goBack();
@@ -84,7 +80,7 @@ const Join = props => {
         />
 
         <ButtonContainer>
-          <Button primary marginTop form type="submit">
+          <Button primary marginTop formButton type="submit">
             Join
           </Button>
         </ButtonContainer>
@@ -101,7 +97,7 @@ const mapStateToProps = state => ({
   gameKey: state.gameKey
 });
 
-const mapDispatchToProps = { addName: Actions.addName };
+const mapDispatchToProps = { connectGame: Actions.connectGame };
 
 export default connect(
   mapStateToProps,

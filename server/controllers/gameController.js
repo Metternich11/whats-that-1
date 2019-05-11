@@ -39,6 +39,7 @@ const GameController = () => {
 
     // for inputRouter and outputRouter
     createGame: (socket, message) => {
+      console.log('YEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa')
       try {
         if (gameModel.addGame(message.payload.gameKey, TOTALROUNDS)) {
           if (gameModel.addPlayer(message.payload.player, socket.id)) {

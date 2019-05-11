@@ -1,17 +1,17 @@
 const IO = require('socket.io');
-const gameController = require('../controllers/gameController');
+const gameController = require('../controllers/gameController')();
 const socketArray = [];
 
 const inputRouter = httpServer => {
     const io = IO(httpServer);
     io.on('connect', socket => {
       console.log('connected');   // eslint-disable-line
-      socket.on('clientAction', message => {  
+      socket.on('message', message => {  
         switch (message.type) {
-          case 'createRoom':
+          case 'createGame':
             gameController.createGame(socket, message);
             break;
-          case 'joinRoom':
+          case 'joinGame':
             gameController.joinRoom(socket, message);
             break;
           case 'receiveDraw':

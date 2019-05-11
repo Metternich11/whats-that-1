@@ -33,7 +33,8 @@ export default (state = initialState, action) => {
     return {
       ...state,
       playerName: action.playerName,
-      gameKey: action.gameKey
+      gameKey: action.gameKey,
+      isCreator: action.socket.type
     };
     case ActionTypes.USER_AVATAR:
     return {

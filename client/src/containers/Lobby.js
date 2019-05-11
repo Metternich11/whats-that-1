@@ -24,9 +24,7 @@ export const Lobby = props => {
     <Wrapper lobby>
       <GameHeader>
         <GameName lobby>Wild-Winter</GameName>
-        <Button primary onClick={startGame}>
-          Start!
-        </Button>
+        {props.isCreator === 'createGame' ? <Button primary onClick={startGame}> Start! </Button> : ''}
       </GameHeader>
       <Canvas />
       <PlayerList>
@@ -41,7 +39,8 @@ export const Lobby = props => {
 const mapStateToProps = state => ({
   userAvatar: state.userAvatar,
   gameKey: state.gameKey,
-  beAvatar: state.message
+  beAvatar: state.message,
+  isCreator: state.isCreator
 });
 
 const mapDispatchToProps = dispatch => ({

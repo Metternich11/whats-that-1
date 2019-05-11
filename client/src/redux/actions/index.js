@@ -12,7 +12,7 @@ export const saveAvatar = (avatar) => ({
   avatar
 });
 
-export const addName = (playerName, playerAvatar, gameKey, type) => ({
+export const connectGame = (playerName, playerAvatar, gameKey, type) => ({
   type: ActionTypes.PLAYER_INFO,
   playerName,
   gameKey,
