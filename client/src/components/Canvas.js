@@ -4,6 +4,7 @@ import React from "react";
 import Button from "./Button";
 import CanvasFooter from "./CanvasFooter";
 import CanvasFooterItem from "./CanvasFooterItem";
+import quickdrawSvgRender from '../utils/quickdrawSvgRender/quickdrawSvgRender';
 
 // arol tip: useReducer instead of having this mess of variables here.
 let isDrawing = false;
@@ -30,8 +31,8 @@ const postDrawing = () => {
       requests: [
         {
           writing_guide: {
-            writing_area_width: 400,
-            writing_area_height: 400
+            writing_area_width: 375,
+            writing_area_height: 375
           },
           ink: drawing,
           language: "quickdraw"
@@ -69,8 +70,8 @@ const Canvas = () => {
       e.stopPropagation();
 
       if (e.x || e.y) {
-        xCoordinate.push(e.x);
-        yCoordinate.push(e.y);
+        xCoordinate.push(e.layerX);
+        yCoordinate.push(e.layerY);
         timestamp.push(e.timeStamp);
 
         ctx.beginPath();
@@ -114,6 +115,7 @@ const Canvas = () => {
       drawing.push(xyCoordinates);
 
       postDrawing();
+      console.log(quickdrawSvgRender(drawing, 375, 375))
 
       xCoordinate = [];
       yCoordinate = [];

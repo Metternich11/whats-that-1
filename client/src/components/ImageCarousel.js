@@ -2,11 +2,14 @@ import styled from "styled-components";
 
 const ImageCarousel = styled.div`
   display: flex;
-  margin: 0 0 4vh 0;
+  align-items: center;
   overflow: hidden;
   overflow-x: scroll;
   text-align: center;
-  width: 100%;
+  width: 800px;
+  height: 400px;
+  border: 1px solid white;
+  background-color: white;
 `;
 
 export default ImageCarousel;
