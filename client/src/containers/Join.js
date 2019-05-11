@@ -44,11 +44,11 @@ const Join = props => {
         </FormField>
         <FormField>
           <FormLabel>Enter your name: </FormLabel>
-          <InputField type="text" name="name" onChange={handlePlayerName} />
+          <InputField type="text" name="name" onChange={handlePlayerName} required/>
         </FormField>
         <FormField>
           <FormLabel>Enter Game Name: </FormLabel>
-          <InputField type="text" name="gameName" onChange={handleGameName} />
+          <InputField type="text" name="gameName" onChange={handleGameName} required/>
         </FormField>
         <Button primary marginTop type="submit">
           Join

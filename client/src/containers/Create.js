@@ -39,11 +39,11 @@ function Create (props) {
         </FormField>
         <FormField>
           <FormLabel>Enter your name: </FormLabel>
-          <InputField type="text" name="name" onChange={handlePlayerName} />
+          <InputField type="text" name="name" onChange={handlePlayerName} required/>
         </FormField>
         <FormField>
           <FormLabel>Game Name: </FormLabel>
-          <GameName>{props.gameKey}</GameName>
+          <GameName>{props.loading ? 'Loading...' : props.gameKey}</GameName>
         </FormField>
           <Button primary marginTop type="submit">
             Create
@@ -66,7 +66,8 @@ const GameName = styled.div`
 
 const mapStateToProps = state => ({
   userAvatar: state.userAvatar,
-  gameKey: state.gameKey
+  gameKey: state.gameKey,
+  loading: state.loading
 });
 
 const mapDispatchToProps = dispatch => ({

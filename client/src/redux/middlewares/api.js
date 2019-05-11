@@ -6,6 +6,10 @@ export const api = store => next => action => {
   const method = api.method || 'GET';
   const body = api.body ? JSON.stringify(body) : undefined
 
+  next({
+    type: `${action.type}_LOADING`
+  });
+
   fetch(api.url, {
     method, 
     body
@@ -13,13 +17,13 @@ export const api = store => next => action => {
     .then(res => res.json())
     .then(data => {
       store.dispatch({
-        type: `${action.type}`,
+        type: `${action.type}_SUCCESS`,
         data
       });
     })
     .catch(error => {
       store.dispatch({
-        type: `${action.type}`,
+        type: `${action.type}_FAILURE`,
         error
       });
     });
