@@ -2,7 +2,7 @@ const App = require('./app');
 const io = require('socket.io-client');
 const port = 2002;
 
-const mocks = require('./mocks/mocks.js');
+// const mocks = require('./mocks/mocks.js');
 
 let app;
 
@@ -22,7 +22,7 @@ beforeAll( done => {
       done();
     });
     sender.on('error', error => {
-      console.error(error);
+      console.error(error); //eslint-disable-line
     });
   });
 });
