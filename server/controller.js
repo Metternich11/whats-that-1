@@ -6,8 +6,6 @@ module.exports.getAll = async (ctx, next) => {
     ctx.body = await {key: 'doggy'};
     ctx.status = 200;
     await next();
-    const boom;
-    
   } catch (error) {
     console.error(error);
   }
