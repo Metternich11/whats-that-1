@@ -37,6 +37,26 @@ const Button = styled.button`
     css`
       margin-top: 2vh;
     `};
+
+  ${props =>
+    props.marginBottom &&
+    css`
+      margin-bottom: 2vh;
+    `};
+
+  ${props =>
+    props.form &&
+    css`
+      margin-left: 0;
+    `};
+
+  ${props =>
+    props.back &&
+    css`
+      align-self: flex-start;
+      margin-top: -50px;
+      text-transform: none;
+    `};
 `;
 
 export default Button;

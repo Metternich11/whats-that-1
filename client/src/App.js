@@ -18,13 +18,15 @@ const GlobalStyle = createGlobalStyle`
     background-color: #764ad7;
     color: #ffffff;
     margin: 0;
-    @import url("https://fonts.googleapis.com/css?family=Nunito:400,600");
+    @import url("https://fonts.googleapis.com/css?family=Nunito:400,600|Kalam:700");
     font-family: 'Nunito', sans-serif;
+  }
+  * {
+    box-sizing: border-box;
   }
 `;
 
 const App = () => {
-  
   return (
     <>
       <GlobalStyle />
@@ -41,6 +43,5 @@ const App = () => {
     </>
   );
 };
-
 
 export default App;

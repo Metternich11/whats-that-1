@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
 import { connect } from "react-redux";
-import * as Actions from '../redux/actions/index'
+import * as Actions from "../redux/actions/index";
 
 import generateAvatarProps from "../utils/generateAvatarProps";
 import Avatar from "avataaars";
@@ -16,7 +16,7 @@ const AvatarContainer = styled.div`
   ${props =>
     props.solo &&
     css`
-      margin: 0 20px 0 0;
+      margin-right: 0 20px s0 0;
       width: 60px;
       height: 60px;
     `};
@@ -55,12 +55,11 @@ const PlayerAvatar = props => {
   );
 };
 
-
 const mapDispatchToProps = dispatch => ({
   userAvatar: avatar => dispatch(Actions.saveAvatar(avatar))
 });
 
 export default connect(
   null,
-  mapDispatchToProps,
-)(PlayerAvatar); 
+  mapDispatchToProps
+)(PlayerAvatar);
