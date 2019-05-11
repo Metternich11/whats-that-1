@@ -1,21 +1,6 @@
-const key = require('../helpers/requestGameKey');
-const requestQuickDraw = require('../helpers/requestGuess'); 
-const store = require('../redux/store').createRedux();
-const { createGame, addPlayer } = require('../redux/actions/');
-const mocks = require('../redux/mock');
+const socketHandler = {
 
-const gameController = require('./gameController');
-
-const clientController = {
   createRoom: (socket, message) => {
-    const creationPlayer = {
-      playerId: socket.id,
-      playerName: message.payload.playerName,
-      playerAvatar: message.payload.avatarUrl,
-      isCreator: true,
-      gameKey: message.payload.key,
-      draws: []  
-    }
     store.dispatch(createGame(creationPlayer.gameKey))
     store.dispatch(addPlayer(creationPlayer));
     socket.join(creationPlayer.gameKey);
@@ -67,5 +52,4 @@ const clientController = {
   },
 }
 
-module.exports = clientController;
-
+module.exports = socketHandler;

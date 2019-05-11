@@ -1,5 +1,5 @@
 const ActionTypes = require('../actions/types');
-const { omit } = require('lodash');
+const {omit} = require('lodash');
 
 const initialState = {
   games: {},
@@ -63,15 +63,23 @@ class GameController {
 module.exports = GameController;
   games: {
     'dog-big': {
-      round: 0,
-      playing: false
-      players: ['playerid1', 'playerid2', 'playerid3'],
+        round: {
+              currentRound: 0,
+              word: '',
+              roundStatus: false
+            },
+        playing: false
+        players: ['playerid1', 'playerid2', 'playerid3'],
     },
     'cat-small': {
-      round: 1,
-      playing: true
-      players: ['playerid5', 'playerid6', 'playerid8']
-    }
+        round: {
+              currentRound: 0,
+              word: '',
+              roundStatus: false
+            },
+        playing: false
+        players: ['playerid1', 'playerid2', 'playerid3'],
+    },
   },
 
   players: {
@@ -108,11 +116,34 @@ exports.reducer = (state = initialState, action) => {
               roundStatus: false
             },
             playing: false,
-            players: []
+            players: [],
+            rounds: action.totalRounds
           }
         }
       };
 
+    case ActionTypes.ADD_PLAYER_TO_GAME:
+      return {
+        ...state,
+        games: {
+          ...state.games,
+          [action.playerToGame.playerId]: {
+            ...state.games[action.playerToGame.playerId],
+            players: [
+              ...state.games[action.playerToGame.playerId].players,
+              action.playerToGame.playerId
+            ]
+          }
+        },
+        players: {
+          ...state.players,
+          [action.playerToGame.playerId]: {
+            ...state.players[action.playerToGame.playerId],
+            gameKey: action.playerToGame.gameKey,
+            isCreator: action.playerToGame.isCreator
+          }
+        }
+      };
     case ActionTypes.START_GAME:
       return {
         ...state,
