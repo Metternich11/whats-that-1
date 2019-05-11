@@ -6,9 +6,9 @@ const gameController = {
     if(gameModel.addGame(message.payload.key, socket.id)) {
       gameModel.addPlayer(message.payload, socket.id);
       outputRouter.join(socket, message.payload.key);
-      outputRouter.sendMessageRoom(socket, message);
+      // outputRouter.sendMessageRoom(socket, message);
     }
-  }
+  },
 }
 
 // const gameModel = require('../models/gameModel')

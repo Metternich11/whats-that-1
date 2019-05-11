@@ -1,9 +1,11 @@
+const IO = require('socket.io');
 const gameController = require('../controllers/gameController');
 const socketArray = [];
 
-const inputRouter = io => {
+const inputRouter = httpServer => {
+    const io = IO(httpServer);
     io.on('connect', socket => {
-      socketArray.push(socket.id);
+      console.log('connected');
       socket.on('clientAction', message => {
         switch (message.type) {
           case 'createRoom':
