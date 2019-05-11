@@ -30,36 +30,42 @@ function Create(props) {
 
   return (
     <Wrapper>
-      <Button back marginBottom onClick={goBack}>
-        Back
-      </Button>
       <Form onSubmit={submitName}>
         <p>Your Avatar</p>
         <PlayerAvatar />
         <FormLabel>Name:</FormLabel>
-        <InputField type="text" name="name" onChange={handlePlayerName} required />
+        <InputField
+          type="text"
+          name="name"
+          onChange={handlePlayerName}
+          required
+        />
 
         <FormLabel>Game:</FormLabel>
-        <GameName>{props.loading ? 'Loading...' : props.gameKey}</GameName>
+        <GameName>{props.loading ? "Loading..." : props.gameKey}</GameName>
 
         <Button primary marginTop form type="submit">
           Create
         </Button>
       </Form>
+      <Button back marginBottom onClick={goBack}>
+        Back
+      </Button>
     </Wrapper>
   );
 }
 
 const GameName = styled.div`
-  color: #472c81;
-  background-color: white;
-  min-height: 40px;
-  font-weight: bold;
-  display: flex;
-  justify-content: center;
   align-items: center;
-  width: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
   border-radius: 3px;
+  color: #472c81;
+  display: flex;
+  font-size: 1.4rem;
+  font-weight: bold;
+  justify-content: center;
+  min-height: 40px;
+  width: 100%;
 `;
 
 const mapStateToProps = state => ({

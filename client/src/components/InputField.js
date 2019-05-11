@@ -1,17 +1,17 @@
 import styled from "styled-components";
 
 const InputField = styled.input`
-  border: 0;
-  outline: none;
-  color: #fff;
-  font-weight: bold;
-  font-size: 1.2rem;
   background-color: rgba(255, 255, 255, 0.2);
+  border: 0;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  height: 40px;
   margin-bottom: 20px;
+  outline: none;
   padding-left: 10px;
   width: 100%;
-  height: 40px;
-  border-radius: 3px;
 
   &:active,
   &:focus {

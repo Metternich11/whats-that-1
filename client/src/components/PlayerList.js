@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 const PlayerList = styled.ul`
-  display: flex;
   align-items: flex-end;
+  display: flex;
+  flex-wrap: wrap;
   list-style-type: none;
   padding-inline-start: 0;
-  flex-wrap: wrap;
 `;
 
 export default PlayerList;

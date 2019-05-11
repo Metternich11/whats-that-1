@@ -34,16 +34,16 @@ export const Main = props => {
 };
 
 const Container = styled.div`
+  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 `;
 
 const Text = styled.p`
   font-size: 1.4rem;
-  padding: 0 15vw;
   margin-bottom: 6vh;
+  padding: 0 15vw;
 `;
 const mapStateToProps = state => ({
   getKey: state.getKey

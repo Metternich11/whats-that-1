@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 const Form = styled.form`
-  width: 50%;
-  background-color: #472c81;
-  padding: 20px;
+  align-items: flex-start;
+  background-color: rgba(71, 44, 129, 0.5);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  padding: 20px;
+  width: 50%;
 
   @media (max-width: 1024px) {
     width: 100%;
