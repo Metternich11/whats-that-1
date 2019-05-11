@@ -63,15 +63,23 @@ class GameController {
 module.exports = GameController;
   games: {
     'dog-big': {
-      round: 0,
-      playing: false
-      players: ['playerid1', 'playerid2', 'playerid3'],
+        round: {
+              currentRound: 0,
+              word: '',
+              roundStatus: false
+            },
+        playing: false
+        players: ['playerid1', 'playerid2', 'playerid3'],
     },
     'cat-small': {
-      round: 1,
-      playing: true
-      players: ['playerid5', 'playerid6', 'playerid8']
-    }
+        round: {
+              currentRound: 0,
+              word: '',
+              roundStatus: false
+            },
+        playing: false
+        players: ['playerid1', 'playerid2', 'playerid3'],
+    },
   },
 
   players: {
