@@ -3,12 +3,12 @@ import io from 'socket.io-client';
 
 import './App.css';
 
-const socket = io('http://localhost:3100/');
+const socket = io('http://localhost:2000/');
 
 socket.on('messageServer', server => {
   switch (server.type) {
     case 'CREATE':
-      const doggySocket = io('http://localhost:3100/doggy');
+      const doggySocket = io('http://localhost:2000');
       doggySocket.on('con', server => {
         console.log(server);
       });
@@ -19,49 +19,56 @@ socket.on('messageServer', server => {
 });
 
 const handleCreatorConnect = () => {
-  socket.emit('messageClient', {
-    type: 'connect'
+  socket.emit('message', {
+    type: 'createGame',
+    payload: {
+      player: {
+        playerName: 'Shanshan',
+        playerAvatar: {ty: 'qwe'}
+      },
+      gameKey: 'one-word'
+    }
   });
 };
 
 const handleAdditionalPlayer = () => {
-  socket.emit('messageClient', {
+  socket.emit('message', {
     type: 'additionalPlayer'
   });
 };
 
 const handleStartWithNoPlayers = () => {
-  socket.emit('messageClient', {
+  socket.emit('message', {
     type: 'noPlayers'
   });
 };
 
 const handleCreatorStart = () => {
-  socket.emit('messageClient', {
+  socket.emit('message', {
     type: 'startGame'
   });
 };
 
 const handleDrawing = () => {
-  socket.emit('messageClient', {
+  socket.emit('message', {
     type: 'drawing'
   });
 };
 
 const handleOnePlayerWin = () => {
-  socket.emit('messageClient', {
+  socket.emit('message', {
     type: 'playerWin'
   });
 };
 
 const handleEndRound = () => {
-  socket.emit('messageClient', {
+  socket.emit('message', {
     type: 'endRound'
   });
 };
 
 const handleEndGame = () => {
-  socket.emit('messageClient', {
+  socket.emit('message', {
     type: 'endGame'
   });
 };

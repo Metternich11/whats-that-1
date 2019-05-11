@@ -117,7 +117,7 @@ exports.reducer = (state = initialState, action) => {
             },
             playing: false,
             players: [],
-            rounds: action.totalRounds
+            totalRounds: action.totalRounds
           }
         }
       };
@@ -127,10 +127,10 @@ exports.reducer = (state = initialState, action) => {
         ...state,
         games: {
           ...state.games,
-          [action.playerToGame.playerId]: {
-            ...state.games[action.playerToGame.playerId],
+          [action.playerToGame.gameKey]: {
+            ...state.games[action.playerToGame.gameKey],
             players: [
-              ...state.games[action.playerToGame.playerId].players,
+              ...state.games[action.playerToGame.gameKey].players,
               action.playerToGame.playerId
             ]
           }
@@ -165,15 +165,6 @@ exports.reducer = (state = initialState, action) => {
     case ActionTypes.ADD_PLAYER:
       return {
         ...state,
-        games: {
-          ...state.games,
-          [action.player.gameKey]: {
-            players: [
-              ...state.games[action.player.gameKey].players,
-              action.player.playerId
-            ]
-          }
-        },
         players: {
           ...state.players,
           [action.player.playerId]: {

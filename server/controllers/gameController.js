@@ -1,4 +1,4 @@
- /* eslint-disable no-console */
+/* eslint-disable no-console */
 const outputRouter = require('../socketRouter/outputRouter')
 const gameModel = require('../models/gameModel');
 const requestWords = require('../helpers/requestWords');
@@ -15,9 +15,9 @@ const GameController = () => {
       isCurrentRoundComplete: false
     },
     timer: () => {
-      return setTimeout(() => 
+      return setTimeout(() =>
         this.endRound()
-      , MillisecondsPerRound)
+        , MillisecondsPerRound)
     },
     startRound: () => {
       this.game.isCurrentRoundComplete = false;
@@ -39,10 +39,11 @@ const GameController = () => {
 
     // for inputRouter and outputRouter
     createGame: (socket, message) => {
+      console.log(message)
       try {
         if (gameModel.addGame(message.payload.gameKey, TOTALROUNDS)) {
           if (gameModel.addPlayer(message.payload.player, socket.id)) {
-            if(gameModel.addPlayerToGame(socket.id, message.payload.gameKey, true)) {
+            if (gameModel.addPlayerToGame(socket.id, message.payload.gameKey, true)) {
               const outputMsg = {
                 type: 'gameCreated',
                 payload: {
@@ -53,8 +54,8 @@ const GameController = () => {
             }
           }
         }
-      } catch(err) {
-        console.error(err); 
+      } catch (err) {
+        console.error(err);
       }
     },
     joinRoom: (socket, message) => {
@@ -77,6 +78,7 @@ const GameController = () => {
       }
     },
     startGame: (socket, message) => {
+      message
       if (gameModel.gameExists) {
         gameModel.startGame(socket.id.gameKey); // double-check if that's the right way to get the key
         // also start the 1st round
@@ -97,11 +99,11 @@ const GameController = () => {
       // pass frontend payload: guess, guessWord
       // if match, broadcast victory to the room. payload with playerId
       // check if the round is active. if not, add the drawing to player's draws
-      if(this.game.isCurrentRoundComplete()) {
+      if (this.game.isCurrentRoundComplete()) {
         this.game.addDrawing();
-              clearTimeout(this.timer);
-              this.endRound();
-            }
+        clearTimeout(this.timer);
+        this.endRound();
+      }
     },
     leaveRoom: (socket, message) => {
       gameModel.removePlayer(socket.id);
@@ -125,8 +127,8 @@ const GameController = () => {
       // }
     },
     gameOver: () => {
-        // payload: {{player: , drawings: }}
-        
+      // payload: {{player: , drawings: }}
+
     }
   }
 };

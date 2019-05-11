@@ -92,7 +92,7 @@ const gameModel = {
       const newPlayer = {
         playerId,
         playerName: player.playerName,
-        playerAvatar: player.avatarObj,
+        playerAvatar: player.playerAvatar,
         isCreator: false,
         gameKey: '',
         draws: []
@@ -113,6 +113,7 @@ const gameModel = {
         gameKey
       };
       store.dispatch(Actions.addPlayerToGame(playerToGame));
+      console.log(store.getState())
       return true
     } catch (error) {
       console.error(error);
@@ -127,18 +128,23 @@ const gameModel = {
     }
   },
 
-  addDrawToPlayer: playerId => {},
+  addDrawToPlayer: playerId => {
+    playerId
+  },
 
   playerWinRound: playerId => {
     //SET_PLAYER_ROUND_WINS
+    playerId
   },
 
   getImagesFromRound: (gameKey, roundNumber) => {
     const state = store.getState();
     const players = state.games[gameKey].players;
     const imagesFromRound = [];
+    roundNumber
 
     players.forEach(player => {
+      player
       // lastRound
       //   ? imagesFromRound.push(store.players[player].draws)
       //   : imagesFromRound.push(store.players[player].draws[roundNumber - 1]);
@@ -147,7 +153,9 @@ const gameModel = {
     return imagesFromRound;
   },
 
-  getImagesFromGame: gameKey => {}
+  getImagesFromGame: gameKey => {
+    gameKey
+  }
 };
 
 module.exports = gameModel;

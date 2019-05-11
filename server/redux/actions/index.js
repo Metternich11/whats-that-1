@@ -1,8 +1,9 @@
 const ActionTypes = require('../actions/types');
 
-const createGame = game => ({
+const createGame = (game, totalRounds) => ({
   type: ActionTypes.CREATE_GAME,
-  game
+  game,
+  totalRounds
 });
 
 const startGame = (game, totalRounds) => ({
@@ -14,7 +15,7 @@ const startGame = (game, totalRounds) => ({
 const addPlayerToGame = playerToGame => ({
   type: ActionTypes.ADD_PLAYER_TO_GAME,
   playerToGame
-})
+});
 
 const deleteGame = gameId => ({
   type: ActionTypes.DELETE_GAME,
