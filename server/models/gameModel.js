@@ -28,7 +28,21 @@ const gameModel = {
     return state.games[gameKey] ? true : false;
   },
 
-  startGame: (gameKey, word) => {
+  getCurrentGameKey: playerId => {
+    const state = store.getState();
+    return state.players[playerId].gameKey;
+  },
+  getRoundStatus: gameKey => {
+    const state = store.getState();
+    return state.games[gameKey].round.roundStatus;
+  },
+
+  setRoundStatus: gameKey => {
+    const state = store.getState();
+    let currentStatus = state.games[gameKey].round.roundStatus;
+    store.dispatch(Actions.setRoundStatus(gameKey, !currentStatus));
+  },
+  startRound: (gameKey, word) => {
     // startGame
     try {
       let currentRound = store.games[gameKey].round.currentRound;
@@ -109,7 +123,7 @@ const gameModel = {
     }
   },
 
-  addPlayerToGame: (playerId, gameKey, isCreator = false) => {
+  addPlayerToGame: async (playerId, gameKey, isCreator = false) => {
     try {
       const playerToGame = {
         playerId,
@@ -117,8 +131,8 @@ const gameModel = {
         gameKey
       };
       store.dispatch(Actions.addPlayerToGame(playerToGame));
-      console.log(store.getState())
-      return true
+      console.log(store.getState());
+      return true;
     } catch (error) {
       console.error(error);
     }
@@ -134,16 +148,15 @@ const gameModel = {
   },
 
   addDrawToPlayer: playerId => {
-    playerId
+    playerId;
   },
 
   playerWinRound: playerId => {
     //SET_PLAYER_ROUND_WINS
-    playerId
+    playerId;
   },
 
-  getPlayersFromGame: (gameKey) => {
-
+  getPlayersFromGame: gameKey => {
     const state = store.getState();
     const playersId = state.games[gameKey].players;
     const players = [];
@@ -157,7 +170,7 @@ const gameModel = {
         }
       });
     });
-    console.log(Array.isArray(players))
+    console.log(Array.isArray(players));
     return players;
   },
 
@@ -165,10 +178,10 @@ const gameModel = {
     const state = store.getState();
     const players = state.games[gameKey].players;
     const imagesFromRound = [];
-    roundNumber
+    roundNumber;
 
     players.forEach(player => {
-      player
+      player;
       // lastRound
       //   ? imagesFromRound.push(store.players[player].draws)
       //   : imagesFromRound.push(store.players[player].draws[roundNumber - 1]);
@@ -178,7 +191,7 @@ const gameModel = {
   },
 
   getImagesFromGame: gameKey => {
-    gameKey
+    gameKey;
   }
 };
 

@@ -5,7 +5,8 @@ import './App.css';
 
 const socket = io('http://localhost:2000/');
 
-socket.on('messageServer', server => {
+socket.on('message', server => {
+  console.log(server);
   switch (server.type) {
     case 'CREATE':
       const doggySocket = io('http://localhost:2000');
@@ -24,7 +25,7 @@ const handleCreatorConnect = () => {
     payload: {
       player: {
         playerName: 'Shanshan',
-        playerAvatar: {ty: 'qwe'}
+        playerAvatar: { ty: 'qwe' }
       },
       gameKey: 'one-word'
     }
@@ -37,7 +38,7 @@ const handleAdditionalPlayer = () => {
     payload: {
       player: {
         playerName: 'Dario',
-        playerAvatar: {ty: 'qwe'}
+        playerAvatar: { ty: 'qwe' }
       },
       gameKey: 'one-word'
     }

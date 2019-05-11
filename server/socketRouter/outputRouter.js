@@ -3,7 +3,7 @@ const outputRouter = {
     socket.join(key);
   },
   sendMessageRoomFromServer: (mssg, roomKey) => {
-    // io.in(roomKey).emit('message', mssg);  // Please fix this
+    io.in(roomKey).emit('message', mssg); // eslint-disable-line
   },
   sendMessageRoomFromClient: (socket, mssg, roomKey) => {
     socket.to(roomKey).emit('message', mssg);
@@ -14,6 +14,6 @@ const outputRouter = {
   leaveRoom: (socket, roomKey) => {
     socket.leave(roomKey);
   }
-}
+};
 
 module.exports = outputRouter;

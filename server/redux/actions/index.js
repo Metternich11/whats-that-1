@@ -42,6 +42,12 @@ const startRound = round => ({
   round
 });
 
+const setRoundStatus = (gameKey, status) => ({
+  type: ActionTypes.SET_ROUND_STATUS,
+  gameKey,
+  status
+});
+
 module.exports = {
   createGame,
   addPlayer,
@@ -50,5 +56,6 @@ module.exports = {
   startGame,
   deleteGame,
   startRound,
-  addPlayerToGame
+  addPlayerToGame,
+  setRoundStatus
 };

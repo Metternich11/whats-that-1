@@ -1,5 +1,5 @@
 const ActionTypes = require('../actions/types');
-const {omit} = require('lodash');
+const { omit } = require('lodash');
 
 const initialState = {
   games: {},
@@ -210,6 +210,20 @@ exports.reducer = (state = initialState, action) => {
           ...state.games,
           [action.round.game]: {
             round: action.round.round
+          }
+        }
+      };
+
+    case ActionTypes.SET_ROUND_STATUS:
+      return {
+        ...state,
+        games: {
+          ...state.games,
+          [action.gameKey]: {
+            round: {
+              ...state.games[action.gameKey].round,
+              roundStatus: action.status
+            }
           }
         }
       };

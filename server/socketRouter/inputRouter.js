@@ -21,7 +21,7 @@ const inputRouter = httpServer => {
           gameController.receiveFinalDraw(socket, message);
           break;
         case 'startGame':
-          gameController.startGame(socket, message);
+          gameController.startGame(socket);
           break;
         case 'leaveRoom':
           gameController.leaveRoom(socket, message);
