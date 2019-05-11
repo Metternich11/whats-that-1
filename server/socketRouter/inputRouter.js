@@ -5,8 +5,8 @@ const socketArray = [];
 const inputRouter = httpServer => {
     const io = IO(httpServer);
     io.on('connect', socket => {
-      console.log('connected');
-      socket.on('clientAction', message => {  // eslint-disable-line
+      console.log('connected');   // eslint-disable-line
+      socket.on('clientAction', message => {  
         switch (message.type) {
           case 'createRoom':
             gameController.createGame(socket, message);
