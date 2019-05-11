@@ -13,10 +13,10 @@ const Actions = require('../redux/actions');
 //   }
 
 const gameModel = {
-  addGame: gameKey => {
+  addGame: (gameKey, totalRounds) => {
     // CREATEGAME
     try {
-      store.dispatch(Actions.createGame(gameKey));
+      store.dispatch(Actions.createGame(gameKey, totalRounds));
       return true;
     } catch (error) {
       console.error(error);
@@ -105,8 +105,18 @@ const gameModel = {
     }
   },
 
-  addPlayerToGame: (playerId, gameId, isCreator) => {
-    store.dispatch(Actions.addPlayerToGame(newPlayer));
+  addPlayerToGame: (playerId, gameKey, isCreator = false) => {
+    try {
+      const playerToGame = {
+        playerId,
+        isCreator,
+        gameKey
+      };
+      store.dispatch(Actions.addPlayerToGame(playerToGame));
+      return true
+    } catch (error) {
+      console.error(error);
+    }
   },
 
   playerExist: playerId => {

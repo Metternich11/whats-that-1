@@ -5,10 +5,16 @@ const createGame = game => ({
   game
 });
 
-const startGame = game => ({
+const startGame = (game, totalRounds) => ({
   type: ActionTypes.START_GAME,
-  game
+  game,
+  totalRounds
 });
+
+const addPlayerToGame = playerToGame => ({
+  type: ActionTypes.ADD_PLAYER_TO_GAME,
+  playerToGame
+})
 
 const deleteGame = gameId => ({
   type: ActionTypes.DELETE_GAME,
@@ -42,5 +48,6 @@ module.exports = {
   setPlayerRoundWins,
   startGame,
   deleteGame,
-  startRound
+  startRound,
+  addPlayerToGame
 };
