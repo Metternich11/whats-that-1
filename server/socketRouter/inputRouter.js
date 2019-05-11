@@ -5,6 +5,7 @@ const gameController = require('../controllers/gameController')();
 const inputRouter = httpServer => {
   const io = IO(httpServer);
   io.on('connect', socket => {
+    console.log('socket.id')  //eslint-disable-line
     socket.on('message', message => {
       switch (message.type) {
         case 'createGame':
