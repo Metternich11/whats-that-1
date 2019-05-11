@@ -10,16 +10,21 @@ import Wrapper from '../components/Wrapper';
 import GameHeader from '../components/GameHeader';
 
 export const Lobby = props => {
+
   const goBack = () => {
     props.history.goBack();
   };
+
+  const startGame = () => {
+    props.history.push('/game');
+  }
 
   return (
     <Wrapper>
       <Button onClick={goBack}>Go Back</Button>
       <GameHeader>
         <>ROOM NAME</>
-        <Button primary>Start!</Button>
+        <Button primary onClick={startGame}>Start!</Button>
       </GameHeader>
       <Canvas />
       <Button marginTop onClick={null}>
@@ -27,6 +32,9 @@ export const Lobby = props => {
       </Button>
       <PlayerList>
         <PlayerListItem>
+          <PlayerAvatar info={props.beAvatar} />
+        </PlayerListItem>
+        {/* <PlayerListItem>
           <PlayerAvatar />
         </PlayerListItem>
         <PlayerListItem>
@@ -37,10 +45,7 @@ export const Lobby = props => {
         </PlayerListItem>
         <PlayerListItem>
           <PlayerAvatar />
-        </PlayerListItem>
-        <PlayerListItem>
-          <PlayerAvatar />
-        </PlayerListItem>
+        </PlayerListItem> */}
       </PlayerList>
     </Wrapper>
   );
@@ -48,7 +53,8 @@ export const Lobby = props => {
 
 const mapStateToProps = state => ({
   userAvatar: state.userAvatar,
-  gameKey: state.gameKey
+  gameKey: state.gameKey,
+  beAvatar: state.message,
 });
 
 const mapDispatchToProps = dispatch => ({});

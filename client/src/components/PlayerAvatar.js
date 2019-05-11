@@ -23,13 +23,16 @@ const AvatarContainer = styled.div`
 `;
 
 const PlayerAvatar = props => {
-  const localProps = generateAvatarProps();
+
+  let localProps = generateAvatarProps();
 
   useEffect(() => {
     props.userAvatar(localProps);
   }, [localProps]);
 
+
   return (
+    !props.info ? 
     <AvatarContainer>
       <Avatar
         style={{
@@ -37,6 +40,16 @@ const PlayerAvatar = props => {
           height: "60px"
         }}
         {...localProps}
+      />
+    </AvatarContainer>
+    :
+    <AvatarContainer>
+      <Avatar
+        style={{
+          width: "60px",
+          height: "60px"
+        }}
+        {...props.info.playerAvatar}
       />
     </AvatarContainer>
   );

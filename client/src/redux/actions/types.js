@@ -1,7 +1,10 @@
-export const GET_GAME_KEY = 'GET_GAME_KEY'
+export const GET_KEY = 'GET_KEY'
 export const SOCKET_CONNECT = 'SOCKET_CONNECT'
 export const PLAYER_INFO = 'PLAYER_INFO'
 export const USER_AVATAR = 'USER_AVATAR'
 export const SOCKET_MESSAGE = 'SOCKET_MESSAGE'
+export const GET_KEY_SUCCESS = 'GET_KEY_SUCCESS'
+export const GET_KEY_FAILURE = 'GET_KEY_FAILURE'
+export const GET_KEY_LOADING = 'GET_KEY_LOADING'
 
 

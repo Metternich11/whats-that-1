@@ -42,10 +42,10 @@ const Join = props => {
         <PlayerAvatar />
 
         <FormLabel>Enter your name: </FormLabel>
-        <InputField type="text" name="name" onChange={handlePlayerName} />
+        <InputField type="text" name="name" onChange={handlePlayerName} required />
 
         <FormLabel>Enter Game Name: </FormLabel>
-        <InputField type="text" name="gameName" onChange={handleGameName} />
+        <InputField type="text" name="gameName" onChange={handleGameName} required />
 
         <Button primary marginTop type="submit">
           Join
