@@ -12,14 +12,22 @@ export const Main = props => {
   return (
     <Wrapper>
       <Container>
-        <Link to="/create">
-          <Button primary onClick={props.getGameKey}>
-            Create
-          </Button>
-        </Link>
-        <Link to="/join">
-          <Button>Join</Button>
-        </Link>
+        <div>
+          <Text>
+            What&apos;s that?! The game where you draw and we try to guess what
+            it is.
+          </Text>
+        </div>
+        <div>
+          <Link to="/create">
+            <Button primary onClick={props.getGameKey}>
+              Create
+            </Button>
+          </Link>
+          <Link to="/join">
+            <Button>Join</Button>
+          </Link>
+        </div>
       </Container>
     </Wrapper>
   );
@@ -27,10 +35,16 @@ export const Main = props => {
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
 
+const Text = styled.p`
+  font-size: 1.4rem;
+  padding: 0 15vw;
+  margin-bottom: 6vh;
+`;
 const mapStateToProps = state => ({
   getKey: state.getKey
 });

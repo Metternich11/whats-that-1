@@ -48,10 +48,10 @@ const Canvas = () => {
     const ctx = canvas.getContext("2d");
 
     // canvas size
-    canvas.width = 320;
-    canvas.height = 320;
-    canvas.style.width = "320px";
-    canvas.style.height = "320px";
+    canvas.width = 400;
+    canvas.height = 400;
+    canvas.style.width = "400px";
+    canvas.style.height = "400px";
 
     // canvas settings
     ctx.strokeStyle = "#fff";
@@ -124,13 +124,12 @@ const Canvas = () => {
     canvas.addEventListener("touchstart", e => {
       isDrawing = true;
       let touch = e.touches[0];
+
       lastXCoordinate = touch.pageX - touch.target.offsetLeft;
       lastYCoordinate = touch.pageY - touch.target.offsetTop;
     });
 
-    canvas.addEventListener("touchmove", e => {
-      draw(e);
-    });
+    canvas.addEventListener("touchmove", draw);
 
     canvas.addEventListener("touchend", () => {
       isDrawing = false;
@@ -155,13 +154,13 @@ const Canvas = () => {
       <canvas
         ref={canvasRef}
         onClick={handleCanvasClick}
-        style={{ border: "1px solid rgba(255,255,255,0.2)" }}
+        style={{ border: "1px solid rgba(255,255,255,0.2)", cursor: "pointer" }}
       />
       <Button marginTop onClick={handleClear}>
         Clear
       </Button>
       <h2>
-        {whatYouAreDrawing === "Draw something..." ? "" : "Zorb thinks it's a"}{" "}
+        {whatYouAreDrawing === "Draw something..." ? "" : "Zorb thinks"}{" "}
         {whatYouAreDrawing}
       </h2>
     </>
