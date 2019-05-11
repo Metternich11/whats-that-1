@@ -1,6 +1,9 @@
-const App = require('../app');
+const App = require('./app');
 const io = require('socket.io-client');
-const port = 2001;
+const port = 2002;
+
+// const mocks = require('./mocks/mocks.js');
+
 let app;
 
 let sender;
@@ -11,15 +14,15 @@ const ioOptions = {
   reconnection: false
 };
 
-beforeAll(done => {
+beforeAll( done => {
   App(port).then(instance => {
     app = instance;
-    sender = io.connect(`http://localhost:${port}/game`, ioOptions);
+    sender = io.connect(`http://localhost:${port}/`, ioOptions);
     sender.on('connect', () => {
       done();
     });
     sender.on('error', error => {
-      console.error(error);
+      console.error(error); //eslint-disable-line
     });
   });
 });
@@ -29,11 +32,10 @@ afterAll(async () => {
   await app.teardown();
 });
 
-describe('check basic http response', () => {
-  test('/', done => {
-    // sender.emit('message', testMsg);
-    // sender.on('message', () => {
-    //   done();
+describe('check socket setup', () => {
+  test('/', () => {
+    sender.emit('message', testMsg);
+    sender.on('message', () => {
     });
   });
 });

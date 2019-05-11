@@ -15,7 +15,7 @@ ReactDOM.render(
     <Provider store={store}>
       <NavBar>
         <div className="logo">{"What's that?!"}</div>
-        <div className="nav-content">Other game content</div>
+        <div className="nav-content"> </div>
       </NavBar>
       <App />
     </Provider>

@@ -1,9 +1,13 @@
 import React from "react";
+
+// Component & Container Imports
 import Button from "./Button";
 import { connect } from "react-redux";
 import * as Actions from "../redux/actions/index";
+import CanvasFooter from "./CanvasFooter";
+import CanvasFooterItem from "./CanvasFooterItem";
 
-// useReducer
+// arol tip: useReducer instead of having this mess of variables here.
 let isDrawing = false;
 let lastXCoordinate = 0;
 let lastYCoordinate = 0;
@@ -14,7 +18,7 @@ let timestamp = [];
 let whatYouAreDrawing = "Draw something...";
 
 const googleURL =
-  // NOTE TO SELF THIS NEEDS TO BE A CALL TO THE BACKEND
+  // REPLACE WHEN BACKEND PROVIDE ENDPOINT
   "https://inputtools.google.com/request?ime=handwriting&app=quickdraw&dbg=1&cs=1&oe=UTF-8";
 
 const postDrawing = () => {
@@ -51,10 +55,10 @@ const Canvas = () => {
     const ctx = canvas.getContext("2d");
 
     // canvas size
-    canvas.width = 320;
-    canvas.height = 320;
-    canvas.style.width = "320px";
-    canvas.style.height = "320px";
+    canvas.width = 375;
+    canvas.height = 375;
+    canvas.style.width = "375px";
+    canvas.style.height = "375px";
 
     // canvas settings
     ctx.strokeStyle = "#fff";
@@ -127,13 +131,12 @@ const Canvas = () => {
     canvas.addEventListener("touchstart", e => {
       isDrawing = true;
       let touch = e.touches[0];
+
       lastXCoordinate = touch.pageX - touch.target.offsetLeft;
       lastYCoordinate = touch.pageY - touch.target.offsetTop;
     });
 
-    canvas.addEventListener("touchmove", e => {
-      draw(e);
-    });
+    canvas.addEventListener("touchmove", draw);
 
     canvas.addEventListener("touchend", () => {
       isDrawing = false;
@@ -160,13 +163,20 @@ const Canvas = () => {
         onClick={handleCanvasClick}
         style={{ border: "1px solid rgba(255,255,255,0.2)" }}
       />
-      <Button marginTop onClick={handleClear}>
-        Clear
-      </Button>
-      <h2>
-        {whatYouAreDrawing === "Draw something..." ? "" : "Zorb thinks it's a"}{" "}
-        {whatYouAreDrawing}
-      </h2>
+      <CanvasFooter>
+        <CanvasFooterItem>
+          <Button clear onClick={handleClear}>
+            Clear
+          </Button>
+        </CanvasFooterItem>
+        <CanvasFooterItem right>
+          <h4>
+            {whatYouAreDrawing === "Draw something..." ? "" : "Is it... "}
+            {whatYouAreDrawing === "Draw something..." ? "" : whatYouAreDrawing}
+            {whatYouAreDrawing === "Draw something..." ? "" : "?"}
+          </h4>
+        </CanvasFooterItem>
+      </CanvasFooter>
     </>
   );
 };

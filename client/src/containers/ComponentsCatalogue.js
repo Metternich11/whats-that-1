@@ -1,10 +1,14 @@
 import React from "react";
+
+// Redux Imports
+
+// Component & Container Imports
 import Button from "../components/Button";
+import Canvas from "../components/Canvas";
+import PlayerAvatar from "../components/PlayerAvatar";
 import PlayerList from "../components/PlayerList";
 import PlayerListItem from "../components/PlayerListItem";
-import PlayerAvatar from "../components/PlayerAvatar";
 import Wrapper from "../components/Wrapper";
-import Canvas from "../components/Canvas";
 
 export const ComponentsCatalogue = () => {
   return (

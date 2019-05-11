@@ -1,43 +1,52 @@
 const Koa = require('koa');
-const http = require('http');
-const IO = require('socket.io');
+const Http = require('http');
 const cors = require('kcors');
 const bodyparser = require('koa-body');
 
 const router = require('./router');
 const PORT = 2000;
 
-const ioConfig = require('./socketConfig');
+const inputRouter = require('./socketRouter/inputRouter');
 
+const setUpKoa = () => {
+  const koa = new Koa();
+  koa
+    .use(cors())
+    .use(bodyparser())
+    .use(router.routes());
+  return koa;
+};
+
+/* 
+App sets up both RESTful (koa) and Socket (io) interfaces
+Also provides of an API to close them.
+*/
 function App(port = PORT) {
-  this.koa = new Koa();
-  this.httpServer = http.Server(this.koa);
-  this.io = IO(this.httpServer);
-  this.server;
+  this.create = async () => {
+    this.koa = setUpKoa();
+    this.server = Http.createServer(this.koa.callback());
+    this.io = inputRouter(this.server);
+
+    await new Promise((resolve, reject) => {
+      this.server.listen(port, error => {
+        if (error) reject(error);
+        else resolve();
+      });
+    });
+    console.log(`🚀 Server Running on ${port}`); //eslint-disable-line
+
+    return this;
+  };
 
   this.teardown = () => {
     return new Promise(resolve => {
-      this.io.close(() => {
-        console.log('Server closed'); //eslint-disable-line
+      this.server.close(() => {
         resolve();
       });
     });
   };
 
-  return new Promise(resolve => {
-    this.koa
-      .use(cors())
-      .use(bodyparser())
-      .use(router.routes());
-
-    this.server = this.koa.listen(port, error => {
-      if (error) return console.error('ERROR', error); //eslint-disable-line
-      console.log(`🚀 Server Running on ${port}`); //eslint-disable-line
-      this.io.listen(this.server);
-      ioConfig(this.io);
-      resolve(this);
-    });
-  });
+  return this.create();
 }
 
 module.exports = App;

@@ -2,7 +2,8 @@ module.exports = {
   createClient: {
     type: 'createRoom',
     payload: {
-      key: 'firstGame'
+      key: 'firstGame',
+      name;
     }
   },
   joinClient: {
