@@ -54,6 +54,6 @@ nodemon
 
 ## Credits
 
-### Frontend
+### Development Team
 
-Code: [Darío Vallés](https://github.com/dario-valles), [Konstantin Morozov](https://github.com/gibsoncream), [Gelena Barker](https://github.com/GelenaB), [Shanshan Chen](https://github.com/shanshanc), [Ole Kranz](https://github.com/Metternich11), & [Freddie Smith](https://github.com/F-Smith)
+🇪🇸 [Darío Vallés](https://github.com/dario-valles), 🇧🇾 [Konstantin Morozov](https://github.com/gibsoncream), 🇱🇻 [Gelena Barker](https://github.com/GelenaB), 🇹🇼 [Shanshan Chen](https://github.com/shanshanc), 🇩🇪 [Ole Kranz](https://github.com/Metternich11), & 🇬🇧 [Freddie Smith](https://github.com/F-Smith)
