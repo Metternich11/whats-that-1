@@ -4,13 +4,12 @@ const NavBar = styled.nav`
   align-items: center;
   background: #472c81;
   box-shadow: 0px 0px 10px 1px rgba(255, 255, 255, 0.2);
+  box-sizing: none;
   color: white;
   display: flex;
   height: 40px;
   justify-content: space-between;
   padding: 0.5em 1em;
-  position: fixed;
-  top: 0;
   width: 100%;
 
   .logo {

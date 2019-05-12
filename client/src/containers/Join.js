@@ -64,7 +64,7 @@ const Join = props => {
         />
 
         <ButtonContainer>
-          <Button primary marginTop form type="submit">
+          <Button primary marginTop formButton type="submit">
             Join
           </Button>
         </ButtonContainer>

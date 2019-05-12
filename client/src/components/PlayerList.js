@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const PlayerList = styled.ul`
   align-items: flex-end;
@@ -6,6 +6,12 @@ const PlayerList = styled.ul`
   flex-wrap: wrap;
   list-style-type: none;
   padding-inline-start: 0;
+
+  ${props =>
+    props.betweenRounds &&
+    css`
+      margin-top: -50px;
+    `};
 `;
 
 export default PlayerList;

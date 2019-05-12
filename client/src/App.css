@@ -6,3 +6,6 @@
 .App .divider {
   width: 100%;
 }
+.App {
+  overflow: hidden;
+}

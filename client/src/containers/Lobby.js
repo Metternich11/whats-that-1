@@ -4,6 +4,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 // Component & Container Imports
+import AvatarShelf from "../components/AvatarShelf";
 import Button from "../components/Button";
 import Canvas from "../components/Canvas";
 import GameHeader from "../components/GameHeader";
@@ -19,13 +20,14 @@ export const Lobby = props => {
   };
 
   return (
-    <Wrapper lobby>
+    <Wrapper>
       <GameHeader>
         <GameName lobby>Wild-Winter</GameName>
         <Button primary onClick={startGame}>
           Start!
         </Button>
       </GameHeader>
+
       <Canvas />
       <PlayerList>
         <PlayerListItem>
@@ -44,6 +46,7 @@ export const Lobby = props => {
           <PlayerAvatar />
         </PlayerListItem>
       </PlayerList>
+      <AvatarShelf>Your Opponents</AvatarShelf>
     </Wrapper>
   );
 };

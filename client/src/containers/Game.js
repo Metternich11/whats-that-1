@@ -3,30 +3,28 @@ import React from "react";
 // Redux Imports
 
 // Component & Container Imports
+import AvatarShelf from "../components/AvatarShelf";
 import Canvas from "../components/Canvas";
 import GameHeader from "../components/GameHeader";
+import GameName from "../components/GameName";
 import PlayerAvatar from "../components/PlayerAvatar";
 import PlayerList from "../components/PlayerList";
 import PlayerListItem from "../components/PlayerListItem";
-import Timer from "../components/Timer";
 import WordToDraw from "../components/WordToDraw";
 import Wrapper from "../components/Wrapper";
 
 export const Game = () => {
   return (
     <Wrapper>
-      <GameHeader>
-        <Timer>00:20</Timer>
+      <GameHeader timer>
+        <GameName timer>00:20</GameName>
         <WordToDraw>
-          <span role="img" aria-label="Currently Drawing:">
-            🎨
-          </span>{" "}
-          Hurricane
+          Drawing: <strong>Hurricane</strong>
         </WordToDraw>
       </GameHeader>
 
       <Canvas />
-      <PlayerList>
+      <PlayerList game>
         <PlayerListItem>
           <PlayerAvatar />
         </PlayerListItem>
@@ -40,6 +38,7 @@ export const Game = () => {
           <PlayerAvatar />
         </PlayerListItem>
       </PlayerList>
+      <AvatarShelf>Your Opponents</AvatarShelf>
     </Wrapper>
   );
 };
