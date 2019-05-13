@@ -22,6 +22,7 @@ const gameModel = {
     const state = store.getState();
     return state.players[playerId].gameKey;
   },
+
   getRoundStatus: gameKey => {
     const state = store.getState();
     return state.games[gameKey].round.roundStatus;
@@ -32,6 +33,7 @@ const gameModel = {
     let currentStatus = state.games[gameKey].round.roundStatus;
     store.dispatch(Actions.setRoundStatus(gameKey, !currentStatus));
   },
+
   startRound: async (gameKey, word) => {
     // startGame
     try {
@@ -122,6 +124,8 @@ const gameModel = {
         gameKey
       };
       store.dispatch(Actions.addPlayerToGame(playerToGame));
+      const state = store.getState();
+      console.log(state.games);
     } catch (error) {
       console.error(error);
     }
@@ -147,8 +151,11 @@ const gameModel = {
 
   getPlayersFromGame: async gameKey => {
     // DARIO
+    console.log(gameKey);
     const state = store.getState();
+    console.log(state.games);
     const playersId = state.games[gameKey].players;
+    console.log(playersId);
     const players = [];
 
     playersId.forEach(playerId => {
@@ -171,12 +178,13 @@ const gameModel = {
     roundNumber;
 
     players.forEach(player => {
-      player;
+      imagesFromRound.push(store.players[player].draws);
+      // player;
       // lastRound
       //   ? imagesFromRound.push(store.players[player].draws)
       //   : imagesFromRound.push(store.players[player].draws[roundNumber - 1]);
     });
-
+    console.log(imagesFromRound);
     return imagesFromRound;
   },
 
