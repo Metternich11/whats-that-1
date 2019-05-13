@@ -64,9 +64,11 @@ const GameController = () => {
     }
   };
 
-  const gameOver = gameKey => {
-    // SHANSHAN
-    const allDrawingsForGame = getImagesFromGame(gameKey);
+  const gameOver = async gameKey => {
+    sendMessageRoomFromServer(handleMessage('gameOver'), gameKey);
+    await delay(1500);
+    const allDrawingsForGame = await getImagesFromGame(gameKey);
+
     sendMessageRoomFromServer(
       handleMessage('gameDrawings', { drawings: allDrawingsForGame }),
       gameKey
