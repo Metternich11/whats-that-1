@@ -40,10 +40,10 @@ export const Lobby = props => {
 };
 
 const mapStateToProps = state => ({
-  userAvatar: state.userAvatar,
-  gameKey: state.gameKey,
-  beAvatar: state.message,
-  isCreator: state.isCreator
+  userAvatar: state.game.userAvatar,  ///CAUTION, SUBJECT TO CHANGE
+  gameKey: state.game.gameKey,
+  beAvatar: state.game.message,
+  isCreator: state.game.isCreator
 });
 
 const mapDispatchToProps = dispatch => ({

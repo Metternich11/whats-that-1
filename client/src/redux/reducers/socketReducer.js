@@ -1,6 +1,7 @@
 import * as SocketTypes from '../actions/socketTypes';
 
 const socketReducer = (state = {}, action) => {
+  console.log('HERE GOES THE SOCKET ACTION: ', action)
   switch(action.payload.type) {
     case SocketTypes.GAME_CREATED: 
     return {
@@ -10,7 +11,7 @@ const socketReducer = (state = {}, action) => {
     case SocketTypes.JOINED: 
     return {
       ...state,
-      message: action.payload
+      message: action.payload.payload
     };
     case SocketTypes.START_GAME:
     return {
@@ -40,7 +41,7 @@ const socketReducer = (state = {}, action) => {
     return {
       ...state
     };
-    case SocketTypes.GAME_DOES_NOT_EXIST:
+    case SocketTypes.FAILURE:
     return {
       ...state,
       join: {

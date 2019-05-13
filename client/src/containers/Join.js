@@ -23,12 +23,13 @@ const Join = ({ game, join, connectGame, history }) => {
   const gameKeyInput = useRef();
 
   useEffect(() => {
+    console.log('1222', game.message)
     if (game.message) history.push('/lobby');
     else if (join.error) {
       gameKeyInput.current.setCustomValidity('Game code does not exist')
       joinForm.current[1].reportValidity()
     }
-  }, [game])
+  }, [join])
 
   const handlePlayerName = event => {
     const value = event.target.value;
@@ -42,8 +43,8 @@ const Join = ({ game, join, connectGame, history }) => {
 
   const submitAndConnect = e => {
     e.preventDefault();
-    //connectGame(playerName, game.userAvatar, gameKey, 'joinGame')
-    connectGame(playerName, game.userAvatar, gameKey, 'noGo')
+    connectGame(playerName, game.userAvatar, gameKey, 'joinGame');
+    //connectGame(playerName, game.userAvatar, gameKey, 'noGo')
   }
 
   const goBack = () => {
@@ -88,6 +89,7 @@ const Join = ({ game, join, connectGame, history }) => {
 };
 
 const mapStateToProps = state => {
+  console.log('STATE', state)
   return {
     game: state.game,
     join: state.pages.join

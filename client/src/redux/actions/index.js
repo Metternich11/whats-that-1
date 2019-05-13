@@ -39,12 +39,14 @@ export const startGame = () => ({
   }
 });
 
-export const postDrawing = drawing => ({
-  type: ActionTypes.POST_DRAWING,
-  socket: {
-    type: 'passDrawing',
-    payload: {
-      drawing
+export const passDrawing = drawing => {
+  return {
+    type: ActionTypes.PASS_DRAWING,
+    socket: {
+      type: 'passDrawing',
+      payload: {
+        drawing
+      }
     }
   }
-});
+};

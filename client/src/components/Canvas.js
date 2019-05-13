@@ -17,36 +17,36 @@ let yCoordinate = [];
 let timestamp = [];
 let whatYouAreDrawing = "Draw something...";
 
-const googleURL =
-  // REPLACE WHEN BACKEND PROVIDE ENDPOINT
-  "https://inputtools.google.com/request?ime=handwriting&app=quickdraw&dbg=1&cs=1&oe=UTF-8";
+// const googleURL =
+//   // REPLACE WHEN BACKEND PROVIDE ENDPOINT
+//   "https://inputtools.google.com/request?ime=handwriting&app=quickdraw&dbg=1&cs=1&oe=UTF-8";
 
-const postDrawing = () => {
-  fetch(googleURL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      options: "enable_pre_space",
-      requests: [
-        {
-          writing_guide: {
-            writing_area_width: 375,
-            writing_area_height: 375
-          },
-          ink: drawing,
-          language: "quickdraw"
-        }
-      ]
-    })
-  })
-    .then(res => res.json())
-    .then(data => (whatYouAreDrawing = data[1][0][1][0]))
-    .catch(err => console.error(err)); // eslint-disable-line no-console
-};
+// const postDrawing = () => {
+//   fetch(googleURL, {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json"
+//     },
+//     body: JSON.stringify({
+//       options: "enable_pre_space",
+//       requests: [
+//         {
+//           writing_guide: {
+//             writing_area_width: 375,
+//             writing_area_height: 375
+//           },
+//           ink: drawing,
+//           language: "quickdraw"
+//         }
+//       ]
+//     })
+//   })
+//     .then(res => res.json())
+//     .then(data => (whatYouAreDrawing = data[1][0][1][0]))
+//     .catch(err => console.error(err)); // eslint-disable-line no-console
+// };
 
-const Canvas = () => {
+const Canvas = ({ passDrawing }) => {
   const [locations, setLocations] = React.useState([]);
   const canvasRef = React.useRef(null);
 
@@ -115,7 +115,7 @@ const Canvas = () => {
       let xyCoordinates = [xCoordinate, yCoordinate, timestamp];
       drawing.push(xyCoordinates);
 
-      postDrawing();
+      passDrawing(drawing);
 
       xCoordinate = [];
       yCoordinate = [];
@@ -185,7 +185,7 @@ const Canvas = () => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  postDrawing: (drawing) => dispatch(Actions.postDrawing(drawing))
+  passDrawing: (drawing) => dispatch(Actions.passDrawing(drawing))
 });
 // For now this function is not used, revise when FE and BE are connected
 

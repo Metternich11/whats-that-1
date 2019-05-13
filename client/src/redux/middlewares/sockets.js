@@ -9,8 +9,8 @@ export const socket = store => {
     if (command) {
       switch (command) {
         case 'CONNECT':
-          //socket = io(`${process.env.REACT_APP_SERVER_BASE_URL}`);
-          socket = io('http://localhost:3100');
+          socket = io(`${process.env.REACT_APP_SERVER_BASE_URL}`);
+          //socket = io('http://localhost:3100');
           next(action);
           break;
         default:
