@@ -1,10 +1,9 @@
 import styled from "styled-components";
 
 const ImageCarousel = styled.div`
-  display: flex;
   align-items: center;
   overflow: hidden;
-  overflow-x: scroll;
+  overflow-y: scroll;
   text-align: center;
   width: 800px;
   height: 400px;
