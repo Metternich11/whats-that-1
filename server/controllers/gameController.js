@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 const {
-  initialize,
+  initializeIO,
   sendMessageRoomFromServer,
   sendMessageToClient,
-  join,
+  joinRoom,
   sendMessageRoom
 } = require('../socketRouter/outputRouter');
 const {
@@ -105,7 +105,7 @@ const GameController = () => {
 
   return {
     initialize: io => {
-      initialize(io);
+      initializeIO(io);
     },
 
     getCurrentWord: currentRound => {
@@ -132,7 +132,7 @@ const GameController = () => {
         );
         await Promise.all(pendingAddPlayerAndGame);
         await addPlayerToGame(socket.id, gameKey, true);
-        join(socket, gameKey);
+        joinRoom(socket, gameKey);
         sendMessageToClient(socket, handleMessage('gameCreated', { gameKey }));
       } catch (error) {
         console.error(error);
@@ -149,11 +149,12 @@ const GameController = () => {
             socket,
             handleMessage('failure', { error: 'Game does not exist' })
           );
-        const numOfPlayersOnGame = getPlayersFromGame(gameKey);
+        const numOfPlayersOnGame = await getPlayersFromGame(gameKey);
 
         if (numOfPlayersOnGame.length < maxNumPlayers) {
           await addPlayer(message.payload.player, socket.id);
           await addPlayerToGame(socket.id, gameKey, true);
+          joinRoom(socket, gameKey);
           sendMessageRoomFromServer(
             handleMessage('playerJoin', {
               players: getPlayersFromGame(gameKey)
@@ -168,6 +169,7 @@ const GameController = () => {
 
     startGame: socket => {
       const gameKey = getCurrentGameKey(socket.id);
+      console.log('1', gameKey);
       if (gameExists(gameKey)) {
         sendMessageRoomFromServer(handleMessage('startGame', gameKey));
         startRound(gameKey);
@@ -179,12 +181,12 @@ const GameController = () => {
       }
     },
 
-    passDrawing: (socket, message) => {
+    passDrawing: async (socket, message) => {
       //// OLE
       const gameKey = getCurrentGameKey(socket.id);
       const currentWord = getCurrentWord(gameKey);
-      const guess = requestGuess(message.payload.drawing); // need to add info before sending to google
-      // pass frontend payload: guess, guessWord
+      const guess = await requestGuess(message.payload.drawing); // need to add info before sending to google
+      console.log(guess);
       sendMessageToClient(socket, handleMessage('guess', { word: guess }));
       // if match, broadcast victory to the room. payload with playerId
       if (guess === currentWord) {

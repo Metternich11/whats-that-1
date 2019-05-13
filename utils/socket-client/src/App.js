@@ -1,6 +1,6 @@
 import React from 'react';
 import io from 'socket.io-client';
-
+import exampleDrawing from './example.js';
 import './App.css';
 
 const socket = io('http://localhost:2000/');
@@ -58,7 +58,10 @@ const handleCreatorStart = () => {
 
 const handleDrawing = () => {
   socket.emit('message', {
-    type: 'drawing'
+    type: 'passDrawing',
+    payload: {
+      drawing: exampleDrawing
+    }
   });
 };
 
