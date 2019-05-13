@@ -5,7 +5,7 @@ const {
   sendMessageToClient,
   joinRoom,
   sendMessageRoom
-} = require('../socketRouter/outputRouter');
+} = require('../socketRouter/outputRouter')();
 const {
   startRound,
   setRoundStatus,
