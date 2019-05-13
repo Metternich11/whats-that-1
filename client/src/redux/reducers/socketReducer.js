@@ -1,6 +1,6 @@
 import * as SocketTypes from '../actions/socketTypes';
 
-const socketReducer = (state = undefined, action) => {
+const socketReducer = (state = {}, action) => {
   switch(action.payload.type) {
     case SocketTypes.GAME_CREATED: 
     return {
@@ -40,6 +40,14 @@ const socketReducer = (state = undefined, action) => {
     return {
       ...state
     };
+    case SocketTypes.GAME_DOES_NOT_EXIST:
+    return {
+      ...state,
+      join: {
+      //   ...state.join,
+        error: 'Game does not exist'
+      }
+    }
     default: 
     return state;
   }

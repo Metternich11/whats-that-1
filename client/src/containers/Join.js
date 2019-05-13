@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Redux Imports
 import { connect } from "react-redux";
@@ -15,9 +15,15 @@ import PlayerAvatar from "../components/PlayerAvatar";
 import SpeechBubble from "../components/SpeechBubble";
 import Wrapper from "../components/Wrapper";
 
-const Join = props => {
+const Join = ({ game, join, connectGame, history }) => {
+
+
   const [playerName, setPlayerName] = useState("");
-  const [game, setGame] = useState("");
+  const [gameKey, setGameKey] = useState("");
+
+  useEffect(() => {
+    if (game.gameKey) history.push('/lobby')
+  }, [game.message])
 
   const handlePlayerName = event => {
     const value = event.target.value;
@@ -26,18 +32,17 @@ const Join = props => {
 
   const handleGameName = event => {
     const value = event.target.value;
-    setGame(value);
+    setGameKey(value);
   };
 
-  const submitAndConnect = async e => {
+  const submitAndConnect = e => {
     e.preventDefault();
-    props.connectGame(playerName, props.userAvatar, game, 'joinGame')
-    props.history.push('/lobby')
+    //connectGame(playerName, game.userAvatar, gameKey, 'joinGame')
+    connectGame(playerName, game.userAvatar, gameKey, 'noGo')
   }
-  
 
   const goBack = () => {
-    props.history.goBack();
+    history.goBack();
   };
 
   return (
@@ -77,10 +82,12 @@ const Join = props => {
   );
 };
 
-const mapStateToProps = state => ({
-  userAvatar: state.userAvatar,
-  gameKey: state.gameKey
-});
+const mapStateToProps = state => {
+  return {
+    game: state.game,
+    join: state.pages.join
+  }
+};
 
 const mapDispatchToProps = { connectGame: Actions.connectGame };
 
