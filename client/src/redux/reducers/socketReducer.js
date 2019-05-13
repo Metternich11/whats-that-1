@@ -1,17 +1,25 @@
 import * as SocketTypes from '../actions/socketTypes';
 
-const socketReducer = (state = {}, action) => {
+const initialState = {
+  word: [],
+  join: {},
+  inBetweenRounds: false,
+  endGame: false,
+}
+
+const socketReducer = (state = initialState, action) => {
   console.log('HERE GOES THE SOCKET ACTION: ', action);
   switch (action.payload.type) {
     case SocketTypes.GAME_CREATED:
       return {
-        ...state,
-        message: action.payload.payload
+        ...state
       };
     case SocketTypes.JOINED:
       return {
         ...state,
-        message: action.payload.payload
+        players: {
+          ...state.players, ...action.payload.payload.players
+        }
       };
     case SocketTypes.START_GAME:
       return {
@@ -19,11 +27,17 @@ const socketReducer = (state = {}, action) => {
       };
     case SocketTypes.START_ROUND:
       return {
-        ...state
+        ...state,
+        word: [action.payload.payload.word],
+        timer: {
+          ...state.timer,
+          ...action.payload.payload.timer
+        }
       };
     case SocketTypes.END_ROUND:
       return {
-        ...state
+        ...state,
+        inBetweenRounds: !state.inBetweenRounds
       };
     case SocketTypes.GUESS:
       return {
@@ -33,17 +47,14 @@ const socketReducer = (state = {}, action) => {
       return {
         ...state
       };
-    case SocketTypes.ROUND_OVER:
-      return {
-        ...state
-      };
     case SocketTypes.ROUND_DRAWINGS:
       return {
         ...state
       };
     case SocketTypes.GAME_OVER:
       return {
-        ...state
+        ...state,
+        endGame: !state.endGame
       };
     case SocketTypes.FAILURE:
       return {

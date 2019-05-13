@@ -1,14 +1,12 @@
 import * as ActionTypes from '../actions/pagesTypes';
-import * as GameActionTypes from '../actions/gameTypes';
-import socketReducer from './socketReducer';
+// import * as GameActionTypes from '../actions/gameTypes';
+// import socketReducer from './socketReducer';
 
 const initialState = {
   join: {}
 };
 
 export default (state = initialState, action) => {
-  console.log('page:', action);
-
   switch (action.type) {
     case ActionTypes.GET_KEY_SUCCESS:
       return {

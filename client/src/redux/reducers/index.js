@@ -3,6 +3,6 @@ import pages from './pagesReducer';
 import game from './gameReducer';
 
 export default combineReducers({
-  pages,
-  game
+  game,
+  pages
 });

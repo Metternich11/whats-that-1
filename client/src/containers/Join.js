@@ -15,7 +15,7 @@ import PlayerAvatar from "../components/PlayerAvatar";
 import SpeechBubble from "../components/SpeechBubble";
 import Wrapper from "../components/Wrapper";
 
-const Join = ({ game, join, connectGame, history }) => {
+const Join = ({ game, pages, connectGame, history }) => {
 
   const [playerName, setPlayerName] = useState("");
   const [gameKey, setGameKey] = useState("");
@@ -23,13 +23,12 @@ const Join = ({ game, join, connectGame, history }) => {
   const gameKeyInput = useRef();
 
   useEffect(() => {
-    console.log('1222', game)
-    if (game.gameKey) history.push('/lobby');
-    else if (join.error) {
+    if (game.players) history.push('/lobby');  // Ole, please don't touch this
+    else if (pages.join.error) {
       gameKeyInput.current.setCustomValidity('Game code does not exist')
       joinForm.current[1].reportValidity()
     }
-  }, [join])
+  }, [game])
 
   const handlePlayerName = event => {
     const value = event.target.value;
@@ -44,8 +43,6 @@ const Join = ({ game, join, connectGame, history }) => {
   const submitAndConnect = e => {
     e.preventDefault();
     connectGame(playerName, game.userAvatar, gameKey, 'joinGame');
-    history.push("/lobby");
-    //connectGame(playerName, game.userAvatar, gameKey, 'noGo')
   }
 
   const goBack = () => {
@@ -93,7 +90,7 @@ const mapStateToProps = state => {
   console.log('STATE', state)
   return {
     game: state.game,
-    join: state.pages.join
+    pages: state.pages
   }
 };
 

@@ -152,10 +152,7 @@ const Canvas = ({ passDrawing }) => {
   );
 };
 
-const mapDispatchToProps = dispatch => ({
-  passDrawing: (drawing, act) => dispatch(Actions.passDrawing(drawing, act))
-});
-// For now this function is not used, revise when FE and BE are connected
+const mapDispatchToProps = { passDrawing: Actions.passDrawing }
 
 export default connect(
   null,

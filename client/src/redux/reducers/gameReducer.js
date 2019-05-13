@@ -28,8 +28,8 @@ export default (state = initialState, action) => {
       return {
         ...state
       };
-    // case ActionTypes.SOCKET_MESSAGE:
-    //   return socketReducer(state, action);
+    case ActionTypes.SOCKET_MESSAGE:
+      return socketReducer(state, action);
     default:
       return state;
   }

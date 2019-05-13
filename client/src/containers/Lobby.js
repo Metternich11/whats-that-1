@@ -31,7 +31,6 @@ export const Lobby = props => {
       <Canvas />
       <PlayerList>
         <PlayerListItem>
-          { console.log('AVATATAR', props)}
           <PlayerAvatar info={props.beAvatar} />
         </PlayerListItem>
       </PlayerList>
@@ -43,7 +42,7 @@ export const Lobby = props => {
 const mapStateToProps = state => ({
   userAvatar: state.game.userAvatar,  ///CAUTION, SUBJECT TO CHANGE
   gameKey: state.game.gameKey,
-  beAvatar: state.game.message,
+  beAvatar: state.game.players,       /// This too
   isCreator: state.game.isCreator
 });
 

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Countdown from 'react-countdown-now';
 
 // Redux Imports
+import { connect } from 'react-redux';
 
 // Component & Container Imports
 import AvatarShelf from '../components/AvatarShelf';
@@ -14,7 +15,14 @@ import PlayerListItem from '../components/PlayerListItem';
 import WordToDraw from '../components/WordToDraw';
 import Wrapper from '../components/Wrapper';
 
-export const Game = () => {
+export const Game = ({ gameWord, inBetweenRounds, endGame, history }) => {
+
+  useEffect(() => {
+    if (inBetweenRounds) history.push('/between-rounds');
+    if (endGame) history.push('/results')
+    }, [inBetweenRounds, endGame]);
+
+
   const renderer = ({ seconds, completed }) => {
     if (completed) {
       return <span>TIME'S UP!!!</span>;
@@ -30,7 +38,7 @@ export const Game = () => {
           <Countdown date={Date.now() + 20000} renderer={renderer} />
         </GameName>
         <WordToDraw>
-          Drawing: <strong>Hurricane</strong>
+          Drawing: <strong>{gameWord}</strong>
         </WordToDraw>
       </GameHeader>
 
@@ -54,4 +62,13 @@ export const Game = () => {
   );
 };
 
-export default Game;
+
+const mapStateToProps = state => ({
+  gameWord: state.game.word,
+  inBetweenRounds: state.game.inBetweenRounds,
+  endGame: state.game.endGame
+});
+
+export default connect(
+  mapStateToProps
+)(Game);
