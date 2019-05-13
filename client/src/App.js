@@ -27,7 +27,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     background-color: #764ad7;
     color: #ffffff;
-    overflow: hidden;
+    // overflow: hidden;
     height: 100vh;
     margin: 0;
     max-height: 100vh;
@@ -36,6 +36,16 @@ const GlobalStyle = createGlobalStyle`
   }
   * {
     box-sizing: border-box;
+  }
+  .gameHeader {
+    font-size: 2rem;
+    margin: 0;
+  }
+  .small {
+    font-size: 0.8rem;
+  }
+  .lightweight {
+    font-weight: 200;
   }
 `;
 

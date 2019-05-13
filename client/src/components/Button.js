@@ -60,16 +60,49 @@ const Button = styled.button`
   ${props =>
     props.back &&
     css`
-      margin-top: 4vh;
-      text-transform: none;
+      background: none;
+      font-size: 0.8rem;
+      margin: 0;
+      padding: 0;
+
+      :hover,
+      :active {
+        box-shadow: none;
+      }
+    `};
+
+  ${props =>
+    props.refresh &&
+    css`
+      background-color: #ff87ad;
+      border-radius: 50%;
+      height: 30px;
+      margin: 20px 0 0 0;
+      padding: 5px;
+      position: relative;
+      width: 30px;
+      z-index: 9999;
     `};
 
   ${props =>
     props.clear &&
     css`
+      background: #ff87ad;
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
       font-size: 0.8rem;
-      text-transform: none;
       margin: 0;
+      padding: 0;
+      position: relative;
+      top: -44px;
+      right: -160px;
+      z-index: 9999;
+
+      :hover,
+      :active {
+        box-shadow: none;
+      }
     `};
 
   ${props =>

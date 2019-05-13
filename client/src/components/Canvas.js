@@ -4,8 +4,6 @@ import React from "react";
 import Button from "./Button";
 import { connect } from "react-redux";
 import * as Actions from "../redux/actions/index";
-import CanvasFooter from "./CanvasFooter";
-import CanvasFooterItem from "./CanvasFooterItem";
 import quickdrawSvgRender from "../utils/quickdrawSvgRender/quickdrawSvgRender";
 
 // arol tip: useReducer instead of having this mess of variables here.
@@ -165,24 +163,18 @@ const Canvas = () => {
         ref={canvasRef}
         onClick={handleCanvasClick}
         style={{
-          border: "1px solid rgba(255,255,255,0.2)",
-          backgroundColor: "#764ad7"
+          border: "1px solid rgba(255,255,255,1)",
+          backgroundColor: "#533497"
         }}
       />
-      <CanvasFooter>
-        <CanvasFooterItem>
-          <Button clear onClick={handleClear}>
-            Clear
-          </Button>
-        </CanvasFooterItem>
-        <CanvasFooterItem right>
-          <h4>
-            {WAYD === "Draw something..." ? "" : "Is it... "}
-            {WAYD === "Draw something..." ? "" : WAYD}
-            {WAYD === "Draw something..." ? "" : "?"}
-          </h4>
-        </CanvasFooterItem>
-      </CanvasFooter>
+      <Button clear onClick={handleClear}>
+        <i className="far fa-trash-alt" />
+      </Button>
+      <h4>
+        {WAYD === "Draw something..." ? "" : "Is it... "}
+        {WAYD === "Draw something..." ? "" : WAYD}
+        {WAYD === "Draw something..." ? "" : "?"}
+      </h4>
     </>
   );
 };
