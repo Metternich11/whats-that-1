@@ -1,6 +1,5 @@
 const IO = require('socket.io');
 const gameController = require('../controllers/gameController')();
-// const socketArray = [];
 
 const inputRouter = httpServer => {
   const io = IO(httpServer);
@@ -23,9 +22,6 @@ const inputRouter = httpServer => {
           break;
         case 'startGame':
           gameController.startGame(socket);
-          break;
-        case 'leaveRoom':
-          gameController.leaveRoom(socket, message);
           break;
       }
     });
