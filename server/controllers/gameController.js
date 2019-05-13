@@ -1,6 +1,29 @@
 /* eslint-disable no-console */
-const outputRouter = require('../socketRouter/outputRouter');
-const gameModel = require('../models/gameModel');
+const {
+  initialize,
+  sendMessageRoomFromServer,
+  sendMessageToClient,
+  join,
+  sendMessageRoom
+} = require('../socketRouter/outputRouter');
+const {
+  setRoundStatus,
+  getImagesFromGame,
+  gameExists,
+  getCurrentGameKey,
+  getCurrentWord,
+  getImagesFromRound,
+  getCurrentRoundNumber,
+  deleteGame,
+  addGame,
+  addPlayer,
+  getCurrentRound,
+  addPlayerToGame,
+  getPlayersFromGame,
+  saveDrawingForRound,
+  removePlayer,
+  setPlayerRoundWins
+} = require('../models/gameModel');
 const getWords = require('../helpers/requestWords');
 const requestGuess = require('../helpers/requestGuess');
 
@@ -11,26 +34,23 @@ const maxNumPlayers = 6;
 const GameController = () => {
   const endRound = gameKey => {
     //SHANSHAN
-    gameModel.setRoundStatus(gameKey);
-    outputRouter.sendMessageRoomFromServer(
+    setRoundStatus(gameKey);
+    sendMessageRoomFromServer(
       {
         type: 'endRound',
         payload: {
-          roundNum: gameModel.getCurrentRoundNumber(gameKey)
+          roundNum: getCurrentRoundNumber(gameKey)
         }
       },
       gameKey
     );
-    const currentRound = gameModel.getCurrentRoundNumber(gameKey);
+    const currentRound = getCurrentRoundNumber(gameKey);
     if (currentRound === TOTALROUNDS) {
       gameOver(gameKey);
     } else {
-      const allDrawingsForRound = gameModel.getImagesFromRound(
-        gameKey,
-        currentRound
-      );
+      const allDrawingsForRound = getImagesFromRound(gameKey, currentRound);
 
-      outputRouter.sendMessageRoomFromServer(
+      sendMessageRoomFromServer(
         {
           type: 'roundDrawings',
           payload: {
@@ -44,12 +64,12 @@ const GameController = () => {
 
   const gameOver = gameKey => {
     // SHANSHAN
-    const allDrawingsForGame = gameModel.getImagesFromGame(gameKey);
-    outputRouter.sendMessageRoomFromServer(
+    const allDrawingsForGame = getImagesFromGame(gameKey);
+    sendMessageRoomFromServer(
       handleMessage('gameDrawings', { drawings: allDrawingsForGame }),
       gameKey
     );
-    gameModel.deleteGame(gameKey);
+    deleteGame(gameKey);
   };
 
   const timer = gameKey => {
@@ -57,11 +77,11 @@ const GameController = () => {
   };
 
   const startRound = gameKey => {
-    if (gameModel.gameExists(gameKey)) {
+    if (gameExists(gameKey)) {
       const roundWord = getWords(1)[0];
-      gameModel.startRound(gameKey, roundWord);
+      startRound(gameKey, roundWord);
       timer(gameKey);
-      outputRouter.sendMessageRoomFromServer(
+      sendMessageRoomFromServer(
         {
           type: 'startRound',
           payload: {
@@ -85,14 +105,14 @@ const GameController = () => {
 
   return {
     initialize: io => {
-      outputRouter.initialize(io);
+      initialize(io);
     },
 
     getCurrentWord: currentRound => {
       return this.game.words[currentRound];
     },
     getCurrentRound: () => {
-      this.game.currentRound = gameModel.getCurrentRound();
+      this.game.currentRound = getCurrentRound();
     },
 
     // for inputRouter and outputRouter
@@ -101,45 +121,42 @@ const GameController = () => {
         const pendingAddPlayerAndGame = [];
         const gameKey = message.payload.gameKey;
 
-        if (gameModel.gameExists(gameKey))
-          return outputRouter.sendMessageToClient(
+        if (gameExists(gameKey))
+          return sendMessageToClient(
             socket,
             handleMessage('failure', '{error: gameExist}')
           );
-        pendingAddPlayerAndGame.push(gameModel.addGame(gameKey, TOTALROUNDS));
+        pendingAddPlayerAndGame.push(addGame(gameKey, TOTALROUNDS));
         pendingAddPlayerAndGame.push(
-          gameModel.addPlayer(message.payload.player, socket.id)
+          addPlayer(message.payload.player, socket.id)
         );
         await Promise.all(pendingAddPlayerAndGame);
-        await gameModel.addPlayerToGame(socket.id, gameKey, true);
-        outputRouter.join(socket, gameKey);
-        outputRouter.sendMessageToClient(
-          socket,
-          handleMessage('gameCreated', { gameKey })
-        );
+        await addPlayerToGame(socket.id, gameKey, true);
+        join(socket, gameKey);
+        sendMessageToClient(socket, handleMessage('gameCreated', { gameKey }));
       } catch (error) {
         console.error(error);
         // TODO: Notify client
-        outputRouter.sendMessageToClient(socket);
+        sendMessageToClient(socket);
       }
     },
 
     joinGame: async (socket, message) => {
       try {
         const gameKey = message.payload.gameKey;
-        if (await !gameModel.gameExists(gameKey))
-          return outputRouter.sendMessageToClient(
+        if (await !gameExists(gameKey))
+          return sendMessageToClient(
             socket,
             handleMessage('failure', { error: 'Game does not exist' })
           );
-        const numOfPlayersOnGame = gameModel.getPlayersFromGame(gameKey);
+        const numOfPlayersOnGame = getPlayersFromGame(gameKey);
 
         if (numOfPlayersOnGame.length < maxNumPlayers) {
-          await gameModel.addPlayer(message.payload.player, socket.id);
-          await gameModel.addPlayerToGame(socket.id, gameKey, true);
-          outputRouter.sendMessageRoomFromServer(
+          await addPlayer(message.payload.player, socket.id);
+          await addPlayerToGame(socket.id, gameKey, true);
+          sendMessageRoomFromServer(
             handleMessage('playerJoin', {
-              players: gameModel.getPlayersFromGame(gameKey)
+              players: getPlayersFromGame(gameKey)
             }),
             gameKey
           );
@@ -150,14 +167,12 @@ const GameController = () => {
     },
 
     startGame: socket => {
-      const gameKey = gameModel.getCurrentGameKey(socket.id);
-      if (gameModel.gameExists(gameKey)) {
-        outputRouter.sendMessageRoomFromServer(
-          handleMessage('startGame', gameKey)
-        );
+      const gameKey = getCurrentGameKey(socket.id);
+      if (gameExists(gameKey)) {
+        sendMessageRoomFromServer(handleMessage('startGame', gameKey));
         startRound(gameKey);
       } else {
-        outputRouter.sendMessageToClient(
+        sendMessageToClient(
           socket,
           handleMessage('failure', { startGameFailure: 'startGameFailure' })
         );
@@ -166,34 +181,27 @@ const GameController = () => {
 
     passDrawing: (socket, message) => {
       //// OLE
-      const gameKey = gameModel.getCurrentGameKey(socket.id);
-      const currentWord = gameModel.getCurrentWord(gameKey);
+      const gameKey = getCurrentGameKey(socket.id);
+      const currentWord = getCurrentWord(gameKey);
       const guess = requestGuess(message.payload.drawing); // need to add info before sending to google
       // pass frontend payload: guess, guessWord
-      outputRouter.sendMessageToClient(
-        socket,
-        handleMessage('guess', { word: guess })
-      );
+      sendMessageToClient(socket, handleMessage('guess', { word: guess }));
       // if match, broadcast victory to the room. payload with playerId
       if (guess === currentWord) {
-        gameModel.setPlayerRoundWins(socket.id);
-        outputRouter.sendMessageRoomFromServer(
+        setPlayerRoundWins(socket.id);
+        sendMessageRoomFromServer(
           handleMessage('victory', { playerId: socket.id }),
           gameKey
         );
       }
     },
     leaveRoom: (socket, message) => {
-      gameModel.removePlayer(socket.id);
-      outputRouter.sendMessageRoom(socket, message);
+      removePlayer(socket.id);
+      sendMessageRoom(socket, message);
     },
     passFinalDrawing: (socket, message) => {
       const lastDrawing = message.payload.drawingSVG;
-      gameModel.saveDrawingForRound(
-        lastDrawing,
-        socket.id,
-        message.payload.gameKey
-      );
+      saveDrawingForRound(lastDrawing, socket.id, message.payload.gameKey);
       // double-check gameModel
       // send roundDrawings. payload: {
       //  drawings: {
