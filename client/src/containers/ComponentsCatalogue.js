@@ -19,7 +19,6 @@ import GameName from "../components/GameName";
 import GameWinner from "../components/GameWinner";
 import ImageCarousel from "../components/ImageCarousel";
 import InputField from "../components/InputField";
-import Modal from "../components/Modal";
 import NavBar from "../components/NavBar";
 import PlayerAvatar from "../components/PlayerAvatar";
 import PlayerHasSolvedRound from "../components/PlayerHasSolvedRound";
@@ -45,7 +44,6 @@ export const ComponentsCatalogue = () => {
 
         <h2>Generic Components</h2>
         <ul className="components">
-          <li>Modal</li>
           <li>Button (Default)</li>
           <li>Button (Primary)</li>
           <li>Button (Gradient)</li>
@@ -58,8 +56,6 @@ export const ComponentsCatalogue = () => {
           <Button primary>primary</Button>
           <Button gradient>Gradient</Button>
         </div>
-        <h3>Modal</h3>
-        <Modal />
         <h3>NavBar</h3>
         <NavBar>Text on Navbar</NavBar>
         <hr className="divider" />

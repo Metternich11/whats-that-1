@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 // Redux Imports
 import { connect } from "react-redux";
@@ -14,17 +14,20 @@ import InputField from "../components/InputField";
 import PlayerAvatar from "../components/PlayerAvatar";
 import SpeechBubble from "../components/SpeechBubble";
 import Wrapper from "../components/Wrapper";
-import Modal from "../components/Modal";
 
 const Join = ({ game, join, connectGame, history }) => {
 
   const [playerName, setPlayerName] = useState("");
   const [gameKey, setGameKey] = useState("");
-  const [errorMessage, setErrorMessage] = useState(false)
+  const joinForm = useRef();
+  const gameKeyInput = useRef();
 
   useEffect(() => {
     if (game.message) history.push('/lobby');
-    //else if (join.error) setErrorMessage(true);
+    else if (join.error) {
+      gameKeyInput.current.setCustomValidity('Game code does not exist')
+      joinForm.current[1].reportValidity()
+    }
   }, [game])
 
   const handlePlayerName = event => {
@@ -47,17 +50,10 @@ const Join = ({ game, join, connectGame, history }) => {
     history.goBack();
   };
 
-  const visible = () => {
-    setErrorMessage(false)
-  }
 
-  return errorMessage ? (
-      <Wrapper>
-       <Modal visible={visible}/>
-       </Wrapper>
-      ) : ( 
+  return (
        <Wrapper> 
-      <Form onSubmit={submitAndConnect}>
+      <Form onSubmit={submitAndConnect} ref={joinForm}>
         <FormLabel>Your Avatar</FormLabel>
         <SpeechBubble>Looking good!</SpeechBubble>
         <AvatarContainer>
@@ -76,6 +72,7 @@ const Join = ({ game, join, connectGame, history }) => {
           type="text"
           name="gameName"
           onChange={handleGameName}
+          ref={gameKeyInput}
           required
         />
 
