@@ -68,9 +68,9 @@ const Create = props => {
 };
 
 const mapStateToProps = state => ({
-  userAvatar: state.userAvatar,
-  gameKey: state.gameKey,
-  loading: state.loading
+    userAvatar: state.game.userAvatar,
+    gameKey: state.pages.create.gameKey,
+    loading: state.pages.create.loading
 });
 
 const mapDispatchToProps = { connectGame: Actions.connectGame };

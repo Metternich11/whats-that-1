@@ -16,7 +16,7 @@ const ioConfig = io => {
           });
           break;
         case 'joinGame':
-          io.emit('message', {
+          client.broadcast.emit('message', {
             type: 'joined',
             payload: {
               playerName: 'Added player',
@@ -26,7 +26,7 @@ const ioConfig = io => {
           });
           break;
         case 'additionalPlayer':
-          io.emit('messageServer', {
+        client.broadcast.emit('message', {
             type: 'newPlayer',
             payload: {
               Players: [

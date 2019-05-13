@@ -1,4 +1,4 @@
-import * as ActionTypes from "./types";
+import * as ActionTypes from "./gameTypes";
 
 export const getKey = () => ({
   type: ActionTypes.GET_KEY,

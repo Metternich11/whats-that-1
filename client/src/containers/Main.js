@@ -51,15 +51,12 @@ const Text = styled.p`
   margin-bottom: 6vh;
   padding: 0 15vw;
 `;
-const mapStateToProps = state => ({
-  getKey: state.getKey
-});
 
 const mapDispatchToProps = dispatch => ({
   getGameKey: () => dispatch(Actions.getKey())
 });
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(Main);

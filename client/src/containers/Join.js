@@ -35,21 +35,6 @@ const Join = props => {
     props.history.push('/lobby')
   }
   
-  //   try {
-  //     await connectGamePromise();
-  //     props.history.push('/lobby')
-  //   } catch (error) {
-  //     console.log(error);
-  //   } 
-  // }
-
-  // const connectGamePromise = () => {
-  //   return new Promise((resolve, reject) => {
-  //     props.connectGame(playerName, props.userAvatar, game, 'joinGame')
-  //   })
-  // }
-
-  ////////////// This thing above is WIP //////////////////////
 
   const goBack = () => {
     props.history.goBack();
