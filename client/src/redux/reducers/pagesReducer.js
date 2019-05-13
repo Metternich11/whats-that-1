@@ -32,8 +32,8 @@ export default (state = initialState, action) => {
         loading: true
       }
     };
-    case GameActionTypes.SOCKET_MESSAGE:
-      return socketReducer(state, action);
+    // case GameActionTypes.SOCKET_MESSAGE:
+    //   return socketReducer(state, action);
     default:
     return state
   }

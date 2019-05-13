@@ -20,6 +20,7 @@ export const socket = store => {
 
     // Inputs (on)
     socket.on('message', message => {
+      logger('IN');
       console.log('AND OUR BE SAYS', message);  //eslint-disable-line
       store.dispatch({
         type: 'SOCKET_MESSAGE',     //THIS IS A TEST, THIS IS NOT CORRECT OR FINAL
@@ -29,6 +30,7 @@ export const socket = store => {
 
     // Outputs (emit)
     if (payload) {
+      logger('OUT')
       socket.emit('message', {
         type,
         payload
@@ -36,3 +38,10 @@ export const socket = store => {
     }
   };
 };
+
+let num = 1;
+
+function logger (to) {
+  console.log(to, num);
+  num++;
+}

@@ -32,7 +32,7 @@ export const connectGame = (playerName, playerAvatar, gameKey, type) => ({
 export const startGame = () => ({
   type: ActionTypes.CREATOR_START_GAME,
   socket: {
-    type: 'gameStart',
+    type: 'startGame',
     payload: {
       message: 'BE, start the game!'
     }
