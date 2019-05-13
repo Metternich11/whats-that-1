@@ -1,5 +1,5 @@
 import React from "react";
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from "styled-components/macro";
 
 // Router Setup
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom"; // eslint-disable-line
@@ -28,8 +28,9 @@ const GlobalStyle = createGlobalStyle`
     background-color: #764ad7;
     color: #ffffff;
     margin: 0;
-    @import url("https://fonts.googleapis.com/css?family=Nunito:400,600|Kalam:700");
+    @import url("https://fonts.googleapis.com/css?family=Nunito:400,600");
     font-family: 'Nunito', sans-serif;
+    overflow: hidden;
   }
   * {
     box-sizing: border-box;

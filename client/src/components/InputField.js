@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 const InputField = styled.input`
   background-color: rgba(255, 255, 255, 0.2);

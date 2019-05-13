@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 const FormLabel = styled.div`
   margin-bottom: 20px;
