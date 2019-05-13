@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
 const {
-  initialize, //change to initializeSocketIO
+  initializeIO,
   sendMessageRoomFromServer,
   sendMessageToClient,
-  join, //change to joinRoom
+  joinRoom,
   sendMessageRoom
-} = require('../socketRouter/outputRouter');
+} = require('../socketRouter/outputRouter')();
 const {
   startRound,
   setRoundStatus,
@@ -103,7 +103,7 @@ const GameController = () => {
 
   return {
     initialize: io => {
-      initialize(io);
+      initializeIO(io);
     },
 
     getCurrentWord: currentRound => {
@@ -130,7 +130,7 @@ const GameController = () => {
         );
         await Promise.all(pendingAddPlayerAndGame);
         await addPlayerToGame(socket.id, gameKey, true);
-        join(socket, gameKey);
+        joinRoom(socket, gameKey);
         sendMessageToClient(socket, handleMessage('gameCreated', { gameKey }));
       } catch (error) {
         console.error(error);
@@ -152,6 +152,7 @@ const GameController = () => {
         if (numOfPlayersOnGame.length < maxNumPlayers) {
           await addPlayer(message.payload.player, socket.id);
           await addPlayerToGame(socket.id, gameKey, true);
+          joinRoom(socket, gameKey);
           sendMessageRoomFromServer(
             handleMessage('playerJoin', {
               players: getPlayersFromGame(gameKey)
@@ -178,12 +179,12 @@ const GameController = () => {
       }
     },
 
-    passDrawing: (socket, message) => {
+    passDrawing: async (socket, message) => {
       //// OLE
       const gameKey = getCurrentGameKey(socket.id);
       const currentWord = getCurrentWord(gameKey);
-      const guess = requestGuess(message.payload.drawing); // need to add info before sending to google
-      // pass frontend payload: guess, guessWord
+      const guess = await requestGuess(message.payload.drawing); // need to add info before sending to google
+      console.log(guess);
       sendMessageToClient(socket, handleMessage('guess', { word: guess }));
       // if match, broadcast victory to the room. payload with playerId
       if (guess === currentWord) {
