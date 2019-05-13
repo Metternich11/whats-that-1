@@ -19,6 +19,17 @@ const GameName = styled.div`
       justify-content: flex-start;
       padding-left: 4vw;
     `}
+  ${props =>
+    props.timer &&
+    css`
+      width: 25%
+      font-size: 1rem;
+    `}
+    ${props =>
+      props.betweenRounds &&
+      css`
+        width: 100%;
+      `}
 `;
 
 export default GameName;

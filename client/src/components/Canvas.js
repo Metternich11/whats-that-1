@@ -32,8 +32,8 @@ const postDrawing = () => {
       requests: [
         {
           writing_guide: {
-            writing_area_width: 400,
-            writing_area_height: 400
+            writing_area_width: 375,
+            writing_area_height: 375
           },
           ink: drawing,
           language: "quickdraw"
@@ -161,7 +161,10 @@ const Canvas = () => {
       <canvas
         ref={canvasRef}
         onClick={handleCanvasClick}
-        style={{ border: "1px solid rgba(255,255,255,0.2)" }}
+        style={{
+          border: "1px solid rgba(255,255,255,0.2)",
+          backgroundColor: "#764ad7"
+        }}
       />
       <CanvasFooter>
         <CanvasFooterItem>

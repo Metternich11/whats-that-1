@@ -58,6 +58,11 @@ export default {
     "SilverGray"
   ],
   facialHairType: [
+    "Blank", // Added more blanks to balance out male vs female generation
+    "Blank",
+    "Blank",
+    "Blank",
+    "Blank",
     "Blank",
     "BeardMedium",
     "BeardLight",
@@ -119,7 +124,7 @@ export default {
     "Close",
     "Cry",
     "Default",
-    "Dizzy",
+    // "Dizzy",
     "EyeRoll",
     "Happy",
     "Hearts",

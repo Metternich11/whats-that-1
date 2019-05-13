@@ -1,38 +1,26 @@
 import React, { useEffect } from "react";
-import styled, { css } from "styled-components";
+
+// Redux Imports
 import { connect } from "react-redux";
 import * as Actions from "../redux/actions/index";
 
+// Util imports
 import generateAvatarProps from "../utils/generateAvatarProps";
+
+// Library imports
 import Avatar from "avataaars";
 
-const AvatarContainer = styled.div`
-  cursor: pointer;
-  transform: all 0.15s ease;
-  &:hover {
-    transform: translateY(-1px);
-  }
-
-  ${props =>
-    props.solo &&
-    css`
-      margin-right: 0 20px s0 0;
-      width: 60px;
-      height: 60px;
-    `};
-`;
+// Component & Container Imports
+import AvatarContainer from "../components/AvatarContainer";
 
 const PlayerAvatar = props => {
-
   let localProps = generateAvatarProps();
 
   useEffect(() => {
     props.userAvatar(localProps);
   }, [localProps]);
 
-
-  return (
-    !props.info ? 
+  return !props.info ? (
     <AvatarContainer>
       <Avatar
         style={{
@@ -42,7 +30,7 @@ const PlayerAvatar = props => {
         {...localProps}
       />
     </AvatarContainer>
-    :
+  ) : (
     <AvatarContainer>
       <Avatar
         style={{

@@ -4,6 +4,8 @@
   "description": "server for the client of what's that",
   "main": "index.js",
   "scripts": {
+    "precommit": "lint-staged",
+    "start": "node index.js",
     "test": "jest"
   },
   "author": "",
@@ -21,7 +23,6 @@
   },
   "devDependencies": {
     "eslint": "^5.16.0",
-    "husky": "^2.2.0",
     "jest": "^24.8.0",
     "lint-staged": "^8.1.6",
     "supertest": "^4.0.2"
