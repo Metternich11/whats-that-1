@@ -6,8 +6,9 @@ import { connect } from "react-redux";
 import * as Actions from "../redux/actions/index";
 import CanvasFooter from "./CanvasFooter";
 import CanvasFooterItem from "./CanvasFooterItem";
+
+// to convert array into SVG string
 import quickdrawSvgRender from '../utils/quickdrawSvgRender/quickdrawSvgRender';
-import { taggedTemplateExpression } from "@babel/types";
 
 // arol tip: useReducer instead of having this mess of variables here.
 let isDrawing = false;
@@ -22,7 +23,7 @@ let timestamp = [];
 const Canvas = ({ passDrawing }) => {
   const [locations, setLocations] = React.useState([]);
   const canvasRef = React.useRef(null);
-  const [WAYD, setWAYD] = React.useState('Draw something...');
+  const [googleGuess, setGoogleGuess] = React.useState('Draw something...');
 
   React.useEffect(() => {
     const canvas = canvasRef.current;
@@ -80,27 +81,9 @@ const Canvas = ({ passDrawing }) => {
       lastXCoordinate = e.offsetX;
       lastYCoordinate = e.offsetY;
     });
-
     canvas.addEventListener("mousemove", draw);
-
-    canvas.addEventListener("mouseup", (event) => {
-      event.preventDefault();
-      isDrawing = false;
-
-      let xyCoordinates = [xCoordinate, yCoordinate, timestamp];
-      drawing.push(xyCoordinates);
-
-      passDrawing(drawing);
-
-      xCoordinate = [];
-      yCoordinate = [];
-      timestamp = [];
-      xyCoordinates = [];
-    });
-
-    canvas.addEventListener("mouseout", () => {
-      isDrawing = false;
-    });
+    canvas.addEventListener("mouseup", () => postDrawingHelper());
+    canvas.addEventListener("mouseout", () => isDrawing = false);
 
     // eventlisteners: touch
     canvas.addEventListener("touchstart", e => {
@@ -110,13 +93,24 @@ const Canvas = ({ passDrawing }) => {
       lastXCoordinate = touch.pageX - touch.target.offsetLeft;
       lastYCoordinate = touch.pageY - touch.target.offsetTop;
     });
-
     canvas.addEventListener("touchmove", draw);
-
-    canvas.addEventListener("touchend", () => {
-      isDrawing = false;
-    });
+    canvas.addEventListener("touchend", () => postDrawingHelper());
   }, []);
+
+  // helper function to post to API
+  const postDrawingHelper = () => {
+    isDrawing = false;
+
+    let xyCoordinates = [xCoordinate, yCoordinate, timestamp];
+    drawing.push(xyCoordinates);
+
+    postDrawing(setGoogleGuess);
+
+    xCoordinate = [];
+    yCoordinate = [];
+    timestamp = [];
+    xyCoordinates = [];
+  }
 
   const handleCanvasClick = e => {
     const newLocation = { x: e.clientX, y: e.clientY };
@@ -127,7 +121,7 @@ const Canvas = ({ passDrawing }) => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    setWAYD("Draw something...");
+    setGoogleGuess("Draw something...");
     setLocations([]);
   };
 
@@ -149,9 +143,9 @@ const Canvas = ({ passDrawing }) => {
         </CanvasFooterItem>
         <CanvasFooterItem right>
           <h4>
-            {WAYD === "Draw something..." ? "" : "Is it... "}
-            {WAYD === "Draw something..." ? "" : WAYD}
-            {WAYD === "Draw something..." ? "" : "?"}
+            {googleGuess === "Draw something..." ? "" : "Is it... "}
+            {googleGuess === "Draw something..." ? "" : googleGuess}
+            {googleGuess === "Draw something..." ? "" : "?"}
           </h4>
         </CanvasFooterItem>
       </CanvasFooter>
