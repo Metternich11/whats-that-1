@@ -1,4 +1,6 @@
 /* eslint-disable no-console */
+const delay = require('delay');
+
 const {
   initializeIO,
   sendMessageRoomFromServer,
@@ -47,6 +49,7 @@ const GameController = () => {
     if (currentRound === TOTALROUNDS) {
       gameOver(gameKey);
     } else {
+      await delay(1500);
       const allDrawingsForRound = await getImagesFromRound(
         gameKey,
         currentRound
