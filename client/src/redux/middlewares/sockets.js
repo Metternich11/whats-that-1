@@ -6,6 +6,7 @@ export const socket = store => {
   return next => action => {
     if (!action.socket) return next(action);
     const { command, payload, type } = action.socket;
+    console.log('in socket');
     if (command) {
       switch (command) {
         case 'CONNECT':
@@ -16,21 +17,22 @@ export const socket = store => {
         default:
           break;
       }
+
+      socket.on('message', message => {
+        logger('IN');
+        console.log('AND OUR BE SAYS', message); //eslint-disable-line
+        store.dispatch({
+          type: 'SOCKET_MESSAGE', //THIS IS A TEST, THIS IS NOT CORRECT OR FINAL
+          payload: message
+        });
+      });
     }
 
     // Inputs (on)
-    socket.on('message', message => {
-      logger('IN');
-      console.log('AND OUR BE SAYS', message);  //eslint-disable-line
-      store.dispatch({
-        type: 'SOCKET_MESSAGE',     //THIS IS A TEST, THIS IS NOT CORRECT OR FINAL
-        payload: message,
-      });
-    });
 
     // Outputs (emit)
     if (payload) {
-      logger('OUT')
+      logger('OUT');
       socket.emit('message', {
         type,
         payload
@@ -41,7 +43,7 @@ export const socket = store => {
 
 let num = 1;
 
-function logger (to) {
+function logger(to) {
   console.log(to, num);
   num++;
 }
