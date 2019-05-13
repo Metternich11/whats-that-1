@@ -10,7 +10,7 @@ import PlayerList from "../components/PlayerList";
 import PlayerListItem from "../components/PlayerListItem";
 import PlayerAvatar from "../components/PlayerAvatar";
 import SingleDrawing from "../components/SingleDrawing";
-import TestVG from "./TestVG";
+import TestVG from "../components/TestVG";
 import Wrapper from "../components/Wrapper";
 
 export const Results = () => {

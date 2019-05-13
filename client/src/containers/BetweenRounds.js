@@ -4,7 +4,7 @@ import Countdown from 'react-countdown-now';
 // Redux Imports
 
 // Component & Container Imports
-import ArtistDetails from "../containers/ArtistDetails";
+import ArtistDetails from "../components/ArtistDetails";
 import AvatarShelf from "../components/AvatarShelf";
 import DrawingStack from "../components/DrawingStack";
 import GameHeader from "../components/GameHeader";
@@ -16,7 +16,7 @@ import PlayerListItem from "../components/PlayerListItem";
 import PolaroidPicBackground from "../components/PolaroidPicBackground";
 import SingleDrawing from "../components/SingleDrawing";
 import SpeechBubble from "../components/SpeechBubble";
-import TestVG from "../containers/TestVG";
+import TestVG from "../components/TestVG";
 import WordToDraw from "../components/WordToDraw";
 import Wrapper from "../components/Wrapper";
 

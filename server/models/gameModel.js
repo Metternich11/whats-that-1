@@ -1,38 +1,64 @@
+/* eslint-disable no-console */
 const store = require('../redux/store').createRedux();
 const Actions = require('../redux/actions');
-/* eslint-disable no-console */
-// games: {
-//   'dog-big': {
-//       round: {
-//             currentRound: 0,
-//             word: '',
-//             roundStatus: false
-//           },
-//       playing: false
-//       players: ['playerid1', 'playerid2', 'playerid3'],
-//   }
 
 const gameModel = {
-  addGame: (gameKey, totalRounds) => {
+  addGame: async (gameKey, totalRounds) => {
     // CREATEGAME
     try {
-      store.dispatch(Actions.createGame(gameKey, totalRounds));
-      return true;
+      await store.dispatch(Actions.createGame(gameKey, totalRounds));
     } catch (error) {
       console.error(error);
     }
   },
 
-  gameExists: gameKey => {
-    return store.games[gameKey] ? true : false;
+  gameExists: async gameKey => {
+    const state = await store.getState();
+    return state.games[gameKey] ? true : false;
   },
 
-  startGame: (gameKey, word) => {
+  getCurrentGameKey: async playerId => {
+    const state = await store.getState();
+    return state.players[playerId].gameKey;
+  },
+
+  getRoundStatus: async gameKey => {
+    const state = await store.getState();
+    return state.games[gameKey].round.roundStatus;
+  },
+
+  setPlayerRoundWins: async playerId => {
+    const state = await store.getState();
+    const gameKey = await state.players[playerId].gameKey;
+    const round = state.games[gameKey].round.currentRound;
+    let roundWins = state.players[playerId].roundWins;
+
+    const win = {
+      playerId,
+      roundWins: [
+        ...roundWins,
+        {
+          round,
+          winner: true
+        }
+      ]
+    };
+    await store.dispatch(Actions.setPlayerRoundWins(win));
+  },
+
+  setRoundStatus: async gameKey => {
+    const state = await store.getState();
+    let currentStatus = state.games[gameKey].round.roundStatus;
+    await store.dispatch(Actions.setRoundStatus(gameKey, !currentStatus));
+  },
+
+  startRound: async (gameKey, word) => {
     // startGame
     try {
-      let currentRound = store.games[gameKey].round.currentRound;
+      const state = await store.getState();
+      let currentRound = state.games[gameKey].round.currentRound;
       currentRound++;
-      store.dispatch(
+      await store.dispatch(
         Actions.startRound({
           game: gameKey,
           round: {
@@ -42,34 +68,35 @@ const gameModel = {
           }
         })
       );
-      return true;
-    } catch (error) {
-      console.log(error);
-    }
-  },
-
-  getCurrentWord: gameKey => {
-    try {
-      return store.games[gameKey].round.word;
     } catch (error) {
       console.error(error);
     }
   },
 
-  getCurrentRoundNumber: gameKey => {
+  getCurrentWord: async gameKey => {
     try {
-      return store.games[gameKey].round.currentRound;
+      const state = await store.getState();
+      return state.games[gameKey].round.word;
     } catch (error) {
       console.error(error);
     }
   },
 
-  deleteGame: gameKey => {
+  getCurrentRoundNumber: async gameKey => {
+    try {
+      const state = await store.getState();
+      return state.games[gameKey].round.currentRound;
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
+  deleteGame: async gameKey => {
     // DELETE_GAME
     try {
-      if (store.games[gameKey]) {
-        Actions.deleteGame(gameKey);
-        return true;
+      const state = await store.getState();
+      if (state.games[gameKey]) {
+        await Actions.deleteGame(gameKey);
       } else {
         throw 'gameDoesNotExist';
       }
@@ -78,76 +105,96 @@ const gameModel = {
     }
   },
 
-  addPlayer: (player, playerId) => {
-    // players: {
-    //   playerid1: {
-    //     playerName: 'ShanShan',
-    //     playerAvatar: 'http://avatarurl',
-    //     roundWins: 0,
-    //     isCreator: true,
-    //     gameKey: 'dog-big',
-    //     draws: []
-    //   },
+  addPlayer: async (player, playerId) => {
     try {
       const newPlayer = {
         playerId,
         playerName: player.playerName,
-        playerAvatar: player.avatarObj,
+        playerAvatar: player.playerAvatar,
         isCreator: false,
         gameKey: '',
         draws: []
       };
-      store.dispatch(Actions.addPlayer(newPlayer));
-      return true;
+      await store.dispatch(Actions.addPlayer(newPlayer));
     } catch (error) {
       console.error(error);
-      throw 'playerDoesNotExist';
     }
   },
 
-  addPlayerToGame: (playerId, gameKey, isCreator = false) => {
+  addPlayerToGame: async (playerId, gameKey, isCreator = false) => {
     try {
       const playerToGame = {
         playerId,
         isCreator,
         gameKey
       };
-      store.dispatch(Actions.addPlayerToGame(playerToGame));
-      return true
+      await store.dispatch(Actions.addPlayerToGame(playerToGame));
     } catch (error) {
       console.error(error);
     }
   },
 
-  playerExist: playerId => {
+  playerExist: async playerId => {
     try {
-      return store.players[playerId] ? true : false;
+      const state = store.getState();
+      return state.players[playerId] ? true : false;
     } catch (error) {
       console.error(error);
     }
   },
 
-  addDrawToPlayer: playerId => {},
+  getPlayersFromGame: async gameKey => {
+    const state = store.getState();
+    const playersId = state.games[gameKey].players;
+    const players = [];
 
-  playerWinRound: playerId => {
-    //SET_PLAYER_ROUND_WINS
+    playersId.forEach(playerId => {
+      players.push({
+        [playerId]: {
+          playerName: state.players[playerId].playerName,
+          playerAvatar: state.players[playerId].playerAvatar,
+          playerId
+        }
+      });
+    });
+    return players;
   },
 
-  getImagesFromRound: (gameKey, roundNumber) => {
-    const state = store.getState();
+  getImagesFromRound: async (gameKey, roundNumber) => {
+    const state = await store.getState();
     const players = state.games[gameKey].players;
     const imagesFromRound = [];
 
     players.forEach(player => {
-      // lastRound
-      //   ? imagesFromRound.push(store.players[player].draws)
-      //   : imagesFromRound.push(store.players[player].draws[roundNumber - 1]);
+      imagesFromRound.push(state.players[player].draws[roundNumber - 1]);
     });
-
     return imagesFromRound;
   },
 
-  getImagesFromGame: gameKey => {}
+  getImagesFromGame: async gameKey => {
+    const state = await store.getState();
+    const players = state.games[gameKey].players;
+    const imagesFromRound = [];
+
+    players.forEach(player => {
+      imagesFromRound.push(state.players[player].draws);
+    });
+    return imagesFromRound;
+  },
+
+  setDrawingForRound: async (gameKey, playerId, image) => {
+    const state = await store.getState();
+    const winner = (await state.players[playerId].roundWins) || false;
+
+    const result = {
+      round: state.games[gameKey].round.currentRound,
+      draw: image,
+      word: state.games[gameKey].round.word,
+      winner
+    };
+
+    await store.dispatch(Actions.addDrawToPlayer(playerId, result));
+  }
 };
 
 module.exports = gameModel;
