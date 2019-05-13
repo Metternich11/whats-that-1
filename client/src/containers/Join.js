@@ -17,15 +17,14 @@ import Wrapper from "../components/Wrapper";
 import Modal from "../components/Modal";
 
 const Join = ({ game, join, connectGame, history }) => {
-
   const [playerName, setPlayerName] = useState("");
   const [gameKey, setGameKey] = useState("");
-  const [errorMessage, setErrorMessage] = useState(false)
+  const [errorMessage, setErrorMessage] = useState(false);
 
   useEffect(() => {
-    if (game.message) history.push('/lobby');
+    if (game.message) history.push("/lobby");
     //else if (join.error) setErrorMessage(true);
-  }, [game])
+  }, [game]);
 
   const handlePlayerName = event => {
     const value = event.target.value;
@@ -39,28 +38,30 @@ const Join = ({ game, join, connectGame, history }) => {
 
   const submitAndConnect = e => {
     e.preventDefault();
-    connectGame(playerName, game.userAvatar, gameKey, 'joinGame')
+    connectGame(playerName, game.userAvatar, gameKey, "joinGame");
     //connectGame(playerName, game.userAvatar, gameKey, 'noGo')
-  }
+  };
 
   const goBack = () => {
     history.goBack();
   };
 
   const visible = () => {
-    setErrorMessage(false)
-  }
+    setErrorMessage(false);
+  };
 
   return errorMessage ? (
-      <Wrapper>
-       <Modal visible={visible}/>
-       </Wrapper>
-      ) : ( 
-       <Wrapper> 
+    <Wrapper>
+      <Modal visible={visible} />
+    </Wrapper>
+  ) : (
+    <Wrapper>
       <Form onSubmit={submitAndConnect}>
         <FormLabel>Your Avatar</FormLabel>
         <SpeechBubble>Looking good!</SpeechBubble>
-        <AvatarContainer>
+        <AvatarContainer
+          style={{ transform: "scale(2.5)", margin: "2vh 0 4vh 0" }}
+        >
           <PlayerAvatar />
         </AvatarContainer>
         <FormLabel>Name</FormLabel>
@@ -84,9 +85,11 @@ const Join = ({ game, join, connectGame, history }) => {
             Join
           </Button>
         </ButtonContainer>
-      </Form> 
-      <Button back marginBottom onClick={goBack}>Back</Button>
-      </Wrapper>
+      </Form>
+      <Button back marginBottom onClick={goBack}>
+        Back
+      </Button>
+    </Wrapper>
   );
 };
 
@@ -94,7 +97,7 @@ const mapStateToProps = state => {
   return {
     game: state.game,
     join: state.pages.join
-  }
+  };
 };
 
 const mapDispatchToProps = { connectGame: Actions.connectGame };
