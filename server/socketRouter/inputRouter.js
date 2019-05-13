@@ -27,6 +27,7 @@ const inputRouter = httpServer => {
           break;
       }
     });
+    socket.on('disconnect', () => console.log('Client disconnected'));
   });
 };
 
