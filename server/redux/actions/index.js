@@ -27,8 +27,9 @@ const addPlayer = player => ({
   player
 });
 
-const addDrawToPlayer = draw => ({
+const addDrawToPlayer = (playerId, draw) => ({
   type: ActionTypes.ADD_DRAW_TO_PLAYER,
+  playerId,
   draw
 });
 

@@ -81,7 +81,7 @@ module.exports = GameController;
         players: ['playerid1', 'playerid2', 'playerid3'],
     },
   },
-
+  
   players: {
     playerid1: {
       playerName: 'ShanShan',
@@ -89,7 +89,18 @@ module.exports = GameController;
       roundWins: 0,
       isCreator: true,
       gameKey: 'dog-big',
-      draws: []
+      draws: [{
+        round: 1,
+        draw: image,
+        word: cat,
+        winner: true
+      },
+      {
+        round: 2,
+        draw: image,
+        word: dog
+      }
+    ]
     },
     playerid2: {
       playerName: 'Ole',
@@ -183,12 +194,9 @@ exports.reducer = (state = initialState, action) => {
         ...state,
         players: {
           ...state.players,
-          [action.draw.playerId]: {
-            ...state.players[action.draw.playerId],
-            draws: [
-              ...state.players[action.draw.playerId].draws,
-              action.draw.draw
-            ]
+          [action.playerId]: {
+            ...state.players[action.playerId],
+            draws: [...state.players[action.playerId].draws, action.draw]
           }
         }
       };
@@ -209,6 +217,7 @@ exports.reducer = (state = initialState, action) => {
         games: {
           ...state.games,
           [action.round.game]: {
+            ...state.games[action.round.game],
             round: action.round.round
           }
         }
@@ -220,6 +229,7 @@ exports.reducer = (state = initialState, action) => {
         games: {
           ...state.games,
           [action.gameKey]: {
+            ...state.games[action.gameKey],
             round: {
               ...state.games[action.gameKey].round,
               roundStatus: action.status

@@ -18,8 +18,8 @@ const inputRouter = httpServer => {
         case 'passDrawing':
           gameController.passDrawing(socket, message);
           break;
-        case 'receiveFinalDraw':
-          gameController.receiveFinalDraw(socket, message);
+        case 'passFinalDrawing':
+          gameController.passFinalDrawing(socket, message);
           break;
         case 'startGame':
           gameController.startGame(socket);

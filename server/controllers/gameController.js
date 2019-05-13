@@ -18,31 +18,31 @@ const {
   deleteGame,
   addGame,
   addPlayer,
-  getCurrentRound,
   addPlayerToGame,
   getPlayersFromGame,
-  saveDrawingForRound,
+  setDrawingForRound,
   removePlayer,
-  setPlayerRoundWins
+  setPlayerRoundWins,
+  getRoundStatus
 } = require('../models/gameModel');
 const getWords = require('../helpers/requestWords');
 const requestGuess = require('../helpers/requestGuess');
 
-const TOTALROUNDS = 3;
+const TOTALROUNDS = 2;
 const MillisecondsPerRound = 5000;
 const maxNumPlayers = 6;
 
 const GameController = () => {
   const endRound = async gameKey => {
     //SHANSHAN
-    setRoundStatus(gameKey);
+    await setRoundStatus(gameKey);
     sendMessageRoomFromServer(
       handleMessage('endRound', {
         roundNum: getCurrentRoundNumber(gameKey)
       }),
       gameKey
     );
-    const currentRound = getCurrentRoundNumber(gameKey);
+    const currentRound = await getCurrentRoundNumber(gameKey);
     console.log('round# to end: ', currentRound);
     if (currentRound === TOTALROUNDS) {
       gameOver(gameKey);
@@ -106,13 +106,6 @@ const GameController = () => {
       initializeIO(io);
     },
 
-    getCurrentWord: currentRound => {
-      return this.game.words[currentRound];
-    },
-    getCurrentRound: () => {
-      this.game.currentRound = getCurrentRound();
-    },
-
     // for inputRouter and outputRouter
     createGame: async (socket, message) => {
       try {
@@ -149,24 +142,27 @@ const GameController = () => {
           );
         const numOfPlayersOnGame = await getPlayersFromGame(gameKey);
 
-        if (numOfPlayersOnGame.length < maxNumPlayers) {
-          await addPlayer(message.payload.player, socket.id);
-          await addPlayerToGame(socket.id, gameKey, true);
-          joinRoom(socket, gameKey);
-          sendMessageRoomFromServer(
-            handleMessage('playerJoin', {
-              players: getPlayersFromGame(gameKey)
-            }),
-            gameKey
+        if (numOfPlayersOnGame.length > maxNumPlayers - 1)
+          return sendMessageToClient(
+            socket,
+            handleMessage('failure', { error: 'Max num of player reached' })
           );
-        }
+        await addPlayer(message.payload.player, socket.id);
+        await addPlayerToGame(socket.id, gameKey, true);
+        joinRoom(socket, gameKey);
+        sendMessageRoomFromServer(
+          handleMessage('playerJoin', {
+            players: await getPlayersFromGame(gameKey)
+          }),
+          gameKey
+        );
       } catch (err) {
         console.error(err);
       }
     },
 
-    startGame: socket => {
-      const gameKey = getCurrentGameKey(socket.id);
+    startGame: async socket => {
+      const gameKey = await getCurrentGameKey(socket.id);
       console.log(socket.id);
       if (gameExists(gameKey)) {
         sendMessageRoomFromServer(handleMessage('startGame', gameKey));
@@ -181,14 +177,16 @@ const GameController = () => {
 
     passDrawing: async (socket, message) => {
       //// OLE
-      const gameKey = getCurrentGameKey(socket.id);
-      const currentWord = getCurrentWord(gameKey);
+      const gameKey = await getCurrentGameKey(socket.id);
+      if ((await getRoundStatus(gameKey)) === false) return;
+
+      const currentWord = await getCurrentWord(gameKey);
       const guess = await requestGuess(message.payload.drawing); // need to add info before sending to google
-      console.log(guess);
+
       sendMessageToClient(socket, handleMessage('guess', { word: guess }));
       // if match, broadcast victory to the room. payload with playerId
       if (guess === currentWord) {
-        setPlayerRoundWins(socket.id);
+        await setPlayerRoundWins(socket.id);
         sendMessageRoomFromServer(
           handleMessage('victory', { playerId: socket.id }),
           gameKey
@@ -199,9 +197,12 @@ const GameController = () => {
       removePlayer(socket.id);
       sendMessageRoom(socket, message);
     },
-    passFinalDrawing: (socket, message) => {
-      const lastDrawing = message.payload.drawingSVG;
-      saveDrawingForRound(lastDrawing, socket.id, message.payload.gameKey);
+    passFinalDrawing: async (socket, message) => {
+      const gameKey = await getCurrentGameKey(socket.id);
+      const lastDrawing = message.payload.image;
+      console.log('last draw');
+      await setDrawingForRound(gameKey, socket.id, lastDrawing);
+      console.log('finished receiving');
       // double-check gameModel
       // send roundDrawings. payload: {
       //  drawings: {

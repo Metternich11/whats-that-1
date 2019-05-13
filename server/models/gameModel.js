@@ -27,10 +27,20 @@ const gameModel = {
     return state.games[gameKey].round.roundStatus;
   },
 
+  setPlayerRoundWins: async playerId => {
+    const state = await store.getState();
+    let roundWins = state.players[playerId].roundWins;
+    const win = {
+      playerId,
+      roundWins: roundWins++
+    };
+    await store.dispatch(Actions.setPlayerRoundWins(win));
+  },
+
   setRoundStatus: async gameKey => {
-    const state = store.getState();
-    let currentStatus = await state.games[gameKey].round.roundStatus;
-    store.dispatch(Actions.setRoundStatus(gameKey, !currentStatus));
+    const state = await store.getState();
+    let currentStatus = state.games[gameKey].round.roundStatus;
+    await store.dispatch(Actions.setRoundStatus(gameKey, !currentStatus));
   },
 
   startRound: async (gameKey, word) => {
@@ -56,7 +66,9 @@ const gameModel = {
 
   getCurrentWord: async gameKey => {
     try {
+      console.log(gameKey);
       const state = await store.getState();
+      console.log(state.games[gameKey]);
       return state.games[gameKey].round.word;
     } catch (error) {
       console.error(error);
@@ -159,18 +171,31 @@ const gameModel = {
     roundNumber;
 
     players.forEach(player => {
-      imagesFromRound.push(store.players[player].draws);
+      imagesFromRound.push(state.players[player].draws);
       // player;
       // lastRound
       //   ? imagesFromRound.push(store.players[player].draws)
       //   : imagesFromRound.push(store.players[player].draws[roundNumber - 1]);
     });
-    console.log(imagesFromRound);
     return imagesFromRound;
   },
 
   getImagesFromGame: gameKey => {
     gameKey;
+  },
+
+  setDrawingForRound: async (gameKey, playerId, image) => {
+    const state = await store.getState();
+
+    const result = {
+      round: state.games[gameKey].round.currentRound,
+      draw: image,
+      word: state.games[gameKey].round.word
+    };
+
+    await store.dispatch(Actions.addDrawToPlayer(playerId, result));
+    const state2 = await store.getState();
+    console.log('PLAYERS', state2.players[playerId].draws);
   }
 };
 

@@ -73,7 +73,10 @@ const handleOnePlayerWin = () => {
 
 const handleEndRound = () => {
   socket.emit('message', {
-    type: 'endRound'
+    type: 'passFinalDrawing',
+    payload: {
+      image: 'asdasdasdasdasdawsed'
+    }
   });
 };
 
