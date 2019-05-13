@@ -39,7 +39,7 @@ const GameController = () => {
     await setRoundStatus(gameKey);
     sendMessageRoomFromServer(
       handleMessage('endRound', {
-        roundNum: getCurrentRoundNumber(gameKey)
+        roundNum: await getCurrentRoundNumber(gameKey)
       }),
       gameKey
     );
