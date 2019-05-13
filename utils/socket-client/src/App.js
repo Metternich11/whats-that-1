@@ -1,14 +1,14 @@
 import React from 'react';
 import io from 'socket.io-client';
-
+import exampleDrawing from './example.js';
 import './App.css';
 
-const socket = io('http://localhost:3100/');
+const socket = io('http://localhost:2000/');
 
-socket.on('messageServer', server => {
+socket.on('message', server => {
   switch (server.type) {
     case 'CREATE':
-      const doggySocket = io('http://localhost:3100/doggy');
+      const doggySocket = io('http://localhost:2000');
       doggySocket.on('con', server => {
         console.log(server);
       });
@@ -19,49 +19,63 @@ socket.on('messageServer', server => {
 });
 
 const handleCreatorConnect = () => {
-  socket.emit('messageClient', {
-    type: 'connect'
+  socket.emit('message', {
+    type: 'createGame',
+    payload: {
+      player: {
+        playerName: 'Shanshan',
+        playerAvatar: { ty: 'qwe' }
+      },
+      gameKey: 'one-word'
+    }
   });
 };
 
 const handleAdditionalPlayer = () => {
-  socket.emit('messageClient', {
-    type: 'additionalPlayer'
+  socket.emit('message', {
+    type: 'joinGame',
+    payload: {
+      player: {
+        playerName: 'Dario',
+        playerAvatar: { ty: 'qwe' }
+      },
+      gameKey: 'one-word'
+    }
   });
 };
 
 const handleStartWithNoPlayers = () => {
-  socket.emit('messageClient', {
+  socket.emit('message', {
     type: 'noPlayers'
   });
 };
 
 const handleCreatorStart = () => {
-  socket.emit('messageClient', {
+  socket.emit('message', {
     type: 'startGame'
   });
 };
 
 const handleDrawing = () => {
-  socket.emit('messageClient', {
-    type: 'drawing'
-  });
-};
-
-const handleOnePlayerWin = () => {
-  socket.emit('messageClient', {
-    type: 'playerWin'
+  socket.emit('message', {
+    type: 'passDrawing',
+    payload: {
+      drawing: exampleDrawing
+    }
   });
 };
 
 const handleEndRound = () => {
-  socket.emit('messageClient', {
-    type: 'endRound'
+  socket.emit('message', {
+    type: 'passFinalDrawing',
+    payload: {
+      image: 'asdasdasdasdasdawsed'
+    }
   });
 };
 
 const handleEndGame = () => {
-  socket.emit('messageClient', {
+  socket.emit('message', {
     type: 'endGame'
   });
 };
@@ -78,7 +92,6 @@ const App = () => {
       <button onClick={handleAdditionalPlayer}>Add more players</button>
       <button onClick={handleCreatorStart}>Creator Start</button>
       <button onClick={handleDrawing}>Send vectors</button>
-      <button onClick={handleOnePlayerWin}>1 of the players wins</button>
       <button onClick={handleEndRound}>Round Ends</button>
       <button onClick={handleEndGame}>Game Finishes</button>
     </div>

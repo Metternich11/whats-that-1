@@ -1,8 +1,9 @@
 const ActionTypes = require('../actions/types');
 
-const createGame = game => ({
+const createGame = (game, totalRounds) => ({
   type: ActionTypes.CREATE_GAME,
-  game
+  game,
+  totalRounds
 });
 
 const startGame = (game, totalRounds) => ({
@@ -14,7 +15,7 @@ const startGame = (game, totalRounds) => ({
 const addPlayerToGame = playerToGame => ({
   type: ActionTypes.ADD_PLAYER_TO_GAME,
   playerToGame
-})
+});
 
 const deleteGame = gameId => ({
   type: ActionTypes.DELETE_GAME,
@@ -26,8 +27,9 @@ const addPlayer = player => ({
   player
 });
 
-const addDrawToPlayer = draw => ({
+const addDrawToPlayer = (playerId, draw) => ({
   type: ActionTypes.ADD_DRAW_TO_PLAYER,
+  playerId,
   draw
 });
 
@@ -41,6 +43,12 @@ const startRound = round => ({
   round
 });
 
+const setRoundStatus = (gameKey, status) => ({
+  type: ActionTypes.SET_ROUND_STATUS,
+  gameKey,
+  status
+});
+
 module.exports = {
   createGame,
   addPlayer,
@@ -49,5 +57,6 @@ module.exports = {
   startGame,
   deleteGame,
   startRound,
-  addPlayerToGame
+  addPlayerToGame,
+  setRoundStatus
 };
