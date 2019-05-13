@@ -7,6 +7,7 @@ const {
   sendMessageRoom
 } = require('../socketRouter/outputRouter');
 const {
+  startRound,
   setRoundStatus,
   getImagesFromGame,
   gameExists,
@@ -36,27 +37,22 @@ const GameController = () => {
     //SHANSHAN
     setRoundStatus(gameKey);
     sendMessageRoomFromServer(
-      {
-        type: 'endRound',
-        payload: {
-          roundNum: getCurrentRoundNumber(gameKey)
-        }
-      },
+      handleMessage('endRound', {
+        roundNum: getCurrentRoundNumber(gameKey)
+      }),
       gameKey
     );
     const currentRound = getCurrentRoundNumber(gameKey);
+    console.log('round# to end: ', currentRound);
     if (currentRound === TOTALROUNDS) {
       gameOver(gameKey);
     } else {
       const allDrawingsForRound = getImagesFromRound(gameKey, currentRound);
 
       sendMessageRoomFromServer(
-        {
-          type: 'roundDrawings',
-          payload: {
-            drawings: allDrawingsForRound
-          }
-        },
+        handleMessage('roundDrawings', {
+          drawings: allDrawingsForRound
+        }),
         gameKey
       );
     }
@@ -76,19 +72,17 @@ const GameController = () => {
     return setTimeout(() => endRound(gameKey), MillisecondsPerRound);
   };
 
-  const startRound = gameKey => {
+  const startCurrentRound = gameKey => {
     if (gameExists(gameKey)) {
+      console.log('round in progress');
       const roundWord = getWords(1)[0];
       startRound(gameKey, roundWord);
       timer(gameKey);
       sendMessageRoomFromServer(
-        {
-          type: 'startRound',
-          payload: {
-            timer: MillisecondsPerRound,
-            word: roundWord
-          }
-        },
+        handleMessage('startRound', {
+          timer: MillisecondsPerRound,
+          word: roundWord
+        }),
         gameKey
       );
     }
@@ -97,9 +91,10 @@ const GameController = () => {
   const handleMessage = (type, payload) => {
     return {
       type,
-      payload: {
-        payload
-      }
+      payload
+      // payload: {
+      //   payload
+      // }
     };
   };
 
@@ -149,7 +144,6 @@ const GameController = () => {
             socket,
             handleMessage('failure', { error: 'Game does not exist' })
           );
-
         const numOfPlayersOnGame = await getPlayersFromGame(gameKey);
 
         if (numOfPlayersOnGame.length < maxNumPlayers) {
@@ -169,9 +163,10 @@ const GameController = () => {
 
     startGame: socket => {
       const gameKey = getCurrentGameKey(socket.id);
+      console.log(socket.id);
       if (gameExists(gameKey)) {
         sendMessageRoomFromServer(handleMessage('startGame', gameKey));
-        startRound(gameKey);
+        startCurrentRound(gameKey);
       } else {
         sendMessageToClient(
           socket,
