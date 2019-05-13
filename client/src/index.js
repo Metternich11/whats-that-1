@@ -1,25 +1,33 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import * as serviceWorker from "./serviceWorker";
+import App from "./App";
+
+// Redux Imports
 import { Provider } from "react-redux";
 import { createRedux } from "./redux/store";
-import App from "./App";
-import { BrowserRouter } from "react-router-dom";
-import * as serviceWorker from "./serviceWorker";
 
+// Router Setup
+import { BrowserRouter } from "react-router-dom";
+
+// Component & Container Imports
 import NavBar from "./components/NavBar";
+
+// Styling & Animations
 import "./index.css";
 
 const store = createRedux();
+
 ReactDOM.render(
-  <BrowserRouter>
-    <Provider store={store}>
-      <NavBar>
-        <div className="logo">{"What's that?!"}</div>
-        <div className="nav-content"> </div>
-      </NavBar>
+  <Provider store={store}>
+    <NavBar>
+      <div className="logo">{"What's that?!"}</div>
+      <div className="nav-content"> </div>
+    </NavBar>
+    <BrowserRouter>
       <App />
-    </Provider>
-  </BrowserRouter>,
+    </BrowserRouter>
+  </Provider>,
   document.getElementById("root")
 );
 
