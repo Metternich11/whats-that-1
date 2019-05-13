@@ -24,13 +24,14 @@ export const Lobby = props => {
   return (
     <Wrapper>
       <GameHeader>
-        <GameName lobby>Wild-Winter</GameName>
+        <GameName lobby>{props.gameKey}</GameName>
         {props.isCreator === 'createGame' ? <Button primary onClick={startGame}> Start! </Button> : ''}
       </GameHeader>
 
       <Canvas />
       <PlayerList>
         <PlayerListItem>
+          { console.log('AVATATAR', props)}
           <PlayerAvatar info={props.beAvatar} />
         </PlayerListItem>
       </PlayerList>

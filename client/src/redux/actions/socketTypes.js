@@ -1,5 +1,5 @@
 export const GAME_CREATED = 'gameCreated'
-export const JOINED = 'joined'
+export const JOINED = 'playerJoin'
 export const START_GAME = 'startGame'
 export const START_ROUND = 'startRound'
 export const GUESS = 'guess'

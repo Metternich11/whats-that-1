@@ -23,8 +23,8 @@ const Join = ({ game, join, connectGame, history }) => {
   const gameKeyInput = useRef();
 
   useEffect(() => {
-    console.log('1222', game.message)
-    if (game.message) history.push('/lobby');
+    console.log('1222', game)
+    if (game.gameKey) history.push('/lobby');
     else if (join.error) {
       gameKeyInput.current.setCustomValidity('Game code does not exist')
       joinForm.current[1].reportValidity()
@@ -44,6 +44,7 @@ const Join = ({ game, join, connectGame, history }) => {
   const submitAndConnect = e => {
     e.preventDefault();
     connectGame(playerName, game.userAvatar, gameKey, 'joinGame');
+    history.push("/lobby");
     //connectGame(playerName, game.userAvatar, gameKey, 'noGo')
   }
 

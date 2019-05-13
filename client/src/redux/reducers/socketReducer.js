@@ -1,14 +1,15 @@
 import * as SocketTypes from '../actions/socketTypes';
 
 const socketReducer = (state = {}, action) => {
-  console.log('HERE GOES THE SOCKET ACTION: ', action)
+  console.log('HERE GOES THE SOCKET ACTION: ', action.payload.type)
   switch(action.payload.type) {
     case SocketTypes.GAME_CREATED: 
     return {
       ...state,
       message: action.payload.payload
     };
-    case SocketTypes.JOINED: 
+    case SocketTypes.JOINED:
+    console.log('player joined', action.payload.type) 
     return {
       ...state,
       message: action.payload.payload

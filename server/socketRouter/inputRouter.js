@@ -9,9 +9,11 @@ const inputRouter = httpServer => {
     socket.on('message', message => {
       switch (message.type) {
         case 'createGame':
+          console.log('created', message);
           gameController.createGame(socket, message);
           break;
         case 'joinGame':
+          console.log('created', message);
           gameController.joinGame(socket, message);
           break;
         case 'passDrawing':
