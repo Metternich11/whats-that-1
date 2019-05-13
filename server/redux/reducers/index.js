@@ -181,7 +181,7 @@ exports.reducer = (state = initialState, action) => {
           [action.player.playerId]: {
             playerName: action.player.playerName,
             playerAvatar: action.player.playerAvatar,
-            roundWins: 0,
+            roundWins: [],
             isCreator: action.player.isCreator,
             gameKey: action.player.gameKey,
             draws: []

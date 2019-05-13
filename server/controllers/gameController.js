@@ -29,7 +29,8 @@ const getWords = require('../helpers/requestWords');
 const requestGuess = require('../helpers/requestGuess');
 
 const TOTALROUNDS = 2;
-const MillisecondsPerRound = 5000;
+const MillisecondsPerRound = 20000;
+const MillisecondsBetweenRounds = 10000;
 const maxNumPlayers = 6;
 
 const GameController = () => {
@@ -43,7 +44,6 @@ const GameController = () => {
       gameKey
     );
     const currentRound = await getCurrentRoundNumber(gameKey);
-    console.log('round# to end: ', currentRound);
     if (currentRound === TOTALROUNDS) {
       gameOver(gameKey);
     } else {
@@ -51,13 +51,13 @@ const GameController = () => {
         gameKey,
         currentRound
       );
-
       sendMessageRoomFromServer(
         handleMessage('roundDrawings', {
           drawings: allDrawingsForRound
         }),
         gameKey
       );
+      setTimeout(() => startCurrentRound(gameKey), MillisecondsBetweenRounds);
     }
   };
 
@@ -77,10 +77,11 @@ const GameController = () => {
 
   const startCurrentRound = async gameKey => {
     if (gameExists(gameKey)) {
-      console.log('round in progress');
       const roundWord = getWords(1)[0];
+
       await startRound(gameKey, roundWord);
       timer(gameKey);
+
       sendMessageRoomFromServer(
         handleMessage('startRound', {
           timer: MillisecondsPerRound,
@@ -181,7 +182,7 @@ const GameController = () => {
       if ((await getRoundStatus(gameKey)) === false) return;
 
       const currentWord = await getCurrentWord(gameKey);
-      const guess = await requestGuess(message.payload.drawing); // need to add info before sending to google
+      const guess = await requestGuess(message.payload.drawing);
 
       sendMessageToClient(socket, handleMessage('guess', { word: guess }));
       // if match, broadcast victory to the room. payload with playerId
@@ -200,17 +201,7 @@ const GameController = () => {
     passFinalDrawing: async (socket, message) => {
       const gameKey = await getCurrentGameKey(socket.id);
       const lastDrawing = message.payload.image;
-      console.log('last draw');
       await setDrawingForRound(gameKey, socket.id, lastDrawing);
-      console.log('finished receiving');
-      // double-check gameModel
-      // send roundDrawings. payload: {
-      //  drawings: {
-      //   {playerId: , drawing: },
-      //   {playerId: , drawing: },
-      //   {playerId: , drawing: }
-      //  }
-      // }
     }
   };
 };

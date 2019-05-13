@@ -29,10 +29,19 @@ const gameModel = {
 
   setPlayerRoundWins: async playerId => {
     const state = await store.getState();
+    const gameKey = await state.players[playerId].gameKey;
+    const round = state.games[gameKey].round.currentRound;
     let roundWins = state.players[playerId].roundWins;
+
     const win = {
       playerId,
-      roundWins: roundWins++
+      roundWins: [
+        ...roundWins,
+        {
+          round,
+          winner: true
+        }
+      ]
     };
     await store.dispatch(Actions.setPlayerRoundWins(win));
   },
@@ -66,9 +75,7 @@ const gameModel = {
 
   getCurrentWord: async gameKey => {
     try {
-      console.log(gameKey);
       const state = await store.getState();
-      console.log(state.games[gameKey]);
       return state.games[gameKey].round.word;
     } catch (error) {
       console.error(error);
@@ -136,17 +143,7 @@ const gameModel = {
     }
   },
 
-  addDrawToPlayer: playerId => {
-    playerId;
-  },
-
-  playerWinRound: playerId => {
-    //SET_PLAYER_ROUND_WINS
-    playerId;
-  },
-
   getPlayersFromGame: async gameKey => {
-    // DARIO
     const state = store.getState();
     const playersId = state.games[gameKey].players;
     const players = [];
@@ -164,38 +161,39 @@ const gameModel = {
   },
 
   getImagesFromRound: async (gameKey, roundNumber) => {
-    // DARIO
     const state = await store.getState();
     const players = state.games[gameKey].players;
     const imagesFromRound = [];
-    roundNumber;
 
     players.forEach(player => {
-      imagesFromRound.push(state.players[player].draws);
-      // player;
-      // lastRound
-      //   ? imagesFromRound.push(store.players[player].draws)
-      //   : imagesFromRound.push(store.players[player].draws[roundNumber - 1]);
+      imagesFromRound.push(state.players[player].draws[roundNumber - 1]);
     });
     return imagesFromRound;
   },
 
-  getImagesFromGame: gameKey => {
-    gameKey;
+  getImagesFromGame: async gameKey => {
+    const state = await store.getState();
+    const players = state.games[gameKey].players;
+    const imagesFromRound = [];
+
+    players.forEach(player => {
+      imagesFromRound.push(state.players[player].draws);
+    });
+    return imagesFromRound;
   },
 
   setDrawingForRound: async (gameKey, playerId, image) => {
     const state = await store.getState();
+    const winner = (await state.players[playerId].roundWins) || false;
 
     const result = {
       round: state.games[gameKey].round.currentRound,
       draw: image,
-      word: state.games[gameKey].round.word
+      word: state.games[gameKey].round.word,
+      winner
     };
 
     await store.dispatch(Actions.addDrawToPlayer(playerId, result));
-    const state2 = await store.getState();
-    console.log('PLAYERS', state2.players[playerId].draws);
   }
 };
 

@@ -65,12 +65,6 @@ const handleDrawing = () => {
   });
 };
 
-const handleOnePlayerWin = () => {
-  socket.emit('message', {
-    type: 'playerWin'
-  });
-};
-
 const handleEndRound = () => {
   socket.emit('message', {
     type: 'passFinalDrawing',
@@ -98,7 +92,6 @@ const App = () => {
       <button onClick={handleAdditionalPlayer}>Add more players</button>
       <button onClick={handleCreatorStart}>Creator Start</button>
       <button onClick={handleDrawing}>Send vectors</button>
-      <button onClick={handleOnePlayerWin}>1 of the players wins</button>
       <button onClick={handleEndRound}>Round Ends</button>
       <button onClick={handleEndGame}>Game Finishes</button>
     </div>
