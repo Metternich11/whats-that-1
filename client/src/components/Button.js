@@ -72,6 +72,20 @@ const Button = styled.button`
       text-transform: none;
       margin: 0;
     `};
+
+  ${props =>
+    props.small &&
+    css`
+      background-color: #fff;
+      color: #472c81;
+      font-size: 10px;
+      font-weight: bold;
+
+      :hover {
+        background-color: rgba(200, 200, 200, 1);
+        transform: none;
+      }
+    `};
 `;
 
 export default Button;

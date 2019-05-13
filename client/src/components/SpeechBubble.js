@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 const SpeechBubble = styled.span`
-  animation: shake 3s;
+  animation: float 5s;
   animation-delay: 0.2s;
   animation-iteration-count: infinite;
   background-color: rgba(255, 255, 255, 0.5);
@@ -10,6 +10,7 @@ const SpeechBubble = styled.span`
   font-size: 0.8rem;
   padding: 4px 10px;
   position: relative;
+  margin-left: 10px;
 
   &:after {
     border: 20px solid transparent;
@@ -26,18 +27,18 @@ const SpeechBubble = styled.span`
     width: 0;
   }
 
-  @keyframes shake {
+  @keyframes float {
     0% {
-      transform: translate(1px, 1px) rotate(0deg);
+      box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+      transform: translate(0px) rotate(0deg);
     }
-    25% {
-      transform: translate(-1px, 2px) rotate(1deg);
-    }
-    75% {
-      transform: translate(1px, 0px) rotate(4deg);
+    50% {
+      box-shadow: 0 15px 15px 0px rgba(0, 0, 0, 0.2);
+      transform: translate(-2px, -2px) rotate(4deg);
     }
     100% {
-      transform: translate(1px, 1px) rotate(0deg);
+      box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+      transform: translate(0px) rotate(0deg);
     }
   }
 
