@@ -26,8 +26,9 @@ const Create = props => {
 
   const submitName = e => {
     e.preventDefault();
-    props.addName(playerName, props.userAvatar, props.gameKey, "Create");
-    props.history.push("/lobby"); //not sure about this line, maybe ask Arol
+
+    props.connectGame(playerName, props.userAvatar, props.gameKey, "createGame");
+    props.history.push("/lobby");
   };
 
   const goBack = () => {
@@ -67,15 +68,12 @@ const Create = props => {
 };
 
 const mapStateToProps = state => ({
-  userAvatar: state.userAvatar,
-  gameKey: state.gameKey,
-  loading: state.loading
+    userAvatar: state.game.userAvatar,
+    gameKey: state.pages.create.gameKey,
+    loading: state.pages.create.loading
 });
 
-const mapDispatchToProps = dispatch => ({
-  addName: (player, avatar, gameKey, socketType) =>
-    dispatch(Actions.addName(player, avatar, gameKey, socketType))
-});
+const mapDispatchToProps = { connectGame: Actions.connectGame };
 
 export default connect(
   mapStateToProps,

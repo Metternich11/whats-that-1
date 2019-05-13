@@ -1,7 +1,8 @@
-import React from "react";
+import React from 'react';
 
 // Redux Imports
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
+import * as Actions from "../redux/actions/index";
 
 // Component & Container Imports
 import AvatarShelf from "../components/AvatarShelf";
@@ -16,34 +17,21 @@ import Wrapper from "../components/Wrapper";
 
 export const Lobby = props => {
   const startGame = () => {
-    props.history.push("/game");
-  };
+    props.startGame();
+    props.history.push('/game');
+  }
 
   return (
     <Wrapper>
       <GameHeader>
         <GameName lobby>Wild-Winter</GameName>
-        <Button primary onClick={startGame}>
-          Start!
-        </Button>
+        {props.isCreator === 'createGame' ? <Button primary onClick={startGame}> Start! </Button> : ''}
       </GameHeader>
 
       <Canvas />
       <PlayerList>
         <PlayerListItem>
           <PlayerAvatar info={props.beAvatar} />
-        </PlayerListItem>
-        <PlayerListItem>
-          <PlayerAvatar />
-        </PlayerListItem>
-        <PlayerListItem>
-          <PlayerAvatar />
-        </PlayerListItem>
-        <PlayerListItem>
-          <PlayerAvatar />
-        </PlayerListItem>
-        <PlayerListItem>
-          <PlayerAvatar />
         </PlayerListItem>
       </PlayerList>
       <AvatarShelf>Your Opponents</AvatarShelf>
@@ -54,10 +42,13 @@ export const Lobby = props => {
 const mapStateToProps = state => ({
   userAvatar: state.userAvatar,
   gameKey: state.gameKey,
-  beAvatar: state.message
+  beAvatar: state.message,
+  isCreator: state.isCreator
 });
 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = dispatch => ({
+  startGame: () => dispatch(Actions.startGame())
+});
 
 export default connect(
   mapStateToProps,

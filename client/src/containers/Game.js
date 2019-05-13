@@ -1,4 +1,5 @@
 import React from "react";
+import Countdown from 'react-countdown-now';
 
 // Redux Imports
 
@@ -14,10 +15,19 @@ import WordToDraw from "../components/WordToDraw";
 import Wrapper from "../components/Wrapper";
 
 export const Game = () => {
+
+  const renderer = ({ seconds, completed }) => {
+    if (completed) {
+      return <span>TIME'S UP!!!</span>
+    } else {
+      return <span> {seconds} </span>
+    }
+  };
+
   return (
     <Wrapper>
       <GameHeader timer>
-        <GameName timer>00:20</GameName>
+        <GameName timer><Countdown date={Date.now() + 20000} renderer={renderer} /></GameName>
         <WordToDraw>
           Drawing: <strong>Hurricane</strong>
         </WordToDraw>
