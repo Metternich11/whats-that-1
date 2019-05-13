@@ -14,16 +14,18 @@ import InputField from "../components/InputField";
 import PlayerAvatar from "../components/PlayerAvatar";
 import SpeechBubble from "../components/SpeechBubble";
 import Wrapper from "../components/Wrapper";
+import Modal from "../components/Modal";
 
 const Join = ({ game, join, connectGame, history }) => {
 
-
   const [playerName, setPlayerName] = useState("");
   const [gameKey, setGameKey] = useState("");
+  const [errorMessage, setErrorMessage] = useState(false)
 
   useEffect(() => {
-    if (game.gameKey) history.push('/lobby')
-  }, [game.message])
+    if (game.message) history.push('/lobby');
+    //else if (join.error) setErrorMessage(true);
+  }, [game])
 
   const handlePlayerName = event => {
     const value = event.target.value;
@@ -37,16 +39,24 @@ const Join = ({ game, join, connectGame, history }) => {
 
   const submitAndConnect = e => {
     e.preventDefault();
-    //connectGame(playerName, game.userAvatar, gameKey, 'joinGame')
-    connectGame(playerName, game.userAvatar, gameKey, 'noGo')
+    connectGame(playerName, game.userAvatar, gameKey, 'joinGame')
+    //connectGame(playerName, game.userAvatar, gameKey, 'noGo')
   }
 
   const goBack = () => {
     history.goBack();
   };
 
-  return (
-    <Wrapper>
+  const visible = () => {
+    setErrorMessage(false)
+  }
+
+  return errorMessage ? (
+      <Wrapper>
+       <Modal visible={visible}/>
+       </Wrapper>
+      ) : ( 
+       <Wrapper> 
       <Form onSubmit={submitAndConnect}>
         <FormLabel>Your Avatar</FormLabel>
         <SpeechBubble>Looking good!</SpeechBubble>
@@ -74,11 +84,9 @@ const Join = ({ game, join, connectGame, history }) => {
             Join
           </Button>
         </ButtonContainer>
-      </Form>
-      <Button back marginBottom onClick={goBack}>
-        Back
-      </Button>
-    </Wrapper>
+      </Form> 
+      <Button back marginBottom onClick={goBack}>Back</Button>
+      </Wrapper>
   );
 };
 
