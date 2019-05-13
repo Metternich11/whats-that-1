@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 const {
-  initialize,
+  initialize, //change to initializeSocketIO
   sendMessageRoomFromServer,
   sendMessageToClient,
-  join,
+  join, //change to joinRoom
   sendMessageRoom
 } = require('../socketRouter/outputRouter');
 const {
@@ -149,7 +149,8 @@ const GameController = () => {
             socket,
             handleMessage('failure', { error: 'Game does not exist' })
           );
-        const numOfPlayersOnGame = getPlayersFromGame(gameKey);
+
+        const numOfPlayersOnGame = await getPlayersFromGame(gameKey);
 
         if (numOfPlayersOnGame.length < maxNumPlayers) {
           await addPlayer(message.payload.player, socket.id);

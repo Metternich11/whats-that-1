@@ -22,6 +22,7 @@ const gameModel = {
     const state = store.getState();
     return state.players[playerId].gameKey;
   },
+
   getRoundStatus: gameKey => {
     const state = store.getState();
     return state.games[gameKey].round.roundStatus;
@@ -32,6 +33,7 @@ const gameModel = {
     let currentStatus = state.games[gameKey].round.roundStatus;
     store.dispatch(Actions.setRoundStatus(gameKey, !currentStatus));
   },
+
   startRound: async (gameKey, word) => {
     // startGame
     try {
@@ -122,6 +124,8 @@ const gameModel = {
         gameKey
       };
       store.dispatch(Actions.addPlayerToGame(playerToGame));
+      const state = store.getState();
+      console.log(state.games);
     } catch (error) {
       console.error(error);
     }
