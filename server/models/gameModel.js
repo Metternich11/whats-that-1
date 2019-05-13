@@ -3,44 +3,43 @@ const store = require('../redux/store').createRedux();
 const Actions = require('../redux/actions');
 
 const gameModel = {
-  addGame: (gameKey, totalRounds) => {
+  addGame: async (gameKey, totalRounds) => {
     // CREATEGAME
     try {
-      store.dispatch(Actions.createGame(gameKey, totalRounds));
-      return true;
+      await store.dispatch(Actions.createGame(gameKey, totalRounds));
     } catch (error) {
       console.error(error);
     }
   },
 
-  gameExists: gameKey => {
-    const state = store.getState();
+  gameExists: async gameKey => {
+    const state = await store.getState();
     return state.games[gameKey] ? true : false;
   },
 
-  getCurrentGameKey: playerId => {
-    const state = store.getState();
+  getCurrentGameKey: async playerId => {
+    const state = await store.getState();
     return state.players[playerId].gameKey;
   },
 
-  getRoundStatus: gameKey => {
-    const state = store.getState();
+  getRoundStatus: async gameKey => {
+    const state = await store.getState();
     return state.games[gameKey].round.roundStatus;
   },
 
-  setRoundStatus: gameKey => {
+  setRoundStatus: async gameKey => {
     const state = store.getState();
-    let currentStatus = state.games[gameKey].round.roundStatus;
+    let currentStatus = await state.games[gameKey].round.roundStatus;
     store.dispatch(Actions.setRoundStatus(gameKey, !currentStatus));
   },
 
   startRound: async (gameKey, word) => {
     // startGame
     try {
-      const state = store.getState();
+      const state = await store.getState();
       let currentRound = state.games[gameKey].round.currentRound;
       currentRound++;
-      store.dispatch(
+      await store.dispatch(
         Actions.startRound({
           game: gameKey,
           round: {
@@ -50,37 +49,35 @@ const gameModel = {
           }
         })
       );
-      return true;
     } catch (error) {
       console.error(error);
     }
   },
 
-  getCurrentWord: gameKey => {
+  getCurrentWord: async gameKey => {
     try {
-      const state = store.getState();
+      const state = await store.getState();
       return state.games[gameKey].round.word;
     } catch (error) {
       console.error(error);
     }
   },
 
-  getCurrentRoundNumber: gameKey => {
+  getCurrentRoundNumber: async gameKey => {
     try {
-      const state = store.getState();
+      const state = await store.getState();
       return state.games[gameKey].round.currentRound;
     } catch (error) {
       console.error(error);
     }
   },
 
-  deleteGame: gameKey => {
+  deleteGame: async gameKey => {
     // DELETE_GAME
     try {
-      const state = store.getState();
+      const state = await store.getState();
       if (state.games[gameKey]) {
-        Actions.deleteGame(gameKey);
-        return true;
+        await Actions.deleteGame(gameKey);
       } else {
         throw 'gameDoesNotExist';
       }
@@ -89,16 +86,7 @@ const gameModel = {
     }
   },
 
-  addPlayer: (player, playerId) => {
-    // players: {
-    //   playerid1: {
-    //     playerName: 'ShanShan',
-    //     playerAvatar: 'http://avatarurl',
-    //     roundWins: 0,
-    //     isCreator: true,
-    //     gameKey: 'dog-big',
-    //     draws: []
-    //   },
+  addPlayer: async (player, playerId) => {
     try {
       const newPlayer = {
         playerId,
@@ -108,11 +96,9 @@ const gameModel = {
         gameKey: '',
         draws: []
       };
-      store.dispatch(Actions.addPlayer(newPlayer));
-      return true;
+      await store.dispatch(Actions.addPlayer(newPlayer));
     } catch (error) {
       console.error(error);
-      throw 'playerDoesNotExist';
     }
   },
 
@@ -123,9 +109,7 @@ const gameModel = {
         isCreator,
         gameKey
       };
-      store.dispatch(Actions.addPlayerToGame(playerToGame));
-      const state = store.getState();
-      console.log(state.games);
+      await store.dispatch(Actions.addPlayerToGame(playerToGame));
     } catch (error) {
       console.error(error);
     }
@@ -151,11 +135,8 @@ const gameModel = {
 
   getPlayersFromGame: async gameKey => {
     // DARIO
-    console.log(gameKey);
     const state = store.getState();
-    console.log(state.games);
     const playersId = state.games[gameKey].players;
-    console.log(playersId);
     const players = [];
 
     playersId.forEach(playerId => {
@@ -172,7 +153,7 @@ const gameModel = {
 
   getImagesFromRound: async (gameKey, roundNumber) => {
     // DARIO
-    const state = store.getState();
+    const state = await store.getState();
     const players = state.games[gameKey].players;
     const imagesFromRound = [];
     roundNumber;

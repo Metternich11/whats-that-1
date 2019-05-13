@@ -29,11 +29,11 @@ const getWords = require('../helpers/requestWords');
 const requestGuess = require('../helpers/requestGuess');
 
 const TOTALROUNDS = 3;
-const MillisecondsPerRound = 23000;
+const MillisecondsPerRound = 5000;
 const maxNumPlayers = 6;
 
 const GameController = () => {
-  const endRound = gameKey => {
+  const endRound = async gameKey => {
     //SHANSHAN
     setRoundStatus(gameKey);
     sendMessageRoomFromServer(
@@ -47,7 +47,10 @@ const GameController = () => {
     if (currentRound === TOTALROUNDS) {
       gameOver(gameKey);
     } else {
-      const allDrawingsForRound = getImagesFromRound(gameKey, currentRound);
+      const allDrawingsForRound = await getImagesFromRound(
+        gameKey,
+        currentRound
+      );
 
       sendMessageRoomFromServer(
         handleMessage('roundDrawings', {
@@ -72,11 +75,11 @@ const GameController = () => {
     return setTimeout(() => endRound(gameKey), MillisecondsPerRound);
   };
 
-  const startCurrentRound = gameKey => {
+  const startCurrentRound = async gameKey => {
     if (gameExists(gameKey)) {
       console.log('round in progress');
       const roundWord = getWords(1)[0];
-      startRound(gameKey, roundWord);
+      await startRound(gameKey, roundWord);
       timer(gameKey);
       sendMessageRoomFromServer(
         handleMessage('startRound', {
@@ -116,14 +119,14 @@ const GameController = () => {
         const pendingAddPlayerAndGame = [];
         const gameKey = message.payload.gameKey;
 
-        if (gameExists(gameKey))
+        if (await gameExists(gameKey))
           return sendMessageToClient(
             socket,
             handleMessage('failure', '{error: gameExist}')
           );
-        pendingAddPlayerAndGame.push(addGame(gameKey, TOTALROUNDS));
+        pendingAddPlayerAndGame.push(await addGame(gameKey, TOTALROUNDS));
         pendingAddPlayerAndGame.push(
-          addPlayer(message.payload.player, socket.id)
+          await addPlayer(message.payload.player, socket.id)
         );
         await Promise.all(pendingAddPlayerAndGame);
         await addPlayerToGame(socket.id, gameKey, true);
