@@ -46,12 +46,7 @@ const GameController = () => {
     // SHANSHAN
     const allDrawingsForGame = gameModel.getImagesFromGame(gameKey);
     outputRouter.sendMessageRoomFromServer(
-      {
-        type: 'gameDrawings',
-        payload: {
-          drawings: allDrawingsForGame
-        }
-      },
+      handleMessage('gameDrawings', { drawings: allDrawingsForGame }),
       gameKey
     );
     gameModel.deleteGame(gameKey);
@@ -79,14 +74,16 @@ const GameController = () => {
     }
   };
 
-  return {
-    game: {
-      currentRound: 0,
-      words: [],
-      isCurrentRoundComplete: false,
-      maxNumPlayers: 6
-    },
+  const handleMessage = (type, payload) => {
+    return {
+      type,
+      payload: {
+        payload
+      }
+    };
+  };
 
+  return {
     initialize: io => {
       outputRouter.initialize(io);
     },
@@ -103,6 +100,12 @@ const GameController = () => {
       try {
         const pendingAddPlayerAndGame = [];
         const gameKey = message.payload.gameKey;
+
+        if (gameModel.gameExists(gameKey))
+          return outputRouter.sendMessageToClient(
+            socket,
+            handleMessage('failure', '{error: gameExist}')
+          );
         pendingAddPlayerAndGame.push(gameModel.addGame(gameKey, TOTALROUNDS));
         pendingAddPlayerAndGame.push(
           gameModel.addPlayer(message.payload.player, socket.id)
@@ -110,38 +113,34 @@ const GameController = () => {
         await Promise.all(pendingAddPlayerAndGame);
         await gameModel.addPlayerToGame(socket.id, gameKey, true);
         outputRouter.join(socket, gameKey);
-        outputRouter.sendMessageToClient(socket, gameCreatedEvent(gameKey));
+        outputRouter.sendMessageToClient(
+          socket,
+          handleMessage('gameCreated', { gameKey })
+        );
       } catch (error) {
         console.error(error);
         // TODO: Notify client
         outputRouter.sendMessageToClient(socket);
-      }
-
-      function gameCreatedEvent(gameKey) {
-        return {
-          type: 'gameCreated',
-          payload: {
-            gameKey
-          }
-        };
       }
     },
 
     joinGame: async (socket, message) => {
       try {
         const gameKey = message.payload.gameKey;
-        await gameModel.gameExists(gameKey);
+        if (await !gameModel.gameExists(gameKey))
+          return outputRouter.sendMessageToClient(
+            socket,
+            handleMessage('failure', { error: 'Game does not exist' })
+          );
         const numOfPlayersOnGame = gameModel.getPlayersFromGame(gameKey);
+
         if (numOfPlayersOnGame.length < maxNumPlayers) {
           await gameModel.addPlayer(message.payload.player, socket.id);
           await gameModel.addPlayerToGame(socket.id, gameKey, true);
           outputRouter.sendMessageRoomFromServer(
-            {
-              type: 'playerJoin',
-              payload: {
-                players: gameModel.getPlayersFromGame(gameKey)
-              }
-            },
+            handleMessage('playerJoin', {
+              players: gameModel.getPlayersFromGame(gameKey)
+            }),
             gameKey
           );
         }
@@ -154,20 +153,14 @@ const GameController = () => {
       const gameKey = gameModel.getCurrentGameKey(socket.id);
       if (gameModel.gameExists(gameKey)) {
         outputRouter.sendMessageRoomFromServer(
-          {
-            type: 'startGame'
-          },
-          gameKey
+          handleMessage('startGame', gameKey)
         );
-
         startRound(gameKey);
       } else {
-        outputRouter.sendMessageToClient(socket, {
-          type: 'failure',
-          payload: {
-            startGameFailure: 'startGameFailure'
-          }
-        });
+        outputRouter.sendMessageToClient(
+          socket,
+          handleMessage('failure', { startGameFailure: 'startGameFailure' })
+        );
       }
     },
 
@@ -177,22 +170,15 @@ const GameController = () => {
       const currentWord = gameModel.getCurrentWord(gameKey);
       const guess = requestGuess(message.payload.drawing); // need to add info before sending to google
       // pass frontend payload: guess, guessWord
-      outputRouter.sendMessageToClient(socket, {
-        type: 'guess',
-        payload: {
-          word: guess
-        }
-      });
+      outputRouter.sendMessageToClient(
+        socket,
+        handleMessage('guess', { word: guess })
+      );
       // if match, broadcast victory to the room. payload with playerId
       if (guess === currentWord) {
         gameModel.setPlayerRoundWins(socket.id);
         outputRouter.sendMessageRoomFromServer(
-          {
-            type: 'victory',
-            payload: {
-              playerId: socket.id
-            }
-          },
+          handleMessage('victory', { playerId: socket.id }),
           gameKey
         );
       }

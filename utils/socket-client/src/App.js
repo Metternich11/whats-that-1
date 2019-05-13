@@ -6,7 +6,6 @@ import './App.css';
 const socket = io('http://localhost:2000/');
 
 socket.on('message', server => {
-  console.log(server);
   switch (server.type) {
     case 'CREATE':
       const doggySocket = io('http://localhost:2000');
