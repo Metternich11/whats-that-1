@@ -10,11 +10,16 @@ import PlayerListItem from "../components/PlayerListItem";
 import PlayerList from "../components/PlayerList";
 import PolaroidPicBackground from "../components/PolaroidPicBackground";
 import Wrapper from "../components/Wrapper";
+import Modal from "../components/Modal";
 
 export const ComponentsCatalogue = () => {
   return (
     <>
       <Wrapper>
+        <div className="divider">
+          <h2>TestModal</h2>
+          <Modal />
+        </div>
         <div className="divider">
           <h2>Canvas</h2>
           <Canvas />
