@@ -7,6 +7,7 @@ import * as Actions from "../redux/actions/index";
 import CanvasFooter from "./CanvasFooter";
 import CanvasFooterItem from "./CanvasFooterItem";
 import quickdrawSvgRender from '../utils/quickdrawSvgRender/quickdrawSvgRender';
+import { taggedTemplateExpression } from "@babel/types";
 
 // arol tip: useReducer instead of having this mess of variables here.
 let isDrawing = false;
@@ -16,13 +17,12 @@ let drawing = [];
 let xCoordinate = [];
 let yCoordinate = [];
 let timestamp = [];
-let whatYouAreDrawing = "Draw something...";
 
 const googleURL =
   // REPLACE WHEN BACKEND PROVIDE ENDPOINT
   "https://inputtools.google.com/request?ime=handwriting&app=quickdraw&dbg=1&cs=1&oe=UTF-8";
 
-const postDrawing = () => {
+const postDrawing = (setWAYD) => {
   fetch(googleURL, {
     method: "POST",
     headers: {
@@ -43,13 +43,14 @@ const postDrawing = () => {
     })
   })
     .then(res => res.json())
-    .then(data => (whatYouAreDrawing = data[1][0][1][0]))
+    .then(data => (setWAYD(data[1][0][1][0])))
     .catch(err => console.error(err)); // eslint-disable-line no-console
 };
 
 const Canvas = () => {
   const [locations, setLocations] = React.useState([]);
   const canvasRef = React.useRef(null);
+  const [WAYD, setWAYD] = React.useState('Draw something...');
 
   React.useEffect(() => {
     const canvas = canvasRef.current;
@@ -110,13 +111,14 @@ const Canvas = () => {
 
     canvas.addEventListener("mousemove", draw);
 
-    canvas.addEventListener("mouseup", () => {
+    canvas.addEventListener("mouseup", (event) => {
+      event.preventDefault();
       isDrawing = false;
 
       let xyCoordinates = [xCoordinate, yCoordinate, timestamp];
       drawing.push(xyCoordinates);
 
-      postDrawing();
+      postDrawing(setWAYD);
       console.log(quickdrawSvgRender(drawing, 375, 375))
 
       xCoordinate = [];
@@ -154,7 +156,7 @@ const Canvas = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    whatYouAreDrawing = "Draw something...";
+    setWAYD("Draw something...");
     setLocations([]);
   };
 
@@ -176,9 +178,9 @@ const Canvas = () => {
         </CanvasFooterItem>
         <CanvasFooterItem right>
           <h4>
-            {whatYouAreDrawing === "Draw something..." ? "" : "Is it... "}
-            {whatYouAreDrawing === "Draw something..." ? "" : whatYouAreDrawing}
-            {whatYouAreDrawing === "Draw something..." ? "" : "?"}
+            {WAYD === "Draw something..." ? "" : "Is it... "}
+            {WAYD === "Draw something..." ? "" : WAYD}
+            {WAYD === "Draw something..." ? "" : "?"}
           </h4>
         </CanvasFooterItem>
       </CanvasFooter>
