@@ -10,7 +10,7 @@ const socketReducer = (state = {}, action) => {
     case SocketTypes.JOINED: 
     return {
       ...state,
-      message: action.payload.payload
+      message: action.payload
     };
     case SocketTypes.START_GAME:
     return {

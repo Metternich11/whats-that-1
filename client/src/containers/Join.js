@@ -42,8 +42,8 @@ const Join = ({ game, join, connectGame, history }) => {
 
   const submitAndConnect = e => {
     e.preventDefault();
-    connectGame(playerName, game.userAvatar, gameKey, 'joinGame')
-    //connectGame(playerName, game.userAvatar, gameKey, 'noGo')
+    //connectGame(playerName, game.userAvatar, gameKey, 'joinGame')
+    connectGame(playerName, game.userAvatar, gameKey, 'noGo')
   }
 
   const goBack = () => {
