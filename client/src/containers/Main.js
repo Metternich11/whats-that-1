@@ -10,6 +10,7 @@ import * as Actions from "../redux/actions/index";
 // Component & Container Imports
 import Button from "../components/Button";
 import Wrapper from "../components/Wrapper";
+import Zorb from "../components/Zorb";
 
 // Library Imports
 import styled from "styled-components";
@@ -18,10 +19,12 @@ export const Main = props => {
   return (
     <Wrapper>
       <Container>
+        <Zorb />
         <div>
           <Text>
-            What&apos;s that?! The game where you draw and we try to guess what
-            it is.
+            You draw, Zorb guesses. You have only 20 seconds per round to show
+            off your artistic skills. Can Zorb understand what you are trying to
+            draw? Let&apos;s get started!
           </Text>
         </div>
         <div>
