@@ -108,7 +108,7 @@ const GameController = () => {
     },
 
     // for inputRouter and outputRouter
-    
+
     createGame: async (socket, message) => {
       try {
         const pendingAddPlayerAndGame = [];
@@ -142,8 +142,8 @@ const GameController = () => {
             socket,
             handleMessage('failure', { error: 'Game does not exist' })
           );
-            socket.disconnect();
-            return;
+          socket.disconnect();
+          return;
         }
         const numOfPlayersOnGame = await getPlayersFromGame(gameKey);
 
