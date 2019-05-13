@@ -1,4 +1,4 @@
-import * as ActionTypes from "./types";
+import * as ActionTypes from "./gameTypes";
 
 export const getKey = () => ({
   type: ActionTypes.GET_KEY,
@@ -7,7 +7,12 @@ export const getKey = () => ({
   }
 });
 
-export const addName = (playerName, playerAvatar, gameKey, type) => ({
+export const saveAvatar = (avatar) => ({
+  type: ActionTypes.USER_AVATAR,
+  avatar
+});
+
+export const connectGame = (playerName, playerAvatar, gameKey, type) => ({
   type: ActionTypes.PLAYER_INFO,
   playerName,
   gameKey,
@@ -15,14 +20,31 @@ export const addName = (playerName, playerAvatar, gameKey, type) => ({
     command: 'CONNECT',
     type,
     payload: {
-      playerName,
-      playerAvatar,
+      player: {
+        playerName,
+        playerAvatar,
+      },
       gameKey,
     }
   }
 });
 
-export const saveAvatar = (avatar) => ({
-  type: ActionTypes.USER_AVATAR,
-  avatar
+export const startGame = () => ({
+  type: ActionTypes.CREATOR_START_GAME,
+  socket: {
+    type: 'gameStart',
+    payload: {
+      message: 'BE, start the game!'
+    }
+  }
+});
+
+export const postDrawing = drawing => ({
+  type: ActionTypes.POST_DRAWING,
+  socket: {
+    type: 'passDrawing',
+    payload: {
+      drawing
+    }
+  }
 });

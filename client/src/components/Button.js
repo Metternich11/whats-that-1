@@ -16,6 +16,13 @@ const Button = styled.button`
     box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
     transform: translateY(-1px);
   }
+  :focus {
+    outline: none;
+  }
+  :active {
+    box-shadow: 0 1px 7px rgba(255, 255, 255, 0.3),
+      0 3px 6px rgba(0, 0, 0, 0.16);
+  }
 
   ${props =>
     props.primary &&
@@ -45,7 +52,7 @@ const Button = styled.button`
     `};
 
   ${props =>
-    props.form &&
+    props.formButton &&
     css`
       margin-left: 0;
       align-self: center;
@@ -64,6 +71,20 @@ const Button = styled.button`
       font-size: 0.8rem;
       text-transform: none;
       margin: 0;
+    `};
+
+  ${props =>
+    props.small &&
+    css`
+      background-color: #fff;
+      color: #472c81;
+      font-size: 10px;
+      font-weight: bold;
+
+      :hover {
+        background-color: rgba(200, 200, 200, 1);
+        transform: none;
+      }
     `};
 `;
 

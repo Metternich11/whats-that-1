@@ -1,5 +1,5 @@
 const ActionTypes = require('../actions/types');
-const {omit} = require('lodash');
+const { omit } = require('lodash');
 
 const initialState = {
   games: {},
@@ -81,7 +81,7 @@ module.exports = GameController;
         players: ['playerid1', 'playerid2', 'playerid3'],
     },
   },
-
+  
   players: {
     playerid1: {
       playerName: 'ShanShan',
@@ -89,7 +89,18 @@ module.exports = GameController;
       roundWins: 0,
       isCreator: true,
       gameKey: 'dog-big',
-      draws: []
+      draws: [{
+        round: 1,
+        draw: image,
+        word: cat,
+        winner: true
+      },
+      {
+        round: 2,
+        draw: image,
+        word: dog
+      }
+    ]
     },
     playerid2: {
       playerName: 'Ole',
@@ -117,7 +128,7 @@ exports.reducer = (state = initialState, action) => {
             },
             playing: false,
             players: [],
-            rounds: action.totalRounds
+            totalRounds: action.totalRounds
           }
         }
       };
@@ -127,10 +138,10 @@ exports.reducer = (state = initialState, action) => {
         ...state,
         games: {
           ...state.games,
-          [action.playerToGame.playerId]: {
-            ...state.games[action.playerToGame.playerId],
+          [action.playerToGame.gameKey]: {
+            ...state.games[action.playerToGame.gameKey],
             players: [
-              ...state.games[action.playerToGame.playerId].players,
+              ...state.games[action.playerToGame.gameKey].players,
               action.playerToGame.playerId
             ]
           }
@@ -165,21 +176,12 @@ exports.reducer = (state = initialState, action) => {
     case ActionTypes.ADD_PLAYER:
       return {
         ...state,
-        games: {
-          ...state.games,
-          [action.player.gameKey]: {
-            players: [
-              ...state.games[action.player.gameKey].players,
-              action.player.playerId
-            ]
-          }
-        },
         players: {
           ...state.players,
           [action.player.playerId]: {
             playerName: action.player.playerName,
             playerAvatar: action.player.playerAvatar,
-            roundWins: 0,
+            roundWins: [],
             isCreator: action.player.isCreator,
             gameKey: action.player.gameKey,
             draws: []
@@ -192,12 +194,9 @@ exports.reducer = (state = initialState, action) => {
         ...state,
         players: {
           ...state.players,
-          [action.draw.playerId]: {
-            ...state.players[action.draw.playerId],
-            draws: [
-              ...state.players[action.draw.playerId].draws,
-              action.draw.draw
-            ]
+          [action.playerId]: {
+            ...state.players[action.playerId],
+            draws: [...state.players[action.playerId].draws, action.draw]
           }
         }
       };
@@ -218,7 +217,23 @@ exports.reducer = (state = initialState, action) => {
         games: {
           ...state.games,
           [action.round.game]: {
+            ...state.games[action.round.game],
             round: action.round.round
+          }
+        }
+      };
+
+    case ActionTypes.SET_ROUND_STATUS:
+      return {
+        ...state,
+        games: {
+          ...state.games,
+          [action.gameKey]: {
+            ...state.games[action.gameKey],
+            round: {
+              ...state.games[action.gameKey].round,
+              roundStatus: action.status
+            }
           }
         }
       };

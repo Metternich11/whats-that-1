@@ -2,6 +2,8 @@ import React from "react";
 
 // Component & Container Imports
 import Button from "./Button";
+import { connect } from "react-redux";
+import * as Actions from "../redux/actions/index";
 import CanvasFooter from "./CanvasFooter";
 import CanvasFooterItem from "./CanvasFooterItem";
 import quickdrawSvgRender from '../utils/quickdrawSvgRender/quickdrawSvgRender';
@@ -161,7 +163,10 @@ const Canvas = () => {
       <canvas
         ref={canvasRef}
         onClick={handleCanvasClick}
-        style={{ border: "1px solid rgba(255,255,255,0.2)" }}
+        style={{
+          border: "1px solid rgba(255,255,255,0.2)",
+          backgroundColor: "#764ad7"
+        }}
       />
       <CanvasFooter>
         <CanvasFooterItem>
@@ -181,4 +186,12 @@ const Canvas = () => {
   );
 };
 
-export default Canvas;
+const mapDispatchToProps = dispatch => ({
+  postDrawing: (drawing) => dispatch(Actions.postDrawing(drawing))
+});
+// For now this function is not used, revise when FE and BE are connected
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Canvas);

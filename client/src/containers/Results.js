@@ -34,7 +34,7 @@ const rightArrow = <i className='fas fa-chevron-right'></i>
 const Results = () => {
 
   const [open, setOpen] = useState(false);
-
+  
   return (
     <Wrapper>
       <PlayerList>

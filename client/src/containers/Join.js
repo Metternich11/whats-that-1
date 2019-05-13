@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Redux Imports
 import { connect } from "react-redux";
@@ -14,10 +14,18 @@ import InputField from "../components/InputField";
 import PlayerAvatar from "../components/PlayerAvatar";
 import SpeechBubble from "../components/SpeechBubble";
 import Wrapper from "../components/Wrapper";
+import Modal from "../components/Modal";
 
-const Join = props => {
+const Join = ({ game, join, connectGame, history }) => {
+
   const [playerName, setPlayerName] = useState("");
-  const [game, setGame] = useState("");
+  const [gameKey, setGameKey] = useState("");
+  const [errorMessage, setErrorMessage] = useState(false)
+
+  useEffect(() => {
+    if (game.message) history.push('/lobby');
+    //else if (join.error) setErrorMessage(true);
+  }, [game])
 
   const handlePlayerName = event => {
     const value = event.target.value;
@@ -26,21 +34,29 @@ const Join = props => {
 
   const handleGameName = event => {
     const value = event.target.value;
-    setGame(value);
+    setGameKey(value);
   };
 
   const submitAndConnect = e => {
     e.preventDefault();
-    props.addName(playerName, props.userAvatar, game, "Join");
-    props.history.push("/lobby");
-  };
+    connectGame(playerName, game.userAvatar, gameKey, 'joinGame')
+    //connectGame(playerName, game.userAvatar, gameKey, 'noGo')
+  }
 
   const goBack = () => {
-    props.history.goBack();
+    history.goBack();
   };
 
-  return (
-    <Wrapper>
+  const visible = () => {
+    setErrorMessage(false)
+  }
+
+  return errorMessage ? (
+      <Wrapper>
+       <Modal visible={visible}/>
+       </Wrapper>
+      ) : ( 
+       <Wrapper> 
       <Form onSubmit={submitAndConnect}>
         <FormLabel>Your Avatar</FormLabel>
         <SpeechBubble>Looking good!</SpeechBubble>
@@ -64,27 +80,24 @@ const Join = props => {
         />
 
         <ButtonContainer>
-          <Button primary marginTop form type="submit">
+          <Button primary marginTop formButton type="submit">
             Join
           </Button>
         </ButtonContainer>
-      </Form>
-      <Button back marginBottom onClick={goBack}>
-        Back
-      </Button>
-    </Wrapper>
+      </Form> 
+      <Button back marginBottom onClick={goBack}>Back</Button>
+      </Wrapper>
   );
 };
 
-const mapStateToProps = state => ({
-  userAvatar: state.userAvatar,
-  gameKey: state.gameKey
-});
+const mapStateToProps = state => {
+  return {
+    game: state.game,
+    join: state.pages.join
+  }
+};
 
-const mapDispatchToProps = dispatch => ({
-  addName: (player, avatar, gameKey, socketType) =>
-    dispatch(Actions.addName(player, avatar, gameKey, socketType))
-});
+const mapDispatchToProps = { connectGame: Actions.connectGame };
 
 export default connect(
   mapStateToProps,

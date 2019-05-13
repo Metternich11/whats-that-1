@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   justify-content: flex-start;
   margin: 0 20vw 5vh 20vw;
   min-height: 100vh;
-  padding-top: 100px;
+
   text-align: center;
 
   @media (max-width: 1024px) {
@@ -17,9 +17,45 @@ const Wrapper = styled.div`
   }
 
   ${props =>
-    props.lobby &&
+    props.ComponentsCatalogue &&
     css`
-      padding-top: 45px;
+      align-items: flex-start;
+      padding: 0 5vw;
+      text-align: left;
+
+      .components {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 3px;
+        margin-bottom: 5vh;
+        padding: 2vw;
+        padding-left: 5vw;
+        width: 100%;
+      }
+
+      .divider {
+        margin: 100px 0;
+        width: 100%;
+        border: 2px solid;
+        border-color: #764ad7;
+      }
+
+      h1 {
+        color: #472c81;
+        font-size: 3rem;
+      }
+      h2 {
+        color: #472c81;
+        font-size: 2.2rem;
+      }
+
+      .large {
+        font-size: 1.4rem;
+      }
+
+      h4 {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        padding-bottom: 5px;
+      }
     `};
 `;
 
