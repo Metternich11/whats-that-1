@@ -1,11 +1,11 @@
-export const GAME_CREATED = 'gameCreated'
-export const JOINED = 'joined'
-export const START_GAME = 'startGame'
-export const START_ROUND = 'startRound'
-export const GUESS = 'guess'
-export const VICTORY = 'victory'
-export const ROUND_OVER = 'roundOver'
-export const ROUND_DRAWINGS = 'roundDrawings'
-export const GAME_OVER = 'gameOver'
-export const FAILURE = 'failure'
-
+export const GAME_CREATED = 'gameCreated';
+export const JOINED = 'joined';
+export const START_GAME = 'startGame';
+export const START_ROUND = 'startRound';
+export const GUESS = 'guess';
+export const VICTORY = 'victory';
+export const ROUND_OVER = 'roundOver';
+export const ROUND_DRAWINGS = 'roundDrawings';
+export const GAME_OVER = 'gameOver';
+export const FAILURE = 'failure';
+export const END_ROUND = 'endRound';

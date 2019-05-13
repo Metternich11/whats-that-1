@@ -137,12 +137,7 @@ const GameController = () => {
     joinGame: async (socket, message) => {
       try {
         const gameKey = message.payload.gameKey;
-<<<<<<< HEAD
         if ((await gameExists(gameKey)) === false) {
-          console.log();
-=======
-        if (await gameExists(gameKey) === false) {
->>>>>>> eacbccb0656dd05fcb6508afea24e9e834a0114e
           sendMessageToClient(
             socket,
             handleMessage('failure', { error: 'Game does not exist' })
@@ -194,7 +189,7 @@ const GameController = () => {
 
       //   return
       // }
-      console.log('REEEEEQ222')
+      console.log('REEEEEQ222');
 
       const currentWord = await getCurrentWord(gameKey);
       const guess = await requestQuickDraw(message.payload.drawing);
