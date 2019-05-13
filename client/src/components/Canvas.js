@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 
 // Component & Container Imports
 import Button from './Button';
@@ -20,9 +20,9 @@ let yCoordinate = [];
 let timestamp = [];
 
 const Canvas = ({ passDrawing }) => {
-  const [locations, setLocations] = React.useState([]);
-  const canvasRef = React.useRef(null);
-  const [googleGuess, setGoogleGuess] = React.useState('Draw something...');
+  const [locations, setLocations] = useState([]);
+  const canvasRef = useRef(null);
+  const [googleGuess, setGoogleGuess] = useState('Draw something...');
 
   React.useEffect(() => {
     const canvas = canvasRef.current;
@@ -103,7 +103,7 @@ const Canvas = ({ passDrawing }) => {
     let xyCoordinates = [xCoordinate, yCoordinate, timestamp];
     drawing.push(xyCoordinates);
 
-    postDrawing(setGoogleGuess);
+    passDrawing(drawing, 'passDrawing');
 
     xCoordinate = [];
     yCoordinate = [];

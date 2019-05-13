@@ -26,7 +26,6 @@ const Create = props => {
 
   const submitName = e => {
     e.preventDefault();
-
     props.connectGame(playerName, props.userAvatar, props.gameKey, "createGame");
     props.history.push("/lobby");
   };
