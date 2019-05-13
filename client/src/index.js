@@ -13,9 +13,6 @@ import { BrowserRouter } from "react-router-dom";
 // Component & Container Imports
 import NavBar from "./components/NavBar";
 
-// Styling & Animations
-import "./index.css";
-
 const store = createRedux();
 
 ReactDOM.render(
