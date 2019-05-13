@@ -278,8 +278,6 @@ export const ComponentsCatalogue = () => {
 
         <hr className="divider" />
 
-        <hr className="divider" />
-
         <h2>Screen: Results</h2>
         <h4>Components Used</h4>
         <ul className="components">

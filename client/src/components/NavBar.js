@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 const NavBar = styled.nav`
   align-items: center;
@@ -13,9 +13,10 @@ const NavBar = styled.nav`
   width: 100%;
 
   .logo {
-    font-family: "Kalam", cursive;
     font-size: 1rem;
+    letter-spacing: 2px;
     padding-top: 5px;
+    text-transform: uppercase;
     width: 50%;
   }
   .nav-content {

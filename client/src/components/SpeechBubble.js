@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from "styled-components/macro";
 
 const SpeechBubble = styled.span`
   animation: float 5s;

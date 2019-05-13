@@ -6,6 +6,8 @@ import { connect } from "react-redux";
 import * as Actions from "../redux/actions/index";
 import CanvasFooter from "./CanvasFooter";
 import CanvasFooterItem from "./CanvasFooterItem";
+import quickdrawSvgRender from '../utils/quickdrawSvgRender/quickdrawSvgRender';
+import { taggedTemplateExpression } from "@babel/types";
 
 // arol tip: useReducer instead of having this mess of variables here.
 let isDrawing = false;
@@ -15,40 +17,12 @@ let drawing = [];
 let xCoordinate = [];
 let yCoordinate = [];
 let timestamp = [];
-let whatYouAreDrawing = "Draw something...";
 
-// const googleURL =
-//   // REPLACE WHEN BACKEND PROVIDE ENDPOINT
-//   "https://inputtools.google.com/request?ime=handwriting&app=quickdraw&dbg=1&cs=1&oe=UTF-8";
-
-// const postDrawing = () => {
-//   fetch(googleURL, {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json"
-//     },
-//     body: JSON.stringify({
-//       options: "enable_pre_space",
-//       requests: [
-//         {
-//           writing_guide: {
-//             writing_area_width: 375,
-//             writing_area_height: 375
-//           },
-//           ink: drawing,
-//           language: "quickdraw"
-//         }
-//       ]
-//     })
-//   })
-//     .then(res => res.json())
-//     .then(data => (whatYouAreDrawing = data[1][0][1][0]))
-//     .catch(err => console.error(err)); // eslint-disable-line no-console
-// };
 
 const Canvas = ({ passDrawing }) => {
   const [locations, setLocations] = React.useState([]);
   const canvasRef = React.useRef(null);
+  const [WAYD, setWAYD] = React.useState('Draw something...');
 
   React.useEffect(() => {
     const canvas = canvasRef.current;
@@ -71,8 +45,8 @@ const Canvas = ({ passDrawing }) => {
       e.stopPropagation();
 
       if (e.x || e.y) {
-        xCoordinate.push(e.x);
-        yCoordinate.push(e.y);
+        xCoordinate.push(e.layerX);
+        yCoordinate.push(e.layerY);
         timestamp.push(e.timeStamp);
 
         ctx.beginPath();
@@ -109,7 +83,8 @@ const Canvas = ({ passDrawing }) => {
 
     canvas.addEventListener("mousemove", draw);
 
-    canvas.addEventListener("mouseup", () => {
+    canvas.addEventListener("mouseup", (event) => {
+      event.preventDefault();
       isDrawing = false;
 
       let xyCoordinates = [xCoordinate, yCoordinate, timestamp];
@@ -152,7 +127,7 @@ const Canvas = ({ passDrawing }) => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    whatYouAreDrawing = "Draw something...";
+    setWAYD("Draw something...");
     setLocations([]);
   };
 
@@ -174,9 +149,9 @@ const Canvas = ({ passDrawing }) => {
         </CanvasFooterItem>
         <CanvasFooterItem right>
           <h4>
-            {whatYouAreDrawing === "Draw something..." ? "" : "Is it... "}
-            {whatYouAreDrawing === "Draw something..." ? "" : whatYouAreDrawing}
-            {whatYouAreDrawing === "Draw something..." ? "" : "?"}
+            {WAYD === "Draw something..." ? "" : "Is it... "}
+            {WAYD === "Draw something..." ? "" : WAYD}
+            {WAYD === "Draw something..." ? "" : "?"}
           </h4>
         </CanvasFooterItem>
       </CanvasFooter>

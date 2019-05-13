@@ -183,12 +183,7 @@ const GameController = () => {
     passDrawing: async (socket, message) => {
       //// OLE
       const gameKey = await getCurrentGameKey(socket.id);
-      // if ((await getRoundStatus(gameKey)) === false) {
-      //   console.log('HERE')
-      //   console.log('THIIIIIIS', await getRoundStatus(gameKey))
-
-      //   return
-      // }
+      if ((await getRoundStatus(gameKey)) === false) return;
       console.log('REEEEEQ222')
 
       const currentWord = await getCurrentWord(gameKey);
