@@ -137,11 +137,14 @@ const GameController = () => {
     joinGame: async (socket, message) => {
       try {
         const gameKey = message.payload.gameKey;
-        if (await !gameExists(gameKey))
-          return sendMessageToClient(
+        if (await !gameExists(gameKey)) {
+          sendMessageToClient(
             socket,
             handleMessage('failure', { error: 'Game does not exist' })
           );
+            socket.disconnect();
+            return;
+        }
         const numOfPlayersOnGame = await getPlayersFromGame(gameKey);
 
         if (numOfPlayersOnGame.length > maxNumPlayers - 1)
