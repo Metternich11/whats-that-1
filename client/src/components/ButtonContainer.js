@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 const ButtonContainer = styled.div`
   margin: 4vh 0;

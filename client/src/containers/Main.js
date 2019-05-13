@@ -13,7 +13,7 @@ import Wrapper from "../components/Wrapper";
 import Zorb from "../components/Zorb";
 
 // Library Imports
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 export const Main = props => {
   return (

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Button from "../components/Button";
 
 // Library Imports
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 const Container = styled.div`
   background-color: #472c81;

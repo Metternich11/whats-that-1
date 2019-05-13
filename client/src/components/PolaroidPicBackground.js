@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 // Utils import
 import generatePicRotateDegree from "../utils/generatePicRotateDegree";

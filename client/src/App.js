@@ -1,5 +1,5 @@
 import React from "react";
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from "styled-components/macro";
 
 // Router Setup
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom"; // eslint-disable-line
@@ -25,9 +25,7 @@ const RouteContainer = posed.div({
 
 const GlobalStyle = createGlobalStyle`
   body {
-    .bg-pan-top{animation:bg-pan-top 8s both};
     background-color: #764ad7;
-    @keyframes bg-pan-top{0%{background-position:50% 100%}100%{background-position:50% 0}};
     color: #ffffff;
     margin: 0;
     @import url("https://fonts.googleapis.com/css?family=Nunito:400,600");
