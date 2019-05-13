@@ -38,10 +38,3 @@ export const socket = store => {
     }
   };
 };
-
-let num = 1;
-
-function logger (to) {
-  console.log(to, num);
-  num++;
-}

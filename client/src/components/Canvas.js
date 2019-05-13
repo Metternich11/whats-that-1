@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
 // Component & Container Imports
-import Button from "./Button";
-import { connect } from "react-redux";
-import * as Actions from "../redux/actions/index";
-import CanvasFooter from "./CanvasFooter";
-import CanvasFooterItem from "./CanvasFooterItem";
+import Button from './Button';
+import { connect } from 'react-redux';
+import * as Actions from '../redux/actions/index';
+import CanvasFooter from './CanvasFooter';
+import CanvasFooterItem from './CanvasFooterItem';
 
 // to convert array into SVG string
 import quickdrawSvgRender from '../utils/quickdrawSvgRender/quickdrawSvgRender';
@@ -19,7 +19,6 @@ let xCoordinate = [];
 let yCoordinate = [];
 let timestamp = [];
 
-
 const Canvas = ({ passDrawing }) => {
   const [locations, setLocations] = React.useState([]);
   const canvasRef = React.useRef(null);
@@ -27,17 +26,17 @@ const Canvas = ({ passDrawing }) => {
 
   React.useEffect(() => {
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
 
     // canvas size
     canvas.width = 375;
     canvas.height = 375;
-    canvas.style.width = "375px";
-    canvas.style.height = "375px";
+    canvas.style.width = '375px';
+    canvas.style.height = '375px';
 
     // canvas settings
-    ctx.strokeStyle = "#fff";
-    ctx.linecap = "round";
+    ctx.strokeStyle = '#fff';
+    ctx.linecap = 'round';
     ctx.lineWidth = 3;
 
     const draw = e => {
@@ -76,7 +75,7 @@ const Canvas = ({ passDrawing }) => {
     };
 
     // eventlisteners: mouse
-    canvas.addEventListener("mousedown", e => {
+    canvas.addEventListener('mousedown', e => {
       isDrawing = true;
       lastXCoordinate = e.offsetX;
       lastYCoordinate = e.offsetY;
@@ -86,7 +85,7 @@ const Canvas = ({ passDrawing }) => {
     canvas.addEventListener("mouseout", () => isDrawing = false);
 
     // eventlisteners: touch
-    canvas.addEventListener("touchstart", e => {
+    canvas.addEventListener('touchstart', e => {
       isDrawing = true;
       let touch = e.touches[0];
 
@@ -119,7 +118,7 @@ const Canvas = ({ passDrawing }) => {
 
   const handleClear = () => {
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     setGoogleGuess("Draw something...");
     setLocations([]);
@@ -131,8 +130,8 @@ const Canvas = ({ passDrawing }) => {
         ref={canvasRef}
         onClick={handleCanvasClick}
         style={{
-          border: "1px solid rgba(255,255,255,0.2)",
-          backgroundColor: "#764ad7"
+          border: '1px solid rgba(255,255,255,0.2)',
+          backgroundColor: '#764ad7'
         }}
       />
       <CanvasFooter>
@@ -154,7 +153,7 @@ const Canvas = ({ passDrawing }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  passDrawing: (drawing) => dispatch(Actions.passDrawing(drawing))
+  passDrawing: (drawing, act) => dispatch(Actions.passDrawing(drawing, act))
 });
 // For now this function is not used, revise when FE and BE are connected
 

@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
 import pages from './pagesReducer';
 import game from './gameReducer';
 

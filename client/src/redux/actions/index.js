@@ -1,4 +1,4 @@
-import * as ActionTypes from "./gameTypes";
+import * as ActionTypes from './gameTypes';
 
 export const getKey = () => ({
   type: ActionTypes.GET_KEY,
@@ -7,7 +7,7 @@ export const getKey = () => ({
   }
 });
 
-export const saveAvatar = (avatar) => ({
+export const saveAvatar = avatar => ({
   type: ActionTypes.USER_AVATAR,
   avatar
 });
@@ -22,9 +22,9 @@ export const connectGame = (playerName, playerAvatar, gameKey, type) => ({
     payload: {
       player: {
         playerName,
-        playerAvatar,
+        playerAvatar
       },
-      gameKey,
+      gameKey
     }
   }
 });
@@ -39,14 +39,14 @@ export const startGame = () => ({
   }
 });
 
-export const passDrawing = drawing => {
+export const passDrawing = (drawing, act) => {
   return {
     type: ActionTypes.PASS_DRAWING,
     socket: {
-      type: 'passDrawing',
+      type: act,
       payload: {
         drawing
       }
     }
-  }
+  };
 };
