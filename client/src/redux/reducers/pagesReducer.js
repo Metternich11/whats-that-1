@@ -9,7 +9,6 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
-  console.log('Here goes the action PR:', action) //eslint-disable-line
   switch (action.type) {
     case ActionTypes.GET_KEY_SUCCESS:
     return {
@@ -33,16 +32,8 @@ export default (state = initialState, action) => {
         loading: true
       }
     };
-    // case ActionTypes.GAME_DOES_NOT_EXIST: 
-    // return {
-    //   ...state,
-    //   join: {
-    //     ...state.join,
-    //     error: "Game does not exist!"
-    //   }
-    // }
-    case GameActionTypes.SOCKET_MESSAGE:
-      return socketReducer(state, action);
+    // case GameActionTypes.SOCKET_MESSAGE:
+    //   return socketReducer(state, action);
     default:
     return state
   }

@@ -26,7 +26,7 @@ const {
   getRoundStatus
 } = require('../models/gameModel');
 const getWords = require('../helpers/requestWords');
-const requestGuess = require('../helpers/requestGuess');
+const requestQuickDraw = require('../helpers/requestGuess');
 
 const TOTALROUNDS = 2;
 const MillisecondsPerRound = 20000;
@@ -137,8 +137,12 @@ const GameController = () => {
     joinGame: async (socket, message) => {
       try {
         const gameKey = message.payload.gameKey;
+<<<<<<< HEAD
         if ((await gameExists(gameKey)) === false) {
           console.log();
+=======
+        if (await gameExists(gameKey) === false) {
+>>>>>>> eacbccb0656dd05fcb6508afea24e9e834a0114e
           sendMessageToClient(
             socket,
             handleMessage('failure', { error: 'Game does not exist' })
@@ -184,10 +188,16 @@ const GameController = () => {
     passDrawing: async (socket, message) => {
       //// OLE
       const gameKey = await getCurrentGameKey(socket.id);
-      if ((await getRoundStatus(gameKey)) === false) return;
+      // if ((await getRoundStatus(gameKey)) === false) {
+      //   console.log('HERE')
+      //   console.log('THIIIIIIS', await getRoundStatus(gameKey))
+
+      //   return
+      // }
+      console.log('REEEEEQ222')
 
       const currentWord = await getCurrentWord(gameKey);
-      const guess = await requestGuess(message.payload.drawing);
+      const guess = await requestQuickDraw(message.payload.drawing);
 
       sendMessageToClient(socket, handleMessage('guess', { word: guess }));
       // if match, broadcast victory to the room. payload with playerId

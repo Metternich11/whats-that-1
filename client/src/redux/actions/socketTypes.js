@@ -7,4 +7,5 @@ export const VICTORY = 'victory'
 export const ROUND_OVER = 'roundOver'
 export const ROUND_DRAWINGS = 'roundDrawings'
 export const GAME_OVER = 'gameOver'
-export const GAME_DOES_NOT_EXIST = 'gameDoesNotExist'
+export const FAILURE = 'failure'
+

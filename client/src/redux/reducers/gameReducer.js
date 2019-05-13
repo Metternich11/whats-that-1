@@ -6,7 +6,6 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-  console.log('Here goes the action GR:', action) //eslint-disable-line
   switch (action.type) {
     case ActionTypes.GET_KEY:
     return {
