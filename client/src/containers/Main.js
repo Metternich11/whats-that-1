@@ -21,20 +21,21 @@ export const Main = props => {
       <Container>
         <Zorb />
         <div>
-          <Text>
+          <Header>What's that?</Header>
+          <Hero>
             You draw, Zorb guesses. You have only 20 seconds per round to show
             off your artistic skills. Can Zorb understand what you are trying to
             draw? Let&apos;s get started!
-          </Text>
+          </Hero>
         </div>
         <div>
+          <Link to="/join">
+            <Button>Join</Button>
+          </Link>
           <Link to="/create">
             <Button primary onClick={props.getGameKey}>
               Create
             </Button>
-          </Link>
-          <Link to="/join">
-            <Button>Join</Button>
           </Link>
         </div>
       </Container>
@@ -47,10 +48,16 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  height: 100vh;
 `;
 
-const Text = styled.p`
-  font-size: 1.4rem;
+const Header = styled.h1`
+  margin: 4vh 0;
+`;
+
+const Hero = styled.p`
+  font-size: 1.2rem;
+  font-weight: 200;
   margin-bottom: 6vh;
   padding: 0 15vw;
 `;

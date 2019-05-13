@@ -6,8 +6,7 @@ import { connect } from "react-redux";
 import * as Actions from "../redux/actions/index";
 import CanvasFooter from "./CanvasFooter";
 import CanvasFooterItem from "./CanvasFooterItem";
-import quickdrawSvgRender from '../utils/quickdrawSvgRender/quickdrawSvgRender';
-import { taggedTemplateExpression } from "@babel/types";
+import quickdrawSvgRender from "../utils/quickdrawSvgRender/quickdrawSvgRender";
 
 // arol tip: useReducer instead of having this mess of variables here.
 let isDrawing = false;
@@ -22,7 +21,7 @@ const googleURL =
   // REPLACE WHEN BACKEND PROVIDE ENDPOINT
   "https://inputtools.google.com/request?ime=handwriting&app=quickdraw&dbg=1&cs=1&oe=UTF-8";
 
-const postDrawing = (setWAYD) => {
+const postDrawing = setWAYD => {
   fetch(googleURL, {
     method: "POST",
     headers: {
@@ -43,14 +42,14 @@ const postDrawing = (setWAYD) => {
     })
   })
     .then(res => res.json())
-    .then(data => (setWAYD(data[1][0][1][0])))
+    .then(data => setWAYD(data[1][0][1][0]))
     .catch(err => console.error(err)); // eslint-disable-line no-console
 };
 
 const Canvas = () => {
   const [locations, setLocations] = React.useState([]);
   const canvasRef = React.useRef(null);
-  const [WAYD, setWAYD] = React.useState('Draw something...');
+  const [WAYD, setWAYD] = React.useState("Draw something...");
 
   React.useEffect(() => {
     const canvas = canvasRef.current;
@@ -111,7 +110,7 @@ const Canvas = () => {
 
     canvas.addEventListener("mousemove", draw);
 
-    canvas.addEventListener("mouseup", (event) => {
+    canvas.addEventListener("mouseup", event => {
       event.preventDefault();
       isDrawing = false;
 
@@ -119,7 +118,7 @@ const Canvas = () => {
       drawing.push(xyCoordinates);
 
       postDrawing(setWAYD);
-      console.log(quickdrawSvgRender(drawing, 375, 375))
+      console.log(quickdrawSvgRender(drawing, 375, 375));
 
       xCoordinate = [];
       yCoordinate = [];
@@ -189,7 +188,7 @@ const Canvas = () => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  postDrawing: (drawing) => dispatch(Actions.postDrawing(drawing))
+  postDrawing: drawing => dispatch(Actions.postDrawing(drawing))
 });
 // For now this function is not used, revise when FE and BE are connected
 

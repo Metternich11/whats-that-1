@@ -17,10 +17,6 @@ const store = createRedux();
 
 ReactDOM.render(
   <Provider store={store}>
-    <NavBar>
-      <div className="logo">{"What's that?!"}</div>
-      <div className="nav-content"> </div>
-    </NavBar>
     <BrowserRouter>
       <App />
     </BrowserRouter>

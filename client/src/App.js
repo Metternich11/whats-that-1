@@ -27,10 +27,12 @@ const GlobalStyle = createGlobalStyle`
   body {
     background-color: #764ad7;
     color: #ffffff;
-    margin: 0;
-    @import url("https://fonts.googleapis.com/css?family=Nunito:400,600");
-    font-family: 'Nunito', sans-serif;
     overflow: hidden;
+    height: 100vh;
+    margin: 0;
+    max-height: 100vh;
+    @import url("https://fonts.googleapis.com/css?family=Nunito:200,400,600");
+    font-family: 'Nunito', sans-serif;
   }
   * {
     box-sizing: border-box;
