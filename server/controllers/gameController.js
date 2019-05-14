@@ -31,8 +31,8 @@ const getWords = require('../helpers/requestWords');
 const requestQuickDraw = require('../helpers/requestGuess');
 
 const TOTALROUNDS = 2;
-const MillisecondsPerRound = 5000;
-const MillisecondsBetweenRounds = 5000; //DONT PUSH THIS YOU FUCKER!!!!!!!!!!!!!!!!!!!!!!!!!!!
+const MillisecondsPerRound = 20000;
+const MillisecondsBetweenRounds = 5000;
 const maxNumPlayers = 6;
 
 const GameController = () => {
@@ -117,7 +117,8 @@ const GameController = () => {
     createGame: async (socket, message) => {
       try {
         const pendingAddPlayerAndGame = [];
-        const gameKey = message.payload.gameKey;
+        const gameKey = await message.payload.gameKey;
+        console.log('CREATE', message.payload.gameKey);
 
         if (await gameExists(gameKey))
           return sendMessageToClient(
@@ -141,7 +142,7 @@ const GameController = () => {
 
     joinGame: async (socket, message) => {
       try {
-        const gameKey = message.payload.gameKey;
+        const gameKey = message.gameKey;
         if ((await gameExists(gameKey)) === false) {
           sendMessageToClient(
             socket,

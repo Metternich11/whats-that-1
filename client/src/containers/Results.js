@@ -59,7 +59,7 @@ const Results = ({ history }) => {
         {sampleSVGArray.map((object, i) => (
           <ResultsRoundBar key={i} onClick={() => setOpen(open === i ? false : i)}>
 
-            <div>{open === i ? downArrow : rightArrow} {object.round}</div>
+            <div>{object.round} {open === i ? downArrow : rightArrow}</div>
 
             <Content className='content' pose={open === i ? 'open' : 'closed'} style={{ overflow: 'hidden', fontSize: '18px' }}>
               <DrawingWrapper>
@@ -75,6 +75,10 @@ const Results = ({ history }) => {
     </Wrapper>
   );
 }
+
+const mapStateToProps = state => ({
+  game: state.game
+});
 
 function SimpleSvg (props) {
   const encodedImage = btoa(props.image);

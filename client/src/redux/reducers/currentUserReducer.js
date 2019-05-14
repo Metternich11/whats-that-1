@@ -13,7 +13,8 @@ export default (state = initialState, action) => {
     }
     case ActionTypes.GET_KEY:
       return {
-        ...state
+        ...state,
+        gameKey: action.payload.gameKey
       };
     case ActionTypes.PLAYER_INFO:
       return {
