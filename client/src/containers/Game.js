@@ -15,7 +15,10 @@ import PlayerListItem from '../components/PlayerListItem';
 import WordToDraw from '../components/WordToDraw';
 import Wrapper from '../components/Wrapper';
 
-export const Game = ({ history, game }) => {
+export const Game = ({ history, game, props }) => {
+  // const opponents = props.beAvatar;
+  // opponents && console.log('game', opponents);
+
   const [count, setCount] = useState(0);
   const [time, setTime] = useState(0);
 
@@ -54,7 +57,7 @@ export const Game = ({ history, game }) => {
       </GameHeader>
 
       <Canvas />
-      <Guessing guess={game.guess}/>
+      <Guessing guess={game.guess} />
       <PlayerList game>
         <PlayerListItem>
           <PlayerAvatar />

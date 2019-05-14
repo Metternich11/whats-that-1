@@ -12,6 +12,11 @@ export const saveAvatar = avatar => ({
   avatar
 });
 
+export const setUserId = userId => ({
+  type: ActionTypes.SET_USERID,
+  userId
+});
+
 export const connectGame = (playerName, playerAvatar, gameKey, type) => ({
   type: ActionTypes.PLAYER_INFO,
   playerName,

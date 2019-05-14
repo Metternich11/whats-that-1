@@ -188,6 +188,7 @@ const GameController = () => {
     passDrawing: async (socket, message) => {
       //// OLE
       const gameKey = await getCurrentGameKey(socket.id);
+      console.log('passDrawing ', gameKey);
       if ((await getRoundStatus(gameKey)) === false) return;
 
       const currentWord = await getCurrentWord(gameKey);

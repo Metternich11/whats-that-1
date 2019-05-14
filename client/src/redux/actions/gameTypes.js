@@ -1,6 +1,7 @@
 export const GET_KEY = 'GET_KEY'
 export const SOCKET_CONNECT = 'SOCKET_CONNECT'
 export const PLAYER_INFO = 'PLAYER_INFO'
+export const SET_USERID = 'SET_USERID'
 export const USER_AVATAR = 'USER_AVATAR'
 export const SOCKET_MESSAGE = 'SOCKET_MESSAGE'
 export const CREATOR_START_GAME = 'CREATOR_START_GAME'
