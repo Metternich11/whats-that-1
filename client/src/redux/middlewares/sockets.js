@@ -12,11 +12,11 @@ export const socket = store => {
           socket = io(`${process.env.REACT_APP_SERVER_BASE_URL}`);
           next(action);
           break;
-        default:
+          default:
           break;
-      }
+        }
 
-      socket.on('message', message => {
+        socket.on('message', message => {
         console.log('INPUT', message);  //eslint-disable-line
         store.dispatch({
           type: 'SOCKET_MESSAGE',
