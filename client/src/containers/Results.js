@@ -78,7 +78,6 @@ const Results = ({ history }) => {
 
 const mapStateToProps = state => ({
   game: state.game,
-  drawings: state.drawings
 });
 
 function SimpleSvg (props) {
