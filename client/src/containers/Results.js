@@ -54,7 +54,7 @@ const Results = ({ history }) => {
           <PlayerAvatar />
         </PlayerListItem>
       </PlayerList>
-
+      
       <Fragment>
         {sampleSVGArray.map((object, i) => (
           <ResultsRoundBar key={i} onClick={() => setOpen(open === i ? false : i)}>
@@ -77,7 +77,7 @@ const Results = ({ history }) => {
 }
 
 const mapStateToProps = state => ({
-  game: state.game
+  game: state.game,
 });
 
 function SimpleSvg (props) {
@@ -86,10 +86,4 @@ function SimpleSvg (props) {
   return <DrawnImage src={imageSrc} style={{ width: '50%', height: '50%' }} />;
 }
 
-const mapStateToProps = state => ({
-
-});
-
-export default connect(
-  mapStateToProps,
-)(Results);
+export default connect(mapStateToProps)(Results);
