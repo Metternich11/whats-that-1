@@ -15,6 +15,7 @@ export const socket = store => {
           default:
           break;
         }
+        
         socket.on('connect', () => {
           store.dispatch({
             type: 'SET_USERID',
