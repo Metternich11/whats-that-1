@@ -21,9 +21,7 @@ import TestVG from '../components/TestVG';
 import WordToDraw from '../components/WordToDraw';
 import Wrapper from '../components/Wrapper';
 
-export const BetweenRounds = ({ history, game, props }) => {
-  // const opponents = props.beAvatar;
-  // opponents && console.log('inbetween', opponents);
+export const BetweenRounds = ({ history, game }) => {
 
   const [count, setCount] = useState(0);
 

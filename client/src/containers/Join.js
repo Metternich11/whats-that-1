@@ -22,22 +22,27 @@ const Join = ({ game, pages, connectGame, history }) => {
   const gameKeyInput = useRef();
 
   useEffect(() => {
-    if (game.players) history.push('/lobby');
-    // Ole, please don't touch this
-    else if (pages.join.error) {
+      console.log('ITS SUPER EFFECTIVE!', game.players)
+      if (game.players) history.push('/lobby');
+    }, [game]);
+
+  useEffect(() => {
+    if (pages.join.error) {
       gameKeyInput.current.setCustomValidity('Game code does not exist');
-      joinForm.current[2].reportValidity();
+      gameKeyInput.current.reportValidity();
     }
-  }, [game, pages]);
-
-  const handlePlayerName = event => {
-    const value = event.target.value;
-    setPlayerName(value);
-  };
-
-  const handleGameName = event => {
-    const value = event.target.value;
-    setGameKey(value);
+  }, [pages.join]);
+    
+    const handlePlayerName = event => {
+      const value = event.target.value;
+      setPlayerName(value);
+    };
+    
+    const handleGameName = event => {
+      const value = event.target.value;
+      setGameKey(value);
+      gameKeyInput.current.setCustomValidity('');
+      console.log('he ho')
   };
 
   const submitAndConnect = e => {

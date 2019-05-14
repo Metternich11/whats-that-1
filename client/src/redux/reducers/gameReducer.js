@@ -1,36 +1,62 @@
+import * as SocketTypes from '../actions/socketTypes';
 import * as ActionTypes from '../actions/gameTypes';
-import socketReducer from './socketReducer';
 
 const initialState = {
-  gameKey: undefined
-};
+  word: [],
+  join: {},
+  inBetweenRounds: false,
+  endGame: false,
+  guess: ''
+}
 
 export default (state = initialState, action) => {
-  console.log('game:', action);
-  switch (action.type) {
-    case ActionTypes.GET_KEY:
+  if (action.type == ActionTypes.SOCKET_MESSAGE) {
+      switch (action.payload.type) {
+      case SocketTypes.GAME_CREATED:
       return {
         ...state
       };
-    case ActionTypes.PLAYER_INFO:
+      case SocketTypes.JOINED:
       return {
         ...state,
-        playerName: action.playerName,
-        gameKey: action.gameKey,
-        isCreator: action.socket.type
+        players: action.payload.payload.players
       };
-    case ActionTypes.USER_AVATAR:
+    case SocketTypes.START_ROUND:
       return {
         ...state,
-        userAvatar: action.avatar
+        word: action.payload.payload.word,
+        timer: action.payload.payload.timer
+        // inBetweenRounds: !state.inBetweenRounds
       };
-    case ActionTypes.CREATOR_START_GAME:
+      case SocketTypes.END_ROUND:
+      return {
+        ...state,
+        round: action.payload.payload.roundNum
+      };
+      case SocketTypes.GUESS:
+      return {
+        ...state,
+        guess: action.payload.payload.word
+      };
+    case SocketTypes.VICTORY:
+      console.log('STATE IS', state);
+      return {
+        ...state,
+        // winner: state.winner.concat(action.payload.payload.playerId)
+      };
+    case SocketTypes.ROUND_DRAWINGS:
       return {
         ...state
       };
-    case ActionTypes.SOCKET_MESSAGE:
-      return socketReducer(state, action);
-    default:
+      case SocketTypes.GAME_OVER:
+      return {
+        ...state,
+        endGame: !state.endGame
+      };
+      default:
       return state;
+    }
+  } else {
+    return state;
   }
-};
+  };

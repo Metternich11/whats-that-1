@@ -31,9 +31,8 @@ export default (state = initialState, action) => {
         }
       };
     case GameActionTypes.SOCKET_MESSAGE:
-      console.log('ACTION:::::::::::::::::..', action.payload);
       switch (action.payload.type) {
-        case 'failure':
+        case ActionTypes.FAILURE:
           return {
             ...state,
             join: {
