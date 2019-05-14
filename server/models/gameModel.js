@@ -147,17 +147,16 @@ const gameModel = {
   getPlayersFromGame: async gameKey => {
     const state = store.getState();
     const playersId = state.games[gameKey].players;
-    const players = [];
+    const players = {};
 
     playersId.forEach(playerId => {
-      players.push({
-        [playerId]: {
-          playerName: state.players[playerId].playerName,
-          playerAvatar: state.players[playerId].playerAvatar,
-          playerId
-        }
-      });
+      players[playerId] = {
+        playerName: state.players[playerId].playerName,
+        playerAvatar: state.players[playerId].playerAvatar,
+        playerId
+      };
     });
+    console.log(players)
     return players;
   },
 

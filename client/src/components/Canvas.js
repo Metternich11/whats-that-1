@@ -8,17 +8,20 @@ import * as Actions from '../redux/actions/index';
 // to convert array into SVG string
 import quickdrawSvgRender from '../utils/quickdrawSvgRender/quickdrawSvgRender';
 
-// arol tip: useReducer instead of having this mess of variables here.
-let isDrawing = false;
-let lastXCoordinate = 0;
-let lastYCoordinate = 0;
-let drawing = [];
-let xCoordinate = [];
-let yCoordinate = [];
-let timestamp = [];
 
-const Canvas = ({ passDrawing, inBetweenRounds }) => {
+const Canvas = ({ passDrawing, game }) => {
+
+  // arol tip: useReducer instead of having this mess of variables here.
+  let isDrawing = false;
+  let lastXCoordinate = 0;
+  let lastYCoordinate = 0;
+  let drawing = [];
+  let xCoordinate = [];
+  let yCoordinate = [];
+  let timestamp = [];
+
   const [locations, setLocations] = useState([]);
+  const [count, setCount] = useState(0);
   const canvasRef = useRef(null);
   const [googleGuess, setGoogleGuess] = useState('Draw something...');
 
@@ -54,7 +57,9 @@ const Canvas = ({ passDrawing, inBetweenRounds }) => {
 
         lastXCoordinate = e.offsetX;
         lastYCoordinate = e.offsetY;
+
       } else {
+
         let touch = e.touches[0];
         let x = touch.pageX - touch.target.offsetLeft;
         let y = touch.pageY - touch.target.offsetTop;
@@ -93,12 +98,15 @@ const Canvas = ({ passDrawing, inBetweenRounds }) => {
     canvas.addEventListener("touchmove", draw);
     canvas.addEventListener("touchend", () => postDrawingHelper());
 
-    if (inBetweenRounds) {
-      const svg = quickdrawSvgRender(drawing, canvas.width, canvas.height);
-      console.log('svg', svg);
-      passDrawing(svg, 'passFinalDrawing');
+    if (count > 0) {
+      if (game.round) {
+        const svg = quickdrawSvgRender(drawing, canvas.width, canvas.height);
+        passDrawing(svg, 'passFinalDrawing');
+        setCount(0);
+      }
     }
-  }, []);
+    setCount(1);
+  }, [game.round]);
 
   // helper function to post to API
   const postDrawingHelper = () => {
@@ -154,7 +162,7 @@ const Canvas = ({ passDrawing, inBetweenRounds }) => {
 };
 
 const mapStateToProps = state => ({
-  inBetweenRounds: state.game.inBetweenRounds
+  game: state.game
 });
 
 const mapDispatchToProps = { passDrawing: Actions.passDrawing }
