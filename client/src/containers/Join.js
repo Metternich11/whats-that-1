@@ -58,12 +58,17 @@ const Join = ({ game, join, connectGame, history }) => {
     <Wrapper>
       <Form onSubmit={submitAndConnect}>
         <FormLabel>Your Avatar</FormLabel>
-        <SpeechBubble>Looking good!</SpeechBubble>
-        <AvatarContainer
-          style={{ transform: "scale(2.5)", margin: "2vh 0 4vh 0" }}
-        >
-          <PlayerAvatar />
-        </AvatarContainer>
+        <SpeechBubble inGame>Looking good!</SpeechBubble>
+        <div>
+          <AvatarContainer
+            style={{ transform: "scale(2.5)", marginTop: "2vh" }}
+          >
+            <PlayerAvatar />
+          </AvatarContainer>
+        </div>
+        <Button refresh>
+          <i className="fas fa-sync-alt" />
+        </Button>
         <FormLabel>Name</FormLabel>
         <InputField
           type="text"
@@ -72,7 +77,7 @@ const Join = ({ game, join, connectGame, history }) => {
           required
         />
 
-        <FormLabel>Enter Game ID</FormLabel>
+        <FormLabel>Enter Game ID:</FormLabel>
         <InputField
           type="text"
           name="gameName"
@@ -84,11 +89,12 @@ const Join = ({ game, join, connectGame, history }) => {
           <Button primary marginTop formButton type="submit">
             Join
           </Button>
+          <p className="small lightweight">or</p>
+          <Button back marginBottom onClick={goBack}>
+            Back
+          </Button>
         </ButtonContainer>
       </Form>
-      <Button back marginBottom onClick={goBack}>
-        Back
-      </Button>
     </Wrapper>
   );
 };
