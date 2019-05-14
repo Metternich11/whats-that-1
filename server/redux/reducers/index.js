@@ -206,6 +206,7 @@ exports.reducer = (state = initialState, action) => {
         players: {
           ...state.players,
           [action.win.playerId]: {
+            ...state.players[action.win.playerId],
             roundWins: action.win.roundWins
           }
         }

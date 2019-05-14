@@ -16,7 +16,7 @@ export default (state = initialState, action) => {
       case SocketTypes.GAME_CREATED:
       return {
         ...state,
-        payload: action.payload.payload
+        gameKey: action.payload.payload.gameKey
       };
       case SocketTypes.JOINED:
       return {
@@ -27,8 +27,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         word: action.payload.payload.word,
-        timer: action.payload.payload.timer
-        // inBetweenRounds: !state.inBetweenRounds
+        timer: action.payload.payload.timer,
+        inBetweenRounds: !state.inBetweenRounds
       };
       case SocketTypes.END_ROUND:
       return {

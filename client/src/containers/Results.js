@@ -4,11 +4,11 @@ import React, { Fragment, useState } from 'react';
 import posed from 'react-pose';
 import styled from 'styled-components';
 
-// Test array
-import sampleSVGArray from '../utils/quickdrawSvgRender/sampleSVGArray';
-
 // Redux Imports
 import { connect } from 'react-redux';
+
+// Test array
+import sampleSVGArray from '../utils/quickdrawSvgRender/sampleSVGArray';
 
 // Component & Container Imports
 import Button from '../components/Button';
@@ -32,11 +32,16 @@ const DrawnImage = styled.img`
 const downArrow = <i className='fas fa-chevron-down'></i>
 const rightArrow = <i className='fas fa-chevron-right'></i>
 
-const Results = (props) => {
+const Results = ({ history }) => {
+
   // const opponents = props.beAvatar;
   // opponents && console.log('results', opponents);
-  // console.log(props);
+  
   const [open, setOpen] = useState(false);
+  
+  const playAgain = () => {
+    history.push('/lobby');
+  }
 
   return (
     <Wrapper>
@@ -54,7 +59,7 @@ const Results = (props) => {
         {sampleSVGArray.map((object, i) => (
           <ResultsRoundBar key={i} onClick={() => setOpen(open === i ? false : i)}>
 
-            <div>{open === i ? downArrow : rightArrow} {object.round}</div>
+            <div>{object.round} {open === i ? downArrow : rightArrow}</div>
 
             <Content className='content' pose={open === i ? 'open' : 'closed'} style={{ overflow: 'hidden', fontSize: '18px' }}>
               <DrawingWrapper>
@@ -66,7 +71,7 @@ const Results = (props) => {
           </ResultsRoundBar>
         ))}
       </Fragment>
-      <Button marginTop>Play Again</Button>
+      <Button marginTop onClick={playAgain}>Play Again</Button>
     </Wrapper>
   );
 }
@@ -82,5 +87,4 @@ function SimpleSvg (props) {
   return <DrawnImage src={imageSrc} style={{ width: '50%', height: '50%' }} />;
 }
 
-// export default Results;
 export default connect(mapStateToProps)(Results);
