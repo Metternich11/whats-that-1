@@ -58,6 +58,8 @@ export default (state = initialState, action) => {
       default:
       return state;
     }
+  } else if (action.type === ActionTypes.RESTART_GAME) {
+    return state = initialState
   } else {
     return state;
   }

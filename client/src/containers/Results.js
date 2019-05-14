@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 // Redux Imports
 import { connect } from 'react-redux';
+import * as Actions from '../redux/actions/index';
 
 // Test array
 import sampleSVGArray from '../utils/quickdrawSvgRender/sampleSVGArray';
@@ -32,7 +33,7 @@ const DrawnImage = styled.img`
 const downArrow = <i className='fas fa-chevron-down'></i>
 const rightArrow = <i className='fas fa-chevron-right'></i>
 
-const Results = ({ history }) => {
+const Results = ({ history, restartGame }) => {
 
   // const opponents = props.beAvatar;
   // opponents && console.log('results', opponents);
@@ -40,6 +41,7 @@ const Results = ({ history }) => {
   const [open, setOpen] = useState(false);
   
   const playAgain = () => {
+    restartGame();
     history.push('/lobby');
   }
 
@@ -86,10 +88,15 @@ function SimpleSvg (props) {
   return <DrawnImage src={imageSrc} style={{ width: '50%', height: '50%' }} />;
 }
 
-const mapStateToProps = state => ({
+// const mapStateToProps = state => ({
 
+// });
+
+const mapDispatchToProps = dispatch => ({ 
+  restartGame: () => dispatch(Actions.restartGame())
 });
 
 export default connect(
   mapStateToProps,
+  mapDispatchToProps
 )(Results);

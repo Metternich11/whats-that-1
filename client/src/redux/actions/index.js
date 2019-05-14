@@ -55,3 +55,9 @@ export const passDrawing = (drawing, act) => {
     }
   };
 };
+
+export const restartGame = () => {
+  return {
+    type: ActionTypes.RESTART_GAME
+  };
+}
