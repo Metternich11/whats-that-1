@@ -30,6 +30,19 @@ export default (state = initialState, action) => {
           loading: true
         }
       };
+    case GameActionTypes.SOCKET_MESSAGE:
+      console.log('ACTION:::::::::::::::::..', action.payload);
+      switch (action.payload.type) {
+        case 'failure':
+          return {
+            ...state,
+            join: {
+              error: 'Game does not exist'
+            }
+          };
+        default:
+          return state;
+      }
     default:
       return state;
   }

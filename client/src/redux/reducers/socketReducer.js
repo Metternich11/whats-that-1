@@ -4,8 +4,8 @@ const initialState = {
   word: [],
   join: {},
   inBetweenRounds: false,
-  endGame: false,
-}
+  endGame: false
+};
 
 const socketReducer = (state = initialState, action) => {
   console.log('HERE GOES THE SOCKET ACTION: ', action);
@@ -23,12 +23,13 @@ const socketReducer = (state = initialState, action) => {
       return {
         ...state,
         word: action.payload.payload.word,
-        timer: action.payload.payload.timer,
+        timer: action.payload.payload.timer
+        // inBetweenRounds: !state.inBetweenRounds
       };
     case SocketTypes.END_ROUND:
       return {
         ...state,
-        inBetweenRounds: !state.inBetweenRounds
+        round: action.payload.payload.roundNum
       };
     case SocketTypes.GUESS:
       return {

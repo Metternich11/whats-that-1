@@ -1,30 +1,40 @@
-import React from "react";
+import React, { useEffect } from 'react';
 
 // Redux Imports
-import { connect } from "react-redux";
-import * as Actions from "../redux/actions/index";
+import { connect } from 'react-redux';
+import * as Actions from '../redux/actions/index';
 
 // Component & Container Imports
-import AvatarShelf from "../components/AvatarShelf";
-import Button from "../components/Button";
-import Canvas from "../components/Canvas";
-import GameHeader from "../components/GameHeader";
-import PlayerAvatar from "../components/PlayerAvatar";
-import PlayerList from "../components/PlayerList";
-import PlayerListItem from "../components/PlayerListItem";
-import Wrapper from "../components/Wrapper";
+import AvatarShelf from '../components/AvatarShelf';
+import Button from '../components/Button';
+import Canvas from '../components/Canvas';
+import GameHeader from '../components/GameHeader';
+import PlayerAvatar from '../components/PlayerAvatar';
+import PlayerList from '../components/PlayerList';
+import PlayerListItem from '../components/PlayerListItem';
+import Wrapper from '../components/Wrapper';
 
 export const Lobby = props => {
   const startGame = () => {
     props.startGame();
-    props.history.push("/game");
   };
+
+  useEffect(() => {
+    if (props.game.word) props.history.push('/game');
+  }, [props.game.word]);
 
   return (
     <Wrapper>
       <GameHeader>
-        <h2 className="gameHeader">{props.gameKey}</h2>
-        {props.isCreator === 'createGame' ? <Button primary onClick={startGame}> Start! </Button> : ''}
+        <h2 className='gameHeader'>{props.gameKey}</h2>
+        {props.isCreator === 'createGame' ? (
+          <Button primary onClick={startGame}>
+            {' '}
+            Start!{' '}
+          </Button>
+        ) : (
+          ''
+        )}
       </GameHeader>
       <p>Practice drawing whilst waiting...</p>
 
@@ -36,23 +46,24 @@ export const Lobby = props => {
         </PlayerListItem>
       </PlayerList>
       <AvatarShelf>Your Opponents</AvatarShelf>
-      {props.isCreator === "createGame" ? (
+      {props.isCreator === 'createGame' ? (
         <Button primary onClick={startGame}>
-          {" "}
-          Start!{" "}
+          {' '}
+          Start!{' '}
         </Button>
       ) : (
-        ""
+        ''
       )}
     </Wrapper>
   );
 };
 
 const mapStateToProps = state => ({
-  userAvatar: state.game.userAvatar,  ///CAUTION, SUBJECT TO CHANGE
+  userAvatar: state.game.userAvatar, ///CAUTION, SUBJECT TO CHANGE
   gameKey: state.game.gameKey,
-  beAvatar: state.game.players,       /// This too
-  isCreator: state.game.isCreator
+  beAvatar: state.game.players, /// This too
+  isCreator: state.game.isCreator,
+  game: state.game
 });
 
 const mapDispatchToProps = dispatch => ({
