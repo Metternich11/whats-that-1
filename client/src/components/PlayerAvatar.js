@@ -11,6 +11,7 @@ import generateAvatarProps from "../utils/generateAvatarProps";
 import Avatar from "avataaars";
 
 const PlayerAvatar = props => {
+  // console.log(props)
   let localProps = generateAvatarProps();
 
   useEffect(() => {
@@ -26,14 +27,14 @@ const PlayerAvatar = props => {
       {...localProps}
     />
   ) : (
-    <Avatar
-      style={{
-        width: "60px",
-        height: "60px"
-      }}
-      {...props.info.playerAvatar}
-    />
-  );
+      <Avatar
+        style={{
+          width: "60px",
+          height: "60px"
+        }}
+        {...props.info.playerAvatar}
+      />
+    );
 };
 
 const mapDispatchToProps = dispatch => ({

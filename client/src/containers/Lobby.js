@@ -19,6 +19,9 @@ export const Lobby = props => {
     props.startGame();
   };
 
+  const opponents = props.beAvatar;
+  opponents && console.log('lobby', opponents);
+
   useEffect(() => {
     if (props.game.word.length) props.history.push('/game');
   }, [props.game.word]);
@@ -33,8 +36,8 @@ export const Lobby = props => {
             Start!{' '}
           </Button>
         ) : (
-          ''
-        )}
+            ''
+          )}
       </GameHeader>
       <p>Practice drawing whilst waiting...</p>
 
@@ -42,7 +45,7 @@ export const Lobby = props => {
       <p>Waiting for other players...</p>
       <PlayerList>
         <PlayerListItem>
-          <PlayerAvatar info={props.beAvatar} />
+          {opponents && Object.values(props.beAvatar).map((player, index) => <PlayerAvatar key={index} info={player} />)}
         </PlayerListItem>
       </PlayerList>
       <AvatarShelf>Your Opponents</AvatarShelf>
@@ -52,8 +55,8 @@ export const Lobby = props => {
           Start!{' '}
         </Button>
       ) : (
-        ''
-      )}
+          ''
+        )}
     </Wrapper>
   );
 };
