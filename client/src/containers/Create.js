@@ -51,6 +51,7 @@ const Create = props => {
           >
             <PlayerAvatar />
           </AvatarContainer>
+
         </div>
         <Button refresh>
           <i className="fas fa-sync-alt" />
@@ -81,7 +82,7 @@ const Create = props => {
 };
 
 const mapStateToProps = state => ({
-  userAvatar: state.game.userAvatar,
+  userAvatar: state.currentUser.userAvatar,
   gameKey: state.pages.create.gameKey,
   loading: state.pages.create.loading
 });

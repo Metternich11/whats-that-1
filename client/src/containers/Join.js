@@ -15,16 +15,16 @@ import PlayerAvatar from '../components/PlayerAvatar';
 import SpeechBubble from '../components/SpeechBubble';
 import Wrapper from '../components/Wrapper';
 
-const Join = ({ game, pages, connectGame, history }) => {
+const Join = ({ game, pages, connectGame, history, currentUser }) => {
   const [playerName, setPlayerName] = useState('');
   const [gameKey, setGameKey] = useState('');
   const joinForm = useRef();
   const gameKeyInput = useRef();
 
   useEffect(() => {
-      console.log('ITS SUPER EFFECTIVE!', game.players)
-      if (game.players) history.push('/lobby');
-    }, [game]);
+    console.log('ITS SUPER EFFECTIVE!', game.players)
+    if (game.players) history.push('/lobby');
+  }, [game]);
 
   useEffect(() => {
     if (pages.join.error) {
@@ -32,22 +32,22 @@ const Join = ({ game, pages, connectGame, history }) => {
       gameKeyInput.current.reportValidity();
     }
   }, [pages.join]);
-    
-    const handlePlayerName = event => {
-      const value = event.target.value;
-      setPlayerName(value);
-    };
-    
-    const handleGameName = event => {
-      const value = event.target.value;
-      setGameKey(value);
-      gameKeyInput.current.setCustomValidity('');
-      console.log('he ho')
+
+  const handlePlayerName = event => {
+    const value = event.target.value;
+    setPlayerName(value);
+  };
+
+  const handleGameName = event => {
+    const value = event.target.value;
+    setGameKey(value);
+    gameKeyInput.current.setCustomValidity('');
+    console.log('he ho')
   };
 
   const submitAndConnect = e => {
     e.preventDefault();
-    connectGame(playerName, game.userAvatar, gameKey, 'joinGame');
+    connectGame(playerName, currentUser.userAvatar, gameKey, 'joinGame');
   };
 
   const goBack = () => {
@@ -104,7 +104,8 @@ const mapStateToProps = state => {
   console.log('STATE', state);
   return {
     game: state.game,
-    pages: state.pages
+    pages: state.pages,
+    currentUser: state.currentUser
   };
 };
 

@@ -14,13 +14,12 @@ import PlayerList from '../components/PlayerList';
 import PlayerListItem from '../components/PlayerListItem';
 import Wrapper from '../components/Wrapper';
 
-export const Lobby = props => {
+export const Lobby = (props) => {
   const startGame = () => {
     props.startGame();
   };
 
-  const opponents = props.beAvatar;
-  opponents && console.log('lobby', opponents);
+  const opponents = props.game.players;
 
   useEffect(() => {
     if (props.game.word.length) props.history.push('/game');
@@ -45,7 +44,7 @@ export const Lobby = props => {
       <p>Waiting for other players...</p>
       <PlayerList>
         <PlayerListItem>
-          {opponents && Object.values(props.beAvatar).map((player, index) => <PlayerAvatar key={index} info={player} />)}
+          {opponents && Object.values(opponents).map((player, index) => <PlayerAvatar key={index} info={player} />)}
         </PlayerListItem>
       </PlayerList>
       <AvatarShelf>Your Opponents</AvatarShelf>
