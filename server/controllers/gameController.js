@@ -210,7 +210,7 @@ const GameController = () => {
     },
     passFinalDrawing: async (socket, message) => {
       const gameKey = await getCurrentGameKey(socket.id);
-      const lastDrawing = message.payload.image;
+      const lastDrawing = message.payload.drawing;
       await setDrawingForRound(gameKey, socket.id, lastDrawing);
     }
   };
