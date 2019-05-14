@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import sampleSVGArray from '../utils/quickdrawSvgRender/sampleSVGArray';
 
 // Redux Imports
+import { connect } from 'react-redux';
 
 // Component & Container Imports
 import Button from '../components/Button';
@@ -32,10 +33,9 @@ const downArrow = <i className='fas fa-chevron-down'></i>
 const rightArrow = <i className='fas fa-chevron-right'></i>
 
 const Results = (props) => {
-
   // const opponents = props.beAvatar;
   // opponents && console.log('results', opponents);
-
+  // console.log(props);
   const [open, setOpen] = useState(false);
 
   return (
@@ -49,7 +49,7 @@ const Results = (props) => {
           <PlayerAvatar />
         </PlayerListItem>
       </PlayerList>
-
+      
       <Fragment>
         {sampleSVGArray.map((object, i) => (
           <ResultsRoundBar key={i} onClick={() => setOpen(open === i ? false : i)}>
@@ -72,7 +72,8 @@ const Results = (props) => {
 }
 
 const mapStateToProps = state => ({
-  game: state.game
+  game: state.game,
+  drawings: state.drawings
 });
 
 function SimpleSvg (props) {
@@ -81,4 +82,5 @@ function SimpleSvg (props) {
   return <DrawnImage src={imageSrc} style={{ width: '50%', height: '50%' }} />;
 }
 
-export default Results;
+// export default Results;
+export default connect(mapStateToProps)(Results);
