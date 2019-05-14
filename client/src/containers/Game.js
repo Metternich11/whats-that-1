@@ -15,7 +15,7 @@ import PlayerListItem from '../components/PlayerListItem';
 import WordToDraw from '../components/WordToDraw';
 import Wrapper from '../components/Wrapper';
 
-export const Game = ({ gameWord, inBetweenRounds, endGame, history }) => {
+export const Game = ({ gameWord, inBetweenRounds, endGame, history, guess }) => {
 
   useEffect(() => {
     if (inBetweenRounds) history.push('/between-rounds');
@@ -31,6 +31,11 @@ export const Game = ({ gameWord, inBetweenRounds, endGame, history }) => {
     }
   };
 
+  const Guessing = (props) => {
+    if (props.guess) return (<h2>I see {props.guess}!</h2>)
+    else return (<h2></h2>);
+  }
+
   return (
     <Wrapper>
       <GameHeader timer>
@@ -43,6 +48,7 @@ export const Game = ({ gameWord, inBetweenRounds, endGame, history }) => {
       </GameHeader>
 
       <Canvas />
+      <Guessing guess={guess}/>
       <PlayerList game>
         <PlayerListItem>
           <PlayerAvatar />
@@ -66,7 +72,8 @@ export const Game = ({ gameWord, inBetweenRounds, endGame, history }) => {
 const mapStateToProps = state => ({
   gameWord: state.game.word,
   inBetweenRounds: state.game.inBetweenRounds,
-  endGame: state.game.endGame
+  endGame: state.game.endGame,
+  guess: state.game.guess
 });
 
 export default connect(
