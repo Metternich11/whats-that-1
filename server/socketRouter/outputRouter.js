@@ -7,21 +7,21 @@ const outputRouter = () => {
     },
 
     joinRoom: (socket, roomKey) => {
-      console.log('JOINROOM')
+      console.log('OUTPUT JOINROOM')
       socket.join(roomKey);
     },
     sendMessageRoomFromServer: (mssg, roomKey) => {
-      console.log('MESSAGEFROMSERVER', mssg)
+      console.log('OUTPUT MESSAGEFROMSERVER', mssg)
 
       this.io.in(roomKey).emit('message', mssg);
     },
     sendMessageRoomFromClient: (socket, mssg, roomKey) => {
-      console.log('MESSAGEFROMCLIENT', mssg)
+      console.log('OUTPUT MESSAGEFROMCLIENT', mssg)
 
       socket.to(roomKey).emit('message', mssg);
     },
     sendMessageToClient: (socket, mssg) => {
-      console.log('MESSAGETOCLIENT', mssg)
+      console.log('OUTPUT MESSAGETOCLIENT', mssg)
 
       socket.emit('message', mssg);
     }

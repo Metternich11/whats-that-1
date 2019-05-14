@@ -22,7 +22,7 @@ import WordToDraw from '../components/WordToDraw';
 import Wrapper from '../components/Wrapper';
 
 export const BetweenRounds = ({ history, game }) => {
-
+  console.log('BETWEEN', game);
   const [count, setCount] = useState(0);
 
   useEffect(() => {
