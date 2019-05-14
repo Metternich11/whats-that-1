@@ -147,7 +147,7 @@ const GameController = () => {
             socket,
             handleMessage('failure', { error: 'Game does not exist' })
           );
-          socket.disconnect();
+          // socket.disconnect();
           return;
         }
         const numOfPlayersOnGame = await getPlayersFromGame(gameKey);

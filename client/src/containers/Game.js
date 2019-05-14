@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Countdown from 'react-countdown-now';
 
 // Redux Imports
@@ -15,13 +15,19 @@ import PlayerListItem from '../components/PlayerListItem';
 import WordToDraw from '../components/WordToDraw';
 import Wrapper from '../components/Wrapper';
 
-export const Game = ({ gameWord, inBetweenRounds, endGame, history, guess }) => {
+export const Game = ({ history, game }) => {
+  const [count, setCount] = useState(0);
+  const [time, setTime] = useState(0);
 
   useEffect(() => {
-    if (inBetweenRounds) history.push('/between-rounds');
-    if (endGame) history.push('/results')
-    }, [inBetweenRounds, endGame]);
-
+    setTime(Date.now() + 20000);
+    if (game.endGame) history.push('/results');
+    else if (game.round && count > 0) {
+      history.push('/between-rounds');
+      setCount(0);
+    }
+    setCount(1);
+  }, [game.endGame, game.round]);
 
   const renderer = ({ seconds, completed }) => {
     if (completed) {
@@ -40,15 +46,15 @@ export const Game = ({ gameWord, inBetweenRounds, endGame, history, guess }) => 
     <Wrapper>
       <GameHeader timer>
         <GameName timer>
-          <Countdown date={Date.now() + 20000} renderer={renderer} />
+          <Countdown date={time} renderer={renderer} />
         </GameName>
         <WordToDraw>
-          Drawing: <strong>{gameWord}</strong>
+          Drawing: <strong>{game.word}</strong>
         </WordToDraw>
       </GameHeader>
 
       <Canvas />
-      <Guessing guess={guess}/>
+      <Guessing guess={game.guess}/>
       <PlayerList game>
         <PlayerListItem>
           <PlayerAvatar />
@@ -68,14 +74,8 @@ export const Game = ({ gameWord, inBetweenRounds, endGame, history, guess }) => 
   );
 };
 
-
 const mapStateToProps = state => ({
-  gameWord: state.game.word,
-  inBetweenRounds: state.game.inBetweenRounds,
-  endGame: state.game.endGame,
-  guess: state.game.guess
+  game: state.game
 });
 
-export default connect(
-  mapStateToProps
-)(Game);
+export default connect(mapStateToProps)(Game);
