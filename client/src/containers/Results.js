@@ -71,6 +71,10 @@ const Results = (props) => {
   );
 }
 
+const mapStateToProps = state => ({
+  game: state.game
+});
+
 function SimpleSvg (props) {
   const encodedImage = btoa(props.image);
   const imageSrc = `data:image/svg+xml;base64,${encodedImage}`;

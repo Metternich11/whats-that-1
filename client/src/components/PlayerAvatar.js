@@ -11,7 +11,6 @@ import generateAvatarProps from "../utils/generateAvatarProps";
 import Avatar from "avataaars";
 
 const PlayerAvatar = props => {
-  // console.log(props)
   let localProps = generateAvatarProps();
 
   useEffect(() => {
