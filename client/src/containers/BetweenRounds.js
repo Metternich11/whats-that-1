@@ -22,6 +22,7 @@ import WordToDraw from '../components/WordToDraw';
 import Wrapper from '../components/Wrapper';
 
 export const BetweenRounds = ({ history, game }) => {
+
   const [count, setCount] = useState(0);
   const opponents = game.players;
 

@@ -44,7 +44,7 @@ export const Lobby = (props) => {
       <p>Waiting for other players...</p>
       <PlayerList>
         <PlayerListItem>
-          {opponents && Object.values(opponents).map((player, index) => <PlayerAvatar key={index} info={player} />)}
+          {opponents && Object.values(opponents).filter(player => player.playerId !== props.currentUser.userId).map((player, index) => <PlayerAvatar key={index} info={player} />)}
         </PlayerListItem>
       </PlayerList>
       <AvatarShelf>Your Opponents</AvatarShelf>
