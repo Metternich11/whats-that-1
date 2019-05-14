@@ -15,9 +15,14 @@ export const socket = store => {
           default:
           break;
         }
-        
+        socket.on('connect', () => {
+          store.dispatch({
+            type: 'SET_USERID',
+            payload: socket.id
+          });
+        });
+
         socket.on('message', message => {
-          message.userId = socket.id;
           console.log('INPUT', message);  //eslint-disable-line
           store.dispatch({
             type: 'SOCKET_MESSAGE',
