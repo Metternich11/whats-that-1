@@ -6,7 +6,8 @@ const initialState = {
   join: {},
   inBetweenRounds: false,
   endGame: false,
-  guess: ''
+  guess: '',
+  winners: []
 }
 
 export default (state = initialState, action) => {
@@ -14,7 +15,8 @@ export default (state = initialState, action) => {
       switch (action.payload.type) {
       case SocketTypes.GAME_CREATED:
       return {
-        ...state
+        ...state,
+        payload: action.payload.payload
       };
       case SocketTypes.JOINED:
       return {
@@ -39,10 +41,10 @@ export default (state = initialState, action) => {
         guess: action.payload.payload.word
       };
     case SocketTypes.VICTORY:
-      console.log('STATE IS', state);
       return {
         ...state,
-        // winner: state.winner.concat(action.payload.payload.playerId)
+        round: action.payload.payload.roundNum,
+        winners: state.winners.concat(action.payload.payload.playerId)
       };
     case SocketTypes.ROUND_DRAWINGS:
       return {
