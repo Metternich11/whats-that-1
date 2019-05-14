@@ -31,10 +31,13 @@ const DrawnImage = styled.img`
 const downArrow = <i className='fas fa-chevron-down'></i>
 const rightArrow = <i className='fas fa-chevron-right'></i>
 
-const Results = () => {
+const Results = (props) => {
+
+  // const opponents = props.beAvatar;
+  // opponents && console.log('results', opponents);
 
   const [open, setOpen] = useState(false);
-  
+
   return (
     <Wrapper>
       <PlayerList>
