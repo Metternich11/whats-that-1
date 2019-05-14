@@ -5,7 +5,8 @@ const initialState = {
   join: {},
   inBetweenRounds: false,
   endGame: false,
-  guess: ''
+  guess: '',
+  winners: []
 }
 
 const socketReducer = (state = initialState, action) => {
@@ -38,12 +39,12 @@ const socketReducer = (state = initialState, action) => {
         guess: action.payload.payload.word
       };
     case SocketTypes.VICTORY:
-      console.log('STATE IS', state);
       return {
         ...state,
         // winner: state.winner.concat(action.payload.payload.playerId)
       };
     case SocketTypes.ROUND_DRAWINGS:
+      console.log('drawings ', SocketTypes)
       return {
         ...state
       };
