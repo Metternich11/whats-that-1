@@ -6,6 +6,7 @@ const gameModel = {
   addGame: async (gameKey, totalRounds) => {
     // CREATEGAME
     try {
+      console.log('MODEL', gameKey);
       store.dispatch(Actions.createGame(gameKey, totalRounds));
     } catch (error) {
       console.error(error);
