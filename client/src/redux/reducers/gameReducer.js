@@ -10,7 +10,7 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
-  if (action.type == ActionTypes.SOCKET_MESSAGE) {
+  if (action.type === ActionTypes.SOCKET_MESSAGE) {
       switch (action.payload.type) {
       case SocketTypes.GAME_CREATED:
       return {

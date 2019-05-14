@@ -15,14 +15,18 @@ import PlayerAvatar from '../components/PlayerAvatar';
 import SpeechBubble from '../components/SpeechBubble';
 import Wrapper from '../components/Wrapper';
 
+// Util imports
+import generateAvatarProps from "../utils/generateAvatarProps";
+
+
 const Join = ({ game, pages, connectGame, history, currentUser }) => {
   const [playerName, setPlayerName] = useState('');
   const [gameKey, setGameKey] = useState('');
+  const [userChoice, setUserChoice] = useState("");
   const joinForm = useRef();
   const gameKeyInput = useRef();
 
   useEffect(() => {
-    console.log('ITS SUPER EFFECTIVE!', game.players)
     if (game.players) history.push('/lobby');
   }, [game]);
 
@@ -42,7 +46,6 @@ const Join = ({ game, pages, connectGame, history, currentUser }) => {
     const value = event.target.value;
     setGameKey(value);
     gameKeyInput.current.setCustomValidity('');
-    console.log('he ho')
   };
 
   const submitAndConnect = e => {
@@ -54,6 +57,12 @@ const Join = ({ game, pages, connectGame, history, currentUser }) => {
     history.goBack();
   };
 
+  const refreshAvatar = (e) => {
+    e.preventDefault();
+    let props = generateAvatarProps();
+    setUserChoice(props);
+  }
+
   return (
     <Wrapper>
       <Form onSubmit={submitAndConnect} ref={joinForm}>
@@ -63,10 +72,10 @@ const Join = ({ game, pages, connectGame, history, currentUser }) => {
           <AvatarContainer
             style={{ transform: 'scale(2.5)', marginTop: '2vh' }}
           >
-            <PlayerAvatar />
+            <PlayerAvatar userChoice={userChoice} />
           </AvatarContainer>
         </div>
-        <Button refresh>
+        <Button refresh onClick={refreshAvatar}>
           <i className='fas fa-sync-alt' />
         </Button>
         <FormLabel>Name</FormLabel>

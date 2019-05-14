@@ -16,8 +16,13 @@ import PlayerAvatar from "../components/PlayerAvatar";
 import SpeechBubble from "../components/SpeechBubble";
 import Wrapper from "../components/Wrapper";
 
+// Util imports
+import generateAvatarProps from "../utils/generateAvatarProps";
+
+
 const Create = props => {
   const [playerName, setPlayerName] = useState("");
+  const [userChoice, setUserChoice] = useState("");
 
   const handlePlayerName = event => {
     const value = event.target.value;
@@ -40,6 +45,12 @@ const Create = props => {
     props.history.goBack();
   };
 
+  const refreshAvatar = (e) => {
+    e.preventDefault();
+    let props = generateAvatarProps();
+    setUserChoice(props);
+  }
+
   return (
     <Wrapper>
       <Form onSubmit={submitName}>
@@ -49,11 +60,11 @@ const Create = props => {
           <AvatarContainer
             style={{ transform: "scale(2.5)", marginTop: "2vh" }}
           >
-            <PlayerAvatar />
+            <PlayerAvatar userChoice={userChoice} />
           </AvatarContainer>
 
         </div>
-        <Button refresh>
+        <Button refresh type="" onClick={refreshAvatar}>
           <i className="fas fa-sync-alt" />
         </Button>
         <FormLabel>What's your name?</FormLabel>

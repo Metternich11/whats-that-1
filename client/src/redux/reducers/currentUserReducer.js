@@ -6,6 +6,11 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case ActionTypes.SET_USERID:
+    return {
+      ...state,
+      userId: action.payload
+    }
     case ActionTypes.GET_KEY:
       return {
         ...state
