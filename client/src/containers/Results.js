@@ -56,7 +56,7 @@ const Results = ({ history, restartGame }) => {
           <PlayerAvatar />
         </PlayerListItem>
       </PlayerList>
-
+      
       <Fragment>
         {sampleSVGArray.map((object, i) => (
           <ResultsRoundBar key={i} onClick={() => setOpen(open === i ? false : i)}>
@@ -79,7 +79,7 @@ const Results = ({ history, restartGame }) => {
 }
 
 const mapStateToProps = state => ({
-  game: state.game
+  game: state.game,
 });
 
 function SimpleSvg (props) {

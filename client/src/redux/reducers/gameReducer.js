@@ -23,7 +23,7 @@ export default (state = initialState, action) => {
         ...state,
         players: action.payload.payload.players
       };
-    case SocketTypes.START_ROUND:
+      case SocketTypes.START_ROUND:
       return {
         ...state,
         word: action.payload.payload.word,
@@ -40,16 +40,21 @@ export default (state = initialState, action) => {
         ...state,
         guess: action.payload.payload.word
       };
-    case SocketTypes.VICTORY:
+      case SocketTypes.VICTORY:
       return {
         ...state,
         round: action.payload.payload.roundNum,
         winners: state.winners.concat(action.payload.payload.playerId)
       };
-    case SocketTypes.ROUND_DRAWINGS:
+      case SocketTypes.ROUND_DRAWINGS:
       return {
         ...state
       };
+      case SocketTypes.GAME_DRAWINGS:
+      return {
+        ...state,
+        drawings: action.payload.payload.drawings
+      }
       case SocketTypes.GAME_OVER:
       return {
         ...state,
