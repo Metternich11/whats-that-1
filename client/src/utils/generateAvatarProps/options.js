@@ -1,5 +1,5 @@
 export default {
-  avatarStyle: ["circle"],
+  avatarStyle: ["Circle"],
   topType: [
     "NoHair",
     "Eyepatch",

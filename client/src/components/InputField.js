@@ -7,10 +7,9 @@ const InputField = styled.input`
   color: #fff;
   font-size: 1.2rem;
   font-weight: bold;
-  height: 40px;
-  margin-bottom: 20px;
+  height: 50px;
   outline: none;
-  padding-left: 10px;
+  padding-left: 20px;
   width: 100%;
 
   &:active,

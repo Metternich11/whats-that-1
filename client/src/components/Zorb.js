@@ -3,10 +3,8 @@ import styled from "styled-components/macro";
 import { ReactComponent as ZorbSVG } from "./Zorb.svg";
 
 const ZorbContainer = styled.div`
-  margin-top: 2vh;
-
   svg {
-    width: 200px;
+    width: 150px;
     filter: drop-shadow(1px 3px 2px rgba(0, 0, 0, 0.1));
   }
 
