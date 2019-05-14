@@ -145,7 +145,7 @@ const GameController = () => {
 
     joinGame: async (socket, message) => {
       try {
-        const gameKey = message.gameKey;
+        const gameKey = message.payload.gameKey;
         if ((await gameExists(gameKey)) === false) {
           sendMessageToClient(
             socket,
