@@ -20,14 +20,14 @@ export const Lobby = props => {
   };
 
   useEffect(() => {
-    if (props.game.word) props.history.push('/game');
+    if (props.game.word.length) props.history.push('/game');
   }, [props.game.word]);
 
   return (
     <Wrapper>
       <GameHeader>
-        <h2 className='gameHeader'>{props.gameKey}</h2>
-        {props.isCreator === 'createGame' ? (
+        <h2 className='gameHeader'>{props.currentUser.gameKey}</h2>
+        {props.currentUser.isCreator === 'createGame' ? (
           <Button primary onClick={startGame}>
             {' '}
             Start!{' '}
@@ -59,10 +59,7 @@ export const Lobby = props => {
 };
 
 const mapStateToProps = state => ({
-  userAvatar: state.game.userAvatar, ///CAUTION, SUBJECT TO CHANGE
-  gameKey: state.game.gameKey,
-  beAvatar: state.game.players, /// This too
-  isCreator: state.game.isCreator,
+  currentUser: state.currentUser,
   game: state.game
 });
 
