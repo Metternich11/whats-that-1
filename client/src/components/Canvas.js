@@ -4,7 +4,9 @@ import React from "react";
 import Button from "./Button";
 import { connect } from "react-redux";
 import * as Actions from "../redux/actions/index";
-import quickdrawSvgRender from "../utils/quickdrawSvgRender/quickdrawSvgRender";
+
+// to convert array into SVG string
+import quickdrawSvgRender from '../utils/quickdrawSvgRender/quickdrawSvgRender';
 
 // arol tip: useReducer instead of having this mess of variables here.
 let isDrawing = false;
@@ -19,7 +21,7 @@ const googleURL =
   // REPLACE WHEN BACKEND PROVIDE ENDPOINT
   "https://inputtools.google.com/request?ime=handwriting&app=quickdraw&dbg=1&cs=1&oe=UTF-8";
 
-const postDrawing = setWAYD => {
+const postDrawing = (setGoogleGuess) => {
   fetch(googleURL, {
     method: "POST",
     headers: {
@@ -40,14 +42,15 @@ const postDrawing = setWAYD => {
     })
   })
     .then(res => res.json())
-    .then(data => setWAYD(data[1][0][1][0]))
+    .then(data => (setGoogleGuess(data[1][0][1][0])))
     .catch(err => console.error(err)); // eslint-disable-line no-console
 };
 
 const Canvas = props => {
   const [locations, setLocations] = React.useState([]);
   const canvasRef = React.useRef(null);
-  const [WAYD, setWAYD] = React.useState("Draw something...");
+  const [googleGuess, setGoogleGuess] = React.useState('Draw something...');
+
   React.useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -104,28 +107,9 @@ const Canvas = props => {
       lastXCoordinate = e.offsetX;
       lastYCoordinate = e.offsetY;
     });
-
     canvas.addEventListener("mousemove", draw);
-
-    canvas.addEventListener("mouseup", event => {
-      event.preventDefault();
-      isDrawing = false;
-
-      let xyCoordinates = [xCoordinate, yCoordinate, timestamp];
-      drawing.push(xyCoordinates);
-
-      postDrawing(setWAYD);
-      // console.log(quickdrawSvgRender(drawing, 375, 375));
-
-      xCoordinate = [];
-      yCoordinate = [];
-      timestamp = [];
-      xyCoordinates = [];
-    });
-
-    canvas.addEventListener("mouseout", () => {
-      isDrawing = false;
-    });
+    canvas.addEventListener("mouseup", () => postDrawingHelper());
+    canvas.addEventListener("mouseout", () => isDrawing = false);
 
     // eventlisteners: touch
     canvas.addEventListener("touchstart", e => {
@@ -135,13 +119,24 @@ const Canvas = props => {
       lastXCoordinate = touch.pageX - touch.target.offsetLeft;
       lastYCoordinate = touch.pageY - touch.target.offsetTop;
     });
-
     canvas.addEventListener("touchmove", draw);
-
-    canvas.addEventListener("touchend", () => {
-      isDrawing = false;
-    });
+    canvas.addEventListener("touchend", () => postDrawingHelper());
   }, []);
+
+  // helper function to post to API
+  const postDrawingHelper = () => {
+    isDrawing = false;
+
+    let xyCoordinates = [xCoordinate, yCoordinate, timestamp];
+    drawing.push(xyCoordinates);
+
+    postDrawing(setGoogleGuess);
+
+    xCoordinate = [];
+    yCoordinate = [];
+    timestamp = [];
+    xyCoordinates = [];
+  }
 
   const handleCanvasClick = e => {
     const newLocation = { x: e.clientX, y: e.clientY };
@@ -152,7 +147,7 @@ const Canvas = props => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    setWAYD("Draw something...");
+    setGoogleGuess("Draw something...");
     setLocations([]);
   };
 
@@ -169,13 +164,14 @@ const Canvas = props => {
       <Button clear onClick={handleClear}>
         <i className="far fa-trash-alt" />
       </Button>
-      {WAYD !== "Draw something..." ? (
+      {googleGuess !== "Draw something..." ? (
         <h4>
-          {WAYD === "Draw something..." ? "" : "Is it... "}
-          {WAYD === "Draw something..." ? "" : WAYD}
-          {WAYD === "Draw something..." ? "" : "?"}
+          {googleGuess === "Draw something..." ? "" : "Is it... "}
+          {googleGuess === "Draw something..." ? "" : googleGuess}
+          {googleGuess === "Draw something..." ? "" : "?"}
         </h4>
       ) : null}
+
     </>
   );
 };
