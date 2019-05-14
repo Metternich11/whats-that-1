@@ -22,8 +22,9 @@ import WordToDraw from '../components/WordToDraw';
 import Wrapper from '../components/Wrapper';
 
 export const BetweenRounds = ({ history, game }) => {
-  console.log('BETWEEN', game);
+
   const [count, setCount] = useState(0);
+  const opponents = game.players;
 
   useEffect(() => {
     if (count > 0) {
@@ -63,17 +64,9 @@ export const BetweenRounds = ({ history, game }) => {
       <PlayerList betweenRounds>
         <PlayerListItem>
           <PlayerHasSolvedRound />
-          <PlayerAvatar />
+          {opponents && Object.values(opponents).map((player, index) => <PlayerAvatar key={index} info={player} />)}
         </PlayerListItem>
-        <PlayerListItem>
-          <PlayerAvatar />
-        </PlayerListItem>
-        <PlayerListItem>
-          <PlayerAvatar />
-        </PlayerListItem>
-        <PlayerListItem>
-          <PlayerAvatar />
-        </PlayerListItem>
+
       </PlayerList>
       <AvatarShelf>Your Opponents</AvatarShelf>
     </Wrapper>
