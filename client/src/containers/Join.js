@@ -86,7 +86,7 @@ const Join = ({ game, join, connectGame, history }) => {
         />
 
         <ButtonContainer>
-          <Button primary marginTop formButton type="submit">
+          <Button primary formButton type="submit">
             Join
           </Button>
           <p className="small lightweight">or</p>

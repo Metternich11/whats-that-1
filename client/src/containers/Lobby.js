@@ -9,7 +9,6 @@ import AvatarShelf from "../components/AvatarShelf";
 import Button from "../components/Button";
 import Canvas from "../components/Canvas";
 import GameHeader from "../components/GameHeader";
-import GameName from "../components/GameName";
 import PlayerAvatar from "../components/PlayerAvatar";
 import PlayerList from "../components/PlayerList";
 import PlayerListItem from "../components/PlayerListItem";

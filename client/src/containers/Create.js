@@ -11,7 +11,6 @@ import ButtonContainer from "../components/ButtonContainer";
 import Form from "../components/Form";
 import FormLabel from "../components/FormLabel";
 import GameID from "../components/GameID";
-import GameName from "../components/GameName";
 import InputField from "../components/InputField";
 import PlayerAvatar from "../components/PlayerAvatar";
 import SpeechBubble from "../components/SpeechBubble";
@@ -68,7 +67,7 @@ const Create = props => {
         <GameID>{props.loading ? "Loading..." : props.gameKey}</GameID>
 
         <ButtonContainer>
-          <Button primary marginTop formButton type="submit">
+          <Button primary formButton type="submit">
             Create
           </Button>
           <p className="small lightweight">or</p>

@@ -44,11 +44,10 @@ const postDrawing = setWAYD => {
     .catch(err => console.error(err)); // eslint-disable-line no-console
 };
 
-const Canvas = () => {
+const Canvas = props => {
   const [locations, setLocations] = React.useState([]);
   const canvasRef = React.useRef(null);
   const [WAYD, setWAYD] = React.useState("Draw something...");
-
   React.useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -116,7 +115,7 @@ const Canvas = () => {
       drawing.push(xyCoordinates);
 
       postDrawing(setWAYD);
-      console.log(quickdrawSvgRender(drawing, 375, 375));
+      // console.log(quickdrawSvgRender(drawing, 375, 375));
 
       xCoordinate = [];
       yCoordinate = [];
@@ -170,11 +169,13 @@ const Canvas = () => {
       <Button clear onClick={handleClear}>
         <i className="far fa-trash-alt" />
       </Button>
-      <h4>
-        {WAYD === "Draw something..." ? "" : "Is it... "}
-        {WAYD === "Draw something..." ? "" : WAYD}
-        {WAYD === "Draw something..." ? "" : "?"}
-      </h4>
+      {WAYD !== "Draw something..." ? (
+        <h4>
+          {WAYD === "Draw something..." ? "" : "Is it... "}
+          {WAYD === "Draw something..." ? "" : WAYD}
+          {WAYD === "Draw something..." ? "" : "?"}
+        </h4>
+      ) : null}
     </>
   );
 };

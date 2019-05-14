@@ -10,9 +10,6 @@ import { createRedux } from "./redux/store";
 // Router Setup
 import { BrowserRouter } from "react-router-dom";
 
-// Component & Container Imports
-import NavBar from "./components/NavBar";
-
 const store = createRedux();
 
 ReactDOM.render(

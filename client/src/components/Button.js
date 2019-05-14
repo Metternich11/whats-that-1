@@ -54,6 +54,7 @@ const Button = styled.button`
     props.formButton &&
     css`
       margin-left: 0;
+      margin-right: 0;
       align-self: center;
     `};
 

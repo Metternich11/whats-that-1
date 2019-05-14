@@ -15,7 +15,7 @@ const Container = styled.div`
   padding: 20px;
 `;
 
-const Modal = (props) => {
+const Modal = props => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -28,7 +28,6 @@ const Modal = (props) => {
   };
   return (
     <>
-    {console.log('THIIIIIIIIIIIIIIIIIIS', props)}
       {isVisible && (
         <Container>
           <p>Please enter a valid Game ID!</p>
