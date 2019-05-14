@@ -30,7 +30,7 @@ const inputRouter = httpServer => {
           break;
       }
     });
-    socket.on('disconnect', () => console.log('Client disconnected'));
+    socket.on('disconnect', () => gameController.playerDisconnected(socket));
   });
 };
 
