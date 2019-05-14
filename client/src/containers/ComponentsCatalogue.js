@@ -9,8 +9,6 @@ import AvatarShelf from "../components/AvatarShelf";
 import Button from "../components/Button";
 import ButtonContainer from "../components/ButtonContainer";
 import Canvas from "../components/Canvas";
-import CanvasFooter from "../components/CanvasFooter";
-// import CountdownTimer from "../components/CountdownTimer";
 import DrawingStack from "../components/DrawingStack";
 import Form from "../components/Form";
 import FormLabel from "../components/FormLabel";
@@ -167,6 +165,7 @@ export const ComponentsCatalogue = () => {
           <li>GameName</li>
           <li>Button</li>
           <li>Canvas</li>
+          <li>Canvas Footer</li>
           <li>PlayerList</li>
           <li>PlayerListItem</li>
           <li>AvatarShelf</li>

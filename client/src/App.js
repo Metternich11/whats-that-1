@@ -27,13 +27,25 @@ const GlobalStyle = createGlobalStyle`
   body {
     background-color: #764ad7;
     color: #ffffff;
+    // overflow: hidden;
+    height: 100vh;
     margin: 0;
-    @import url("https://fonts.googleapis.com/css?family=Nunito:400,600");
+    max-height: 100vh;
+    @import url("https://fonts.googleapis.com/css?family=Nunito:200,400,600");
     font-family: 'Nunito', sans-serif;
-    overflow: hidden;
   }
   * {
     box-sizing: border-box;
+  }
+  .gameHeader {
+    font-size: 2rem;
+    margin: 0;
+  }
+  .small {
+    font-size: 0.8rem;
+  }
+  .lightweight {
+    font-weight: 200;
   }
 `;
 

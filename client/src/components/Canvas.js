@@ -4,8 +4,6 @@ import React from "react";
 import Button from "./Button";
 import { connect } from "react-redux";
 import * as Actions from "../redux/actions/index";
-import CanvasFooter from "./CanvasFooter";
-import CanvasFooterItem from "./CanvasFooterItem";
 
 // to convert array into SVG string
 import quickdrawSvgRender from '../utils/quickdrawSvgRender/quickdrawSvgRender';
@@ -48,7 +46,7 @@ const postDrawing = (setGoogleGuess) => {
     .catch(err => console.error(err)); // eslint-disable-line no-console
 };
 
-const Canvas = () => {
+const Canvas = props => {
   const [locations, setLocations] = React.useState([]);
   const canvasRef = React.useRef(null);
   const [googleGuess, setGoogleGuess] = React.useState('Draw something...');
@@ -159,30 +157,27 @@ const Canvas = () => {
         ref={canvasRef}
         onClick={handleCanvasClick}
         style={{
-          border: "1px solid rgba(255,255,255,0.2)",
-          backgroundColor: "#764ad7"
+          border: "1px solid rgba(255,255,255,1)",
+          backgroundColor: "#533497"
         }}
       />
-      <CanvasFooter>
-        <CanvasFooterItem>
-          <Button clear onClick={handleClear}>
-            Clear
-          </Button>
-        </CanvasFooterItem>
-        <CanvasFooterItem right>
-          <h4>
-            {googleGuess === "Draw something..." ? "" : "Is it... "}
-            {googleGuess === "Draw something..." ? "" : googleGuess}
-            {googleGuess === "Draw something..." ? "" : "?"}
-          </h4>
-        </CanvasFooterItem>
-      </CanvasFooter>
+      <Button clear onClick={handleClear}>
+        <i className="far fa-trash-alt" />
+      </Button>
+      {googleGuess !== "Draw something..." ? (
+        <h4>
+          {googleGuess === "Draw something..." ? "" : "Is it... "}
+          {googleGuess === "Draw something..." ? "" : googleGuess}
+          {googleGuess === "Draw something..." ? "" : "?"}
+        </h4>
+      ) : null}
+
     </>
   );
 };
 
 const mapDispatchToProps = dispatch => ({
-  postDrawing: (drawing) => dispatch(Actions.postDrawing(drawing))
+  postDrawing: drawing => dispatch(Actions.postDrawing(drawing))
 });
 // For now this function is not used, revise when FE and BE are connected
 

@@ -10,9 +10,6 @@ import generateAvatarProps from "../utils/generateAvatarProps";
 // Library imports
 import Avatar from "avataaars";
 
-// Component & Container Imports
-import AvatarContainer from "../components/AvatarContainer";
-
 const PlayerAvatar = props => {
   let localProps = generateAvatarProps();
 
@@ -21,28 +18,23 @@ const PlayerAvatar = props => {
   }, [localProps]);
 
   return !props.info ? (
-    <AvatarContainer>
-      <Avatar
-        style={{
-          width: "60px",
-          height: "60px"
-        }}
-        {...localProps}
-      />
-    </AvatarContainer>
+    <Avatar
+      style={{
+        width: "60px",
+        height: "60px"
+      }}
+      {...localProps}
+    />
   ) : (
-    <AvatarContainer>
-      <Avatar
-        style={{
-          width: "60px",
-          height: "60px"
-        }}
-        {...props.info.playerAvatar}
-      />
-    </AvatarContainer>
+    <Avatar
+      style={{
+        width: "60px",
+        height: "60px"
+      }}
+      {...props.info.playerAvatar}
+    />
   );
 };
-
 
 const mapDispatchToProps = dispatch => ({
   userAvatar: avatar => dispatch(Actions.saveAvatar(avatar))

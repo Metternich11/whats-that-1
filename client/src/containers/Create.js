@@ -10,7 +10,7 @@ import Button from "../components/Button";
 import ButtonContainer from "../components/ButtonContainer";
 import Form from "../components/Form";
 import FormLabel from "../components/FormLabel";
-import GameName from "../components/GameName";
+import GameID from "../components/GameID";
 import InputField from "../components/InputField";
 import PlayerAvatar from "../components/PlayerAvatar";
 import SpeechBubble from "../components/SpeechBubble";
@@ -27,7 +27,12 @@ const Create = props => {
   const submitName = e => {
     e.preventDefault();
 
-    props.connectGame(playerName, props.userAvatar, props.gameKey, "createGame");
+    props.connectGame(
+      playerName,
+      props.userAvatar,
+      props.gameKey,
+      "createGame"
+    );
     props.history.push("/lobby");
   };
 
@@ -38,12 +43,19 @@ const Create = props => {
   return (
     <Wrapper>
       <Form onSubmit={submitName}>
-        <FormLabel>Your Avatar</FormLabel>
-        <SpeechBubble>Looking good!</SpeechBubble>
-        <AvatarContainer>
-          <PlayerAvatar />
-        </AvatarContainer>
-        <FormLabel>Name</FormLabel>
+        <FormLabel>Choose how sexy you are</FormLabel>
+        <SpeechBubble inGame>Looking good!</SpeechBubble>
+        <div>
+          <AvatarContainer
+            style={{ transform: "scale(2.5)", marginTop: "2vh" }}
+          >
+            <PlayerAvatar />
+          </AvatarContainer>
+        </div>
+        <Button refresh>
+          <i className="fas fa-sync-alt" />
+        </Button>
+        <FormLabel>What's your name?</FormLabel>
         <InputField
           type="text"
           name="name"
@@ -51,26 +63,27 @@ const Create = props => {
           required
         />
 
-        <FormLabel>Game ID</FormLabel>
-        <GameName>{props.loading ? "Loading..." : props.gameKey}</GameName>
+        <FormLabel>Game ID:</FormLabel>
+        <GameID>{props.loading ? "Loading..." : props.gameKey}</GameID>
 
         <ButtonContainer>
-          <Button primary marginTop formButton type="submit">
+          <Button primary formButton type="submit">
             Create
+          </Button>
+          <p className="small lightweight">or</p>
+          <Button back marginBottom onClick={goBack}>
+            Back
           </Button>
         </ButtonContainer>
       </Form>
-      <Button back marginBottom onClick={goBack}>
-        Back
-      </Button>
     </Wrapper>
   );
 };
 
 const mapStateToProps = state => ({
-    userAvatar: state.game.userAvatar,
-    gameKey: state.pages.create.gameKey,
-    loading: state.pages.create.loading
+  userAvatar: state.game.userAvatar,
+  gameKey: state.pages.create.gameKey,
+  loading: state.pages.create.loading
 });
 
 const mapDispatchToProps = { connectGame: Actions.connectGame };

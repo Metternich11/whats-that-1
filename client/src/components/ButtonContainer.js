@@ -1,8 +1,12 @@
 import styled from "styled-components/macro";
 
 const ButtonContainer = styled.div`
-  margin: 4vh 0;
   align-self: center;
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+  justify-content: space-around;
+  margin-top: 40px;
 `;
 
 export default ButtonContainer;

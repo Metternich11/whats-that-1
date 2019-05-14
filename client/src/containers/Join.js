@@ -17,15 +17,14 @@ import Wrapper from "../components/Wrapper";
 import Modal from "../components/Modal";
 
 const Join = ({ game, join, connectGame, history }) => {
-
   const [playerName, setPlayerName] = useState("");
   const [gameKey, setGameKey] = useState("");
-  const [errorMessage, setErrorMessage] = useState(false)
+  const [errorMessage, setErrorMessage] = useState(false);
 
   useEffect(() => {
-    if (game.message) history.push('/lobby');
+    if (game.message) history.push("/lobby");
     //else if (join.error) setErrorMessage(true);
-  }, [game])
+  }, [game]);
 
   const handlePlayerName = event => {
     const value = event.target.value;
@@ -39,30 +38,37 @@ const Join = ({ game, join, connectGame, history }) => {
 
   const submitAndConnect = e => {
     e.preventDefault();
-    connectGame(playerName, game.userAvatar, gameKey, 'joinGame')
+    connectGame(playerName, game.userAvatar, gameKey, "joinGame");
     //connectGame(playerName, game.userAvatar, gameKey, 'noGo')
-  }
+  };
 
   const goBack = () => {
     history.goBack();
   };
 
   const visible = () => {
-    setErrorMessage(false)
-  }
+    setErrorMessage(false);
+  };
 
   return errorMessage ? (
-      <Wrapper>
-       <Modal visible={visible}/>
-       </Wrapper>
-      ) : ( 
-       <Wrapper> 
+    <Wrapper>
+      <Modal visible={visible} />
+    </Wrapper>
+  ) : (
+    <Wrapper>
       <Form onSubmit={submitAndConnect}>
         <FormLabel>Your Avatar</FormLabel>
-        <SpeechBubble>Looking good!</SpeechBubble>
-        <AvatarContainer>
-          <PlayerAvatar />
-        </AvatarContainer>
+        <SpeechBubble inGame>Looking good!</SpeechBubble>
+        <div>
+          <AvatarContainer
+            style={{ transform: "scale(2.5)", marginTop: "2vh" }}
+          >
+            <PlayerAvatar />
+          </AvatarContainer>
+        </div>
+        <Button refresh>
+          <i className="fas fa-sync-alt" />
+        </Button>
         <FormLabel>Name</FormLabel>
         <InputField
           type="text"
@@ -71,7 +77,7 @@ const Join = ({ game, join, connectGame, history }) => {
           required
         />
 
-        <FormLabel>Enter Game ID</FormLabel>
+        <FormLabel>Enter Game ID:</FormLabel>
         <InputField
           type="text"
           name="gameName"
@@ -80,13 +86,16 @@ const Join = ({ game, join, connectGame, history }) => {
         />
 
         <ButtonContainer>
-          <Button primary marginTop formButton type="submit">
+          <Button primary formButton type="submit">
             Join
           </Button>
+          <p className="small lightweight">or</p>
+          <Button back marginBottom onClick={goBack}>
+            Back
+          </Button>
         </ButtonContainer>
-      </Form> 
-      <Button back marginBottom onClick={goBack}>Back</Button>
-      </Wrapper>
+      </Form>
+    </Wrapper>
   );
 };
 
@@ -94,7 +103,7 @@ const mapStateToProps = state => {
   return {
     game: state.game,
     join: state.pages.join
-  }
+  };
 };
 
 const mapDispatchToProps = { connectGame: Actions.connectGame };

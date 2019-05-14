@@ -2,11 +2,11 @@ import styled, { css } from "styled-components/macro";
 
 const GameHeader = styled.div`
   align-items: center;
+  background-color: #6a43c2;
   color: white;
   display: flex;
-  justify-content: space-around;
-  margin: 0 0 2vh 0;
-  padding: 1vh 0;
+  justify-content: center;
+  padding: 20px 0;
   width: 100%;
 
   ${props =>
