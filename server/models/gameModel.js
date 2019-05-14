@@ -147,7 +147,7 @@ const gameModel = {
     const state = store.getState();
     const playersId = state.games[gameKey].players;
     const players = {};
-
+    if (!playersId || !Object.keys(playersId).length) return players;
     playersId.forEach(playerId => {
       players[playerId] = {
         playerName: state.players[playerId].playerName,
@@ -155,7 +155,6 @@ const gameModel = {
         playerId
       };
     });
-    console.log(players)
     return players;
   },
 
@@ -179,6 +178,23 @@ const gameModel = {
       imagesFromRound.push(state.players[player].draws);
     });
     return imagesFromRound;
+  },
+
+  cleanPlayerForNewGame: async playerId => {
+    store.dispatch(Actions.cleanPlayerForNewGame(playerId));
+  },
+
+  deletePlayer: async (playerId, gameKey) => {
+    store.dispatch(Actions.deletePlayer(playerId));
+    store.dispatch(Actions.deletePlayerFromGame(playerId, gameKey));
+
+    const state = store.getState();
+    const playersInGame = state.games[gameKey].players;
+
+    if (playersInGame == 'undefined' || playersInGame.length < 1) {
+      gameModel.deleteGame(gameKey);
+    }
+    return;
   },
 
   setDrawingForRound: async (gameKey, playerId, image) => {

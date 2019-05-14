@@ -188,6 +188,18 @@ exports.reducer = (state = initialState, action) => {
           }
         }
       };
+    case ActionTypes.CLEAN_PLAYER_FOR_NEW_GAME:
+      return {
+        ...state,
+        players: {
+          ...state.players,
+          [action.playerId]: {
+            ...state.players[action.playerId],
+            roundWins: [],
+            draws: []
+          }
+        }
+      };
 
     case ActionTypes.ADD_DRAW_TO_PLAYER:
       return {
@@ -234,6 +246,26 @@ exports.reducer = (state = initialState, action) => {
               ...state.games[action.gameKey].round,
               roundStatus: action.status
             }
+          }
+        }
+      };
+
+    case ActionTypes.DELETE_PLAYER:
+      return {
+        ...state,
+        players: omit(state.players, action.playerId)
+      };
+
+    case ActionTypes.DELETE_PLAYER_FROM_GAME:
+      return {
+        ...state,
+        games: {
+          ...state.games,
+          [action.gameKey]: {
+            ...state.games[action.gameKey],
+            players: state.games[action.gameKey].players.filter(
+              player => player !== action.playerId
+            )
           }
         }
       };

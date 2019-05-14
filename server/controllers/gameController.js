@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 const delay = require('delay');
+const _ = require('lodash');
 
 const {
   initializeIO,
@@ -25,19 +26,20 @@ const {
   setDrawingForRound,
   removePlayer,
   setPlayerRoundWins,
-  getRoundStatus
+  getRoundStatus,
+  deletePlayer,
+  cleanPlayerForNewGame
 } = require('../models/gameModel');
 const getWords = require('../helpers/requestWords');
 const requestQuickDraw = require('../helpers/requestGuess');
 
 const TOTALROUNDS = 2;
-const MillisecondsPerRound = 20000;
-const MillisecondsBetweenRounds = 10000;
+const MillisecondsPerRound = 1500;
+const MillisecondsBetweenRounds = 1500;
 const maxNumPlayers = 6;
 
 const GameController = () => {
   const endRound = async gameKey => {
-    //SHANSHAN
     await setRoundStatus(gameKey);
     sendMessageRoomFromServer(
       handleMessage('endRound', {
@@ -46,22 +48,30 @@ const GameController = () => {
       gameKey
     );
     const currentRound = await getCurrentRoundNumber(gameKey);
-    if (currentRound === TOTALROUNDS) {
+    if (currentRound < TOTALROUNDS + 1) {
       gameOver(gameKey);
-    } else {
-      await delay(1500);
-      const allDrawingsForRound = await getImagesFromRound(
-        gameKey,
-        currentRound
-      );
-      sendMessageRoomFromServer(
-        handleMessage('roundDrawings', {
-          drawings: allDrawingsForRound
-        }),
-        gameKey
-      );
-      setTimeout(() => startCurrentRound(gameKey), MillisecondsBetweenRounds);
+      // Clean all drawings a rounds from players before starting new Game
+      const players = await getPlayersFromGame(gameKey);
+      let counter = 0;
+      _.forEach(players, (value, key) => {
+        console.log(key);
+        console.log('counter: ', counter++);
+        cleanPlayerForNewGame(key);
+      });
+      // Object.keys(players).forEach(players, player => {
+      // });
+
+      return;
     }
+    await delay(1500);
+    const allDrawingsForRound = await getImagesFromRound(gameKey, currentRound);
+    sendMessageRoomFromServer(
+      handleMessage('roundDrawings', {
+        drawings: allDrawingsForRound
+      }),
+      gameKey
+    );
+    setTimeout(() => startCurrentRound(gameKey), MillisecondsBetweenRounds);
   };
 
   const gameOver = async gameKey => {
@@ -116,7 +126,6 @@ const GameController = () => {
 
     createGame: async (socket, message) => {
       try {
-        const pendingAddPlayerAndGame = [];
         const gameKey = message.payload.gameKey;
 
         if (await gameExists(gameKey))
@@ -124,12 +133,10 @@ const GameController = () => {
             socket,
             handleMessage('failure', '{error: gameExist}')
           );
-        pendingAddPlayerAndGame.push(await addGame(gameKey, TOTALROUNDS));
-        pendingAddPlayerAndGame.push(
-          await addPlayer(message.payload.player, socket.id)
-        );
-        await Promise.all(pendingAddPlayerAndGame);
+        await addGame(gameKey, TOTALROUNDS);
+        await addPlayer(message.payload.player, socket.id);
         await addPlayerToGame(socket.id, gameKey, true);
+
         joinRoom(socket, gameKey);
         sendMessageToClient(socket, handleMessage('gameCreated', { gameKey }));
       } catch (error) {
@@ -158,7 +165,8 @@ const GameController = () => {
             handleMessage('failure', { error: 'Max num of player reached' })
           );
         await addPlayer(message.payload.player, socket.id);
-        await addPlayerToGame(socket.id, gameKey, true);
+        await addPlayerToGame(socket.id, gameKey, false);
+
         joinRoom(socket, gameKey);
         sendMessageRoomFromServer(
           handleMessage('playerJoin', {
@@ -173,7 +181,6 @@ const GameController = () => {
 
     startGame: async socket => {
       const gameKey = await getCurrentGameKey(socket.id);
-      console.log(socket.id);
       if (gameExists(gameKey)) {
         sendMessageRoomFromServer(handleMessage('startGame', gameKey));
         startCurrentRound(gameKey);
@@ -209,8 +216,12 @@ const GameController = () => {
     },
     passFinalDrawing: async (socket, message) => {
       const gameKey = await getCurrentGameKey(socket.id);
-      const lastDrawing = message.payload.image;
+      const lastDrawing = message.payload.drawing;
       await setDrawingForRound(gameKey, socket.id, lastDrawing);
+    },
+    playerDisconnected: async socket => {
+      const gameKey = await getCurrentGameKey(socket.id);
+      deletePlayer(socket.id, gameKey);
     }
   };
 };
