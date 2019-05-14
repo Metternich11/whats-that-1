@@ -30,18 +30,6 @@ export default (state = initialState, action) => {
           loading: true
         }
       };
-      case GameActionTypes.SOCKET_MESSAGE:
-      switch (action.payload.type) {
-        case ActionTypes.FAILURE:
-        return {
-          ...state,
-          join: {
-            //   ...state.join,
-            error: 'Game does not exist'
-          }
-        };
-      }
-      break;
     default:
       return state;
   }
