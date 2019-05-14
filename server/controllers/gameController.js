@@ -48,7 +48,7 @@ const GameController = () => {
       gameKey
     );
     const currentRound = await getCurrentRoundNumber(gameKey);
-    if (currentRound < TOTALROUNDS + 1) {
+    if (currentRound > TOTALROUNDS - 1) {
       gameOver(gameKey);
       // Clean all drawings a rounds from players before starting new Game
       const players = await getPlayersFromGame(gameKey);
