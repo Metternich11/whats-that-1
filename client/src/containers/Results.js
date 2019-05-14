@@ -33,13 +33,11 @@ const DrawnImage = styled.img`
 const downArrow = <i className='fas fa-chevron-down'></i>
 const rightArrow = <i className='fas fa-chevron-right'></i>
 
-const Results = ({ history, restartGame }) => {
+const Results = ({ history, restartGame, game}) => {
 
-  // const opponents = props.beAvatar;
-  // opponents && console.log('results', opponents);
-  
   const [open, setOpen] = useState(false);
-  
+  // const opponents = game.players;
+
   const playAgain = () => {
     restartGame();
     history.push('/lobby');
@@ -58,14 +56,16 @@ const Results = ({ history, restartGame }) => {
       </PlayerList>
       
       <Fragment>
+        {/* {console.log('ResultsPage game.drawings: ', game.drawings)} */}
         {sampleSVGArray.map((object, i) => (
+        
           <ResultsRoundBar key={i} onClick={() => setOpen(open === i ? false : i)}>
-
             <div>{object.round} {open === i ? downArrow : rightArrow}</div>
 
             <Content className='content' pose={open === i ? 'open' : 'closed'} style={{ overflow: 'hidden', fontSize: '18px' }}>
               <DrawingWrapper>
                 {object.drawings.map((svg, i) =>
+                
                   <SimpleSvg key={i} image={svg} />
                 )}
               </DrawingWrapper>
@@ -87,10 +87,12 @@ function SimpleSvg (props) {
   const imageSrc = `data:image/svg+xml;base64,${encodedImage}`;
   return <DrawnImage src={imageSrc} style={{ width: '50%', height: '50%' }} />;
 }
+// function SimpleSvg (game) {
+//   const encodedImage = btoa(props.image);
+//   const imageSrc = `data:image/svg+xml;base64,${encodedImage}`;
+//   return <DrawnImage src={imageSrc} style={{ width: '50%', height: '50%' }} />;
+// }
 
-// const mapStateToProps = state => ({
-
-// });
 
 const mapDispatchToProps = dispatch => ({ 
   restartGame: () => dispatch(Actions.restartGame())
