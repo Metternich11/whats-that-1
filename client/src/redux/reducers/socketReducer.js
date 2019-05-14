@@ -17,22 +17,13 @@ const socketReducer = (state = initialState, action) => {
     case SocketTypes.JOINED:
       return {
         ...state,
-        players: {
-          ...state.players, ...action.payload.payload.players
-        }
-      };
-    case SocketTypes.START_GAME:
-      return {
-        ...state
+        players: action.payload.payload.players
       };
     case SocketTypes.START_ROUND:
       return {
         ...state,
-        word: [action.payload.payload.word],
-        timer: {
-          ...state.timer,
-          ...action.payload.payload.timer
-        }
+        word: action.payload.payload.word,
+        timer: action.payload.payload.timer,
       };
     case SocketTypes.END_ROUND:
       return {
@@ -55,14 +46,6 @@ const socketReducer = (state = initialState, action) => {
       return {
         ...state,
         endGame: !state.endGame
-      };
-    case SocketTypes.FAILURE:
-      return {
-        ...state,
-        join: {
-          //   ...state.join,
-          error: 'Game does not exist'
-        }
       };
     default:
       return state;

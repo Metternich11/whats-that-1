@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 // Component & Container Imports
 import Button from './Button';
@@ -19,12 +19,12 @@ let xCoordinate = [];
 let yCoordinate = [];
 let timestamp = [];
 
-const Canvas = ({ passDrawing }) => {
+const Canvas = ({ passDrawing, inBetweenRounds }) => {
   const [locations, setLocations] = useState([]);
   const canvasRef = useRef(null);
   const [googleGuess, setGoogleGuess] = useState('Draw something...');
 
-  React.useEffect(() => {
+  useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
 
@@ -94,6 +94,12 @@ const Canvas = ({ passDrawing }) => {
     });
     canvas.addEventListener("touchmove", draw);
     canvas.addEventListener("touchend", () => postDrawingHelper());
+
+    if (inBetweenRounds) {
+      const svg = quickdrawSvgRender(drawing, canvas.width, canvas.height);
+      console.log('svg', svg);
+      passDrawing(svg, 'passFinalDrawing');
+    }
   }, []);
 
   // helper function to post to API
@@ -152,9 +158,13 @@ const Canvas = ({ passDrawing }) => {
   );
 };
 
+const mapStateToProps = state => ({
+  inBetweenRounds: state.game.inBetweenRounds
+});
+
 const mapDispatchToProps = { passDrawing: Actions.passDrawing }
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Canvas);
