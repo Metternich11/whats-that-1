@@ -23,7 +23,8 @@ export const Lobby = props => {
   return (
     <Wrapper>
       <GameHeader>
-        <h2 className="gameHeader">Wild-Winter</h2>
+        <h2 className="gameHeader">{props.gameKey}</h2>
+        {props.isCreator === 'createGame' ? <Button primary onClick={startGame}> Start! </Button> : ''}
       </GameHeader>
       <p>Practice drawing whilst waiting...</p>
 
@@ -48,10 +49,10 @@ export const Lobby = props => {
 };
 
 const mapStateToProps = state => ({
-  userAvatar: state.userAvatar,
-  gameKey: state.gameKey,
-  beAvatar: state.message,
-  isCreator: state.isCreator
+  userAvatar: state.game.userAvatar,  ///CAUTION, SUBJECT TO CHANGE
+  gameKey: state.game.gameKey,
+  beAvatar: state.game.players,       /// This too
+  isCreator: state.game.isCreator
 });
 
 const mapDispatchToProps = dispatch => ({

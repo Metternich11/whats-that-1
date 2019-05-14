@@ -9,23 +9,21 @@ export const socket = store => {
     if (command) {
       switch (command) {
         case 'CONNECT':
-          //socket = io(`${process.env.REACT_APP_SERVER_BASE_URL}`);
-          socket = io('http://localhost:3100');
+          socket = io(`${process.env.REACT_APP_SERVER_BASE_URL}`);
           next(action);
           break;
         default:
           break;
       }
-    }
 
-    // Inputs (on)
-    socket.on('message', message => {
-      console.log('AND OUR BE SAYS', message);  //eslint-disable-line
-      store.dispatch({
-        type: 'SOCKET_MESSAGE',     //THIS IS A TEST, THIS IS NOT CORRECT OR FINAL
-        payload: message,
+      socket.on('message', message => {
+        console.log('INPUT', message);  //eslint-disable-line
+        store.dispatch({
+          type: 'SOCKET_MESSAGE',
+          payload: message
+        });
       });
-    });
+    }
 
     // Outputs (emit)
     if (payload) {

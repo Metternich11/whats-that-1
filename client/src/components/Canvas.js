@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from 'react';
 
 // Component & Container Imports
-import Button from "./Button";
-import { connect } from "react-redux";
-import * as Actions from "../redux/actions/index";
+import Button from './Button';
+import { connect } from 'react-redux';
+import * as Actions from '../redux/actions/index';
 
 // to convert array into SVG string
 import quickdrawSvgRender from '../utils/quickdrawSvgRender/quickdrawSvgRender';
@@ -17,53 +17,24 @@ let xCoordinate = [];
 let yCoordinate = [];
 let timestamp = [];
 
-const googleURL =
-  // REPLACE WHEN BACKEND PROVIDE ENDPOINT
-  "https://inputtools.google.com/request?ime=handwriting&app=quickdraw&dbg=1&cs=1&oe=UTF-8";
+const Canvas = ({ passDrawing, inBetweenRounds }) => {
+  const [locations, setLocations] = useState([]);
+  const canvasRef = useRef(null);
+  const [googleGuess, setGoogleGuess] = useState('Draw something...');
 
-const postDrawing = (setGoogleGuess) => {
-  fetch(googleURL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      options: "enable_pre_space",
-      requests: [
-        {
-          writing_guide: {
-            writing_area_width: 375,
-            writing_area_height: 375
-          },
-          ink: drawing,
-          language: "quickdraw"
-        }
-      ]
-    })
-  })
-    .then(res => res.json())
-    .then(data => (setGoogleGuess(data[1][0][1][0])))
-    .catch(err => console.error(err)); // eslint-disable-line no-console
-};
-
-const Canvas = props => {
-  const [locations, setLocations] = React.useState([]);
-  const canvasRef = React.useRef(null);
-  const [googleGuess, setGoogleGuess] = React.useState('Draw something...');
-
-  React.useEffect(() => {
+  useEffect(() => {
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
 
     // canvas size
     canvas.width = 375;
     canvas.height = 375;
-    canvas.style.width = "375px";
-    canvas.style.height = "375px";
+    canvas.style.width = '375px';
+    canvas.style.height = '375px';
 
     // canvas settings
-    ctx.strokeStyle = "#fff";
-    ctx.linecap = "round";
+    ctx.strokeStyle = '#fff';
+    ctx.linecap = 'round';
     ctx.lineWidth = 3;
 
     const draw = e => {
@@ -102,7 +73,7 @@ const Canvas = props => {
     };
 
     // eventlisteners: mouse
-    canvas.addEventListener("mousedown", e => {
+    canvas.addEventListener('mousedown', e => {
       isDrawing = true;
       lastXCoordinate = e.offsetX;
       lastYCoordinate = e.offsetY;
@@ -112,7 +83,7 @@ const Canvas = props => {
     canvas.addEventListener("mouseout", () => isDrawing = false);
 
     // eventlisteners: touch
-    canvas.addEventListener("touchstart", e => {
+    canvas.addEventListener('touchstart', e => {
       isDrawing = true;
       let touch = e.touches[0];
 
@@ -121,6 +92,12 @@ const Canvas = props => {
     });
     canvas.addEventListener("touchmove", draw);
     canvas.addEventListener("touchend", () => postDrawingHelper());
+
+    if (inBetweenRounds) {
+      const svg = quickdrawSvgRender(drawing, canvas.width, canvas.height);
+      console.log('svg', svg);
+      passDrawing(svg, 'passFinalDrawing');
+    }
   }, []);
 
   // helper function to post to API
@@ -130,7 +107,7 @@ const Canvas = props => {
     let xyCoordinates = [xCoordinate, yCoordinate, timestamp];
     drawing.push(xyCoordinates);
 
-    postDrawing(setGoogleGuess);
+    passDrawing(drawing, 'passDrawing');
 
     xCoordinate = [];
     yCoordinate = [];
@@ -145,7 +122,7 @@ const Canvas = props => {
 
   const handleClear = () => {
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     setGoogleGuess("Draw something...");
     setLocations([]);
@@ -176,12 +153,13 @@ const Canvas = props => {
   );
 };
 
-const mapDispatchToProps = dispatch => ({
-  postDrawing: drawing => dispatch(Actions.postDrawing(drawing))
+const mapStateToProps = state => ({
+  inBetweenRounds: state.game.inBetweenRounds
 });
-// For now this function is not used, revise when FE and BE are connected
+
+const mapDispatchToProps = { passDrawing: Actions.passDrawing }
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Canvas);

@@ -1,4 +1,6 @@
 /* eslint-disable no-console */
+const delay = require('delay');
+
 const {
   initializeIO,
   sendMessageRoomFromServer,
@@ -26,7 +28,7 @@ const {
   getRoundStatus
 } = require('../models/gameModel');
 const getWords = require('../helpers/requestWords');
-const requestGuess = require('../helpers/requestGuess');
+const requestQuickDraw = require('../helpers/requestGuess');
 
 const TOTALROUNDS = 2;
 const MillisecondsPerRound = 20000;
@@ -39,7 +41,7 @@ const GameController = () => {
     await setRoundStatus(gameKey);
     sendMessageRoomFromServer(
       handleMessage('endRound', {
-        roundNum: getCurrentRoundNumber(gameKey)
+        roundNum: await getCurrentRoundNumber(gameKey)
       }),
       gameKey
     );
@@ -47,6 +49,7 @@ const GameController = () => {
     if (currentRound === TOTALROUNDS) {
       gameOver(gameKey);
     } else {
+      await delay(1500);
       const allDrawingsForRound = await getImagesFromRound(
         gameKey,
         currentRound
@@ -61,9 +64,11 @@ const GameController = () => {
     }
   };
 
-  const gameOver = gameKey => {
-    // SHANSHAN
-    const allDrawingsForGame = getImagesFromGame(gameKey);
+  const gameOver = async gameKey => {
+    sendMessageRoomFromServer(handleMessage('gameOver'), gameKey);
+    await delay(1500);
+    const allDrawingsForGame = await getImagesFromGame(gameKey);
+
     sendMessageRoomFromServer(
       handleMessage('gameDrawings', { drawings: allDrawingsForGame }),
       gameKey
@@ -108,7 +113,7 @@ const GameController = () => {
     },
 
     // for inputRouter and outputRouter
-    
+
     createGame: async (socket, message) => {
       try {
         const pendingAddPlayerAndGame = [];
@@ -137,11 +142,14 @@ const GameController = () => {
     joinGame: async (socket, message) => {
       try {
         const gameKey = message.payload.gameKey;
-        if (await !gameExists(gameKey))
-          return sendMessageToClient(
+        if ((await gameExists(gameKey)) === false) {
+          sendMessageToClient(
             socket,
             handleMessage('failure', { error: 'Game does not exist' })
           );
+          socket.disconnect();
+          return;
+        }
         const numOfPlayersOnGame = await getPlayersFromGame(gameKey);
 
         if (numOfPlayersOnGame.length > maxNumPlayers - 1)
@@ -183,7 +191,7 @@ const GameController = () => {
       if ((await getRoundStatus(gameKey)) === false) return;
 
       const currentWord = await getCurrentWord(gameKey);
-      const guess = await requestGuess(message.payload.drawing);
+      const guess = await requestQuickDraw(message.payload.drawing);
 
       sendMessageToClient(socket, handleMessage('guess', { word: guess }));
       // if match, broadcast victory to the room. payload with playerId

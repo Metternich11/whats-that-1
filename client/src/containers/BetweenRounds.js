@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from 'react';
 import Countdown from 'react-countdown-now';
 
 // Redux Imports
+import { connect } from 'react-redux';
 
 // Component & Container Imports
 import ArtistDetails from "../components/ArtistDetails";
@@ -20,7 +21,11 @@ import TestVG from "../components/TestVG";
 import WordToDraw from "../components/WordToDraw";
 import Wrapper from "../components/Wrapper";
 
-export const BetweenRounds = () => {
+export const BetweenRounds = ({ inBetweenRounds, history }) => {
+
+  useEffect(() => {
+    if (!inBetweenRounds) history.push('/game');
+    }, [inBetweenRounds]);
 
    const renderer = ({ seconds }) => {
      return <span> {seconds} </span>
@@ -68,4 +73,10 @@ export const BetweenRounds = () => {
   );
 };
 
-export default BetweenRounds;
+const mapStateToProps = state => ({
+  inBetweenRounds: state.game.inBetweenRounds,
+});
+
+export default connect(
+  mapStateToProps
+)(BetweenRounds);

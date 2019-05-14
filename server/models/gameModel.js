@@ -6,30 +6,30 @@ const gameModel = {
   addGame: async (gameKey, totalRounds) => {
     // CREATEGAME
     try {
-      await store.dispatch(Actions.createGame(gameKey, totalRounds));
+      store.dispatch(Actions.createGame(gameKey, totalRounds));
     } catch (error) {
       console.error(error);
     }
   },
 
   gameExists: async gameKey => {
-    const state = await store.getState();
+    const state = store.getState();
     return state.games[gameKey] ? true : false;
   },
 
   getCurrentGameKey: async playerId => {
-    const state = await store.getState();
+    const state = store.getState();
     return state.players[playerId].gameKey;
   },
 
   getRoundStatus: async gameKey => {
-    const state = await store.getState();
+    const state = store.getState();
     return state.games[gameKey].round.roundStatus;
   },
 
   setPlayerRoundWins: async playerId => {
-    const state = await store.getState();
-    const gameKey = await state.players[playerId].gameKey;
+    const state = store.getState();
+    const gameKey = state.players[playerId].gameKey;
     const round = state.games[gameKey].round.currentRound;
     let roundWins = state.players[playerId].roundWins;
 
@@ -43,22 +43,22 @@ const gameModel = {
         }
       ]
     };
-    await store.dispatch(Actions.setPlayerRoundWins(win));
+    store.dispatch(Actions.setPlayerRoundWins(win));
   },
 
   setRoundStatus: async gameKey => {
-    const state = await store.getState();
+    const state = store.getState();
     let currentStatus = state.games[gameKey].round.roundStatus;
-    await store.dispatch(Actions.setRoundStatus(gameKey, !currentStatus));
+    store.dispatch(Actions.setRoundStatus(gameKey, !currentStatus));
   },
 
   startRound: async (gameKey, word) => {
     // startGame
     try {
-      const state = await store.getState();
+      const state = store.getState();
       let currentRound = state.games[gameKey].round.currentRound;
       currentRound++;
-      await store.dispatch(
+      store.dispatch(
         Actions.startRound({
           game: gameKey,
           round: {
@@ -75,7 +75,7 @@ const gameModel = {
 
   getCurrentWord: async gameKey => {
     try {
-      const state = await store.getState();
+      const state = store.getState();
       return state.games[gameKey].round.word;
     } catch (error) {
       console.error(error);
@@ -84,7 +84,7 @@ const gameModel = {
 
   getCurrentRoundNumber: async gameKey => {
     try {
-      const state = await store.getState();
+      const state = store.getState();
       return state.games[gameKey].round.currentRound;
     } catch (error) {
       console.error(error);
@@ -94,9 +94,9 @@ const gameModel = {
   deleteGame: async gameKey => {
     // DELETE_GAME
     try {
-      const state = await store.getState();
+      const state = store.getState();
       if (state.games[gameKey]) {
-        await Actions.deleteGame(gameKey);
+        Actions.deleteGame(gameKey);
       } else {
         throw 'gameDoesNotExist';
       }
@@ -115,7 +115,7 @@ const gameModel = {
         gameKey: '',
         draws: []
       };
-      await store.dispatch(Actions.addPlayer(newPlayer));
+      store.dispatch(Actions.addPlayer(newPlayer));
     } catch (error) {
       console.error(error);
     }
@@ -128,7 +128,7 @@ const gameModel = {
         isCreator,
         gameKey
       };
-      await store.dispatch(Actions.addPlayerToGame(playerToGame));
+      store.dispatch(Actions.addPlayerToGame(playerToGame));
     } catch (error) {
       console.error(error);
     }
@@ -161,7 +161,7 @@ const gameModel = {
   },
 
   getImagesFromRound: async (gameKey, roundNumber) => {
-    const state = await store.getState();
+    const state = store.getState();
     const players = state.games[gameKey].players;
     const imagesFromRound = [];
 
@@ -172,7 +172,7 @@ const gameModel = {
   },
 
   getImagesFromGame: async gameKey => {
-    const state = await store.getState();
+    const state = store.getState();
     const players = state.games[gameKey].players;
     const imagesFromRound = [];
 
@@ -183,8 +183,8 @@ const gameModel = {
   },
 
   setDrawingForRound: async (gameKey, playerId, image) => {
-    const state = await store.getState();
-    const winner = (await state.players[playerId].roundWins) || false;
+    const state = store.getState();
+    const winner = state.players[playerId].roundWins || false;
 
     const result = {
       round: state.games[gameKey].round.currentRound,
@@ -193,7 +193,7 @@ const gameModel = {
       winner
     };
 
-    await store.dispatch(Actions.addDrawToPlayer(playerId, result));
+    store.dispatch(Actions.addDrawToPlayer(playerId, result));
   }
 };
 

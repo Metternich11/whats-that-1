@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 // Redux Imports
 import { connect } from "react-redux";
@@ -14,17 +14,21 @@ import InputField from "../components/InputField";
 import PlayerAvatar from "../components/PlayerAvatar";
 import SpeechBubble from "../components/SpeechBubble";
 import Wrapper from "../components/Wrapper";
-import Modal from "../components/Modal";
 
-const Join = ({ game, join, connectGame, history }) => {
+const Join = ({ game, pages, connectGame, history }) => {
+
   const [playerName, setPlayerName] = useState("");
   const [gameKey, setGameKey] = useState("");
-  const [errorMessage, setErrorMessage] = useState(false);
+  const joinForm = useRef();
+  const gameKeyInput = useRef();
 
   useEffect(() => {
-    if (game.message) history.push("/lobby");
-    //else if (join.error) setErrorMessage(true);
-  }, [game]);
+    if (game.players) history.push('/lobby');  // Ole, please don't touch this
+    else if (pages.join.error) {
+      gameKeyInput.current.setCustomValidity('Game code does not exist')
+      joinForm.current[1].reportValidity()
+    }
+  }, [game])
 
   const handlePlayerName = event => {
     const value = event.target.value;
@@ -38,25 +42,17 @@ const Join = ({ game, join, connectGame, history }) => {
 
   const submitAndConnect = e => {
     e.preventDefault();
-    connectGame(playerName, game.userAvatar, gameKey, "joinGame");
-    //connectGame(playerName, game.userAvatar, gameKey, 'noGo')
-  };
+    connectGame(playerName, game.userAvatar, gameKey, 'joinGame');
+  }
 
   const goBack = () => {
     history.goBack();
   };
 
-  const visible = () => {
-    setErrorMessage(false);
-  };
 
-  return errorMessage ? (
-    <Wrapper>
-      <Modal visible={visible} />
-    </Wrapper>
-  ) : (
-    <Wrapper>
-      <Form onSubmit={submitAndConnect}>
+  return (
+       <Wrapper> 
+      <Form onSubmit={submitAndConnect} ref={joinForm}>
         <FormLabel>Your Avatar</FormLabel>
         <SpeechBubble inGame>Looking good!</SpeechBubble>
         <div>
@@ -82,6 +78,7 @@ const Join = ({ game, join, connectGame, history }) => {
           type="text"
           name="gameName"
           onChange={handleGameName}
+          ref={gameKeyInput}
           required
         />
 
@@ -100,10 +97,11 @@ const Join = ({ game, join, connectGame, history }) => {
 };
 
 const mapStateToProps = state => {
+  console.log('STATE', state)
   return {
     game: state.game,
-    join: state.pages.join
-  };
+    pages: state.pages
+  }
 };
 
 const mapDispatchToProps = { connectGame: Actions.connectGame };
