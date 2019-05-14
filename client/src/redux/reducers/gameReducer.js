@@ -1,36 +1,71 @@
+import * as SocketTypes from '../actions/socketTypes';
 import * as ActionTypes from '../actions/gameTypes';
-import socketReducer from './socketReducer';
 
 const initialState = {
-  gameKey: undefined
-};
+  word: [],
+  join: {},
+  inBetweenRounds: false,
+  endGame: false,
+  guess: '',
+  winners: []
+}
 
 export default (state = initialState, action) => {
-  console.log('game:', action);
-  switch (action.type) {
-    case ActionTypes.GET_KEY:
+  if (action.type === ActionTypes.SOCKET_MESSAGE) {
+      switch (action.payload.type) {
+      case SocketTypes.GAME_CREATED:
+      return {
+        ...state,
+        gameKey: action.payload.payload.gameKey
+      };
+      case SocketTypes.JOINED:
+      return {
+        ...state,
+        players: action.payload.payload.players
+      };
+      case SocketTypes.START_ROUND:
+      return {
+        ...state,
+        word: action.payload.payload.word,
+        timer: action.payload.payload.timer,
+        inBetweenRounds: !state.inBetweenRounds
+      };
+      case SocketTypes.END_ROUND:
+      return {
+        ...state,
+        round: action.payload.payload.roundNum
+      };
+      case SocketTypes.GUESS:
+      return {
+        ...state,
+        guess: action.payload.payload.word
+      };
+      case SocketTypes.VICTORY:
+      return {
+        ...state,
+        round: action.payload.payload.roundNum,
+        winners: state.winners.concat(action.payload.payload.playerId)
+      };
+      case SocketTypes.ROUND_DRAWINGS:
       return {
         ...state
       };
-    case ActionTypes.PLAYER_INFO:
+      case SocketTypes.GAME_DRAWINGS:
       return {
         ...state,
-        playerName: action.playerName,
-        gameKey: action.gameKey,
-        isCreator: action.socket.type
-      };
-    case ActionTypes.USER_AVATAR:
+        drawings: action.payload.payload.drawings
+      }
+      case SocketTypes.GAME_OVER:
       return {
         ...state,
-        userAvatar: action.avatar
+        endGame: !state.endGame
       };
-    case ActionTypes.CREATOR_START_GAME:
-      return {
-        ...state
-      };
-    case ActionTypes.SOCKET_MESSAGE:
-      return socketReducer(state, action);
-    default:
+      default:
       return state;
+    }
+  } else if (action.type === ActionTypes.RESTART_GAME) {
+    return state = initialState
+  } else {
+    return state;
   }
-};
+  };

@@ -6,6 +6,7 @@ const gameModel = {
   addGame: async (gameKey, totalRounds) => {
     // CREATEGAME
     try {
+      console.log('MODEL', gameKey);
       store.dispatch(Actions.createGame(gameKey, totalRounds));
     } catch (error) {
       console.error(error);
@@ -18,12 +19,14 @@ const gameModel = {
   },
 
   getCurrentGameKey: async playerId => {
-    const state = store.getState();
+    console.log('get gameKey', playerId);
+    const state = await store.getState();
+    console.log('get gameKey state', state.players[playerId]);
     return state.players[playerId].gameKey;
   },
 
   getRoundStatus: async gameKey => {
-    const state = store.getState();
+    const state = await store.getState();
     return state.games[gameKey].round.roundStatus;
   },
 
@@ -146,25 +149,23 @@ const gameModel = {
   getPlayersFromGame: async gameKey => {
     const state = store.getState();
     const playersId = state.games[gameKey].players;
-    const players = [];
-
+    const players = {};
+    if (!playersId || !Object.keys(playersId).length) return players;
     playersId.forEach(playerId => {
-      players.push({
-        [playerId]: {
-          playerName: state.players[playerId].playerName,
-          playerAvatar: state.players[playerId].playerAvatar,
-          playerId
-        }
-      });
+      players[playerId] = {
+        playerName: state.players[playerId].playerName,
+        playerAvatar: state.players[playerId].playerAvatar,
+        playerId
+      };
     });
     return players;
   },
 
   getImagesFromRound: async (gameKey, roundNumber) => {
-    const state = store.getState();
-    const players = state.games[gameKey].players;
+    const state = await store.getState();
+    const players = await state.games[gameKey].players;
     const imagesFromRound = [];
-
+    console.log('get imag from round', players);
     players.forEach(player => {
       imagesFromRound.push(state.players[player].draws[roundNumber - 1]);
     });
@@ -180,6 +181,23 @@ const gameModel = {
       imagesFromRound.push(state.players[player].draws);
     });
     return imagesFromRound;
+  },
+
+  cleanPlayerForNewGame: async playerId => {
+    store.dispatch(Actions.cleanPlayerForNewGame(playerId));
+  },
+
+  deletePlayer: async (playerId, gameKey) => {
+    store.dispatch(Actions.deletePlayer(playerId));
+    store.dispatch(Actions.deletePlayerFromGame(playerId, gameKey));
+
+    const state = store.getState();
+    const playersInGame = state.games[gameKey].players;
+
+    if (playersInGame == 'undefined' || playersInGame.length < 1) {
+      gameModel.deleteGame(gameKey);
+    }
+    return;
   },
 
   setDrawingForRound: async (gameKey, playerId, image) => {

@@ -6,6 +6,17 @@ const createGame = (game, totalRounds) => ({
   totalRounds
 });
 
+const deletePlayer = playerId => ({
+  type: ActionTypes.DELETE_PLAYER,
+  playerId
+});
+
+const deletePlayerFromGame = (playerId, gameKey) => ({
+  type: ActionTypes.DELETE_PLAYER_FROM_GAME,
+  playerId,
+  gameKey
+});
+
 const startGame = (game, totalRounds) => ({
   type: ActionTypes.START_GAME,
   game,
@@ -49,6 +60,11 @@ const setRoundStatus = (gameKey, status) => ({
   status
 });
 
+const cleanPlayerForNewGame = playerId => ({
+  type: ActionTypes.CLEAN_PLAYER_FOR_NEW_GAME,
+  playerId
+});
+
 module.exports = {
   createGame,
   addPlayer,
@@ -58,5 +74,8 @@ module.exports = {
   deleteGame,
   startRound,
   addPlayerToGame,
-  setRoundStatus
+  setRoundStatus,
+  deletePlayer,
+  deletePlayerFromGame,
+  cleanPlayerForNewGame
 };

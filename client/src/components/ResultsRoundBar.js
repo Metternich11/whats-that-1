@@ -3,13 +3,15 @@ import styled from 'styled-components';
 const ResultsRoundBar = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 85%;
   height: 100%;
   cursor: pointer;
   padding: 20px 8px;
   background-color: #fff;
   color: #472c81;
-  margin-bottom: 2px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  border-bottom: 2px solid #472c81;
 `;
 
 export default ResultsRoundBar;
