@@ -21,7 +21,6 @@ export const Game = ({ history, game }) => {
   const [time, setTime] = useState(0);
 
   const opponents = game.players;
-  //opponents && console.log(game.players)
 
   useEffect(() => {
     setTime(Date.now() + 20000);
@@ -48,6 +47,7 @@ export const Game = ({ history, game }) => {
 
   return (
     <Wrapper>
+      {console.log('GAAAAAAAAAAAAAAME', game)}
       <GameHeader timer>
         <GameName timer>
           <Countdown date={time} renderer={renderer} />
