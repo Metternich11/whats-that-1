@@ -4,10 +4,12 @@ import React, { Fragment, useState } from 'react';
 import posed from 'react-pose';
 import styled from 'styled-components';
 
+// Redux Imports
+import { connect } from 'react-redux';
+import * as Actions from '../redux/actions/index';
+
 // Test array
 import sampleSVGArray from '../utils/quickdrawSvgRender/sampleSVGArray';
-
-// Redux Imports
 
 // Component & Container Imports
 import Button from '../components/Button';
@@ -31,10 +33,18 @@ const DrawnImage = styled.img`
 const downArrow = <i className='fas fa-chevron-down'></i>
 const rightArrow = <i className='fas fa-chevron-right'></i>
 
-const Results = () => {
+const Results = ({ history, restartGame }) => {
 
+  // const opponents = props.beAvatar;
+  // opponents && console.log('results', opponents);
+  
   const [open, setOpen] = useState(false);
   
+  const playAgain = () => {
+    restartGame();
+    history.push('/lobby');
+  }
+
   return (
     <Wrapper>
       <PlayerList>
@@ -46,12 +56,12 @@ const Results = () => {
           <PlayerAvatar />
         </PlayerListItem>
       </PlayerList>
-
+      
       <Fragment>
         {sampleSVGArray.map((object, i) => (
           <ResultsRoundBar key={i} onClick={() => setOpen(open === i ? false : i)}>
 
-            <div>{open === i ? downArrow : rightArrow} {object.round}</div>
+            <div>{object.round} {open === i ? downArrow : rightArrow}</div>
 
             <Content className='content' pose={open === i ? 'open' : 'closed'} style={{ overflow: 'hidden', fontSize: '18px' }}>
               <DrawingWrapper>
@@ -63,10 +73,14 @@ const Results = () => {
           </ResultsRoundBar>
         ))}
       </Fragment>
-      <Button marginTop>Play Again</Button>
+      <Button marginTop onClick={playAgain}>Play Again</Button>
     </Wrapper>
   );
 }
+
+const mapStateToProps = state => ({
+  game: state.game,
+});
 
 function SimpleSvg (props) {
   const encodedImage = btoa(props.image);
@@ -74,4 +88,15 @@ function SimpleSvg (props) {
   return <DrawnImage src={imageSrc} style={{ width: '50%', height: '50%' }} />;
 }
 
-export default Results;
+// const mapStateToProps = state => ({
+
+// });
+
+const mapDispatchToProps = dispatch => ({ 
+  restartGame: () => dispatch(Actions.restartGame())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Results);

@@ -16,8 +16,12 @@ import WordToDraw from '../components/WordToDraw';
 import Wrapper from '../components/Wrapper';
 
 export const Game = ({ history, game }) => {
+
   const [count, setCount] = useState(0);
   const [time, setTime] = useState(0);
+
+  const opponents = game.players;
+  //opponents && console.log(game.players)
 
   useEffect(() => {
     setTime(Date.now() + 20000);
@@ -54,19 +58,10 @@ export const Game = ({ history, game }) => {
       </GameHeader>
 
       <Canvas />
-      <Guessing guess={game.guess}/>
+      <Guessing guess={game.guess} />
       <PlayerList game>
         <PlayerListItem>
-          <PlayerAvatar />
-        </PlayerListItem>
-        <PlayerListItem>
-          <PlayerAvatar />
-        </PlayerListItem>
-        <PlayerListItem>
-          <PlayerAvatar />
-        </PlayerListItem>
-        <PlayerListItem>
-          <PlayerAvatar />
+          {opponents && Object.values(opponents).map((player, index) => <PlayerAvatar key={index} info={player} />)}
         </PlayerListItem>
       </PlayerList>
       <AvatarShelf>Your Opponents</AvatarShelf>

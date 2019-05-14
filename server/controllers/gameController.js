@@ -34,8 +34,8 @@ const getWords = require('../helpers/requestWords');
 const requestQuickDraw = require('../helpers/requestGuess');
 
 const TOTALROUNDS = 2;
-const MillisecondsPerRound = 1500;
-const MillisecondsBetweenRounds = 1500;
+const MillisecondsPerRound = 5000;
+const MillisecondsBetweenRounds = 5000;
 const maxNumPlayers = 6;
 
 const GameController = () => {
@@ -52,10 +52,7 @@ const GameController = () => {
       gameOver(gameKey);
       // Clean all drawings a rounds from players before starting new Game
       const players = await getPlayersFromGame(gameKey);
-      let counter = 0;
       _.forEach(players, (value, key) => {
-        console.log(key);
-        console.log('counter: ', counter++);
         cleanPlayerForNewGame(key);
       });
       // Object.keys(players).forEach(players, player => {
@@ -148,7 +145,7 @@ const GameController = () => {
 
     joinGame: async (socket, message) => {
       try {
-        const gameKey = message.payload.gameKey;
+        const gameKey = message.gameKey;
         if ((await gameExists(gameKey)) === false) {
           sendMessageToClient(
             socket,
@@ -195,6 +192,7 @@ const GameController = () => {
     passDrawing: async (socket, message) => {
       //// OLE
       const gameKey = await getCurrentGameKey(socket.id);
+      console.log('passDrawing ', gameKey);
       if ((await getRoundStatus(gameKey)) === false) return;
 
       const currentWord = await getCurrentWord(gameKey);

@@ -14,27 +14,29 @@ import PlayerList from '../components/PlayerList';
 import PlayerListItem from '../components/PlayerListItem';
 import Wrapper from '../components/Wrapper';
 
-export const Lobby = props => {
+export const Lobby = (props) => {
   const startGame = () => {
     props.startGame();
   };
 
+  const opponents = props.game.players;
+
   useEffect(() => {
-    if (props.game.word) props.history.push('/game');
+    if (props.game.word.length) props.history.push('/game');
   }, [props.game.word]);
 
   return (
     <Wrapper>
       <GameHeader>
-        <h2 className='gameHeader'>{props.gameKey}</h2>
-        {props.isCreator === 'createGame' ? (
+        <h2 className='gameHeader'>{props.currentUser.gameKey}</h2>
+        {props.currentUser.isCreator === 'createGame' ? (
           <Button primary onClick={startGame}>
             {' '}
             Start!{' '}
           </Button>
         ) : (
-          ''
-        )}
+            ''
+          )}
       </GameHeader>
       <p>Practice drawing whilst waiting...</p>
 
@@ -42,7 +44,7 @@ export const Lobby = props => {
       <p>Waiting for other players...</p>
       <PlayerList>
         <PlayerListItem>
-          <PlayerAvatar info={props.beAvatar} />
+          {opponents && Object.values(opponents).filter(player => player.playerId !== props.currentUser.userId).map((player, index) => <PlayerAvatar key={index} info={player} />)}
         </PlayerListItem>
       </PlayerList>
       <AvatarShelf>Your Opponents</AvatarShelf>
@@ -52,17 +54,14 @@ export const Lobby = props => {
           Start!{' '}
         </Button>
       ) : (
-        ''
-      )}
+          ''
+        )}
     </Wrapper>
   );
 };
 
 const mapStateToProps = state => ({
-  userAvatar: state.game.userAvatar, ///CAUTION, SUBJECT TO CHANGE
-  gameKey: state.game.gameKey,
-  beAvatar: state.game.players, /// This too
-  isCreator: state.game.isCreator,
+  currentUser: state.currentUser,
   game: state.game
 });
 
