@@ -18,6 +18,7 @@ import Wrapper from "../components/Wrapper";
 export const BetweenRounds = ({ history, game, currentUser }) => {
   const [count, setCount] = useState(0);
   const opponents = game.players;
+  const roundDrawings = game.roundDrawings;
 
   useEffect(() => {
     if (count > 0) {
