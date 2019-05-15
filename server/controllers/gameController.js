@@ -12,7 +12,6 @@ const {
 const {
   startRound,
   setRoundStatus,
-  getImagesFromGame,
   gameExists,
   getCurrentGameKey,
   getCurrentWord,
@@ -82,7 +81,6 @@ const GameController = () => {
     await delay(1500);
     const gameState = await getCurrentGameState(gameKey);
     //const allDrawingsForGame = await getImagesFromGame(gameKey);
-    console.log(gameState);
     sendMessageRoomFromServer(
       handleMessage('gameDrawings', gameState),
       gameKey
@@ -215,10 +213,8 @@ const GameController = () => {
       // if match, broadcast victory to the room. payload with playerId
       if (guess === currentWord) {
         await setPlayerRoundWins(socket.id);
-        sendMessageRoomFromServer(
-          handleMessage('victory', { playerId: socket.id }),
-          gameKey
-        );
+        const gameState = await getCurrentGameState(gameKey);
+        sendMessageRoomFromServer(handleMessage('victory', gameState), gameKey);
       }
     },
     leaveRoom: (socket, message) => {

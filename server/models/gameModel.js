@@ -20,7 +20,6 @@ const gameModel = {
   },
 
   getCurrentGameKey: async playerId => {
-    console.log(state.players[playerId]);
     return state.players[playerId].gameKey;
   },
 
