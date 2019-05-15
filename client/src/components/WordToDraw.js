@@ -2,8 +2,15 @@ import styled from "styled-components/macro";
 
 const WordToDraw = styled.div`
   color: white;
-  text-align: right;
-  width: 100%;
+  margin: 20px 0;
+  p {
+    margin: 0;
+  }
+  h3 {
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 0;
+  }
 `;
 
 export default WordToDraw;

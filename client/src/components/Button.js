@@ -2,7 +2,7 @@ import styled, { css } from "styled-components/macro";
 
 const Button = styled.button`
   background-color: #472c81;
-  border-radius: 40px;
+  border-radius: 50px;
   border: transparent;
   color: white;
   cursor: pointer;
@@ -118,6 +118,12 @@ const Button = styled.button`
         background-color: rgba(200, 200, 200, 1);
         transform: none;
       }
+    `};
+
+  ${props =>
+    props.noMargin &&
+    css`
+      margin: 0;
     `};
 `;
 

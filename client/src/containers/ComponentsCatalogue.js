@@ -21,7 +21,6 @@ import NavBar from "../components/NavBar";
 import PlayerAvatar from "../components/PlayerAvatar";
 import PlayerHasSolvedRound from "../components/PlayerHasSolvedRound";
 import PlayerList from "../components/PlayerList";
-import PlayerListItem from "../components/PlayerListItem";
 import PolaroidPicBackground from "../components/PolaroidPicBackground";
 import SingleDrawing from "../components/SingleDrawing";
 import SpeechBubble from "../components/SpeechBubble";
@@ -163,7 +162,6 @@ export const ComponentsCatalogue = () => {
           <li>Canvas</li>
           <li>Canvas Footer</li>
           <li>PlayerList</li>
-          <li>PlayerListItem</li>
           <li>AvatarShelf</li>
         </ul>
         <GameHeader>
@@ -173,12 +171,9 @@ export const ComponentsCatalogue = () => {
 
         <Canvas />
         <PlayerList>
-          <PlayerListItem>
-            <PlayerAvatar />
-          </PlayerListItem>
-          <PlayerListItem>
-            <PlayerAvatar />
-          </PlayerListItem>
+          <PlayerAvatar />
+
+          <PlayerAvatar />
         </PlayerList>
         <AvatarShelf>Your Opponents</AvatarShelf>
 
@@ -192,7 +187,7 @@ export const ComponentsCatalogue = () => {
           <li>WordToDraw</li>
           <li>Canvas</li>
           <li>PlayerList</li>
-          <li>PlayerListItem</li>
+
           <li>AvatarShelf</li>
         </ul>
         <GameHeader timer>
@@ -204,18 +199,13 @@ export const ComponentsCatalogue = () => {
 
         <Canvas />
         <PlayerList game>
-          <PlayerListItem>
-            <PlayerAvatar />
-          </PlayerListItem>
-          <PlayerListItem>
-            <PlayerAvatar />
-          </PlayerListItem>
-          <PlayerListItem>
-            <PlayerAvatar />
-          </PlayerListItem>
-          <PlayerListItem>
-            <PlayerAvatar />
-          </PlayerListItem>
+          <PlayerAvatar />
+
+          <PlayerAvatar />
+
+          <PlayerAvatar />
+
+          <PlayerAvatar />
         </PlayerList>
         <AvatarShelf>Your Opponents</AvatarShelf>
 
@@ -235,7 +225,6 @@ export const ComponentsCatalogue = () => {
           <li>SpeechBubble</li>
           <li>PlayerAvatar</li>
           <li>PlayerList</li>
-          <li>PlayerListItem</li>
           <li>AvatarShelf</li>
         </ul>
         <GameHeader timer>
@@ -259,19 +248,14 @@ export const ComponentsCatalogue = () => {
         </DrawingStack>
 
         <PlayerList betweenRounds>
-          <PlayerListItem>
-            <PlayerHasSolvedRound />
-            <PlayerAvatar />
-          </PlayerListItem>
-          <PlayerListItem>
-            <PlayerAvatar />
-          </PlayerListItem>
-          <PlayerListItem>
-            <PlayerAvatar />
-          </PlayerListItem>
-          <PlayerListItem>
-            <PlayerAvatar />
-          </PlayerListItem>
+          <PlayerHasSolvedRound />
+          <PlayerAvatar />
+
+          <PlayerAvatar />
+
+          <PlayerAvatar />
+
+          <PlayerAvatar />
         </PlayerList>
         <AvatarShelf>Your Opponents</AvatarShelf>
 
@@ -284,19 +268,16 @@ export const ComponentsCatalogue = () => {
           <li>GameWinner</li>
           <li>ImageCarousel</li>
           <li>PlayerList</li>
-          <li>PlayerListItem</li>
+
           <li>PlayerAvatar</li>
           <li>SingleDrawing</li>
           <li>TestVG</li>
         </ul>
         <PlayerList>
-          <PlayerListItem>
-            <GameWinner />
-            <PlayerAvatar />
-          </PlayerListItem>
-          <PlayerListItem>
-            <PlayerAvatar />
-          </PlayerListItem>
+          <GameWinner />
+          <PlayerAvatar />
+
+          <PlayerAvatar />
         </PlayerList>
         <ImageCarousel>
           <SingleDrawing>

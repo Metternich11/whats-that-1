@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import styled from 'styled-components/macro';
 
 // Redux Imports
-import { connect } from 'react-redux';
-import * as Actions from '../redux/actions/index';
+import { connect } from "react-redux";
+import * as Actions from "../redux/actions/index";
 
 // Component & Container Imports
-import AvatarShelf from '../components/AvatarShelf';
 import Button from '../components/Button';
 import Canvas from '../components/Canvas';
 import GameHeader from '../components/GameHeader';
+import LobbyWaiting from "../components/LobbyWaiting";
 import PlayerAvatar from '../components/PlayerAvatar';
+import PlayerEmptySlot from "../components/PlayerEmptySlot";
 import PlayerList from '../components/PlayerList';
-import PlayerListItem from '../components/PlayerListItem';
 import Wrapper from '../components/Wrapper';
 import DeviceDetector from '../utils/deviceDetector';
 
@@ -47,45 +47,39 @@ export const Lobby = props => {
   const opponents = props.game.players;
 
   useEffect(() => {
-    if (props.game.word.length) props.history.push('/game');
+    if (props.game.word.length) props.history.push("/game");
   }, [props.game.word]);
 
   return (
     <Wrapper>
       <GameHeader>
         <h2 className="gameHeader">{props.currentUser.gameKey}</h2>
-        {props.currentUser.isCreator === 'createGame' ? (
-          <Button primary onClick={startGame}>
-            {' '}
-            Start!{' '}
+        {props.currentUser.isCreator === "createGame" ? (
+          <Button primary noMargin onClick={startGame}>
+            {" "}
+            Start!{" "}
           </Button>
         ) : (
-          ''
+          ""
         )}
       </GameHeader>
-      <p>Practice drawing whilst waiting...</p>
+      <h3>Practice your drawing skills!</h3>
 
       <Canvas />
-      <p>Waiting for other players...</p>
+      <LobbyWaiting>
+        <p>Waiting for other players...</p>
+      </LobbyWaiting>
+
       <PlayerList>
-        <PlayerListItem>
-          {opponents &&
-            Object.values(opponents)
-              .filter(player => player.playerId !== props.currentUser.userId)
-              .map((player, index) => (
-                <PlayerAvatar key={index} info={player} />
-              ))}
-        </PlayerListItem>
+        {opponents &&
+          Object.values(opponents)
+            .filter(player => player.playerId !== props.currentUser.userId)
+            .map((player, index) => <PlayerAvatar key={index} info={player} />)}
+        <PlayerEmptySlot />
+        <PlayerEmptySlot />
+        <PlayerEmptySlot />
+        <PlayerEmptySlot />
       </PlayerList>
-      <AvatarShelf>Your Opponents</AvatarShelf>
-      {props.isCreator === 'createGame' ? (
-        <Button primary onClick={startGame}>
-          {' '}
-          Start!{' '}
-        </Button>
-      ) : (
-        ''
-      )}
       <ShareButton url={shareUrl} />
     </Wrapper>
   );

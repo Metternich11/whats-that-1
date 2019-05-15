@@ -7,10 +7,10 @@ const Form = styled.form`
   flex-direction: column;
   padding: 20px 20px 60px 20px;
   width: 50%;
+  max-width: 375px;
 
   @media (max-width: 1024px) {
     width: 100%;
-    min-height: 100vh;
   }
 `;
 

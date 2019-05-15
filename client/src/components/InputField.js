@@ -3,7 +3,7 @@ import styled from "styled-components/macro";
 const InputField = styled.input`
   background-color: rgba(255, 255, 255, 0.2);
   border: 0;
-  border-radius: 3px;
+  border-radius: 50px;
   color: #fff;
   font-size: 1.2rem;
   font-weight: bold;
