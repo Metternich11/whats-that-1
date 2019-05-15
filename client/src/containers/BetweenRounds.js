@@ -18,8 +18,6 @@ import Wrapper from "../components/Wrapper";
 export const BetweenRounds = ({ history, game, currentUser }) => {
   const [count, setCount] = useState(0);
   const opponents = game.players;
-  console.log('BetweenRounds game: ', game); // eslint-disable-line
-  console.log('BetweenRounds roundDrawings: ', game.roundDrawings); // eslint-disable-line
   const roundDrawings = game.roundDrawings;
 
   useEffect(() => {
