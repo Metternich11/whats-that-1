@@ -34,12 +34,13 @@ const getWords = require('../helpers/requestWords');
 const requestQuickDraw = require('../helpers/requestGuess');
 
 const TOTALROUNDS = 2;
-const MillisecondsPerRound = 5000;
+const MillisecondsPerRound = 10000;
 const MillisecondsBetweenRounds = 5000;
 const maxNumPlayers = 6;
 
 const GameController = () => {
   const endRound = async gameKey => {
+    if (!(await gameExists(gameKey))) return;
     await setRoundStatus(gameKey);
     sendMessageRoomFromServer(
       handleMessage('endRound', {
@@ -47,9 +48,11 @@ const GameController = () => {
       }),
       gameKey
     );
+
     const currentRound = await getCurrentRoundNumber(gameKey);
+
     if (currentRound > TOTALROUNDS - 1) {
-      gameOver(gameKey);
+      await gameOver(gameKey);
       // Clean all drawings a rounds from players before starting new Game
       const players = await getPlayersFromGame(gameKey);
       _.forEach(players, (value, key) => {
@@ -75,10 +78,10 @@ const GameController = () => {
 
   const gameOver = async gameKey => {
     sendMessageRoomFromServer(handleMessage('gameOver'), gameKey);
+
     await delay(1500);
     const gameState = await getCurrentGameState(gameKey);
     //const allDrawingsForGame = await getImagesFromGame(gameKey);
-
     sendMessageRoomFromServer(
       handleMessage('gameDrawings', gameState),
       gameKey
@@ -209,12 +212,10 @@ const GameController = () => {
 
       sendMessageToClient(socket, handleMessage('guess', { word: guess }));
       // if match, broadcast victory to the room. payload with playerId
+      const gameState = await getCurrentGameState(gameKey);
       if (guess === currentWord) {
         await setPlayerRoundWins(socket.id);
-        sendMessageRoomFromServer(
-          handleMessage('victory', { playerId: socket.id }),
-          gameKey
-        );
+        sendMessageRoomFromServer(handleMessage('victory', gameState), gameKey);
       }
     },
     leaveRoom: (socket, message) => {
