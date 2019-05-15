@@ -39,6 +39,7 @@ const maxNumPlayers = 6;
 
 const GameController = () => {
   const endRound = async gameKey => {
+    // NEED BIG REFACTOR
     if (!(await gameExists(gameKey))) return;
     await setRoundStatus(gameKey);
     sendMessageRoomFromServer(
@@ -57,25 +58,11 @@ const GameController = () => {
       _.forEach(players, (value, key) => {
         cleanPlayerForNewGame(key);
       });
-      // Object.keys(players).forEach(players, player => {
-      // });
-      await delay(1500);
-      const gameState = await getCurrentGameState(gameKey);
-      // const allDrawingsForRound = await getImagesFromRound(gameKey, currentRound);
-      // console.log(gameState);
-
-      sendMessageRoomFromServer(
-        handleMessage('roundDrawings', gameState),
-        gameKey
-      );
-
       return;
     }
     await delay(1500);
 
     const gameState = await getCurrentGameState(gameKey);
-    // const allDrawingsForRound = await getImagesFromRound(gameKey, currentRound);
-    // console.log(gameState);
 
     sendMessageRoomFromServer(
       handleMessage('roundDrawings', gameState),
