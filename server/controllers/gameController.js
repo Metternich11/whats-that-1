@@ -90,7 +90,6 @@ const GameController = () => {
   const startCurrentRound = async gameKey => {
     if (gameExists(gameKey)) {
       const roundWord = getWords(1)[0];
-
       await startRound(gameKey, roundWord);
       timer(gameKey);
 
