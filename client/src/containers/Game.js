@@ -25,12 +25,13 @@ export const Game = ({ history, game }) => {
   useEffect(() => {
     setTime(Date.now() + 20000);
     if (game.endGame) history.push("/results");
+    else if (game.winners.length) history.push('/guessed-correctly');
     else if (game.round && count > 0) {
       history.push("/between-rounds");
       setCount(0);
     }
     setCount(1);
-  }, [game.endGame, game.round]);
+  }, [game.endGame, game.round, game.winners]);
 
   const renderer = ({ seconds, completed }) => {
     if (completed) {

@@ -42,9 +42,8 @@ export default (state = initialState, action) => {
         };
       case SocketTypes.VICTORY:
         return {
-          ...state,
-          round: action.payload.payload.roundNum,
-          winners: state.winners.concat(action.payload.payload.playerId)
+          ...state, 
+          winners: [...state.winners, action.payload.payload.playerId]
         };
       case SocketTypes.ROUND_DRAWINGS:
         return {

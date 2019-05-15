@@ -38,6 +38,7 @@ export const socket = store => {
         type,
         payload
       });
+      next(action);
     }
   };
 };
