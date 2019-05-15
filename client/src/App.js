@@ -12,6 +12,7 @@ import Lobby from "./containers/Lobby";
 import Game from "./containers/Game";
 import Results from "./containers/Results";
 import BetweenRounds from "./containers/BetweenRounds";
+import GuessedCorrectly from "./containers/GuessedCorrectly";
 import Main from "./containers/Main";
 
 // Styling & Animations
@@ -72,6 +73,11 @@ const App = () => (
                 path="/between-rounds"
                 component={BetweenRounds}
                 pathname="BetweenRounds"
+              />
+              <Route
+                path="/guessed-correctly"
+                component={GuessedCorrectly}
+                pathname="GuessedCorrectly"
               />
               <Route path="/results" component={Results} pathname="Results" />
             </Switch>
