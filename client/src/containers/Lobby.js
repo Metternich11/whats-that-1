@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { TelegramShareButton, TelegramIcon } from 'react-share'; 
 
 // Redux Imports
 import { connect } from 'react-redux';
@@ -18,6 +19,8 @@ export const Lobby = (props) => {
   const startGame = () => {
     props.startGame();
   };
+
+  const shareUrl = `http://localhost:3000/${props.currentUser.gameKey}`;
 
   const opponents = props.game.players;
 
@@ -56,6 +59,11 @@ export const Lobby = (props) => {
       ) : (
           ''
         )}
+      {
+        true 
+          ? <button onClick={() => window.navigator.share({url: 'https://google.com'})}>Share</button>
+          : null
+      }
     </Wrapper>
   );
 };
