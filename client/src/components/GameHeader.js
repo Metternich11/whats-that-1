@@ -17,6 +17,16 @@ const GameHeader = styled.div`
     css`
       justify-content: flex-start;
       padding: 1vh 4vw;
+      min-height: 0;
+    `}
+
+  ${props =>
+    props.inGame &&
+    css`
+      justify-content: center;
+      align-items: center;
+      min-height: 0;
+      padding: 0;
     `}
 `;
 

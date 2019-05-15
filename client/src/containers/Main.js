@@ -11,6 +11,7 @@ import * as Actions from "../redux/actions/index";
 import Button from "../components/Button";
 import Wrapper from "../components/Wrapper";
 import Zorb from "../components/Zorb";
+import ZorbContainer from "../components/ZorbContainer";
 
 // Library Imports
 import styled from "styled-components/macro";
@@ -19,9 +20,11 @@ export const Main = props => {
   return (
     <Wrapper>
       <Container>
-        <Zorb />
+        <ZorbContainer>
+          <Zorb />
+        </ZorbContainer>
         <div>
-          <Header>What's that?</Header>
+          <Header>{`What's that?`}</Header>
           <Hero>
             You draw, Zorb guesses. You have only 20 seconds per round to show
             off your artistic skills. Can Zorb understand what you are trying to
