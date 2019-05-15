@@ -62,7 +62,7 @@ export const Game = ({ history, game }) => {
 
       <Canvas />
       <GuessingContainer>
-        <div style={{ width: "80%" }}>
+        <div>
           <SpeechBubble zorbThinking>
             <Guessing guess={game.guess} />
           </SpeechBubble>

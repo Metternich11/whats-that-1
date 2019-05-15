@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Countdown from "react-countdown-now";
 import styled from "styled-components/macro";
+import SplitText from "react-pose-text";
 
 // Redux Imports
 import { connect } from "react-redux";
@@ -27,16 +28,26 @@ export const GuessedCorrectly = ({ history, game }) => {
     return <span> {seconds} </span>;
   };
 
+  const charPoses = {
+    exit: { opacity: 0 },
+    enter: {
+      opacity: 1,
+      delay: ({ charIndex }) => charIndex * 5
+    }
+  };
   return (
     <Wrapper GuessedCorrectly>
       <SpeechBubble inGame>Great drawing speedy!</SpeechBubble>
       <ZorbContainer>
         <Zorb />
       </ZorbContainer>
+
       <StyledText>
         <p>
-          You made that one <strong>easy</strong> for me to guess. Just waiting
-          for your opponents to finish...
+          <SplitText initialPose="exit" pose="enter" charPoses={charPoses}>
+            You made that one easy for me to guess. Just waiting for your
+            opponents to finish...
+          </SplitText>
         </p>
       </StyledText>
 

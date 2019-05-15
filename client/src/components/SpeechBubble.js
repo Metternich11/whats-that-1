@@ -73,6 +73,21 @@ const SpeechBubble = styled.span`
         right: 40%;
         margin-left: 0;
       }
+
+      @keyframes float {
+        0% {
+          box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.3);
+          transform: translate(0px) rotate(2deg);
+        }
+        50% {
+          box-shadow: 0 15px 15px 0px rgba(0, 0, 0, 0.1);
+          transform: translate(-2px, -2px) rotate(0deg);
+        }
+        100% {
+          box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.3);
+          transform: translate(0px) rotate(2deg);
+        }
+      }
     `};
 `;
 
