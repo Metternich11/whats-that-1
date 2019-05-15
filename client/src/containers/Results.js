@@ -45,7 +45,6 @@ const Results = ({ history, restartGame, game }) => {
 
   return (
     <Wrapper>
-      {console.log('results', game)}
       <PlayerList>
         <GameWinner />
         <PlayerAvatar />

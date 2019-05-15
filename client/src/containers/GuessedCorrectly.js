@@ -16,12 +16,12 @@ export const GuessedCorrectly = ({ history, game }) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (count > 0) {
-      if (game.word) history.push("/game");
-      setCount(0);
+      if (game.round) {
+        console.log('I TRY TO GO TO BETWEEN ROUNDS NOW FROM GUESS')
+        history.push("/between-rounds");
     }
-    setCount(1);
-  }, [game.word]);
+    else if (game.endGame) history.push("/results");
+}, [game.round]);
 
   const renderer = ({ seconds }) => {
     return <span> {seconds} </span>;

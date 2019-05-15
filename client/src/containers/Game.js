@@ -16,8 +16,9 @@ import Wrapper from "../components/Wrapper";
 import Zorb from "../components/Zorb";
 import ZorbContainer from "../components/ZorbContainer";
 
-export const Game = ({ history, game }) => {
+export const Game = ({ history, game, currentUser }) => {
   const [count, setCount] = useState(0);
+  const [guessCount, setGuessCount] = useState(0);
   const [time, setTime] = useState(0);
 
   const opponents = game.players;
@@ -25,13 +26,30 @@ export const Game = ({ history, game }) => {
   useEffect(() => {
     setTime(Date.now() + 20000);
     if (game.endGame) history.push("/results");
-    else if (game.winners.length) history.push('/guessed-correctly');
     else if (game.round && count > 0) {
+      console.log('I TRY TO GO TO BETWEEN ROUNDS NOW FROM GAME')
       history.push("/between-rounds");
       setCount(0);
     }
     setCount(1);
-  }, [game.endGame, game.round, game.winners]);
+  }, [game.endGame, game.round]);
+
+  useEffect(() => {
+    let win;
+    if (game.rounds && count > 0) {
+      game.rounds.forEach(round => {
+        console.log('I AM GOING TO GUESS AGAIN FROM GAME')
+        win = round.winners.includes(currentUser.userId)
+        if (win) {
+          history.push('/guessed-correctly');
+          win = null;
+          setGuessCount(0);
+        }
+        console.log('WIIIIIIIIIIN', win)
+      })
+      }
+      setGuessCount(1) 
+  }, [game.rounds])
 
   const renderer = ({ seconds, completed }) => {
     if (completed) {
@@ -88,7 +106,8 @@ export const Game = ({ history, game }) => {
 };
 
 const mapStateToProps = state => ({
-  game: state.game
+  game: state.game,
+  currentUser: state.currentUser
 });
 
 export default connect(mapStateToProps)(Game);

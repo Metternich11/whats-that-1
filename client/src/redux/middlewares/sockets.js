@@ -23,7 +23,7 @@ export const socket = store => {
       });
 
       socket.on('message', message => {
-        console.log('INPUT', message);  //eslint-disable-line
+        //console.log('INPUT', message);  //eslint-disable-line
         store.dispatch({
           type: 'SOCKET_MESSAGE',
           payload: message

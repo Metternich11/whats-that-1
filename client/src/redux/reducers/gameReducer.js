@@ -165,11 +165,6 @@ export default (state = initialState, action) => {
           ]
         };
       }
-      // case SocketTypes.GAME_DRAWINGS:
-      //   return {
-      //     ...state,
-      //     playerDrawings: action.payload.payload.players
-      //   };
       case SocketTypes.GAME_OVER:
         return {
           ...state,

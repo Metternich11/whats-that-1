@@ -21,9 +21,11 @@ export const BetweenRounds = ({ history, game, currentUser }) => {
 
   useEffect(() => {
     if (count > 0) {
-      if (game.word) history.push("/game");
+      if (game) {
+        console.log('I TRY TO GO TO GAME NOW')
+        history.push("/game")}
       setCount(0);
-    }
+   }
     setCount(1);
   }, [game.word]);
 
@@ -33,7 +35,6 @@ export const BetweenRounds = ({ history, game, currentUser }) => {
 
   return (
     <Wrapper>
-      {console.log('in between rounds', game)}
       <WordToDraw inBetween>
         {/* <h3>{game.word}</h3> */}
         <h2 className="gameHeader">Test</h2>
