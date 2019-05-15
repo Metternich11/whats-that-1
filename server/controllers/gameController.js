@@ -78,7 +78,7 @@ const GameController = () => {
     const gameState = await getCurrentGameState(gameKey);
     //const allDrawingsForGame = await getImagesFromGame(gameKey);
     sendMessageRoomFromServer(
-      handleMessage('gameDrawings', gameState),
+      handleMessage('roundDrawings', gameState),
       gameKey
     );
   };

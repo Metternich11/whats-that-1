@@ -44,15 +44,19 @@ export default (state = initialState, action) => {
       case SocketTypes.VICTORY: {
         const data = action.payload.payload;
         return {
-          ...state, 
+          ...state,
           rounds: [
             ...state.rounds,
             {
               roundNum: data.round.currentRound,
-              winners: data.players.filter(player => {
-                const round = player.roundWins.find(round => round.round === data.round.currentRound);
-                return round && round.winner;
-              }).map(player => player.id),
+              winners: data.players
+                .filter(player => {
+                  const round = player.roundWins.find(
+                    round => round.round === data.round.currentRound
+                  );
+                  return round && round.winner;
+                })
+                .map(player => player.id)
             }
             // {
             //     action.payroundNum,
@@ -63,7 +67,7 @@ export default (state = initialState, action) => {
             //     // }]
             // }
           ]
-          
+
           // action.payload.payload.players.filter((player) => {
           //   return player.roundWins
         };
@@ -128,29 +132,37 @@ export default (state = initialState, action) => {
       //   }
       // }
 
-      case SocketTypes.ROUND_DRAWINGS || SocketTypes.GAME_DRAWINGS: {
+      case SocketTypes.ROUND_DRAWINGS: {
         const data = action.payload.payload;
         const newState = {
           ...state,
-          rounds: state.rounds.filter(round => round.roundNum !== data.round.currentRound)
+          rounds: state.rounds.filter(
+            round => round.roundNum !== data.round.currentRound
+          )
         };
         return {
           ...state,
           playerDrawings: action.payload.payload.players,
           rounds: [
-                ...state.rounds,
-                {
-                  roundNum: data.round.currentRound,
-                  winners: data.players.filter(player => {
-                    const round = player.roundWins.find(round => round.round === data.round.currentRound);
-                    return round && round.winner;
-                  }).map(player => player.id),
-                  drawings: data.players.map(player => ({
-                      author: player.id,
-                      svg: player.draws.find(draw => draw.round === data.round.currentRound).draw
-                  }))
-                }
-              ]
+            ...newState.rounds,
+            {
+              roundNum: data.round.currentRound,
+              winners: data.players
+                .filter(player => {
+                  const round = player.roundWins.find(
+                    round => round.round === data.round.currentRound
+                  );
+                  return round && round.winner;
+                })
+                .map(player => player.id),
+              drawings: data.players.map(player => ({
+                author: player.id,
+                svg: player.draws.find(draw => {
+                  return draw.round === data.round.currentRound;
+                }).draw
+              }))
+            }
+          ]
         };
       }
       // case SocketTypes.GAME_DRAWINGS:
