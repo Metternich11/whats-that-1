@@ -52,7 +52,6 @@ const gameModel = {
   },
 
   startRound: async (gameKey, word) => {
-    console.log('startRound', state.games, gameKey);
     // startGame
     try {
       let currentRound = state.games[gameKey].round.currentRound;
