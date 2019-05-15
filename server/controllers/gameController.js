@@ -40,6 +40,7 @@ const maxNumPlayers = 6;
 
 const GameController = () => {
   const endRound = async gameKey => {
+    if (!(await gameExists(gameKey))) return;
     await setRoundStatus(gameKey);
     sendMessageRoomFromServer(
       handleMessage('endRound', {
