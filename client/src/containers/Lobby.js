@@ -75,10 +75,6 @@ export const Lobby = ({ currentUser, game, startGame, history }) => {
           Object.values(opponents)
             .filter(player => player.playerId !== currentUser.userId)
             .map((player, index) => <PlayerAvatar key={index} info={player} />)}
-        <PlayerEmptySlot />
-        <PlayerEmptySlot />
-        <PlayerEmptySlot />
-        <PlayerEmptySlot />
       </PlayerList>
       <ShareButton url={shareUrl} />
     </Wrapper>

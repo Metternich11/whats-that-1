@@ -47,15 +47,8 @@ export const BetweenRounds = ({ history, game, currentUser }) => {
       <PlayerList betweenRounds>
         {opponents &&
           Object.values(opponents)
-            //Below, I have changed props.currentUser.userId to player.currentUser.userId.
-            //I did this because props is undefined, and I can't find props.currentUser when
-            // console logging props.
             .filter(player => player.playerId !== currentUser.userId)
             .map((player, index) => <PlayerAvatar key={index} info={player} />)}
-        <PlayerEmptySlot />
-        <PlayerEmptySlot />
-        <PlayerEmptySlot />
-        <PlayerEmptySlot />
       </PlayerList>
 
       <TimeRemaining>
