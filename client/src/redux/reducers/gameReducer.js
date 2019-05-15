@@ -128,7 +128,7 @@ export default (state = initialState, action) => {
       //   }
       // }
 
-      case SocketTypes.ROUND_DRAWINGS: {
+      case SocketTypes.ROUND_DRAWINGS || SocketTypes.GAME_DRAWINGS: {
         const data = action.payload.payload;
         const newState = {
           ...state,
@@ -153,11 +153,11 @@ export default (state = initialState, action) => {
               ]
         };
       }
-      case SocketTypes.GAME_DRAWINGS:
-        return {
-          ...state,
-          playerDrawings: action.payload.payload.players
-        };
+      // case SocketTypes.GAME_DRAWINGS:
+      //   return {
+      //     ...state,
+      //     playerDrawings: action.payload.payload.players
+      //   };
       case SocketTypes.GAME_OVER:
         return {
           ...state,
