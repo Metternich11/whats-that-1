@@ -5,7 +5,7 @@ const SpeechBubble = styled.span`
   animation-delay: 0.2s;
   animation-iteration-count: infinite;
   background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 20px;
+  border-radius: 50px;
   color: #472c81;
   font-size: 0.8rem;
   padding: 5px 20px;
@@ -52,6 +52,26 @@ const SpeechBubble = styled.span`
       &:after {
         border-top-color: #472c81;
         margin-left: 20px;
+      }
+    `};
+
+  ${props =>
+    props.zorbThinking &&
+    css`
+      animation: none;
+      background-color: #472c81;
+      color: #fff;
+      height: 30px;
+      margin-left: 0;
+      font-size: 1.2rem;
+      padding: 5px 10px;
+      height: 60px;
+
+      &:after {
+        border-top-color: #472c81;
+        margin-left: 20px;
+        right: 40%;
+        margin-left: 0;
       }
     `};
 `;

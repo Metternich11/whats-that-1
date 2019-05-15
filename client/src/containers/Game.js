@@ -6,9 +6,11 @@ import { connect } from "react-redux";
 
 // Component & Container Imports
 import Canvas from "../components/Canvas";
-import GameName from "../components/GameName";
+import GuessingContainer from "../components/GuessingContainer";
 import PlayerAvatar from "../components/PlayerAvatar";
 import PlayerList from "../components/PlayerList";
+import SpeechBubble from "../components/SpeechBubble";
+import TimeRemaining from "../components/TimeRemaining";
 import WordToDraw from "../components/WordToDraw";
 import Wrapper from "../components/Wrapper";
 import Zorb from "../components/Zorb";
@@ -32,17 +34,22 @@ export const Game = ({ history, game }) => {
 
   const renderer = ({ seconds, completed }) => {
     if (completed) {
-      return <span>{`Time's up!`}</span>;
+      return <p>{`Time's up!`}</p>;
     } else {
-      return <span> {seconds} </span>;
+      return (
+        <>
+          <h2>{seconds}</h2>
+          <p>{" seconds remaining"}</p>
+        </>
+      );
     }
   };
 
   const Guessing = props => {
     if (props.guess) {
-      return <h2>I see {props.guess}!</h2>;
+      return `I see ${props.guess}!`;
     } else {
-      return <h2>Thinking...</h2>;
+      return "Thinking...";
     }
   };
 
@@ -54,13 +61,21 @@ export const Game = ({ history, game }) => {
       </WordToDraw>
 
       <Canvas />
-      <Guessing guess={game.guess} />
-      <GameName timer>
-        <Countdown date={time} renderer={renderer} />
-      </GameName>
-      <ZorbContainer zorbGuessing>
-        <Zorb />
-      </ZorbContainer>
+      <GuessingContainer>
+        <div style={{ width: "80%" }}>
+          <SpeechBubble zorbThinking>
+            <Guessing guess={game.guess} />
+          </SpeechBubble>
+          <ZorbContainer zorbGuessing>
+            <Zorb />
+          </ZorbContainer>
+        </div>
+
+        <TimeRemaining>
+          <Countdown date={time} renderer={renderer} />
+        </TimeRemaining>
+      </GuessingContainer>
+
       <PlayerList game>
         {opponents &&
           Object.values(opponents).map((player, index) => (

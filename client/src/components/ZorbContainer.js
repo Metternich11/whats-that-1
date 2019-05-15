@@ -23,9 +23,11 @@ const ZorbContainer = styled.div`
   ${props =>
     props.zorbGuessing &&
     css`
-      transform: rotate(45deg) scale(0.75);
-      position: relative;
-      top: -90px;
+      transform: scale(0.75);
+
+      .levitate {
+        animation: none;
+      }
     `};
 `;
 
