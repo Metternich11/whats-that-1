@@ -37,25 +37,25 @@ const ShareButton = ({ url }) => {
   return <ShareIcon onClick={share} className={`fas ${icon}`} />;
 };
 
-export const Lobby = props => {
-  const startGame = () => {
-    props.startGame();
+export const Lobby = ({ currentUser, game, startGame, history }) => {
+  const startTheGame = () => {
+    startGame();
   };
 
-  const shareUrl = `${host}/${props.currentUser.gameKey}`;
+  const shareUrl = `${host}/${currentUser.gameKey}`;
 
-  const opponents = props.game.players;
+  const opponents = game.players;
 
   useEffect(() => {
-    if (props.game.word.length) props.history.push("/game");
-  }, [props.game.word]);
+    if (game.word.length) history.push("/game");
+  }, [game.word]);
 
   return (
     <Wrapper>
       <GameHeader>
-        <h2 className="gameHeader">{props.currentUser.gameKey}</h2>
-        {props.currentUser.isCreator === "createGame" ? (
-          <Button primary noMargin onClick={startGame}>
+        <h2 className="gameHeader">{currentUser.gameKey}</h2>
+        {currentUser.isCreator === "createGame" ? (
+          <Button primary noMargin onClick={startTheGame}>
             {" "}
             Start!{" "}
           </Button>
@@ -73,12 +73,8 @@ export const Lobby = props => {
       <PlayerList>
         {opponents &&
           Object.values(opponents)
-            .filter(player => player.playerId !== props.currentUser.userId)
+            .filter(player => player.playerId !== currentUser.userId)
             .map((player, index) => <PlayerAvatar key={index} info={player} />)}
-        <PlayerEmptySlot />
-        <PlayerEmptySlot />
-        <PlayerEmptySlot />
-        <PlayerEmptySlot />
       </PlayerList>
       <ShareButton url={shareUrl} />
     </Wrapper>

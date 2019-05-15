@@ -18,6 +18,14 @@ const outputRouter = () => {
     sendMessageToClient: (socket, mssg) => {
       socket.emit('message', mssg);
     }
+    // sendEndRound: (round) => {
+    //   this.sendMessageRoomFromServer(
+    //     handleMessage('endRound', {
+    //       roundNum: await getCurrentRoundNumber(gameKey)
+    //     }),
+    //     gameKey
+    //   );
+    // }
   };
 };
 

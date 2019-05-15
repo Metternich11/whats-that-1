@@ -15,7 +15,7 @@ import TestVG from "../components/TestVG";
 import WordToDraw from "../components/WordToDraw";
 import Wrapper from "../components/Wrapper";
 
-export const BetweenRounds = ({ history, game }) => {
+export const BetweenRounds = ({ history, game, currentUser }) => {
   const [count, setCount] = useState(0);
   const opponents = game.players;
 
@@ -47,15 +47,8 @@ export const BetweenRounds = ({ history, game }) => {
       <PlayerList betweenRounds>
         {opponents &&
           Object.values(opponents)
-            //Below, I have changed props.currentUser.userId to player.currentUser.userId.
-            //I did this because props is undefined, and I can't find props.currentUser when
-            // console logging props.
-            .filter(player => player.playerId !== player.currentUser.userId)
+            .filter(player => player.playerId !== currentUser.userId)
             .map((player, index) => <PlayerAvatar key={index} info={player} />)}
-        <PlayerEmptySlot />
-        <PlayerEmptySlot />
-        <PlayerEmptySlot />
-        <PlayerEmptySlot />
       </PlayerList>
 
       <TimeRemaining>
@@ -67,7 +60,8 @@ export const BetweenRounds = ({ history, game }) => {
 };
 
 const mapStateToProps = state => ({
-  game: state.game
+  game: state.game,
+  currentUser: state.currentUser
 });
 
 export default connect(mapStateToProps)(BetweenRounds);
