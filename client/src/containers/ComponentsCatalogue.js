@@ -21,7 +21,6 @@ import NavBar from '../components/NavBar';
 import PlayerAvatar from '../components/PlayerAvatar';
 import PlayerHasSolvedRound from '../components/PlayerHasSolvedRound';
 import PlayerList from '../components/PlayerList';
-import PlayerListItem from '../components/PlayerListItem';
 import PolaroidPicBackground from '../components/PolaroidPicBackground';
 import SingleDrawing from '../components/SingleDrawing';
 import SpeechBubble from '../components/SpeechBubble';
