@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { TelegramShareButton, TelegramIcon } from 'react-share';
 import styled from 'styled-components/macro';
 
 // Redux Imports
