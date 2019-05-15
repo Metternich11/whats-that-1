@@ -159,7 +159,10 @@ export default (state = initialState, action) => {
                 author: player.id,
                 svg: player.draws.find(draw => {
                   return draw.round === data.round.currentRound;
-                }).draw
+                }).draw,
+                word: player.draws.find(draw => {
+                  return draw.round === data.round.currentRound;
+                }).word
               }))
             }
           ]
