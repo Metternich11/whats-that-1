@@ -33,7 +33,12 @@ const rightArrow = <i className='fas fa-chevron-right' />;
 //eslint-disable-next-line
 const Results = ({ history, restartGame, game }) => {
   const [open, setOpen] = useState(false);
-  // const opponents = game.players;
+  const players = game.players;
+  const allRounds = game.rounds;
+  // console.log('Results allRounds: ', allRounds);
+  // allRounds.forEach(round => {
+  //   console.log('round: ', round);
+  // });
 
   useEffect(() => {
     if (game.round === 0) history.push('/lobby');
@@ -45,22 +50,21 @@ const Results = ({ history, restartGame, game }) => {
 
   return (
     <Wrapper>
-      {console.log('results', game)}
       <PlayerList>
-        <GameWinner />
-        <PlayerAvatar />
-        <PlayerAvatar />
+        {/* <GameWinner /> */}
+        {players &&
+          Object.values(players)
+            .map((player, i) => <PlayerAvatar key={i} info={player} />)}
       </PlayerList>
 
       <Fragment>
-        {/* {console.log('ResultsPage game.drawings: ', game.drawings)} */}
-        {sampleSVGArray.map((object, i) => (
+      {allRounds.map((object, i) => (
           <ResultsRoundBar
             key={i}
             onClick={() => setOpen(open === i ? false : i)}
           >
             <div>
-              {object.round} {open === i ? downArrow : rightArrow}
+              {object.drawings[i].word} {open === i ? downArrow : rightArrow}
             </div>
 
             <Content
@@ -69,8 +73,8 @@ const Results = ({ history, restartGame, game }) => {
               style={{ overflow: 'hidden', fontSize: '18px' }}
             >
               <DrawingWrapper>
-                {object.drawings.map((svg, i) => (
-                  <SimpleSvg key={i} image={svg} />
+                {object.drawings.map((drawing, i) => (
+                  <SimpleSvg key={i} image={drawing.svg} />
                 ))}
               </DrawingWrapper>
             </Content>
@@ -93,11 +97,6 @@ function SimpleSvg (props) {
   const imageSrc = `data:image/svg+xml;base64,${encodedImage}`;
   return <DrawnImage src={imageSrc} style={{ width: '50%', height: '50%' }} />;
 }
-// function SimpleSvg (game) {
-//   const encodedImage = btoa(props.image);
-//   const imageSrc = `data:image/svg+xml;base64,${encodedImage}`;
-//   return <DrawnImage src={imageSrc} style={{ width: '50%', height: '50%' }} />;
-// }
 
 const mapDispatchToProps = dispatch => ({
   restartGame: () => dispatch(Actions.restartGame())
