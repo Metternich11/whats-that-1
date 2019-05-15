@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 // Component & Container Imports
 import DrawingStack from "../components/DrawingStack";
 import PlayerAvatar from "../components/PlayerAvatar";
-import PlayerEmptySlot from "../components/PlayerEmptySlot";
+// import PlayerEmptySlot from "../components/PlayerEmptySlot";
 import PlayerList from "../components/PlayerList";
 import PolaroidPicBackground from "../components/PolaroidPicBackground";
 import TimeRemaining from "../components/TimeRemaining";
@@ -33,7 +33,6 @@ export const BetweenRounds = ({ history, game, currentUser }) => {
 
   return (
     <Wrapper>
-      {console.log('in between rounds', game)}
       <WordToDraw inBetween>
         {/* <h3>{game.word}</h3> */}
         <h2 className="gameHeader">Test</h2>

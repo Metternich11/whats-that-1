@@ -141,6 +141,7 @@ const Canvas = ({ passDrawing, game }) => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     setGoogleGuess("Draw something...");
     setLocations([]);
+    setDrawing([]);
   };
 
   return (

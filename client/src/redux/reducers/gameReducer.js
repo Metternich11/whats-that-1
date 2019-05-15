@@ -29,7 +29,8 @@ export default (state = initialState, action) => {
           ...state,
           word: action.payload.payload.word,
           timer: action.payload.payload.timer,
-          inBetweenRounds: !state.inBetweenRounds
+          inBetweenRounds: !state.inBetweenRounds,
+          guess: undefined
         };
       case SocketTypes.END_ROUND:
         return {

@@ -17,6 +17,7 @@ import Zorb from "../components/Zorb";
 import ZorbContainer from "../components/ZorbContainer";
 
 export const Game = ({ history, game }) => {
+  // game.guess = 0;
   const [count, setCount] = useState(0);
   const [time, setTime] = useState(0);
 
