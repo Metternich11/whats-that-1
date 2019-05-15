@@ -204,7 +204,7 @@ const gameModel = {
     if (currentGame.players.length !== undefined) {
       currentGame.players = currentGame.players.map(id => {
         let currentPlayer = state.players[id];
-        currentPlayer[id] = id;
+        currentPlayer.id = id;
         return currentPlayer;
       });
     }
