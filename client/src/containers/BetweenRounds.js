@@ -33,6 +33,7 @@ export const BetweenRounds = ({ history, game, currentUser }) => {
 
   return (
     <Wrapper>
+      {console.log('in between rounds', game)}
       <WordToDraw inBetween>
         {/* <h3>{game.word}</h3> */}
         <h2 className="gameHeader">Test</h2>

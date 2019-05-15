@@ -7,15 +7,18 @@ import * as Actions from '../redux/actions/index';
 
 // to convert array into SVG string
 import quickdrawSvgRender from '../utils/quickdrawSvgRender/quickdrawSvgRender';
+import Results from '../containers/Results';
+import { nextTick } from 'q';
 
 
 const Canvas = ({ passDrawing, game }) => {
 
   // arol tip: useReducer instead of having this mess of variables here.
+  // arol tip #2: useReducer was just a cool way to handle this. But in order to fix this, it can be done with useState
   let isDrawing = false;
   let lastXCoordinate = 0;
   let lastYCoordinate = 0;
-  let drawing = [];
+  const [drawing, setDrawing] = useState([]);
   let xCoordinate = [];
   let yCoordinate = [];
   let timestamp = [];
@@ -99,7 +102,10 @@ const Canvas = ({ passDrawing, game }) => {
     canvas.addEventListener("touchend", () => postDrawingHelper());
 
     if (count > 0) {
+      // We already passed through here
       if (game.round) {
+        // The round has finished
+        console.log('count', drawing)
         const svg = quickdrawSvgRender(drawing, canvas.width, canvas.height);
         passDrawing(svg, 'passFinalDrawing');
         setCount(0);
@@ -113,9 +119,11 @@ const Canvas = ({ passDrawing, game }) => {
     isDrawing = false;
 
     let xyCoordinates = [xCoordinate, yCoordinate, timestamp];
-    drawing.push(xyCoordinates);
-
-    passDrawing(drawing, 'passDrawing');
+    setDrawing(prev => {
+      const next = [...prev, xyCoordinates];
+      passDrawing(next, 'passDrawing');
+      return next;
+    });
 
     xCoordinate = [];
     yCoordinate = [];

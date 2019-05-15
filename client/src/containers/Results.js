@@ -45,6 +45,7 @@ const Results = ({ history, restartGame, game }) => {
 
   return (
     <Wrapper>
+      {console.log('results', game)}
       <PlayerList>
         <GameWinner />
         <PlayerAvatar />
@@ -87,7 +88,7 @@ const mapStateToProps = state => ({
   game: state.game
 });
 
-function SimpleSvg(props) {
+function SimpleSvg (props) {
   const encodedImage = btoa(props.image);
   const imageSrc = `data:image/svg+xml;base64,${encodedImage}`;
   return <DrawnImage src={imageSrc} style={{ width: '50%', height: '50%' }} />;
