@@ -1,5 +1,5 @@
 const ActionTypes = require('../actions/types');
-const { omit } = require('lodash');
+const _ = require('lodash');
 
 const initialState = {
   games: {},
@@ -170,7 +170,7 @@ exports.reducer = (state = initialState, action) => {
     case ActionTypes.DELETE_GAME:
       return {
         ...state,
-        games: omit(state.games, action.gameId)
+        games: _.omit(state.games, action.gameId)
       };
 
     case ActionTypes.ADD_PLAYER:
@@ -254,7 +254,7 @@ exports.reducer = (state = initialState, action) => {
     case ActionTypes.DELETE_PLAYER:
       return {
         ...state,
-        players: omit(state.players, action.playerId)
+        players: _.omit(state.players, action.playerId)
       };
 
     case ActionTypes.DELETE_PLAYER_FROM_GAME:
@@ -270,6 +270,46 @@ exports.reducer = (state = initialState, action) => {
           }
         }
       };
+
+    case ActionTypes.RESET_GAME: {
+      return {
+        ...state,
+        // CLEAN THE PLAYERS
+        players: _.reduce(
+          state.players,
+          (accum, player, playerId) => {
+            if (!state.games[action.gameKey].players.includes(playerId))
+              return {
+                ...accum,
+                [playerId]: player
+              };
+
+            return {
+              ...accum,
+              [playerId]: {
+                ...player,
+                roundWins: 0,
+                draws: []
+              }
+            };
+          },
+          {}
+        ),
+        // CLEANS THE GAME;
+        games: {
+          ...state.games,
+          [action.gameKey]: {
+            ...state.games[action.gameKey],
+            round: {
+              currentRound: 0,
+              word: '',
+              roundStatus: false
+            },
+            playing: false
+          }
+        }
+      };
+    }
 
     default:
       return state;

@@ -20,6 +20,7 @@ const gameModel = {
   },
 
   getCurrentGameKey: async playerId => {
+    console.log(state.players[playerId]);
     return state.players[playerId].gameKey;
   },
 
@@ -86,7 +87,7 @@ const gameModel = {
     }
   },
 
-  deleteGame: async gameKey => {
+  resetGameState: async gameKey => {
     // DELETE_GAME
     try {
       if (state.games[gameKey]) {
@@ -199,14 +200,24 @@ const gameModel = {
     store.dispatch(Actions.addDrawToPlayer(playerId, result));
   },
 
-  getCurrentGameState: async gamekey => {
-    let currentGame = { ...state.games[gamekey] };
-    currentGame.players = currentGame.players.map(id => {
-      let currentPlayer = state.players[id];
-      currentPlayer.id = id;
-      return currentPlayer;
-    });
+  getCurrentGameState: async gameKey => {
+    let currentGame = { ...state.games[gameKey], gameKey };
+    console.log(currentGame);
+    if (currentGame.players.length !== undefined) {
+      currentGame.players = currentGame.players.map(id => {
+        let currentPlayer = state.players[id];
+        console.log('TCL: state.players', state.players);
+
+        console.log('id: ', id);
+        currentPlayer[id] = id;
+        return currentPlayer;
+      });
+    }
     return currentGame;
+  },
+
+  reset: async gameKey => {
+    store.dispatch(Actions.resetGame(gameKey));
   }
 };
 
