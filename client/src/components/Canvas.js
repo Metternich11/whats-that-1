@@ -103,7 +103,7 @@ const Canvas = ({ passDrawing, game }) => {
 
     if (count > 0) {
       // We already passed through here
-      if (game.round || game.rounds) {
+      if (game.endRound || game.rounds) {
         // The round has finished
         const svg = quickdrawSvgRender(drawing, canvas.width, canvas.height);
         passDrawing(svg, 'passFinalDrawing');
@@ -111,7 +111,7 @@ const Canvas = ({ passDrawing, game }) => {
       }
     }
     setCount(1);
-  }, [game.round, game.rounds]);
+  }, [game.endRound, game.rounds]);
 
   // helper function to post to API
   const postDrawingHelper = () => {

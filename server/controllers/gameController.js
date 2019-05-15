@@ -97,7 +97,8 @@ const GameController = () => {
       sendMessageRoomFromServer(
         handleMessage('startRound', {
           timer: MillisecondsPerRound,
-          word: roundWord
+          word: roundWord,
+          roundNum: await getCurrentRoundNumber(gameKey)
         }),
         gameKey
       );

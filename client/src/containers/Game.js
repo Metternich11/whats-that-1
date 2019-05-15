@@ -26,27 +26,26 @@ export const Game = ({ history, game, currentUser }) => {
   useEffect(() => {
     setTime(Date.now() + 20000);
     if (game.endGame) history.push("/results");
-    else if (game.round && count > 0) {
-      console.log('I TRY TO GO TO BETWEEN ROUNDS NOW FROM GAME')
+    else if (game.endRound && count > 0) {
       history.push("/between-rounds");
       setCount(0);
     }
     setCount(1);
-  }, [game.endGame, game.round]);
+  }, [game.endGame, game.endRound]);
 
   useEffect(() => {
     let win;
     if (game.rounds && count > 0) {
-      game.rounds.forEach(round => {
-        console.log('I AM GOING TO GUESS AGAIN FROM GAME')
-        win = round.winners.includes(currentUser.userId)
-        if (win) {
+      win = game.rounds.filter(round => {
+        return round.roundNum === game.round
+      })
+      .map(el => el.winners)
+
+      if (win.flat().includes(currentUser.userId)) {
           history.push('/guessed-correctly');
           win = null;
           setGuessCount(0);
         }
-        console.log('WIIIIIIIIIIN', win)
-      })
       }
       setGuessCount(1) 
   }, [game.rounds])

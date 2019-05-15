@@ -22,7 +22,6 @@ export const BetweenRounds = ({ history, game, currentUser }) => {
   useEffect(() => {
     if (count > 0) {
       if (game) {
-        console.log('I TRY TO GO TO GAME NOW')
         history.push("/game")}
       setCount(0);
    }
