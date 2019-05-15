@@ -48,12 +48,13 @@ export default (state = initialState, action) => {
       };
       case SocketTypes.ROUND_DRAWINGS:
       return {
-        ...state
+        ...state,
+        roundDrawings: action.payload.payload.drawings
       };
       case SocketTypes.GAME_DRAWINGS:
       return {
         ...state,
-        drawings: action.payload.payload.drawings
+        gameDrawings: action.payload.payload.drawings
       }
       case SocketTypes.GAME_OVER:
       return {

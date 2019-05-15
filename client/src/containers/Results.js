@@ -56,7 +56,7 @@ const Results = ({ history, restartGame, game}) => {
       </PlayerList>
       
       <Fragment>
-        {/* {console.log('ResultsPage game.drawings: ', game.drawings)} */}
+        {/* {console.log('ResultsPage game.drawings: ', game.gameDrawings)} */}
         {sampleSVGArray.map((object, i) => (
         
           <ResultsRoundBar key={i} onClick={() => setOpen(open === i ? false : i)}>

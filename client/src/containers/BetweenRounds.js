@@ -25,6 +25,9 @@ export const BetweenRounds = ({ history, game }) => {
 
   const [count, setCount] = useState(0);
   const opponents = game.players;
+  console.log('BetweenRounds game: ', game); // eslint-disable-line
+  console.log('BetweenRounds roundDrawings: ', game.roundDrawings); // eslint-disable-line
+  const roundDrawings = game.roundDrawings;
 
   useEffect(() => {
     if (count > 0) {
@@ -50,6 +53,17 @@ export const BetweenRounds = ({ history, game }) => {
         </WordToDraw>
       </GameHeader>
       <DrawingStack>
+        {/* {roundDrawings && roundDrawings.map((drawing, index) => (
+          <SingleDrawing key={index}>
+            <PolaroidPicBackground>
+            {drawing.draw}
+            </PolaroidPicBackground>
+            <ArtistDetails scaled key={index}>
+            <SpeechBubble inGame>I drew that!</SpeechBubble>
+            <PlayerAvatar key={index} info={drawing.player} />
+          </ArtistDetails>
+          </SingleDrawing>
+        ))} */}
         <SingleDrawing>
           <PolaroidPicBackground>
             <TestVG />

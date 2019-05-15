@@ -9,23 +9,23 @@ const inputRouter = httpServer => {
     socket.on('message', message => {
       switch (message.type) {
         case 'createGame':
-          console.log('input created', message);
+          // console.log('input created', message);
           gameController.createGame(socket, message);
           break;
         case 'joinGame':
-          console.log('input joined', message);
+          // console.log('input joined', message);
           gameController.joinGame(socket, message);
           break;
         case 'passDrawing':
-        console.log('input passDrawing', message);
+        // console.log('input passDrawing', message);
           gameController.passDrawing(socket, message);
           break;
         case 'passFinalDrawing':
-        console.log('input passFinalDrawing', message);
+        // console.log('input passFinalDrawing', message);
           gameController.passFinalDrawing(socket, message);
           break;
         case 'startGame':
-        console.log('input startGame', message);
+        // console.log('input startGame', message);
           gameController.startGame(socket);
           break;
       }

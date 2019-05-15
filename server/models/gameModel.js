@@ -6,7 +6,6 @@ const gameModel = {
   addGame: async (gameKey, totalRounds) => {
     // CREATEGAME
     try {
-      console.log('MODEL', gameKey);
       store.dispatch(Actions.createGame(gameKey, totalRounds));
     } catch (error) {
       console.error(error);
@@ -19,9 +18,7 @@ const gameModel = {
   },
 
   getCurrentGameKey: async playerId => {
-    console.log('get gameKey', playerId);
     const state = await store.getState();
-    console.log('get gameKey state', state.players[playerId]);
     return state.players[playerId].gameKey;
   },
 
@@ -165,10 +162,10 @@ const gameModel = {
     const state = await store.getState();
     const players = await state.games[gameKey].players;
     const imagesFromRound = [];
-    console.log('get imag from round', players);
     players.forEach(player => {
       imagesFromRound.push(state.players[player].draws[roundNumber - 1]);
     });
+    console.log('gameModel imagesFromRound: ', imagesFromRound);
     return imagesFromRound;
   },
 
@@ -176,7 +173,7 @@ const gameModel = {
     const state = store.getState();
     const players = state.games[gameKey].players;
     const imagesFromRound = [];
-
+    
     players.forEach(player => {
       imagesFromRound.push(state.players[player].draws);
     });
