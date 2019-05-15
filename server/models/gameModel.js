@@ -1,7 +1,10 @@
 /* eslint-disable no-console */
 const store = require('../redux/store').createRedux();
 const Actions = require('../redux/actions');
-
+let state = store.getState();
+store.subscribe(() => {
+  state = store.getState();
+});
 const gameModel = {
   addGame: async (gameKey, totalRounds) => {
     // CREATEGAME
@@ -13,22 +16,18 @@ const gameModel = {
   },
 
   gameExists: async gameKey => {
-    const state = store.getState();
     return state.games[gameKey] ? true : false;
   },
 
   getCurrentGameKey: async playerId => {
-    const state = await store.getState();
     return state.players[playerId].gameKey;
   },
 
   getRoundStatus: async gameKey => {
-    const state = await store.getState();
     return state.games[gameKey].round.roundStatus;
   },
 
   setPlayerRoundWins: async playerId => {
-    const state = store.getState();
     const gameKey = state.players[playerId].gameKey;
     const round = state.games[gameKey].round.currentRound;
     let roundWins = state.players[playerId].roundWins;
@@ -47,7 +46,6 @@ const gameModel = {
   },
 
   setRoundStatus: async gameKey => {
-    const state = store.getState();
     let currentStatus = state.games[gameKey].round.roundStatus;
     store.dispatch(Actions.setRoundStatus(gameKey, !currentStatus));
   },
@@ -55,7 +53,6 @@ const gameModel = {
   startRound: async (gameKey, word) => {
     // startGame
     try {
-      const state = store.getState();
       let currentRound = state.games[gameKey].round.currentRound;
       currentRound++;
       store.dispatch(
@@ -75,7 +72,6 @@ const gameModel = {
 
   getCurrentWord: async gameKey => {
     try {
-      const state = store.getState();
       return state.games[gameKey].round.word;
     } catch (error) {
       console.error(error);
@@ -84,7 +80,6 @@ const gameModel = {
 
   getCurrentRoundNumber: async gameKey => {
     try {
-      const state = store.getState();
       return state.games[gameKey].round.currentRound;
     } catch (error) {
       console.error(error);
@@ -94,7 +89,6 @@ const gameModel = {
   deleteGame: async gameKey => {
     // DELETE_GAME
     try {
-      const state = store.getState();
       if (state.games[gameKey]) {
         Actions.deleteGame(gameKey);
       } else {
@@ -136,7 +130,6 @@ const gameModel = {
 
   playerExist: async playerId => {
     try {
-      const state = store.getState();
       return state.players[playerId] ? true : false;
     } catch (error) {
       console.error(error);
@@ -144,7 +137,6 @@ const gameModel = {
   },
 
   getPlayersFromGame: async gameKey => {
-    const state = store.getState();
     const playersId = state.games[gameKey].players;
     const players = {};
     if (!playersId || !Object.keys(playersId).length) return players;
@@ -159,7 +151,6 @@ const gameModel = {
   },
 
   getImagesFromRound: async (gameKey, roundNumber) => {
-    const state = await store.getState();
     const players = await state.games[gameKey].players;
     const imagesFromRound = [];
     players.forEach(player => {
@@ -170,7 +161,6 @@ const gameModel = {
   },
 
   getImagesFromGame: async gameKey => {
-    const state = store.getState();
     const players = state.games[gameKey].players;
     const imagesFromRound = [];
     
@@ -188,7 +178,6 @@ const gameModel = {
     store.dispatch(Actions.deletePlayer(playerId));
     store.dispatch(Actions.deletePlayerFromGame(playerId, gameKey));
 
-    const state = store.getState();
     const playersInGame = state.games[gameKey].players;
 
     if (playersInGame == 'undefined' || playersInGame.length < 1) {
@@ -198,7 +187,6 @@ const gameModel = {
   },
 
   setDrawingForRound: async (gameKey, playerId, image) => {
-    const state = store.getState();
     const winner = state.players[playerId].roundWins || false;
 
     const result = {
@@ -209,6 +197,16 @@ const gameModel = {
     };
 
     store.dispatch(Actions.addDrawToPlayer(playerId, result));
+  },
+
+  getCurrentGameState: async gamekey => {
+    let currentGame = { ...state.games[gamekey] };
+    currentGame.players = currentGame.players.map(id => {
+      let currentPlayer = state.players[id];
+      currentPlayer.id = id;
+      return currentPlayer;
+    });
+    return currentGame;
   }
 };
 
