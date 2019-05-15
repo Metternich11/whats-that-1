@@ -105,7 +105,6 @@ const Canvas = ({ passDrawing, game }) => {
       // We already passed through here
       if (game.round) {
         // The round has finished
-        console.log('count', drawing)
         const svg = quickdrawSvgRender(drawing, canvas.width, canvas.height);
         passDrawing(svg, 'passFinalDrawing');
         setCount(0);
@@ -120,9 +119,9 @@ const Canvas = ({ passDrawing, game }) => {
 
     let xyCoordinates = [xCoordinate, yCoordinate, timestamp];
     setDrawing(prev => {
-      const next = [...prev, xyCoordinates];
-      passDrawing(next, 'passDrawing');
-      return next;
+      const updatedDrawing = [...prev, xyCoordinates];
+      passDrawing(updatedDrawing, 'passDrawing');
+      return updatedDrawing;
     });
 
     xCoordinate = [];
