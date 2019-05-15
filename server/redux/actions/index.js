@@ -65,6 +65,11 @@ const cleanPlayerForNewGame = playerId => ({
   playerId
 });
 
+const resetGame = gameKey => ({
+  type: ActionTypes.RESET_GAME,
+  gameKey
+});
+
 module.exports = {
   createGame,
   addPlayer,
@@ -77,5 +82,6 @@ module.exports = {
   setRoundStatus,
   deletePlayer,
   deletePlayerFromGame,
-  cleanPlayerForNewGame
+  cleanPlayerForNewGame,
+  resetGame
 };

@@ -16,9 +16,8 @@ const {
   gameExists,
   getCurrentGameKey,
   getCurrentWord,
-  getImagesFromRound,
   getCurrentRoundNumber,
-  deleteGame,
+  reset,
   addGame,
   addPlayer,
   addPlayerToGame,
@@ -42,7 +41,6 @@ const maxNumPlayers = 6;
 const GameController = () => {
   const endRound = async gameKey => {
     await setRoundStatus(gameKey);
-
     sendMessageRoomFromServer(
       handleMessage('endRound', {
         roundNum: await getCurrentRoundNumber(gameKey)
@@ -85,7 +83,6 @@ const GameController = () => {
       handleMessage('gameDrawings', gameState),
       gameKey
     );
-    deleteGame(gameKey);
   };
 
   const timer = gameKey => {
@@ -141,14 +138,20 @@ const GameController = () => {
     }
   };
 
+  const restartGame = async socket => {
+    const gameKey = await getCurrentGameKey(socket.id);
+    // Check the game exists and the socket id to be its admin
+    await reset(gameKey);
+    const gameState = await getCurrentGameState(gameKey);
+    sendMessageRoomFromServer(handleMessage('gameReset', gameState), gameKey);
+  };
+
   return {
     initialize: io => {
       initializeIO(io);
     },
-
-    // for inputRouter and outputRouter
-
     createGame,
+    // for inputRouter and outputRouter
 
     joinGame: async (socket, message) => {
       try {
@@ -226,7 +229,8 @@ const GameController = () => {
     playerDisconnected: async socket => {
       const gameKey = await getCurrentGameKey(socket.id);
       deletePlayer(socket.id, gameKey);
-    }
+    },
+    restartGame
   };
 };
 
