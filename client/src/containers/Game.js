@@ -3,11 +3,11 @@ import Countdown from "react-countdown-now";
 
 // Redux Imports
 import { connect } from "react-redux";
-
 // Component & Container Imports
 import Canvas from "../components/Canvas";
 import GuessingContainer from "../components/GuessingContainer";
 import PlayerAvatar from "../components/PlayerAvatar";
+import CheckMark from "../components/CheckMark";
 import PlayerList from "../components/PlayerList";
 import SpeechBubble from "../components/SpeechBubble";
 import TimeRemaining from "../components/TimeRemaining";
@@ -17,7 +17,7 @@ import Zorb from "../components/Zorb";
 import ZorbContainer from "../components/ZorbContainer";
 
 export const Game = ({ history, game }) => {
-  // game.guess = 0;
+
   const [count, setCount] = useState(0);
   const [time, setTime] = useState(0);
 
@@ -80,9 +80,25 @@ export const Game = ({ history, game }) => {
 
       <PlayerList game>
         {opponents &&
-          Object.values(opponents).map((player, index) => (
-            <PlayerAvatar key={index} info={player} />
-          ))}
+          Object.values(opponents).map((player, index) => {
+            console.log('GAME', game.rounds);
+            if (game.rounds.length && game.rounds[game.rounds.length-1].winners.includes(player.playerId)) {
+              return (
+                <div key={player.playerId}>
+                  <CheckMark key={index}/>
+                  <h3>{player.playerName}</h3>
+                </div>
+              )
+            }
+            else {
+              return (
+                <div key={player.playerId}>
+                  <PlayerAvatar key={index} info={player} />
+                  <h3>{player.playerName}</h3>
+                </div>
+              )
+            } 
+        })}
       </PlayerList>
     </Wrapper>
   );

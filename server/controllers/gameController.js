@@ -128,6 +128,12 @@ const GameController = () => {
 
       joinRoom(socket, gameKey);
       sendMessageToClient(socket, handleMessage('gameCreated', { gameKey }));
+      sendMessageRoomFromServer(
+        handleMessage('playerJoin', {
+          players: await getPlayersFromGame(gameKey)
+        }),
+        gameKey
+      );
     } catch (error) {
       console.error(error);
       // TODO: Notify client
