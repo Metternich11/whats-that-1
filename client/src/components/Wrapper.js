@@ -57,6 +57,14 @@ const Wrapper = styled.div`
         padding-bottom: 5px;
       }
     `};
+  ${props =>
+    props.GuessedCorrectly &&
+    css`
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    `};
 `;
 
 export default Wrapper;

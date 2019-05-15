@@ -58,6 +58,12 @@ export const passDrawing = (drawing, act) => {
 
 export const restartGame = () => {
   return {
-    type: ActionTypes.RESTART_GAME
+    type: ActionTypes.RESTART_GAME,
+    socket: {
+      type: 'restartGame',
+      payload: {
+        a: 42
+      }
+    }
   };
-}
+};

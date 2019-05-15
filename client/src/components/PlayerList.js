@@ -1,16 +1,19 @@
 import styled, { css } from "styled-components/macro";
 
-const PlayerList = styled.ul`
+const PlayerList = styled.div`
   align-items: flex-end;
+  justify-content: space-around;
   display: flex;
-  flex-wrap: wrap;
-  list-style-type: none;
-  padding-inline-start: 0;
+  width: 100%;
+
+  @media (min-width: 375px) {
+    max-width: 375px;
+  }
 
   ${props =>
     props.betweenRounds &&
     css`
-      margin-top: -50px;
+      margin: 80px 0 20px 0;
     `};
 `;
 

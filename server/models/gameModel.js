@@ -86,7 +86,7 @@ const gameModel = {
     }
   },
 
-  deleteGame: async gameKey => {
+  resetGameState: async gameKey => {
     // DELETE_GAME
     try {
       if (state.games[gameKey]) {
@@ -181,7 +181,7 @@ const gameModel = {
     const playersInGame = state.games[gameKey].players;
 
     if (playersInGame == 'undefined' || playersInGame.length < 1) {
-      gameModel.deleteGame(gameKey);
+      store.dispatch(Actions.deleteGame(gameKey));
     }
     return;
   },
@@ -199,14 +199,20 @@ const gameModel = {
     store.dispatch(Actions.addDrawToPlayer(playerId, result));
   },
 
-  getCurrentGameState: async gamekey => {
-    let currentGame = { ...state.games[gamekey] };
-    currentGame.players = currentGame.players.map(id => {
-      let currentPlayer = state.players[id];
-      currentPlayer.id = id;
-      return currentPlayer;
-    });
+  getCurrentGameState: async gameKey => {
+    let currentGame = { ...state.games[gameKey], gameKey };
+    if (currentGame.players.length !== undefined) {
+      currentGame.players = currentGame.players.map(id => {
+        let currentPlayer = state.players[id];
+        currentPlayer.id = id;
+        return currentPlayer;
+      });
+    }
     return currentGame;
+  },
+
+  reset: async gameKey => {
+    store.dispatch(Actions.resetGame(gameKey));
   }
 };
 

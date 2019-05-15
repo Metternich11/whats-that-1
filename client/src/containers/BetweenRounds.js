@@ -1,28 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import Countdown from 'react-countdown-now';
+import React, { useEffect, useState } from "react";
+import Countdown from "react-countdown-now";
 
 // Redux Imports
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
 // Component & Container Imports
-import ArtistDetails from '../components/ArtistDetails';
-import AvatarShelf from '../components/AvatarShelf';
-import DrawingStack from '../components/DrawingStack';
-import GameHeader from '../components/GameHeader';
-import GameName from '../components/GameName';
-import PlayerAvatar from '../components/PlayerAvatar';
-import PlayerHasSolvedRound from '../components/PlayerHasSolvedRound';
-import PlayerList from '../components/PlayerList';
-import PlayerListItem from '../components/PlayerListItem';
-import PolaroidPicBackground from '../components/PolaroidPicBackground';
-import SingleDrawing from '../components/SingleDrawing';
-import SpeechBubble from '../components/SpeechBubble';
-import TestVG from '../components/TestVG';
-import WordToDraw from '../components/WordToDraw';
-import Wrapper from '../components/Wrapper';
+import DrawingStack from "../components/DrawingStack";
+import PlayerAvatar from "../components/PlayerAvatar";
+import PlayerEmptySlot from "../components/PlayerEmptySlot";
+import PlayerList from "../components/PlayerList";
+import PolaroidPicBackground from "../components/PolaroidPicBackground";
+import TimeRemaining from "../components/TimeRemaining";
+import TestVG from "../components/TestVG";
+import WordToDraw from "../components/WordToDraw";
+import Wrapper from "../components/Wrapper";
 
-export const BetweenRounds = ({ history, game }) => {
-
+export const BetweenRounds = ({ history, game, currentUser }) => {
   const [count, setCount] = useState(0);
   const opponents = game.players;
   console.log('BetweenRounds game: ', game); // eslint-disable-line
@@ -31,7 +24,7 @@ export const BetweenRounds = ({ history, game }) => {
 
   useEffect(() => {
     if (count > 0) {
-      if (game.word) history.push('/game');
+      if (game.word) history.push("/game");
       setCount(0);
     }
     setCount(1);
@@ -43,52 +36,36 @@ export const BetweenRounds = ({ history, game }) => {
 
   return (
     <Wrapper>
-      <GameHeader timer>
-        <GameName timer betweenRounds>
-          Next Round...{' '}
-          <Countdown date={Date.now() + 4000} renderer={renderer} />
-        </GameName>
-        <WordToDraw>
-          Drawing: <strong>Hurricane</strong>
-        </WordToDraw>
-      </GameHeader>
+      {console.log('in between rounds', game)}
+      <WordToDraw inBetween>
+        {/* <h3>{game.word}</h3> */}
+        <h2 className="gameHeader">Test</h2>
+      </WordToDraw>
+
       <DrawingStack>
-        {/* {roundDrawings && roundDrawings.map((drawing, index) => (
-          <SingleDrawing key={index}>
-            <PolaroidPicBackground>
-            {drawing.draw}
-            </PolaroidPicBackground>
-            <ArtistDetails scaled key={index}>
-            <SpeechBubble inGame>I drew that!</SpeechBubble>
-            <PlayerAvatar key={index} info={drawing.player} />
-          </ArtistDetails>
-          </SingleDrawing>
-        ))} */}
-        <SingleDrawing>
-          <PolaroidPicBackground>
-            <TestVG />
-          </PolaroidPicBackground>
-          <ArtistDetails scaled>
-            <SpeechBubble inGame>I drew that!</SpeechBubble>
-            <PlayerAvatar />
-          </ArtistDetails>
-        </SingleDrawing>
+        <PolaroidPicBackground>
+          <TestVG />
+        </PolaroidPicBackground>
       </DrawingStack>
 
       <PlayerList betweenRounds>
-        <PlayerListItem>
-          <PlayerHasSolvedRound />
-          {opponents && Object.values(opponents).map((player, index) => <PlayerAvatar key={index} info={player} />)}
-        </PlayerListItem>
-
+        {opponents &&
+          Object.values(opponents)
+            .filter(player => player.playerId !== currentUser.userId)
+            .map((player, index) => <PlayerAvatar key={index} info={player} />)}
       </PlayerList>
-      <AvatarShelf>Your Opponents</AvatarShelf>
+
+      <TimeRemaining>
+        Next round starts in{" "}
+        <Countdown date={Date.now() + 4000} renderer={renderer} /> seconds
+      </TimeRemaining>
     </Wrapper>
   );
 };
 
 const mapStateToProps = state => ({
-  game: state.game
+  game: state.game,
+  currentUser: state.currentUser
 });
 
 export default connect(mapStateToProps)(BetweenRounds);

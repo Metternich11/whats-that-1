@@ -10,34 +10,36 @@ export const socket = store => {
       switch (command) {
         case 'CONNECT':
           socket = io(`${process.env.REACT_APP_SERVER_BASE_URL}`);
-          next(action);
           break;
-          default:
+        default:
           break;
-        }
-        
-        socket.on('connect', () => {
-          store.dispatch({
-            type: 'SET_USERID',
-            payload: socket.id
-          });
-        });
-
-        socket.on('message', message => {
-          console.log('INPUT', message);  //eslint-disable-line
-          store.dispatch({
-            type: 'SOCKET_MESSAGE',
-            payload: message
-          });
-        });
       }
-      
+
+      socket.on('connect', () => {
+        store.dispatch({
+          type: 'SET_USERID',
+          payload: socket.id
+        });
+      });
+
+      socket.on('message', message => {
+        console.log('INPUT', message);  //eslint-disable-line
+        store.dispatch({
+          type: 'SOCKET_MESSAGE',
+          payload: message
+        });
+      });
+    }
+
     // Outputs (emit)
     if (payload) {
       socket.emit('message', {
         type,
         payload
       });
+      next(action);
     }
+
+    next(action);
   };
 };
