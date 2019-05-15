@@ -12,7 +12,6 @@ const {
 const {
   startRound,
   setRoundStatus,
-  getImagesFromGame,
   gameExists,
   getCurrentGameKey,
   getCurrentWord,
@@ -34,12 +33,13 @@ const getWords = require('../helpers/requestWords');
 const requestQuickDraw = require('../helpers/requestGuess');
 
 const TOTALROUNDS = 2;
-const MillisecondsPerRound = 10000;
+const MillisecondsPerRound = 20000;
 const MillisecondsBetweenRounds = 5000;
 const maxNumPlayers = 6;
 
 const GameController = () => {
   const endRound = async gameKey => {
+    // NEED BIG REFACTOR
     if (!(await gameExists(gameKey))) return;
     await setRoundStatus(gameKey);
     sendMessageRoomFromServer(
@@ -58,16 +58,11 @@ const GameController = () => {
       _.forEach(players, (value, key) => {
         cleanPlayerForNewGame(key);
       });
-      // Object.keys(players).forEach(players, player => {
-      // });
-
       return;
     }
     await delay(1500);
 
     const gameState = await getCurrentGameState(gameKey);
-    // const allDrawingsForRound = await getImagesFromRound(gameKey, currentRound);
-    // console.log(gameState);
 
     sendMessageRoomFromServer(
       handleMessage('roundDrawings', gameState),
@@ -212,9 +207,9 @@ const GameController = () => {
 
       sendMessageToClient(socket, handleMessage('guess', { word: guess }));
       // if match, broadcast victory to the room. payload with playerId
-      const gameState = await getCurrentGameState(gameKey);
       if (guess === currentWord) {
         await setPlayerRoundWins(socket.id);
+        const gameState = await getCurrentGameState(gameKey);
         sendMessageRoomFromServer(handleMessage('victory', gameState), gameKey);
       }
     },

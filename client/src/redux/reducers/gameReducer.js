@@ -58,6 +58,7 @@ export default (state = initialState, action) => {
           gamePlayers: action.payload.payload.players,
           round: action.payload.payload.round,
           totalRounds: action.payload.payload.totalRounds
+
         };
       case SocketTypes.GAME_OVER:
         return {
