@@ -13,7 +13,7 @@ const PlayerList = styled.div`
   ${props =>
     props.betweenRounds &&
     css`
-      margin-top: -50px;
+      margin: 80px 0 20px 0;
     `};
 `;
 

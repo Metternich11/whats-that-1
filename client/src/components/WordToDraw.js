@@ -1,4 +1,4 @@
-import styled from "styled-components/macro";
+import styled, { css } from "styled-components/macro";
 
 const WordToDraw = styled.div`
   color: white;
@@ -11,6 +11,16 @@ const WordToDraw = styled.div`
     font-weight: bold;
     margin-bottom: 0;
   }
+
+  ${props =>
+    props.inBetween &&
+    css`
+      width: 95%;
+      padding: 10px;
+      background-color: #472c81;
+      border-radius: 50px;
+      text-transform: uppercase;
+    `};
 `;
 
 export default WordToDraw;
