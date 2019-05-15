@@ -59,6 +59,15 @@ const GameController = () => {
       });
       // Object.keys(players).forEach(players, player => {
       // });
+      await delay(1500);
+      const gameState = await getCurrentGameState(gameKey);
+      // const allDrawingsForRound = await getImagesFromRound(gameKey, currentRound);
+      // console.log(gameState);
+
+      sendMessageRoomFromServer(
+        handleMessage('roundDrawings', gameState),
+        gameKey
+      );
 
       return;
     }
