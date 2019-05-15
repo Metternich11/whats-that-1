@@ -117,7 +117,6 @@ const GameController = () => {
   const createGame = async (socket, message) => {
     try {
       const gameKey = message.payload.gameKey;
-
       if (await gameExists(gameKey))
         return sendMessageToClient(
           socket,

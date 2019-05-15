@@ -9,11 +9,11 @@ const inputRouter = httpServer => {
     socket.on('message', message => {
       switch (message.type) {
         case 'createGame':
-          // message.payload.gameKey = message.payload.gameKey.toLowerCase;
+          message.payload.gameKey = message.payload.gameKey.toLowerCase();
           gameController.createGame(socket, message);
           break;
         case 'joinGame' || 'playAgain':
-          // message.payload.gameKey = message.payload.gameKey.toLowerCase;
+          message.payload.gameKey = message.payload.gameKey.toLowerCase();
           gameController.joinGame(socket, message);
           break;
         case 'passDrawing':
