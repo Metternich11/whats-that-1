@@ -47,7 +47,6 @@ export const Game = ({ history, game }) => {
 
   return (
     <Wrapper>
-      {console.log('GAAAAAAAAAAAAAAME', game)}
       <GameHeader timer>
         <GameName timer>
           <Countdown date={time} renderer={renderer} />
