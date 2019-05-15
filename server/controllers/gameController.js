@@ -34,7 +34,7 @@ const getWords = require('../helpers/requestWords');
 const requestQuickDraw = require('../helpers/requestGuess');
 
 const TOTALROUNDS = 2;
-const MillisecondsPerRound = 5000;
+const MillisecondsPerRound = 10000;
 const MillisecondsBetweenRounds = 5000;
 const maxNumPlayers = 6;
 
@@ -48,9 +48,11 @@ const GameController = () => {
       }),
       gameKey
     );
+
     const currentRound = await getCurrentRoundNumber(gameKey);
+
     if (currentRound > TOTALROUNDS - 1) {
-      gameOver(gameKey);
+      await gameOver(gameKey);
       // Clean all drawings a rounds from players before starting new Game
       const players = await getPlayersFromGame(gameKey);
       _.forEach(players, (value, key) => {
@@ -76,10 +78,11 @@ const GameController = () => {
 
   const gameOver = async gameKey => {
     sendMessageRoomFromServer(handleMessage('gameOver'), gameKey);
+
     await delay(1500);
     const gameState = await getCurrentGameState(gameKey);
     //const allDrawingsForGame = await getImagesFromGame(gameKey);
-
+    console.log(gameState);
     sendMessageRoomFromServer(
       handleMessage('gameDrawings', gameState),
       gameKey
