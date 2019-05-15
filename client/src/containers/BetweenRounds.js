@@ -5,17 +5,12 @@ import Countdown from "react-countdown-now";
 import { connect } from "react-redux";
 
 // Component & Container Imports
-import ArtistDetails from "../components/ArtistDetails";
-import AvatarShelf from "../components/AvatarShelf";
 import DrawingStack from "../components/DrawingStack";
-import GameHeader from "../components/GameHeader";
-import GameName from "../components/GameName";
 import PlayerAvatar from "../components/PlayerAvatar";
-import PlayerHasSolvedRound from "../components/PlayerHasSolvedRound";
+import PlayerEmptySlot from "../components/PlayerEmptySlot";
 import PlayerList from "../components/PlayerList";
 import PolaroidPicBackground from "../components/PolaroidPicBackground";
-import SingleDrawing from "../components/SingleDrawing";
-import SpeechBubble from "../components/SpeechBubble";
+import TimeRemaining from "../components/TimeRemaining";
 import TestVG from "../components/TestVG";
 import WordToDraw from "../components/WordToDraw";
 import Wrapper from "../components/Wrapper";
@@ -38,35 +33,35 @@ export const BetweenRounds = ({ history, game }) => {
 
   return (
     <Wrapper>
-      <GameHeader timer>
-        <GameName timer betweenRounds>
-          Next Round...{" "}
-          <Countdown date={Date.now() + 4000} renderer={renderer} />
-        </GameName>
-        <WordToDraw>
-          Drawing: <strong>Hurricane</strong>
-        </WordToDraw>
-      </GameHeader>
+      <WordToDraw inBetween>
+        {/* <h3>{game.word}</h3> */}
+        <h2 className="gameHeader">Test</h2>
+      </WordToDraw>
+
       <DrawingStack>
-        <SingleDrawing>
-          <PolaroidPicBackground>
-            <TestVG />
-          </PolaroidPicBackground>
-          <ArtistDetails scaled>
-            <SpeechBubble inGame>I drew that!</SpeechBubble>
-            <PlayerAvatar />
-          </ArtistDetails>
-        </SingleDrawing>
+        <PolaroidPicBackground>
+          <TestVG />
+        </PolaroidPicBackground>
       </DrawingStack>
 
       <PlayerList betweenRounds>
-        <PlayerHasSolvedRound />
         {opponents &&
-          Object.values(opponents).map((player, index) => (
-            <PlayerAvatar key={index} info={player} />
-          ))}
+          Object.values(opponents)
+            //Below, I have changed props.currentUser.userId to player.currentUser.userId.
+            //I did this because props is undefined, and I can't find props.currentUser when
+            // console logging props.
+            .filter(player => player.playerId !== player.currentUser.userId)
+            .map((player, index) => <PlayerAvatar key={index} info={player} />)}
+        <PlayerEmptySlot />
+        <PlayerEmptySlot />
+        <PlayerEmptySlot />
+        <PlayerEmptySlot />
       </PlayerList>
-      <AvatarShelf>Your Opponents</AvatarShelf>
+
+      <TimeRemaining>
+        Next round starts in{" "}
+        <Countdown date={Date.now() + 4000} renderer={renderer} /> seconds
+      </TimeRemaining>
     </Wrapper>
   );
 };
