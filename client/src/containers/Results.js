@@ -34,6 +34,11 @@ const rightArrow = <i className='fas fa-chevron-right' />;
 const Results = ({ history, restartGame, game }) => {
   const [open, setOpen] = useState(false);
   // const opponents = game.players;
+  const allRounds = game.rounds;
+  console.log('Results allRounds: ', allRounds);
+  allRounds.forEach(round => {
+    console.log('round: ', round);
+  });
 
   useEffect(() => {
     if (game.round === 0) history.push('/lobby');
@@ -45,7 +50,6 @@ const Results = ({ history, restartGame, game }) => {
 
   return (
     <Wrapper>
-      {console.log('results', game)}
       <PlayerList>
         <GameWinner />
         <PlayerAvatar />
