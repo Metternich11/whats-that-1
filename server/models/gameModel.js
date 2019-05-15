@@ -156,7 +156,6 @@ const gameModel = {
     players.forEach(player => {
       imagesFromRound.push(state.players[player].draws[roundNumber - 1]);
     });
-    console.log('gameModel imagesFromRound: ', imagesFromRound);
     return imagesFromRound;
   },
 
