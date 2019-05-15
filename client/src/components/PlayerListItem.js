@@ -1,7 +1,5 @@
 import styled from "styled-components/macro";
 
-const PlayerListItem = styled.li`
-  margin-right: -20px;
-`;
+const PlayerListItem = styled.li``;
 
 export default PlayerListItem;

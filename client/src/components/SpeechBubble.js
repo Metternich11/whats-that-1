@@ -5,7 +5,7 @@ const SpeechBubble = styled.span`
   animation-delay: 0.2s;
   animation-iteration-count: infinite;
   background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 3px;
+  border-radius: 20px;
   color: #472c81;
   font-size: 0.8rem;
   padding: 5px 20px;
