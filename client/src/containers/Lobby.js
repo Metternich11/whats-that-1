@@ -11,7 +11,7 @@ import Canvas from "../components/Canvas";
 import GameHeader from "../components/GameHeader";
 import LobbyWaiting from "../components/LobbyWaiting";
 import PlayerAvatar from "../components/PlayerAvatar";
-// import PlayerEmptySlot from "../components/PlayerEmptySlot";
+import PlayerEmptySlot from "../components/PlayerEmptySlot";
 import PlayerList from "../components/PlayerList";
 import Wrapper from "../components/Wrapper";
 import DeviceDetector from "../utils/deviceDetector";
@@ -44,7 +44,7 @@ export const Lobby = ({ currentUser, game, startGame, history }) => {
 
   const shareUrl = `${host}/${currentUser.gameKey}`;
 
-  const opponents = game.players;
+  const opponents = game.players || {};
 
   useEffect(() => {
     if (game.word.length) history.push("/game");
@@ -63,7 +63,7 @@ export const Lobby = ({ currentUser, game, startGame, history }) => {
           ""
         )}
       </GameHeader>
-      <h3>Practice your drawing skills!</h3>
+      <h3>Practice whilst you&apos;re waiting</h3>
 
       <Canvas />
       <LobbyWaiting>
@@ -71,16 +71,19 @@ export const Lobby = ({ currentUser, game, startGame, history }) => {
       </LobbyWaiting>
 
       <PlayerList>
-        {opponents &&
-          Object.values(opponents).map((player, index) => {
+        {Array(5)
+          .fill(null)
+          .map((e, i) => Object.values(opponents)[i] || {})
+          .map((player, index) => {
             if (player.playerId === currentUser.userId) return;
+            if (!player.playerId) return <PlayerEmptySlot />;
             return (
               <div key={player.playerId}>
                 <PlayerAvatar key={index} info={player} />
                 <h3>{player.playerName}</h3>
               </div>
-            )
-        })}
+            );
+          })}
       </PlayerList>
       <ShareButton url={shareUrl} />
     </Wrapper>

@@ -25,14 +25,13 @@ export const GuessedCorrectly = ({ history, game }) => {
       if (game.endGame) {
         history.push("/results");
         setCount(0);
-    }
-      else if (game.endRound) {
+      } else if (game.endRound) {
         history.push("/between-rounds");
         setCount(0);
+      }
     }
-  }
-   setCount(1)
-}, [game.endRound, game.endGame]);
+    setCount(1);
+  }, [game.endRound, game.endGame]);
 
   const charPoses = {
     exit: { opacity: 0 },
@@ -59,32 +58,33 @@ export const GuessedCorrectly = ({ history, game }) => {
       <PlayerList game>
         {opponents &&
           Object.values(opponents).map((player, index) => {
-            if (game.rounds[game.round-1] && game.rounds[game.round-1].winners.includes(player.playerId)) {
+            if (
+              game.rounds[game.round - 1] &&
+              game.rounds[game.round - 1].winners.includes(player.playerId)
+            ) {
               return (
                 <div key={player.playerId}>
-                  <CheckMark key={index}/>
+                  <CheckMark key={index} />
                   <h3>{player.playerName}</h3>
                 </div>
-              )
-            }
-            else {
+              );
+            } else {
               return (
                 <div key={player.playerId}>
                   <PlayerAvatar key={index} info={player} />
                   <h3>{player.playerName}</h3>
                 </div>
-              )
-            } 
-        })}
+              );
+            }
+          })}
       </PlayerList>
-
     </Wrapper>
   );
 };
 
 const StyledText = styled.div`
   padding: 0 40px;
-  color: #472c81;
+  color: #fff;
 
   p {
     font-size: 1.4rem;
