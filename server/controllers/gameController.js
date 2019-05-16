@@ -35,7 +35,7 @@ const requestQuickDraw = require('../helpers/requestGuess');
 const TOTALROUNDS = 2;
 const MillisecondsPerRound = 20000;
 const MillisecondsBetweenRounds = 3000;
-const maxNumPlayers = 6;
+const maxNumPlayers = 5;
 
 const GameController = () => {
   const endRound = async gameKey => {
@@ -169,7 +169,7 @@ const GameController = () => {
         }
         const numOfPlayersOnGame = await getPlayersFromGame(gameKey);
 
-        if (numOfPlayersOnGame.length > maxNumPlayers - 1)
+        if (Object.keys(numOfPlayersOnGame).length > maxNumPlayers - 1)
           return sendMessageToClient(
             socket,
             handleMessage('failure', { error: 'Max num of player reached' })
