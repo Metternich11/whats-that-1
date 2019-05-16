@@ -64,7 +64,6 @@ export const GuessedCorrectly = ({ history, game }) => {
             ) {
               return (
                 <div key={player.playerId}>
-                  <CheckMark key={index} />
                   <h3>{player.playerName}</h3>
                 </div>
               );

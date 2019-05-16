@@ -49,6 +49,9 @@ const GlobalStyle = createGlobalStyle`
   .lightweight {
     font-weight: 200;
   }
+  .guessedSuccessfully {
+    color: #2cbe4e;
+  }
 `;
 
 const App = () => (

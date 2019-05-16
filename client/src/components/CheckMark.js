@@ -1,22 +1,7 @@
 import React from "react";
 
-// import Background from '../checkMark.png'
-const Background = require('../checkMark.png')
-
 const CheckMark = () => {
-  return (
-    <div 
-      style={{
-      width: "60px",
-      height: "60px",
-      backgroundImage: `url(${Background})`,
-      backgroundPosition: 'center',
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat'
-    }}>
-
-    </div>
-  );
-}
+  return <i className="fas fa-check-circle fa-3x guessedSuccessfully" />;
+};
 
 export default CheckMark;
