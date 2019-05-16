@@ -42,7 +42,7 @@ export const BetweenRounds = ({ history, game, currentUser }) => {
       </WordToDraw>
 
       <DrawingStack>
-        {game.rounds[game.round - 1] &&
+        {/* {game.rounds[game.round - 1] &&
           game.rounds[game.round - 1].drawings.map((drawing, i) => (
             <PolaroidPicBackground key={i}>
               <div key={i}>
@@ -53,7 +53,7 @@ export const BetweenRounds = ({ history, game, currentUser }) => {
                 </div>
               </div>
             </PolaroidPicBackground>
-          ))}
+          ))} */}
       </DrawingStack>
 
       <PlayerList betweenRounds>
