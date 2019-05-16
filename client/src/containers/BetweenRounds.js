@@ -64,7 +64,7 @@ export const BetweenRounds = ({history, game, currentUser}) => {
                 </Author>
               </div>
             </PolaroidPicBackground>
-          ))}
+          ))} */}
       </DrawingStack>
 
       {/* <PlayerList betweenRounds>

@@ -35,10 +35,15 @@ const Results = ({ history, restartGame, game }) => {
   const [open, setOpen] = useState(false);
   const players = game.players;
   const allRounds = game.rounds;
-  // console.log('Results allRounds: ', allRounds);
-  // allRounds.forEach(round => {
-  //   console.log('round: ', round);
-  // });
+  let obj = {}
+
+  allRounds
+    .map(round => round.winners)
+    .flat()
+    .forEach(winner => {
+      if (obj[winner]=== undefined) obj[winner]=1;
+      else obj[winner]++;
+    })
 
   useEffect(() => {
     if (game.round === 0) history.push("/lobby");
@@ -79,7 +84,7 @@ const Results = ({ history, restartGame, game }) => {
                   object.drawings.map((drawing, i) => (
                     <div key={i}>
                       <SimpleSvg image={drawing.svg} />
-                      <div>
+                      <div style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
                         <PlayerAvatar info={drawing} />
                         <b>{drawing.playerName}</b> drew that!
                       </div>
