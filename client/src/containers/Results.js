@@ -58,7 +58,7 @@ const Results = ({ history, restartGame, game }) => {
 
   return (
     <Wrapper results>
-      <PlayerList>
+      <PlayerList results>
         {players &&
           Object.values(players).map((player, i) => (
             <div key={i}>
