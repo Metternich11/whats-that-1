@@ -90,14 +90,14 @@ const GameController = () => {
   const startCurrentRound = async gameKey => {
     if (gameExists(gameKey)) {
       const roundWord = getWords(1)[0];
-
       await startRound(gameKey, roundWord);
       timer(gameKey);
 
       sendMessageRoomFromServer(
         handleMessage('startRound', {
           timer: MillisecondsPerRound,
-          word: roundWord
+          word: roundWord,
+          roundNum: await getCurrentRoundNumber(gameKey)
         }),
         gameKey
       );
@@ -128,6 +128,12 @@ const GameController = () => {
 
       joinRoom(socket, gameKey);
       sendMessageToClient(socket, handleMessage('gameCreated', { gameKey }));
+      sendMessageRoomFromServer(
+        handleMessage('playerJoin', {
+          players: await getPlayersFromGame(gameKey)
+        }),
+        gameKey
+      );
     } catch (error) {
       console.error(error);
       // TODO: Notify client

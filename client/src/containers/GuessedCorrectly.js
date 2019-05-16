@@ -17,11 +17,17 @@ export const GuessedCorrectly = ({ history, game }) => {
 
   useEffect(() => {
     if (count > 0) {
-      if (game.word) history.push("/game");
-      setCount(0);
+      if (game.endGame) {
+        history.push("/results");
+        setCount(0);
     }
-    setCount(1);
-  }, [game.word]);
+      else if (game.endRound) {
+        history.push("/between-rounds");
+        setCount(0);
+    }
+  }
+   setCount(1)
+}, [game.endRound, game.endGame]);
 
   const renderer = ({ seconds }) => {
     return <span> {seconds} </span>;

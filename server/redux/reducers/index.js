@@ -288,7 +288,7 @@ exports.reducer = (state = initialState, action) => {
               ...accum,
               [playerId]: {
                 ...player,
-                roundWins: 0,
+                roundWins: [],
                 draws: []
               }
             };

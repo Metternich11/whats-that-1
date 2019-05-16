@@ -24,7 +24,9 @@ export const BetweenRounds = ({ history, game, currentUser }) => {
 
   useEffect(() => {
     if (count > 0) {
-      if (game.word) history.push("/game");
+      if (game) {
+        history.push("/game");
+      }
       setCount(0);
     }
     setCount(1);
@@ -42,7 +44,8 @@ export const BetweenRounds = ({ history, game, currentUser }) => {
       </WordToDraw>
 
       <DrawingStack>
-        {/* {game.rounds[game.round - 1] &&
+        {game.rounds[game.round - 1] !== undefined &&
+          game.rounds[game.round - 1].drawings !== undefined &&
           game.rounds[game.round - 1].drawings.map((drawing, i) => (
             <PolaroidPicBackground key={i}>
               <div key={i}>

@@ -65,7 +65,8 @@ const Results = ({ history, restartGame, game }) => {
             onClick={() => setOpen(open === i ? false : i)}
           >
             <div>
-              {object.drawings[i].word} {open === i ? downArrow : rightArrow}
+              {object.drawings && object.drawings[0].word.toUpperCase()}{" "}
+              {open === i ? downArrow : rightArrow}
             </div>
 
             <Content
@@ -74,15 +75,16 @@ const Results = ({ history, restartGame, game }) => {
               style={{ overflow: "hidden", fontSize: "18px" }}
             >
               <DrawingWrapper>
-                {object.drawings.map((drawing, i) => (
-                  <div key={i}>
-                    <SimpleSvg image={drawing.svg} />
-                    <div>
-                      <PlayerAvatar info={drawing} />
-                      <b>{drawing.playerName}</b> drew that!
+                {object.drawings &&
+                  object.drawings.map((drawing, i) => (
+                    <div key={i}>
+                      <SimpleSvg image={drawing.svg} />
+                      <div>
+                        <PlayerAvatar info={drawing} />
+                        <b>{drawing.playerName}</b> drew that!
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
               </DrawingWrapper>
             </Content>
           </ResultsRoundBar>
