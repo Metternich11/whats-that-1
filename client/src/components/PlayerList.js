@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components/macro";
 
 const PlayerList = styled.div`
-  align-items: flex-end;
+  align-items: baseline;
   justify-content: space-around;
   display: flex;
   width: 100%;
@@ -9,6 +9,12 @@ const PlayerList = styled.div`
   @media (min-width: 375px) {
     max-width: 375px;
   }
+
+  ${props =>
+    props.results &&
+    css`
+    align-items: flex-end;
+    `};
 
   ${props =>
     props.betweenRounds &&
