@@ -20,6 +20,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build-surge": "npm run build && mv build/index.html build/200.html",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "precommit": "lint-staged"
