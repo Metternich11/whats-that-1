@@ -82,7 +82,7 @@ const Create = props => {
             Create
           </Button>
           <p className="small lightweight">or</p>
-          <Button back marginBottom onClick={goBack}>
+          <Button back marginBottom type="button" onClick={goBack}>
             Back
           </Button>
         </ButtonContainer>

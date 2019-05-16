@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components/macro";
 import SplitText from "react-pose-text";
 
 // Redux Imports
-import { connect } from "react-redux";
+import {connect} from "react-redux";
 
 // Component & Container Imports
 import Wrapper from "../components/Wrapper";
@@ -14,8 +14,9 @@ import ZorbContainer from "../components/ZorbContainer";
 import CheckMark from "../components/CheckMark";
 import PlayerList from "../components/PlayerList";
 import PlayerAvatar from "../components/PlayerAvatar";
+import Confetti from "../components/Confetti";
 
-export const GuessedCorrectly = ({ history, game }) => {
+export const GuessedCorrectly = ({history, game}) => {
   const [count, setCount] = useState(0);
 
   const opponents = game.players;
@@ -25,19 +26,22 @@ export const GuessedCorrectly = ({ history, game }) => {
       if (game.endGame) {
         history.push("/results");
         setCount(0);
-      } else if (game.endRound) {
+      }
+      else if (game.endRound) {
         history.push("/between-rounds");
         setCount(0);
       }
     }
+
     setCount(1);
+
   }, [game.endRound, game.endGame]);
 
   const charPoses = {
-    exit: { opacity: 0 },
+    exit: {opacity: 0},
     enter: {
       opacity: 1,
-      delay: ({ charIndex }) => charIndex * 5
+      delay: ({charIndex}) => charIndex * 5
     }
   };
   return (
@@ -58,12 +62,15 @@ export const GuessedCorrectly = ({ history, game }) => {
       <PlayerList game>
         {opponents &&
           Object.values(opponents).map((player, index) => {
+
             if (
               game.rounds[game.round - 1] &&
               game.rounds[game.round - 1].winners.includes(player.playerId)
             ) {
               return (
                 <div key={player.playerId}>
+                <CheckMark key={index} />
+
                   <h3>{player.playerName}</h3>
                 </div>
               );
@@ -73,10 +80,11 @@ export const GuessedCorrectly = ({ history, game }) => {
                   <PlayerAvatar key={index} info={player} />
                   <h3>{player.playerName}</h3>
                 </div>
-              );
+              )
             }
           })}
       </PlayerList>
+      <Confetti active={true} />
     </Wrapper>
   );
 };

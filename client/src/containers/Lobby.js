@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components/macro";
 
+import posed, {PoseGroup} from 'react-pose';
+
 // Redux Imports
-import { connect } from "react-redux";
+import {connect} from "react-redux";
 import * as Actions from "../redux/actions/index";
 
 // Component & Container Imports
@@ -18,17 +20,34 @@ import DeviceDetector from "../utils/deviceDetector";
 
 const host = window.location.protocol + "//" + window.location.host;
 
+const Player = posed.div({
+  enter: {
+    scale: 1,
+    opacity: 1,
+    transition: {
+      scale: {
+        type: 'spring',
+        stiffness: 500
+      }
+    }
+  },
+  exit: {
+    scale: 0.3,
+    opacity: 0
+  }
+})
+
 const ShareIcon = styled.i`
   margin-top: 20px;
   font-size: 2em;
 `;
 
-const ShareButton = ({ url }) => {
+const ShareButton = ({url}) => {
   if (typeof window.navigator.share !== "function") return null;
 
   const share = () => {
     if (typeof window.navigator.share === "function") {
-      window.navigator.share({ url });
+      window.navigator.share({url});
     }
   };
 
@@ -37,7 +56,7 @@ const ShareButton = ({ url }) => {
   return <ShareIcon onClick={share} className={`fas ${icon}`} />;
 };
 
-export const Lobby = ({ currentUser, game, startGame, history }) => {
+export const Lobby = ({currentUser, game, startGame, history}) => {
   const startTheGame = () => {
     startGame();
   };
@@ -60,8 +79,8 @@ export const Lobby = ({ currentUser, game, startGame, history }) => {
             Start!{" "}
           </Button>
         ) : (
-          ""
-        )}
+            ""
+          )}
       </GameHeader>
       <h3>Practice whilst you&apos;re waiting</h3>
 
@@ -69,6 +88,7 @@ export const Lobby = ({ currentUser, game, startGame, history }) => {
       <LobbyWaiting>
         <p>Waiting for other players...</p>
       </LobbyWaiting>
+
 
       <PlayerList>
         {Array(5)
