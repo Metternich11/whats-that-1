@@ -7,6 +7,7 @@
     "react": "^16.8.6",
     "react-countdown-now": "^2.1.0",
     "react-dom": "^16.8.6",
+    "react-dom-confetti": "^0.1.0",
     "react-pose": "^4.0.8",
     "react-pose-text": "^3.1.0",
     "react-redux": "^7.0.3",

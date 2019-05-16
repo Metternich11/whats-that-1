@@ -62,8 +62,8 @@ const Results = ({ history, restartGame, game }) => {
         {players &&
           Object.values(players).map((player, i) => (
             <div key={i}>
+              {winnerId.includes(player.playerId) && <GameWinner>👑</GameWinner>}
               <PlayerAvatar key={i} info={player} />
-              {winnerId.includes(player.playerId) && <GameWinner />}
             </div>
           ))}
       </PlayerList>
@@ -120,7 +120,7 @@ const mapStateToProps = state => ({
   game: state.game
 });
 
-function SimpleSvg(props) {
+function SimpleSvg (props) {
   const encodedImage = btoa(props.image);
   const imageSrc = `data:image/svg+xml;base64,${encodedImage}`;
   return (
