@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/whats-that/static/css/main.f93bb1dc.chunk.css",
+    "main.js": "/whats-that/static/js/main.4052001f.chunk.js",
+    "main.js.map": "/whats-that/static/js/main.4052001f.chunk.js.map",
+    "runtime~main.js": "/whats-that/static/js/runtime~main.6ab89fc1.js",
+    "runtime~main.js.map": "/whats-that/static/js/runtime~main.6ab89fc1.js.map",
+    "static/js/2.fb85116e.chunk.js": "/whats-that/static/js/2.fb85116e.chunk.js",
+    "static/js/2.fb85116e.chunk.js.map": "/whats-that/static/js/2.fb85116e.chunk.js.map",
+    "index.html": "/whats-that/index.html",
+    "precache-manifest.f33ca8c46d83894812a6545449137e74.js": "/whats-that/precache-manifest.f33ca8c46d83894812a6545449137e74.js",
+    "service-worker.js": "/whats-that/service-worker.js",
+    "static/css/main.f93bb1dc.chunk.css.map": "/whats-that/static/css/main.f93bb1dc.chunk.css.map",
+    "static/media/Zorb.6dc49d5a.svg": "/whats-that/static/media/Zorb.6dc49d5a.svg",
+    "static/media/checkMark.png": "/whats-that/static/media/checkMark.28ff9026.png"
+  }
+}
