@@ -71,7 +71,7 @@ export const BetweenRounds = ({ history, game, currentUser }) => {
       <TimeRemaining betweenRounds>
         <p>
           Next round starts in
-          <Countdown date={Date.now() + 4000} renderer={renderer} /> seconds
+          <Countdown date={Date.now() + 5000} renderer={renderer} /> seconds
         </p>
       </TimeRemaining>
     </Wrapper>
