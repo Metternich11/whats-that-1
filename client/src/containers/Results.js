@@ -65,7 +65,8 @@ const Results = ({ history, restartGame, game }) => {
             onClick={() => setOpen(open === i ? false : i)}
           >
             <div>
-              {object.drawings[i].word} {open === i ? downArrow : rightArrow}
+              {object.drawings[0].word.toUpperCase()}{" "}
+              {open === i ? downArrow : rightArrow}
             </div>
 
             <Content
