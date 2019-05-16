@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 // Redux Imports
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import * as Actions from "../redux/actions/index";
 
 // Component & Container Imports
@@ -57,7 +57,7 @@ const Create = props => {
         <SpeechBubble inGame>Looking good!</SpeechBubble>
         <div>
           <AvatarContainer
-            style={{transform: "scale(2.5)", marginTop: "2vh"}}
+            style={{ transform: "scale(2.5)", marginTop: "2vh" }}
           >
             <PlayerAvatar userChoice={userChoice} />
           </AvatarContainer>
@@ -82,7 +82,7 @@ const Create = props => {
             Create
           </Button>
           <p className="small lightweight">or</p>
-          <Button back marginBottom onClick={goBack}>
+          <Button back marginBottom type="button" onClick={goBack}>
             Back
           </Button>
         </ButtonContainer>
@@ -97,7 +97,7 @@ const mapStateToProps = state => ({
   loading: state.pages.create.loading
 });
 
-const mapDispatchToProps = {connectGame: Actions.connectGame};
+const mapDispatchToProps = { connectGame: Actions.connectGame };
 
 export default connect(
   mapStateToProps,
