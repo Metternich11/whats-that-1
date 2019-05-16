@@ -8,9 +8,6 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import * as Actions from "../redux/actions/index";
 
-// Test array
-import sampleSVGArray from "../utils/quickdrawSvgRender/sampleSVGArray";
-
 // Component & Container Imports
 import Button from "../components/Button";
 import GameWinner from "../components/GameWinner";
@@ -45,6 +42,12 @@ const Results = ({ history, restartGame, game }) => {
       else obj[winner]++;
     })
 
+  let score = Math.max(...Object.values(obj));
+  let winnerId = [];
+  for (let el in obj) {
+    if (obj[el] === score) winnerId.push(el);
+  }
+
   useEffect(() => {
     if (game.round === 0) history.push("/lobby");
   }, [game.round]);
@@ -56,10 +59,12 @@ const Results = ({ history, restartGame, game }) => {
   return (
     <Wrapper>
       <PlayerList>
-        {/* <GameWinner /> */}
         {players &&
           Object.values(players).map((player, i) => (
+            <div key={i}>
             <PlayerAvatar key={i} info={player} />
+            {winnerId.includes(player.playerId) && <GameWinner />}
+            </div>
           ))}
       </PlayerList>
 
