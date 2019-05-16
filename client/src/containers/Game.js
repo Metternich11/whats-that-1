@@ -26,7 +26,7 @@ export const Game = ({ history, game, currentUser }) => {
   const opponents = game.players;
 
   useEffect(() => {
-    setTime(Date.now() + 20000);
+    setTime(Date.now() + 15000);
     if (game.endGame) history.push("/results");
     else if (game.endRound && count > 0) {
       history.push("/between-rounds");

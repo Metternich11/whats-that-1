@@ -32,9 +32,9 @@ const {
 const getWords = require('../helpers/requestWords');
 const requestQuickDraw = require('../helpers/requestGuess');
 
-const TOTALROUNDS = 2;
-const MillisecondsPerRound = 20000;
-const MillisecondsBetweenRounds = 3000;
+const TOTALROUNDS = 4;
+const MillisecondsPerRound = 15000;
+const MillisecondsBetweenRounds = 5000;
 const maxNumPlayers = 5;
 
 const GameController = () => {
