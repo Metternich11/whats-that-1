@@ -33,7 +33,7 @@ const getWords = require('../helpers/requestWords');
 const requestQuickDraw = require('../helpers/requestGuess');
 
 const TOTALROUNDS = 2;
-const MillisecondsPerRound = 10000;
+const MillisecondsPerRound = 20000;
 const MillisecondsBetweenRounds = 3000;
 const maxNumPlayers = 6;
 
@@ -145,7 +145,7 @@ const GameController = () => {
     const gameKey = await getCurrentGameKey(socket.id);
     // Check the game exists and the socket id to be its admin
     await reset(gameKey);
-    const gameState = await getCurrentGameState(gameKey);
+    let gameState = await getCurrentGameState(gameKey);
     sendMessageRoomFromServer(handleMessage('gameReset', gameState), gameKey);
   };
 

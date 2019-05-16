@@ -97,8 +97,7 @@ export const Game = ({ history, game, currentUser }) => {
       <PlayerList game>
         {opponents &&
           Object.values(opponents).map((player, index) => {
-            console.log('GAME', game.rounds);
-            if (game.rounds.length && game.rounds[game.rounds.length-1].winners.includes(player.playerId)) {
+            if (game.rounds[game.round-1] && game.rounds[game.round-1].winners.includes(player.playerId)) {
               return (
                 <div key={player.playerId}>
                   <CheckMark key={index}/>

@@ -12,8 +12,14 @@ import SpeechBubble from "../components/SpeechBubble";
 import Zorb from "../components/Zorb";
 import ZorbContainer from "../components/ZorbContainer";
 
+import CheckMark from "../components/CheckMark";
+import PlayerList from "../components/PlayerList";
+import PlayerAvatar from "../components/PlayerAvatar";
+
 export const GuessedCorrectly = ({ history, game }) => {
   const [count, setCount] = useState(0);
+
+  const opponents = game.players;
 
   useEffect(() => {
     if (count > 0) {
@@ -45,6 +51,27 @@ export const GuessedCorrectly = ({ history, game }) => {
           for your opponents to finish...
         </p>
       </StyledText>
+      <PlayerList game>
+        {opponents &&
+          Object.values(opponents).map((player, index) => {
+            if (game.rounds[game.round-1] && game.rounds[game.round-1].winners.includes(player.playerId)) {
+              return (
+                <div key={player.playerId}>
+                  <CheckMark key={index}/>
+                  <h3>{player.playerName}</h3>
+                </div>
+              )
+            }
+            else {
+              return (
+                <div key={player.playerId}>
+                  <PlayerAvatar key={index} info={player} />
+                  <h3>{player.playerName}</h3>
+                </div>
+              )
+            } 
+        })}
+      </PlayerList>
 
       <TimeRemaining>
         <h2>
