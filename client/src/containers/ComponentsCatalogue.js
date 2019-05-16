@@ -1,46 +1,46 @@
-import React from 'react';
+import React from "react";
 
 // Redux Imports
 
 // Component & Container Imports
-import ArtistDetails from '../components/ArtistDetails';
-import AvatarContainer from '../components/AvatarContainer';
-import AvatarShelf from '../components/AvatarShelf';
-import Button from '../components/Button';
-import ButtonContainer from '../components/ButtonContainer';
-import Canvas from '../components/Canvas';
-import DrawingStack from '../components/DrawingStack';
-import Form from '../components/Form';
-import FormLabel from '../components/FormLabel';
-import GameHeader from '../components/GameHeader';
-import GameName from '../components/GameName';
-import GameWinner from '../components/GameWinner';
-import ImageCarousel from '../components/ImageCarousel';
-import InputField from '../components/InputField';
-import NavBar from '../components/NavBar';
-import PlayerAvatar from '../components/PlayerAvatar';
-import PlayerHasSolvedRound from '../components/PlayerHasSolvedRound';
-import PlayerList from '../components/PlayerList';
-import PolaroidPicBackground from '../components/PolaroidPicBackground';
-import SingleDrawing from '../components/SingleDrawing';
-import SpeechBubble from '../components/SpeechBubble';
-import TestVG from '../components/TestVG';
-import WordToDraw from '../components/WordToDraw';
-import Wrapper from '../components/Wrapper';
-import Zorb from '../components/Zorb';
+import ArtistDetails from "../components/ArtistDetails";
+import AvatarContainer from "../components/AvatarContainer";
+import AvatarShelf from "../components/AvatarShelf";
+import Button from "../components/Button";
+import ButtonContainer from "../components/ButtonContainer";
+import Canvas from "../components/Canvas";
+import DrawingStack from "../components/DrawingStack";
+import Form from "../components/Form";
+import FormLabel from "../components/FormLabel";
+import GameHeader from "../components/GameHeader";
+import GameName from "../components/GameName";
+import GameWinner from "../components/GameWinner";
+import ImageCarousel from "../components/ImageCarousel";
+import InputField from "../components/InputField";
+import NavBar from "../components/NavBar";
+import PlayerAvatar from "../components/PlayerAvatar";
+import PlayerHasSolvedRound from "../components/PlayerHasSolvedRound";
+import PlayerList from "../components/PlayerList";
+import PolaroidPicBackground from "../components/PolaroidPicBackground";
+import SingleDrawing from "../components/SingleDrawing";
+import SpeechBubble from "../components/SpeechBubble";
+import TestVG from "../components/TestVG";
+import WordToDraw from "../components/WordToDraw";
+import Wrapper from "../components/Wrapper";
+import Zorb from "../components/Zorb";
 
 export const ComponentsCatalogue = () => {
   return (
     <>
       <Wrapper ComponentsCatalogue>
         <h1>Components Catalogue</h1>
-        <p className='large'>
+        <p className="large">
           This catalogue showcases all of the created components within this
           application. It is grouped by core application screens.
         </p>
 
         <h2>Generic Components</h2>
-        <ul className='components'>
+        <ul className="components">
           <li>Button (Default)</li>
           <li>Button (Primary)</li>
           <li>Button (Gradient)</li>
@@ -55,19 +55,19 @@ export const ComponentsCatalogue = () => {
         </div>
         <h3>NavBar</h3>
         <NavBar>Text on Navbar</NavBar>
-        <hr className='divider' />
+        <hr className="divider" />
         <h2>Screen: Main (Home)</h2>
         <h4>Components Used</h4>
-        <ul className='components'>
+        <ul className="components">
           <li>Wrapper</li>
-          <li>Zorb</li>
+          <li>BUGY</li>
           <li>Button</li>
         </ul>
         <div>
           <Zorb />
           <p>
-            You draw, Zorb guesses. You have only 20 seconds per round to show
-            off your artistic skills. Can Zorb understand what you are trying to
+            You draw, BUGY guesses. You have only 20 seconds per round to show
+            off your artistic skills. Can BUGY understand what you are trying to
             draw? Let&apos;s get started!
           </p>
 
@@ -78,11 +78,11 @@ export const ComponentsCatalogue = () => {
           </div>
         </div>
 
-        <hr className='divider' />
+        <hr className="divider" />
 
         <h2>Screen: Create</h2>
         <h4>Components Used</h4>
-        <ul className='components'>
+        <ul className="components">
           <li>Form</li>
           <li>SpeechBubble</li>
           <li>AvatarContainer</li>
@@ -100,13 +100,13 @@ export const ComponentsCatalogue = () => {
             <PlayerAvatar />
           </AvatarContainer>
           <FormLabel>Name</FormLabel>
-          <InputField type='text' />
+          <InputField type="text" />
 
           <FormLabel>Game ID</FormLabel>
           <GameName>Game Name</GameName>
 
           <ButtonContainer>
-            <Button primary marginTop formButton type='submit'>
+            <Button primary marginTop formButton type="submit">
               Create
             </Button>
           </ButtonContainer>
@@ -115,11 +115,11 @@ export const ComponentsCatalogue = () => {
           Back
         </Button>
 
-        <hr className='divider' />
+        <hr className="divider" />
 
         <h2>Screen: Join</h2>
         <h4>Components Used</h4>
-        <ul className='components'>
+        <ul className="components">
           <li>Form</li>
           <li>FormLabel</li>
           <li>SpeechBubble</li>
@@ -136,13 +136,13 @@ export const ComponentsCatalogue = () => {
             <PlayerAvatar />
           </AvatarContainer>
           <FormLabel>Name</FormLabel>
-          <InputField type='text' />
+          <InputField type="text" />
 
           <FormLabel>Enter Game ID</FormLabel>
-          <InputField type='text' />
+          <InputField type="text" />
 
           <ButtonContainer>
-            <Button primary marginTop formButton type='submit'>
+            <Button primary marginTop formButton type="submit">
               Join
             </Button>
           </ButtonContainer>
@@ -151,11 +151,11 @@ export const ComponentsCatalogue = () => {
           Back
         </Button>
 
-        <hr className='divider' />
+        <hr className="divider" />
 
         <h2>Screen: Lobby</h2>
         <h4>Components Used</h4>
-        <ul className='components'>
+        <ul className="components">
           <li>GameHeader</li>
           <li>GameName</li>
           <li>Button</li>
@@ -177,11 +177,11 @@ export const ComponentsCatalogue = () => {
         </PlayerList>
         <AvatarShelf>Your Opponents</AvatarShelf>
 
-        <hr className='divider' />
+        <hr className="divider" />
 
         <h2>Screen: Game</h2>
         <h4>Components Used</h4>
-        <ul className='components'>
+        <ul className="components">
           <li>GameHeader</li>
           <li>GameName</li>
           <li>WordToDraw</li>
@@ -209,11 +209,11 @@ export const ComponentsCatalogue = () => {
         </PlayerList>
         <AvatarShelf>Your Opponents</AvatarShelf>
 
-        <hr className='divider' />
+        <hr className="divider" />
 
         <h2>Screen: Between Rounds</h2>
         <h4>Components Used</h4>
-        <ul className='components'>
+        <ul className="components">
           <li>GameHeader</li>
           <li>GameName</li>
           <li>WordToDraw</li>
@@ -259,11 +259,11 @@ export const ComponentsCatalogue = () => {
         </PlayerList>
         <AvatarShelf>Your Opponents</AvatarShelf>
 
-        <hr className='divider' />
+        <hr className="divider" />
 
         <h2>Screen: Results</h2>
         <h4>Components Used</h4>
-        <ul className='components'>
+        <ul className="components">
           <li>Button</li>
           <li>GameWinner</li>
           <li>ImageCarousel</li>

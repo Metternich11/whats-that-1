@@ -86,7 +86,7 @@ module.exports = GameController;
     playerid1: {
       playerName: 'ShanShan',
       playerAvatar: 'http://avatarurl',
-      roundWins: 0,
+      roundWins: [],
       isCreator: true,
       gameKey: 'dog-big',
       draws: [{
@@ -101,14 +101,6 @@ module.exports = GameController;
         word: dog
       }
     ]
-    },
-    playerid2: {
-      playerName: 'Ole',
-      playerAvatar: 'http://avatarurl',
-      roundWins: 1,
-      isCreator: false,
-      gameKey: 'cat-small',
-      draws: []
     }
   }
 };
@@ -288,7 +280,7 @@ exports.reducer = (state = initialState, action) => {
               ...accum,
               [playerId]: {
                 ...player,
-                roundWins: 0,
+                roundWins: [],
                 draws: []
               }
             };

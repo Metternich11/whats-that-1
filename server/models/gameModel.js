@@ -20,7 +20,6 @@ const gameModel = {
   },
 
   getCurrentGameKey: async playerId => {
-    console.log(state.players[playerId]);
     return state.players[playerId].gameKey;
   },
 
@@ -154,7 +153,6 @@ const gameModel = {
   getImagesFromRound: async (gameKey, roundNumber) => {
     const players = await state.games[gameKey].players;
     const imagesFromRound = [];
-
     players.forEach(player => {
       imagesFromRound.push(state.players[player].draws[roundNumber - 1]);
     });
@@ -182,7 +180,7 @@ const gameModel = {
     const playersInGame = state.games[gameKey].players;
 
     if (playersInGame == 'undefined' || playersInGame.length < 1) {
-      gameModel.deleteGame(gameKey);
+      store.dispatch(Actions.deleteGame(gameKey));
     }
     return;
   },
@@ -202,14 +200,10 @@ const gameModel = {
 
   getCurrentGameState: async gameKey => {
     let currentGame = { ...state.games[gameKey], gameKey };
-    console.log(currentGame);
     if (currentGame.players.length !== undefined) {
       currentGame.players = currentGame.players.map(id => {
         let currentPlayer = state.players[id];
-        console.log('TCL: state.players', state.players);
-
-        console.log('id: ', id);
-        currentPlayer[id] = id;
+        currentPlayer.id = id;
         return currentPlayer;
       });
     }

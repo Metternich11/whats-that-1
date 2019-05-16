@@ -5,15 +5,15 @@ const inputRouter = httpServer => {
   const io = IO(httpServer);
   gameController.initialize(io);
   io.on('connect', socket => {
-    console.log(socket.id); //eslint-disable-line
+    console.log('CONNECTED', socket.id); //eslint-disable-line
     socket.on('message', message => {
       switch (message.type) {
         case 'createGame':
-          // message.payload.gameKey = message.payload.gameKey.toLowerCase;
+          message.payload.gameKey = message.payload.gameKey.toLowerCase();
           gameController.createGame(socket, message);
           break;
         case 'joinGame' || 'playAgain':
-          // message.payload.gameKey = message.payload.gameKey.toLowerCase;
+          message.payload.gameKey = message.payload.gameKey.toLowerCase();
           gameController.joinGame(socket, message);
           break;
         case 'passDrawing':
@@ -30,7 +30,10 @@ const inputRouter = httpServer => {
           break;
       }
     });
-    socket.on('disconnect', () => gameController.playerDisconnected(socket));
+    socket.on('disconnect', () => {
+      console.log('DISCONNECTED', socket.id);
+      return gameController.playerDisconnected(socket);
+    });
   });
 };
 

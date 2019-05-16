@@ -7,15 +7,18 @@ import * as Actions from '../redux/actions/index';
 
 // to convert array into SVG string
 import quickdrawSvgRender from '../utils/quickdrawSvgRender/quickdrawSvgRender';
+import Results from '../containers/Results';
+import { nextTick } from 'q';
 
 
-const Canvas = ({ passDrawing, game }) => {
+const Canvas = ({ passDrawing, game, currentUser }) => {
 
   // arol tip: useReducer instead of having this mess of variables here.
+  // arol tip #2: useReducer was just a cool way to handle this. But in order to fix this, it can be done with useState
   let isDrawing = false;
   let lastXCoordinate = 0;
   let lastYCoordinate = 0;
-  let drawing = [];
+  const [drawing, setDrawing] = useState([]);
   let xCoordinate = [];
   let yCoordinate = [];
   let timestamp = [];
@@ -99,23 +102,42 @@ const Canvas = ({ passDrawing, game }) => {
     canvas.addEventListener("touchend", () => postDrawingHelper());
 
     if (count > 0) {
-      if (game.round) {
+      // We already passed through here
+      if (game.endRound) {
+        // The round has finishe
         const svg = quickdrawSvgRender(drawing, canvas.width, canvas.height);
         passDrawing(svg, 'passFinalDrawing');
         setCount(0);
       }
     }
     setCount(1);
-  }, [game.round]);
+  }, [game.endRound]);
+
+  useEffect(() => {
+    if (game.rounds && count > 0) {
+      let win = game.rounds.filter(round => {
+        return round.roundNum === game.round
+      })
+      .map(el => el.winners)
+      if (win.flat().includes(currentUser.userId)) {
+        const svg = quickdrawSvgRender(drawing, 375, 375);
+        passDrawing(svg, 'passFinalDrawing');
+        setCount(0);
+    }
+    setCount(1)
+  }
+}, [game.rounds]);
 
   // helper function to post to API
   const postDrawingHelper = () => {
     isDrawing = false;
 
     let xyCoordinates = [xCoordinate, yCoordinate, timestamp];
-    drawing.push(xyCoordinates);
-
-    passDrawing(drawing, 'passDrawing');
+    setDrawing(prev => {
+      const updatedDrawing = [...prev, xyCoordinates];
+      passDrawing(updatedDrawing, 'passDrawing');
+      return updatedDrawing;
+    });
 
     xCoordinate = [];
     yCoordinate = [];
@@ -134,6 +156,7 @@ const Canvas = ({ passDrawing, game }) => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     setGoogleGuess("Draw something...");
     setLocations([]);
+    setDrawing([]);
   };
 
   return (
@@ -162,7 +185,8 @@ const Canvas = ({ passDrawing, game }) => {
 };
 
 const mapStateToProps = state => ({
-  game: state.game
+  game: state.game,
+  currentUser: state.currentUser
 });
 
 const mapDispatchToProps = { passDrawing: Actions.passDrawing }

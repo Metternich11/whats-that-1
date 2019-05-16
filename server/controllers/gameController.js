@@ -12,7 +12,6 @@ const {
 const {
   startRound,
   setRoundStatus,
-  getImagesFromGame,
   gameExists,
   getCurrentGameKey,
   getCurrentWord,
@@ -34,12 +33,14 @@ const getWords = require('../helpers/requestWords');
 const requestQuickDraw = require('../helpers/requestGuess');
 
 const TOTALROUNDS = 2;
-const MillisecondsPerRound = 5000;
-const MillisecondsBetweenRounds = 5000;
+const MillisecondsPerRound = 20000;
+const MillisecondsBetweenRounds = 3000;
 const maxNumPlayers = 6;
 
 const GameController = () => {
   const endRound = async gameKey => {
+    // NEED BIG REFACTOR
+    if (!(await gameExists(gameKey))) return;
     await setRoundStatus(gameKey);
     sendMessageRoomFromServer(
       handleMessage('endRound', {
@@ -47,24 +48,21 @@ const GameController = () => {
       }),
       gameKey
     );
+
     const currentRound = await getCurrentRoundNumber(gameKey);
+
     if (currentRound > TOTALROUNDS - 1) {
-      gameOver(gameKey);
+      await gameOver(gameKey);
       // Clean all drawings a rounds from players before starting new Game
       const players = await getPlayersFromGame(gameKey);
       _.forEach(players, (value, key) => {
         cleanPlayerForNewGame(key);
       });
-      // Object.keys(players).forEach(players, player => {
-      // });
-
       return;
     }
     await delay(1500);
 
     const gameState = await getCurrentGameState(gameKey);
-    // const allDrawingsForRound = await getImagesFromRound(gameKey, currentRound);
-    // console.log(gameState);
 
     sendMessageRoomFromServer(
       handleMessage('roundDrawings', gameState),
@@ -75,12 +73,12 @@ const GameController = () => {
 
   const gameOver = async gameKey => {
     sendMessageRoomFromServer(handleMessage('gameOver'), gameKey);
+
     await delay(1500);
     const gameState = await getCurrentGameState(gameKey);
     //const allDrawingsForGame = await getImagesFromGame(gameKey);
-
     sendMessageRoomFromServer(
-      handleMessage('gameDrawings', gameState),
+      handleMessage('roundDrawings', gameState),
       gameKey
     );
   };
@@ -92,14 +90,14 @@ const GameController = () => {
   const startCurrentRound = async gameKey => {
     if (gameExists(gameKey)) {
       const roundWord = getWords(1)[0];
-
       await startRound(gameKey, roundWord);
       timer(gameKey);
 
       sendMessageRoomFromServer(
         handleMessage('startRound', {
           timer: MillisecondsPerRound,
-          word: roundWord
+          word: roundWord,
+          roundNum: await getCurrentRoundNumber(gameKey)
         }),
         gameKey
       );
@@ -119,7 +117,6 @@ const GameController = () => {
   const createGame = async (socket, message) => {
     try {
       const gameKey = message.payload.gameKey;
-
       if (await gameExists(gameKey))
         return sendMessageToClient(
           socket,
@@ -131,6 +128,12 @@ const GameController = () => {
 
       joinRoom(socket, gameKey);
       sendMessageToClient(socket, handleMessage('gameCreated', { gameKey }));
+      sendMessageRoomFromServer(
+        handleMessage('playerJoin', {
+          players: await getPlayersFromGame(gameKey)
+        }),
+        gameKey
+      );
     } catch (error) {
       console.error(error);
       // TODO: Notify client
@@ -142,7 +145,7 @@ const GameController = () => {
     const gameKey = await getCurrentGameKey(socket.id);
     // Check the game exists and the socket id to be its admin
     await reset(gameKey);
-    const gameState = await getCurrentGameState(gameKey);
+    let gameState = await getCurrentGameState(gameKey);
     sendMessageRoomFromServer(handleMessage('gameReset', gameState), gameKey);
   };
 
@@ -211,10 +214,8 @@ const GameController = () => {
       // if match, broadcast victory to the room. payload with playerId
       if (guess === currentWord) {
         await setPlayerRoundWins(socket.id);
-        sendMessageRoomFromServer(
-          handleMessage('victory', { playerId: socket.id }),
-          gameKey
-        );
+        const gameState = await getCurrentGameState(gameKey);
+        sendMessageRoomFromServer(handleMessage('victory', gameState), gameKey);
       }
     },
     leaveRoom: (socket, message) => {
