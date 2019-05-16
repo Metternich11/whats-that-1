@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const ResultsRoundBar = styled.div`
   display: flex;
@@ -10,6 +10,7 @@ const ResultsRoundBar = styled.div`
   background-color: #fff;
   color: #472c81;
   margin-bottom: 8px;
+  margin: 0 auto;
   border-radius: 8px;
   border-bottom: 2px solid #472c81;
 `;

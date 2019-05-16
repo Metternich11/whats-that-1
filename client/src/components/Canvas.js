@@ -1,18 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 
 // Component & Container Imports
-import Button from './Button';
-import { connect } from 'react-redux';
-import * as Actions from '../redux/actions/index';
+import Button from "./Button";
+import { connect } from "react-redux";
+import * as Actions from "../redux/actions/index";
 
 // to convert array into SVG string
-import quickdrawSvgRender from '../utils/quickdrawSvgRender/quickdrawSvgRender';
-import Results from '../containers/Results';
-import { nextTick } from 'q';
-
+import quickdrawSvgRender from "../utils/quickdrawSvgRender/quickdrawSvgRender";
+import Results from "../containers/Results";
+import { nextTick } from "q";
 
 const Canvas = ({ passDrawing, game, currentUser }) => {
-
   // arol tip: useReducer instead of having this mess of variables here.
   // arol tip #2: useReducer was just a cool way to handle this. But in order to fix this, it can be done with useState
   let isDrawing = false;
@@ -26,21 +24,21 @@ const Canvas = ({ passDrawing, game, currentUser }) => {
   const [locations, setLocations] = useState([]);
   const [count, setCount] = useState(0);
   const canvasRef = useRef(null);
-  const [googleGuess, setGoogleGuess] = useState('Draw something...');
+  const [googleGuess, setGoogleGuess] = useState("Draw something...");
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
 
     // canvas size
     canvas.width = 375;
     canvas.height = 375;
-    canvas.style.width = '375px';
-    canvas.style.height = '375px';
+    canvas.style.width = "375px";
+    canvas.style.height = "375px";
 
     // canvas settings
-    ctx.strokeStyle = '#fff';
-    ctx.linecap = 'round';
+    ctx.strokeStyle = "#fff";
+    ctx.linecap = "round";
     ctx.lineWidth = 3;
 
     const draw = e => {
@@ -60,9 +58,7 @@ const Canvas = ({ passDrawing, game, currentUser }) => {
 
         lastXCoordinate = e.offsetX;
         lastYCoordinate = e.offsetY;
-
       } else {
-
         let touch = e.touches[0];
         let x = touch.pageX - touch.target.offsetLeft;
         let y = touch.pageY - touch.target.offsetTop;
@@ -81,17 +77,17 @@ const Canvas = ({ passDrawing, game, currentUser }) => {
     };
 
     // eventlisteners: mouse
-    canvas.addEventListener('mousedown', e => {
+    canvas.addEventListener("mousedown", e => {
       isDrawing = true;
       lastXCoordinate = e.offsetX;
       lastYCoordinate = e.offsetY;
     });
     canvas.addEventListener("mousemove", draw);
     canvas.addEventListener("mouseup", () => postDrawingHelper());
-    canvas.addEventListener("mouseout", () => isDrawing = false);
+    canvas.addEventListener("mouseout", () => (isDrawing = false));
 
     // eventlisteners: touch
-    canvas.addEventListener('touchstart', e => {
+    canvas.addEventListener("touchstart", e => {
       isDrawing = true;
       let touch = e.touches[0];
 
@@ -106,7 +102,7 @@ const Canvas = ({ passDrawing, game, currentUser }) => {
       if (game.endRound) {
         // The round has finishe
         const svg = quickdrawSvgRender(drawing, canvas.width, canvas.height);
-        passDrawing(svg, 'passFinalDrawing');
+        passDrawing(svg, "passFinalDrawing");
         setCount(0);
       }
     }
@@ -115,18 +111,19 @@ const Canvas = ({ passDrawing, game, currentUser }) => {
 
   useEffect(() => {
     if (game.rounds && count > 0) {
-      let win = game.rounds.filter(round => {
-        return round.roundNum === game.round
-      })
-      .map(el => el.winners)
+      let win = game.rounds
+        .filter(round => {
+          return round.roundNum === game.round;
+        })
+        .map(el => el.winners);
       if (win.flat().includes(currentUser.userId)) {
         const svg = quickdrawSvgRender(drawing, 375, 375);
-        passDrawing(svg, 'passFinalDrawing');
+        passDrawing(svg, "passFinalDrawing");
         setCount(0);
+      }
+      setCount(1);
     }
-    setCount(1)
-  }
-}, [game.rounds]);
+  }, [game.rounds]);
 
   // helper function to post to API
   const postDrawingHelper = () => {
@@ -135,7 +132,7 @@ const Canvas = ({ passDrawing, game, currentUser }) => {
     let xyCoordinates = [xCoordinate, yCoordinate, timestamp];
     setDrawing(prev => {
       const updatedDrawing = [...prev, xyCoordinates];
-      passDrawing(updatedDrawing, 'passDrawing');
+      passDrawing(updatedDrawing, "passDrawing");
       return updatedDrawing;
     });
 
@@ -143,7 +140,7 @@ const Canvas = ({ passDrawing, game, currentUser }) => {
     yCoordinate = [];
     timestamp = [];
     xyCoordinates = [];
-  }
+  };
 
   const handleCanvasClick = e => {
     const newLocation = { x: e.clientX, y: e.clientY };
@@ -152,7 +149,7 @@ const Canvas = ({ passDrawing, game, currentUser }) => {
 
   const handleClear = () => {
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     setGoogleGuess("Draw something...");
     setLocations([]);
@@ -172,14 +169,16 @@ const Canvas = ({ passDrawing, game, currentUser }) => {
       <Button clear onClick={handleClear}>
         <i className="far fa-trash-alt" />
       </Button>
-      {googleGuess !== "Draw something..." ? (
-        <h4>
-          {googleGuess === "Draw something..." ? "" : "Is it... "}
-          {googleGuess === "Draw something..." ? "" : googleGuess}
-          {googleGuess === "Draw something..." ? "" : "?"}
-        </h4>
-      ) : null}
 
+      <div>
+        {googleGuess !== "Draw something..." ? (
+          <h4>
+            {googleGuess === "Draw something..." ? "" : "Is it... "}
+            {googleGuess === "Draw something..." ? "" : googleGuess}
+            {googleGuess === "Draw something..." ? "" : "?"}
+          </h4>
+        ) : null}
+      </div>
     </>
   );
 };
@@ -189,7 +188,7 @@ const mapStateToProps = state => ({
   currentUser: state.currentUser
 });
 
-const mapDispatchToProps = { passDrawing: Actions.passDrawing }
+const mapDispatchToProps = { passDrawing: Actions.passDrawing };
 
 export default connect(
   mapStateToProps,

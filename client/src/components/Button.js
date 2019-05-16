@@ -89,16 +89,16 @@ const Button = styled.button`
     props.clear &&
     css`
       background: #ff87ad;
-      height: 30px;
-      width: 30px;
+      height: 50px;
+      width: 50px;
       border-radius: 50%;
-      font-size: 0.8rem;
+      font-size: 1.2rem;
       margin: 0;
+      margin-bottom: -60px;
       padding: 0;
       position: relative;
-      top: -44px;
-      right: -160px;
-      z-index: 9999;
+      bottom: 60px;
+      right: -150px;
 
       :hover,
       :active {

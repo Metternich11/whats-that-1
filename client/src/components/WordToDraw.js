@@ -6,6 +6,11 @@ const WordToDraw = styled.div`
   p {
     margin: 0;
   }
+  h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0;
+  }
   h3 {
     text-transform: uppercase;
     font-weight: bold;

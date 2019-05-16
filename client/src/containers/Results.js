@@ -32,15 +32,15 @@ const Results = ({ history, restartGame, game }) => {
   const [open, setOpen] = useState(false);
   const players = game.players;
   const allRounds = game.rounds;
-  let obj = {}
+  let obj = {};
 
   allRounds
     .map(round => round.winners)
     .flat()
     .forEach(winner => {
-      if (obj[winner]=== undefined) obj[winner]=1;
+      if (obj[winner] === undefined) obj[winner] = 1;
       else obj[winner]++;
-    })
+    });
 
   let score = Math.max(...Object.values(obj));
   let winnerId = [];
@@ -57,49 +57,58 @@ const Results = ({ history, restartGame, game }) => {
   };
 
   return (
-    <Wrapper>
+    <Wrapper results>
       <PlayerList>
         {players &&
           Object.values(players).map((player, i) => (
             <div key={i}>
-            <PlayerAvatar key={i} info={player} />
-            {winnerId.includes(player.playerId) && <GameWinner />}
+              <PlayerAvatar key={i} info={player} />
+              {winnerId.includes(player.playerId) && <GameWinner />}
             </div>
           ))}
       </PlayerList>
 
-      <Fragment>
-        {allRounds.map((object, i) => (
-          <ResultsRoundBar
-            key={i}
-            onClick={() => setOpen(open === i ? false : i)}
-          >
-            <div>
-              {object.drawings && object.drawings[0].word.toUpperCase()}{" "}
-              {open === i ? downArrow : rightArrow}
-            </div>
-
-            <Content
-              className="content"
-              pose={open === i ? "open" : "closed"}
-              style={{ overflow: "hidden", fontSize: "18px" }}
+      <div>
+        <Fragment>
+          {allRounds.map((object, i) => (
+            <ResultsRoundBar
+              key={i}
+              onClick={() => setOpen(open === i ? false : i)}
             >
-              <DrawingWrapper>
-                {object.drawings &&
-                  object.drawings.map((drawing, i) => (
-                    <div key={i}>
-                      <SimpleSvg image={drawing.svg} />
-                      <div style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
-                        <PlayerAvatar info={drawing} />
-                        <b>{drawing.playerName}</b> drew that!
+              <div>
+                {object.drawings && object.drawings[0].word.toUpperCase()}{" "}
+                {open === i ? downArrow : rightArrow}
+              </div>
+
+              <Content
+                className="content"
+                pose={open === i ? "open" : "closed"}
+                style={{ overflow: "hidden", fontSize: "18px" }}
+              >
+                <DrawingWrapper>
+                  {object.drawings &&
+                    object.drawings.map((drawing, i) => (
+                      <div key={i} style={{ width: "50%", height: "50%" }}>
+                        <SimpleSvg image={drawing.svg} />
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center"
+                          }}
+                        >
+                          <PlayerAvatar info={drawing} />
+                          <b>{drawing.playerName}</b> drew that!
+                        </div>
                       </div>
-                    </div>
-                  ))}
-              </DrawingWrapper>
-            </Content>
-          </ResultsRoundBar>
-        ))}
-      </Fragment>
+                    ))}
+                </DrawingWrapper>
+              </Content>
+            </ResultsRoundBar>
+          ))}
+        </Fragment>
+      </div>
+
       <Button marginTop onClick={playAgain}>
         Play Again
       </Button>
@@ -114,7 +123,9 @@ const mapStateToProps = state => ({
 function SimpleSvg(props) {
   const encodedImage = btoa(props.image);
   const imageSrc = `data:image/svg+xml;base64,${encodedImage}`;
-  return <DrawnImage src={imageSrc} style={{ width: "50%", height: "50%" }} />;
+  return (
+    <DrawnImage src={imageSrc} style={{ width: "100%", height: "100%" }} />
+  );
 }
 
 const mapDispatchToProps = dispatch => ({

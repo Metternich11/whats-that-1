@@ -3,6 +3,7 @@ import Countdown from "react-countdown-now";
 
 // Redux Imports
 import { connect } from "react-redux";
+
 // Component & Container Imports
 import Canvas from "../components/Canvas";
 import GuessingContainer from "../components/GuessingContainer";
@@ -15,6 +16,7 @@ import WordToDraw from "../components/WordToDraw";
 import Wrapper from "../components/Wrapper";
 import Zorb from "../components/Zorb";
 import ZorbContainer from "../components/ZorbContainer";
+import ZorbThinkingContainer from "../components/ZorbThinkingContainer";
 
 export const Game = ({ history, game, currentUser }) => {
   const [count, setCount] = useState(0);
@@ -36,19 +38,20 @@ export const Game = ({ history, game, currentUser }) => {
   useEffect(() => {
     let win;
     if (game.rounds && count > 0) {
-      win = game.rounds.filter(round => {
-        return round.roundNum === game.round
-      })
-      .map(el => el.winners)
+      win = game.rounds
+        .filter(round => {
+          return round.roundNum === game.round;
+        })
+        .map(el => el.winners);
 
       if (win.flat().includes(currentUser.userId)) {
-          history.push('/guessed-correctly');
-          win = null;
-          setGuessCount(0);
-        }
+        history.push("/guessed-correctly");
+        win = null;
+        setGuessCount(0);
       }
-      setGuessCount(1) 
-  }, [game.rounds])
+    }
+    setGuessCount(1);
+  }, [game.rounds]);
 
   const renderer = ({ seconds, completed }) => {
     if (completed) {
@@ -57,7 +60,6 @@ export const Game = ({ history, game, currentUser }) => {
       return (
         <>
           <h2>{seconds}</h2>
-          <p>{" seconds remaining"}</p>
         </>
       );
     }
@@ -74,46 +76,48 @@ export const Game = ({ history, game, currentUser }) => {
   return (
     <Wrapper>
       <WordToDraw>
-        Can you draw...
-        <h3>{game.word}</h3>
+        <h1>{game.word}</h1>
       </WordToDraw>
 
       <Canvas />
+
       <GuessingContainer>
-        <div>
-          <SpeechBubble zorbThinking>
-            <Guessing guess={game.guess} />
-          </SpeechBubble>
+        <ZorbThinkingContainer>
           <ZorbContainer zorbGuessing>
             <Zorb />
           </ZorbContainer>
-        </div>
+          <SpeechBubble zorbThinking>
+            <Guessing guess={game.guess} />
+          </SpeechBubble>
+        </ZorbThinkingContainer>
 
         <TimeRemaining>
           <Countdown date={time} renderer={renderer} />
         </TimeRemaining>
       </GuessingContainer>
 
-      <PlayerList game>
+      <PlayerList game mobile>
         {opponents &&
           Object.values(opponents).map((player, index) => {
-            if (game.rounds[game.round-1] && game.rounds[game.round-1].winners.includes(player.playerId)) {
+            if (
+              game.rounds[game.round - 1] &&
+              game.rounds[game.round - 1].winners.includes(player.playerId)
+            ) {
               return (
                 <div key={player.playerId}>
-                  <CheckMark key={index}/>
+                  <CheckMark key={index} />
                   <h3>{player.playerName}</h3>
                 </div>
-              )
-            }
-            else {
+              );
+            } else {
               return (
                 <div key={player.playerId}>
                   <PlayerAvatar key={index} info={player} />
                   <h3>{player.playerName}</h3>
                 </div>
-              )
-            } 
-        })}
+              );
+            }
+          })}
       </PlayerList>
     </Wrapper>
   );

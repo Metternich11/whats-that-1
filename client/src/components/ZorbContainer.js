@@ -23,7 +23,11 @@ const ZorbContainer = styled.div`
   ${props =>
     props.zorbGuessing &&
     css`
-      transform: scale(0.75);
+      transform: scale(0.6);
+      margin: 0px 20px -60px -20px;
+      width: 20%;
+      position: relative;
+      z-index: 9999;
 
       .levitate {
         animation: none;

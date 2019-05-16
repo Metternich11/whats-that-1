@@ -65,13 +65,13 @@ const Create = props => {
         <Button refresh type="" onClick={refreshAvatar}>
           <i className="fas fa-sync-alt" />
         </Button>
-        <FormLabel>What`s your name?</FormLabel>
+        <FormLabel>What&apos;s your name?</FormLabel>
         <InputField
           type="text"
           name="name"
           onChange={handlePlayerName}
           required
-          maxLength="28"
+          maxLength="8"
         />
 
         <FormLabel>Game ID:</FormLabel>

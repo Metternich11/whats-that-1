@@ -57,6 +57,7 @@ const Wrapper = styled.div`
         padding-bottom: 5px;
       }
     `};
+
   ${props =>
     props.GuessedCorrectly &&
     css`
@@ -64,6 +65,12 @@ const Wrapper = styled.div`
       flex-direction: column;
       justify-content: center;
       align-items: center;
+    `};
+
+  ${props =>
+    props.results &&
+    css`
+      justify-content: space-evenly;
     `};
 `;
 

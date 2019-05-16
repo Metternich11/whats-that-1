@@ -83,7 +83,7 @@ const Join = ({ game, pages, connectGame, history, currentUser }) => {
           name="name"
           onChange={handlePlayerName}
           required
-          maxLengthf="28"
+          maxLength="8"
         />
 
         <FormLabel>Enter Game ID:</FormLabel>
@@ -100,7 +100,9 @@ const Join = ({ game, pages, connectGame, history, currentUser }) => {
             Join
           </Button>
           <p className="small lightweight">or</p>
+
           <Button back marginBottom type="button" onClick={goBack}>
+
             Back
           </Button>
         </ButtonContainer>
@@ -110,7 +112,6 @@ const Join = ({ game, pages, connectGame, history, currentUser }) => {
 };
 
 const mapStateToProps = state => {
-  console.log("STATE", state);
   return {
     game: state.game,
     pages: state.pages,

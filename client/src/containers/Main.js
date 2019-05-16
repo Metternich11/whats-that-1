@@ -26,9 +26,10 @@ export const Main = props => {
         <div>
           <Header>{`What's that?`}</Header>
           <Hero>
-            You draw, BUGY guesses. You have only 20 seconds per round to show
-            off your artistic skills. Can BUGY understand what you are trying to
-            draw? Let&apos;s get started!
+            You draw, <strong>BUGY</strong> guesses. You have only 15 seconds
+            per round to show off your artistic skills. Can{" "}
+            <strong>BUGY</strong> understand what you are trying to draw?
+            Let&apos;s get started!
           </Hero>
         </div>
         <div>
@@ -51,7 +52,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100vh;
+  height: 90vh;
 `;
 
 const Header = styled.h1`

@@ -61,17 +61,17 @@ const SpeechBubble = styled.span`
       animation: none;
       background-color: #472c81;
       color: #fff;
-      height: 30px;
       margin-left: 0;
       font-size: 1.2rem;
-      padding: 5px 10px;
-      height: 60px;
+      padding: 10px 5px;
+      width: 80%;
 
       &:after {
         border-top-color: #472c81;
         margin-left: 20px;
-        right: 40%;
-        margin-left: 0;
+        right: 95%;
+        bottom: 20px;
+        transform: rotate(45deg);
       }
 
       @keyframes float {
