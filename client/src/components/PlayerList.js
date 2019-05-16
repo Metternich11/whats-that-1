@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components/macro";
 
 const PlayerList = styled.div`
-  align-items: baseline;
+  align-items: flex-end;
   justify-content: space-around;
   display: flex;
   width: 100%;

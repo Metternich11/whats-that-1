@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/macro";
 import SplitText from "react-pose-text";
 
 // Redux Imports
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 
 // Component & Container Imports
 import Wrapper from "../components/Wrapper";
@@ -16,7 +16,7 @@ import PlayerList from "../components/PlayerList";
 import PlayerAvatar from "../components/PlayerAvatar";
 import Confetti from "../components/Confetti";
 
-export const GuessedCorrectly = ({history, game}) => {
+export const GuessedCorrectly = ({ history, game }) => {
   const [count, setCount] = useState(0);
 
   const opponents = game.players;
@@ -38,10 +38,10 @@ export const GuessedCorrectly = ({history, game}) => {
   }, [game.endRound, game.endGame]);
 
   const charPoses = {
-    exit: {opacity: 0},
+    exit: { opacity: 0 },
     enter: {
       opacity: 1,
-      delay: ({charIndex}) => charIndex * 5
+      delay: ({ charIndex }) => charIndex * 5
     }
   };
   return (
@@ -59,7 +59,10 @@ export const GuessedCorrectly = ({history, game}) => {
           </SplitText>
         </p>
       </StyledText>
-      <PlayerList game>
+
+
+      {//this doesn't re-render
+        /* <PlayerList game>
         {opponents &&
           Object.values(opponents).map((player, index) => {
 
@@ -83,7 +86,7 @@ export const GuessedCorrectly = ({history, game}) => {
               )
             }
           })}
-      </PlayerList>
+      </PlayerList> */}
       <Confetti active={true} />
     </Wrapper>
   );
