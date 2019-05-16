@@ -10,6 +10,8 @@ import generateAvatarProps from "../utils/generateAvatarProps";
 // Library imports
 import Avatar from "avataaars";
 
+const defaultSize = 74;
+
 const PlayerAvatar = props => {
   let localProps = generateAvatarProps();
 
@@ -20,16 +22,16 @@ const PlayerAvatar = props => {
   return !props.info ? (
     <Avatar
       style={{
-        width: "60px",
-        height: "60px"
+        width: `${props.size||defaultSize}px`,
+        height: `${props.size||defaultSize}px`
       }}
       {...localProps}
     />
   ) : (
       <Avatar
         style={{
-          width: "60px",
-          height: "60px"
+          width: `${props.size||defaultSize}px`,
+          height: `${props.size||defaultSize}px`
         }}
         {...props.info.playerAvatar}
       />

@@ -33,8 +33,13 @@ const getWords = require('../helpers/requestWords');
 const requestQuickDraw = require('../helpers/requestGuess');
 
 const TOTALROUNDS = 2;
+<<<<<<< HEAD
 const MillisecondsPerRound = 20000;
 const MillisecondsBetweenRounds = 3000;
+=======
+const MillisecondsPerRound = 10000;
+const MillisecondsBetweenRounds = 5000;
+>>>>>>> feat: added animations on inBetweenRounds
 const maxNumPlayers = 6;
 
 const GameController = () => {

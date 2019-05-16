@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 
 // Redux Imports
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import * as Actions from '../redux/actions/index';
 
 // Component & Container Imports
@@ -19,7 +19,7 @@ import Wrapper from '../components/Wrapper';
 import generateAvatarProps from "../utils/generateAvatarProps";
 
 
-const Join = ({ game, pages, connectGame, history, currentUser }) => {
+const Join = ({game, pages, connectGame, history, currentUser}) => {
   const [playerName, setPlayerName] = useState('');
   const [gameKey, setGameKey] = useState('');
   const [userChoice, setUserChoice] = useState("");
@@ -70,7 +70,7 @@ const Join = ({ game, pages, connectGame, history, currentUser }) => {
         <SpeechBubble inGame>Looking good!</SpeechBubble>
         <div>
           <AvatarContainer
-            style={{ transform: 'scale(2.5)', marginTop: '2vh' }}
+            style={{transform: 'scale(2.5)', marginTop: '2vh'}}
           >
             <PlayerAvatar userChoice={userChoice} />
           </AvatarContainer>
@@ -84,6 +84,7 @@ const Join = ({ game, pages, connectGame, history, currentUser }) => {
           name='name'
           onChange={handlePlayerName}
           required
+          maxLengthf="28"
         />
 
         <FormLabel>Enter Game ID:</FormLabel>
@@ -118,7 +119,7 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = { connectGame: Actions.connectGame };
+const mapDispatchToProps = {connectGame: Actions.connectGame};
 
 export default connect(
   mapStateToProps,

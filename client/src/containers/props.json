@@ -1,0 +1,291 @@
+{
+  "history": {
+    "length": 50,
+    "action": "PUSH",
+    "location": {
+      "pathname": "/between-rounds",
+      "search": "",
+      "hash": "",
+      "key": "2921dq"
+    }
+  },
+  "game": {
+    "word": "The Eiffel Tower",
+    "join": {},
+    "inBetweenRounds": true,
+    "endGame": false,
+    "guess": "The Eiffel Tower",
+    "winners": [],
+    "rounds": [
+      {
+        "roundNum": 1,
+        "winners": [
+          "OqYWdOhmEh4l0PtJAAAD"
+        ],
+        "drawings": [
+          {
+            "author": "OqYWdOhmEh4l0PtJAAAD",
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" xlink=\"http://www.w3.org/1999/xlink\" height=\"375\" width=\"375\" viewBox=\"0 0 375 375\"><path d=\"M 94 298 L 96 293 L 99 287 L 103 281 L 107 275 L 116 265 L 121 257 L 127 249 L 130 241 L 135 228 L 136 218 L 138 209 L 139 198 L 141 183 L 142 175 L 144 166 L 145 156 L 147 150 L 148 142 L 148 135 L 150 126 L 150 120 L 150 113 L 150 109 L 150 100 L 150 95 L 150 91 L 150 87 L 151 82 L 152 77 L 152 75 L 153 70 L 153 64 L 153 60 L 153 56 L 153 53 L 153 50 L 153 47 L 153 46 L 153 45 L 153 43 L 154 43 L 154 42 L 154 41 L 154 39 L 155 42 L 156 46 L 158 51 L 159 56 L 160 62 L 161 66 L 161 69 L 162 72 L 163 77 L 166 81 L 168 87 L 169 91 L 173 101 L 175 106 L 176 112 L 178 117 L 178 119 L 181 126 L 182 132 L 183 137 L 183 140 L 184 146 L 186 153 L 187 157 L 187 164 L 189 172 L 189 179 L 191 185 L 191 191 L 192 198 L 192 203 L 193 210 L 194 215 L 197 224 L 198 230 L 201 235 L 203 240 L 206 248 L 209 253 L 210 257 L 211 262 L 214 266 L 214 267 L 215 268 L 215 271 L 216 271 L 216 272 L 217 273 L 218 273 L 219 274 L 220 275 L 221 277 L 222 278 L 223 281 L 224 283 L 225 285 L 225 286 L 226 289 L 226 290 L 227 291 L 227 292 L 228 293 L 228 294 L 229 296 L 230 297 L 230 298 L 231 300 L 232 301 L 233 302 L 235 303 L 236 303 L 236 304 L 234 301 L 232 299 L 230 298 L 228 297 L 224 296\" strokeWidth=\"3\" stroke=\"black\" fill=\"none\"></path></svg>",
+            "word": "The Eiffel Tower",
+            "playerName": "Arol du Pompugnac",
+            "playerAvatar": {
+              "avatarStyle": "Circle",
+              "topType": "LongHairDreads",
+              "accessoriesType": "Prescription01",
+              "hairColor": "Blonde",
+              "facialHairType": "Blank",
+              "facialHairColor": "Brown",
+              "clotheType": "Hoodie",
+              "clotheColor": "Blue01",
+              "graphicType": "Pizza",
+              "eyeType": "EyeRoll",
+              "eyebrowType": "Default",
+              "mouthType": "Tongue",
+              "skinColor": "Brown"
+            }
+          },
+          {
+            "author": "sWtZ2C23zevqE_rsAAAE",
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" xlink=\"http://www.w3.org/1999/xlink\" height=\"375\" width=\"375\" viewBox=\"0 0 375 375\"><path d=\"M 141.2857208251953 114.28572082519531 L 138.71429443359375 139.1428680419922 L 133.85714721679688 168.00003051757812 L 120.71429443359375 212 L 115.57145690917969 224.28573608398438 L 104.71430206298828 244.00003051757812 L 97.00001525878906 258.2857360839844 L 92.71430206298828 266.0000305175781 L 91.28572845458984 268.2857360839844 L 90.71430206298828 268.0000305175781 L 93.00001525878906 260.2857360839844 L 106.14286041259766 231.14288330078125 L 121 196.85714721679688 L 135 166.00003051757812 L 144.14288330078125 142.00003051757812 L 151.2857208251953 125.4285888671875 L 156.71429443359375 113.4285888671875 L 160.71429443359375 103.71429443359375 L 165.85714721679688 94.00001525878906 L 172.14288330078125 85.14286804199219 L 177.00003051757812 78.00001525878906 L 179.5714569091797 74.00001525878906 L 181.00003051757812 72.00001525878906 L 182.14288330078125 71.14286804199219 L 184.14288330078125 72.28572082519531 L 188.71429443359375 78.85714721679688 L 195.00003051757812 91.14286804199219 L 201.2857208251953 107.42857360839844 L 206.71429443359375 125.4285888671875 L 213.00003051757812 142.85714721679688 L 220.42860412597656 162.57147216796875 L 227.5714569091797 186.00003051757812 L 232.71429443359375 208.57144165039062 L 236.14288330078125 227.14288330078125 L 238.14291381835938 238.85714721679688 L 238.4285888671875 245.14288330078125 L 238.14291381835938 248.28573608398438 L 237.57147216796875 249.71429443359375 L 237 250.00003051757812 L 236.71429443359375 249.4285888671875\" strokeWidth=\"3\" stroke=\"black\" fill=\"none\"></path></svg>",
+            "word": "The Eiffel Tower",
+            "playerName": "Yy",
+            "playerAvatar": {
+              "avatarStyle": "Circle",
+              "topType": "LongHairShavedSides",
+              "accessoriesType": "Round",
+              "hairColor": "Platinum",
+              "facialHairType": "Blank",
+              "facialHairColor": "BlondeGolden",
+              "clotheType": "BlazerSweater",
+              "clotheColor": "Blue03",
+              "graphicType": "Deer",
+              "eyeType": "Surprised",
+              "eyebrowType": "SadConcernedNatural",
+              "mouthType": "Disbelief",
+              "skinColor": "Brown"
+            }
+          },
+          {
+            "author": "uEr1zhiEi76VPBu_AAAF",
+            "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" xlink=\"http://www.w3.org/1999/xlink\" height=\"375\" width=\"375\" viewBox=\"0 0 375 375\"><path d=\"M 120 263 L 122 248 L 128 225 L 134 199 L 140 175 L 145 154 L 150 135 L 158 110 L 169 89 L 176 76 L 182 68 L 189 62 L 196 59 L 201 58 L 205 58 L 207 61 L 210 73 L 212 91 L 214 118 L 215 154 L 215 189 L 215 222 L 217 248 L 220 265 L 222 277 L 222 283 L 222 285\" strokeWidth=\"3\" stroke=\"black\" fill=\"none\"></path><path d=\"M 120 179 L 140 179 L 164 176 L 187 171 L 210 165 L 228 159 L 250 152 L 267 145\" strokeWidth=\"3\" stroke=\"black\" fill=\"none\"></path></svg>",
+            "word": "The Eiffel Tower",
+            "playerName": "Yuh",
+            "playerAvatar": {
+              "avatarStyle": "Circle",
+              "topType": "LongHairNotTooLong",
+              "accessoriesType": "Prescription01",
+              "hairColor": "Platinum",
+              "facialHairType": "MoustacheFancy",
+              "facialHairColor": "Blonde",
+              "clotheType": "Hoodie",
+              "clotheColor": "PastelGreen",
+              "graphicType": "Deer",
+              "eyeType": "EyeRoll",
+              "eyebrowType": "DefaultNatural",
+              "mouthType": "Concerned",
+              "skinColor": "Tanned"
+            }
+          }
+        ]
+      }
+    ],
+    "gameKey": "late-dawn",
+    "players": {
+      "OqYWdOhmEh4l0PtJAAAD": {
+        "playerName": "Arol",
+        "playerAvatar": {
+          "avatarStyle": "Circle",
+          "topType": "LongHairDreads",
+          "accessoriesType": "Prescription01",
+          "hairColor": "Blonde",
+          "facialHairType": "Blank",
+          "facialHairColor": "Brown",
+          "clotheType": "Hoodie",
+          "clotheColor": "Blue01",
+          "graphicType": "Pizza",
+          "eyeType": "EyeRoll",
+          "eyebrowType": "Default",
+          "mouthType": "Tongue",
+          "skinColor": "Brown"
+        },
+        "playerId": "OqYWdOhmEh4l0PtJAAAD"
+      },
+      "sWtZ2C23zevqE_rsAAAE": {
+        "playerName": "Yy",
+        "playerAvatar": {
+          "avatarStyle": "Circle",
+          "topType": "LongHairShavedSides",
+          "accessoriesType": "Round",
+          "hairColor": "Platinum",
+          "facialHairType": "Blank",
+          "facialHairColor": "BlondeGolden",
+          "clotheType": "BlazerSweater",
+          "clotheColor": "Blue03",
+          "graphicType": "Deer",
+          "eyeType": "Surprised",
+          "eyebrowType": "SadConcernedNatural",
+          "mouthType": "Disbelief",
+          "skinColor": "Brown"
+        },
+        "playerId": "sWtZ2C23zevqE_rsAAAE"
+      },
+      "uEr1zhiEi76VPBu_AAAF": {
+        "playerName": "Yuh",
+        "playerAvatar": {
+          "avatarStyle": "Circle",
+          "topType": "LongHairNotTooLong",
+          "accessoriesType": "Prescription01",
+          "hairColor": "Platinum",
+          "facialHairType": "MoustacheFancy",
+          "facialHairColor": "Blonde",
+          "clotheType": "Hoodie",
+          "clotheColor": "PastelGreen",
+          "graphicType": "Deer",
+          "eyeType": "EyeRoll",
+          "eyebrowType": "DefaultNatural",
+          "mouthType": "Concerned",
+          "skinColor": "Tanned"
+        },
+        "playerId": "uEr1zhiEi76VPBu_AAAF"
+      }
+    },
+    "timer": 5000,
+    "round": 1,
+    "endRound": 1,
+    "playerDrawings": [
+      {
+        "playerName": "Arol",
+        "playerAvatar": {
+          "avatarStyle": "Circle",
+          "topType": "LongHairDreads",
+          "accessoriesType": "Prescription01",
+          "hairColor": "Blonde",
+          "facialHairType": "Blank",
+          "facialHairColor": "Brown",
+          "clotheType": "Hoodie",
+          "clotheColor": "Blue01",
+          "graphicType": "Pizza",
+          "eyeType": "EyeRoll",
+          "eyebrowType": "Default",
+          "mouthType": "Tongue",
+          "skinColor": "Brown"
+        },
+        "roundWins": [
+          {
+            "round": 1,
+            "winner": true
+          }
+        ],
+        "isCreator": true,
+        "gameKey": "late-dawn",
+        "draws": [
+          {
+            "round": 1,
+            "draw": "<svg xmlns=\"http://www.w3.org/2000/svg\" xlink=\"http://www.w3.org/1999/xlink\" height=\"375\" width=\"375\" viewBox=\"0 0 375 375\"><path d=\"M 94 298 L 96 293 L 99 287 L 103 281 L 107 275 L 116 265 L 121 257 L 127 249 L 130 241 L 135 228 L 136 218 L 138 209 L 139 198 L 141 183 L 142 175 L 144 166 L 145 156 L 147 150 L 148 142 L 148 135 L 150 126 L 150 120 L 150 113 L 150 109 L 150 100 L 150 95 L 150 91 L 150 87 L 151 82 L 152 77 L 152 75 L 153 70 L 153 64 L 153 60 L 153 56 L 153 53 L 153 50 L 153 47 L 153 46 L 153 45 L 153 43 L 154 43 L 154 42 L 154 41 L 154 39 L 155 42 L 156 46 L 158 51 L 159 56 L 160 62 L 161 66 L 161 69 L 162 72 L 163 77 L 166 81 L 168 87 L 169 91 L 173 101 L 175 106 L 176 112 L 178 117 L 178 119 L 181 126 L 182 132 L 183 137 L 183 140 L 184 146 L 186 153 L 187 157 L 187 164 L 189 172 L 189 179 L 191 185 L 191 191 L 192 198 L 192 203 L 193 210 L 194 215 L 197 224 L 198 230 L 201 235 L 203 240 L 206 248 L 209 253 L 210 257 L 211 262 L 214 266 L 214 267 L 215 268 L 215 271 L 216 271 L 216 272 L 217 273 L 218 273 L 219 274 L 220 275 L 221 277 L 222 278 L 223 281 L 224 283 L 225 285 L 225 286 L 226 289 L 226 290 L 227 291 L 227 292 L 228 293 L 228 294 L 229 296 L 230 297 L 230 298 L 231 300 L 232 301 L 233 302 L 235 303 L 236 303 L 236 304 L 234 301 L 232 299 L 230 298 L 228 297 L 224 296\" strokeWidth=\"3\" stroke=\"black\" fill=\"none\"></path></svg>",
+            "word": "The Eiffel Tower",
+            "winner": [
+              {
+                "round": 1,
+                "winner": true
+              }
+            ]
+          }
+        ],
+        "id": "OqYWdOhmEh4l0PtJAAAD"
+      },
+      {
+        "playerName": "Yy",
+        "playerAvatar": {
+          "avatarStyle": "Circle",
+          "topType": "LongHairShavedSides",
+          "accessoriesType": "Round",
+          "hairColor": "Platinum",
+          "facialHairType": "Blank",
+          "facialHairColor": "BlondeGolden",
+          "clotheType": "BlazerSweater",
+          "clotheColor": "Blue03",
+          "graphicType": "Deer",
+          "eyeType": "Surprised",
+          "eyebrowType": "SadConcernedNatural",
+          "mouthType": "Disbelief",
+          "skinColor": "Brown"
+        },
+        "roundWins": [],
+        "isCreator": false,
+        "gameKey": "late-dawn",
+        "draws": [
+          {
+            "round": 1,
+            "draw": "<svg xmlns=\"http://www.w3.org/2000/svg\" xlink=\"http://www.w3.org/1999/xlink\" height=\"375\" width=\"375\" viewBox=\"0 0 375 375\"><path d=\"M 141.2857208251953 114.28572082519531 L 138.71429443359375 139.1428680419922 L 133.85714721679688 168.00003051757812 L 120.71429443359375 212 L 115.57145690917969 224.28573608398438 L 104.71430206298828 244.00003051757812 L 97.00001525878906 258.2857360839844 L 92.71430206298828 266.0000305175781 L 91.28572845458984 268.2857360839844 L 90.71430206298828 268.0000305175781 L 93.00001525878906 260.2857360839844 L 106.14286041259766 231.14288330078125 L 121 196.85714721679688 L 135 166.00003051757812 L 144.14288330078125 142.00003051757812 L 151.2857208251953 125.4285888671875 L 156.71429443359375 113.4285888671875 L 160.71429443359375 103.71429443359375 L 165.85714721679688 94.00001525878906 L 172.14288330078125 85.14286804199219 L 177.00003051757812 78.00001525878906 L 179.5714569091797 74.00001525878906 L 181.00003051757812 72.00001525878906 L 182.14288330078125 71.14286804199219 L 184.14288330078125 72.28572082519531 L 188.71429443359375 78.85714721679688 L 195.00003051757812 91.14286804199219 L 201.2857208251953 107.42857360839844 L 206.71429443359375 125.4285888671875 L 213.00003051757812 142.85714721679688 L 220.42860412597656 162.57147216796875 L 227.5714569091797 186.00003051757812 L 232.71429443359375 208.57144165039062 L 236.14288330078125 227.14288330078125 L 238.14291381835938 238.85714721679688 L 238.4285888671875 245.14288330078125 L 238.14291381835938 248.28573608398438 L 237.57147216796875 249.71429443359375 L 237 250.00003051757812 L 236.71429443359375 249.4285888671875\" strokeWidth=\"3\" stroke=\"black\" fill=\"none\"></path></svg>",
+            "word": "The Eiffel Tower",
+            "winner": []
+          },
+          {
+            "round": 1,
+            "draw": "<svg xmlns=\"http://www.w3.org/2000/svg\" xlink=\"http://www.w3.org/1999/xlink\" height=\"375\" width=\"375\" viewBox=\"0 0 375 375\"><path d=\"M 141.2857208251953 114.28572082519531 L 138.71429443359375 139.1428680419922 L 133.85714721679688 168.00003051757812 L 120.71429443359375 212 L 115.57145690917969 224.28573608398438 L 104.71430206298828 244.00003051757812 L 97.00001525878906 258.2857360839844 L 92.71430206298828 266.0000305175781 L 91.28572845458984 268.2857360839844 L 90.71430206298828 268.0000305175781 L 93.00001525878906 260.2857360839844 L 106.14286041259766 231.14288330078125 L 121 196.85714721679688 L 135 166.00003051757812 L 144.14288330078125 142.00003051757812 L 151.2857208251953 125.4285888671875 L 156.71429443359375 113.4285888671875 L 160.71429443359375 103.71429443359375 L 165.85714721679688 94.00001525878906 L 172.14288330078125 85.14286804199219 L 177.00003051757812 78.00001525878906 L 179.5714569091797 74.00001525878906 L 181.00003051757812 72.00001525878906 L 182.14288330078125 71.14286804199219 L 184.14288330078125 72.28572082519531 L 188.71429443359375 78.85714721679688 L 195.00003051757812 91.14286804199219 L 201.2857208251953 107.42857360839844 L 206.71429443359375 125.4285888671875 L 213.00003051757812 142.85714721679688 L 220.42860412597656 162.57147216796875 L 227.5714569091797 186.00003051757812 L 232.71429443359375 208.57144165039062 L 236.14288330078125 227.14288330078125 L 238.14291381835938 238.85714721679688 L 238.4285888671875 245.14288330078125 L 238.14291381835938 248.28573608398438 L 237.57147216796875 249.71429443359375 L 237 250.00003051757812 L 236.71429443359375 249.4285888671875\" strokeWidth=\"3\" stroke=\"black\" fill=\"none\"></path><path d=\"M 147.85714721679688 148.00003051757812 L 153.2857208251953 148.2857208251953 L 163.85714721679688 147.71429443359375 L 169.2857208251953 147.1428680419922 L 177.00003051757812 145.4285888671875 L 183.5714569091797 143.71429443359375 L 189.2857208251953 142.00003051757812 L 193.00003051757812 140.85714721679688 L 195.2857208251953 140.00003051757812 L 197.85714721679688 139.1428680419922 L 202.42860412597656 137.71429443359375 L 207.5714569091797 137.71429443359375\" strokeWidth=\"3\" stroke=\"black\" fill=\"none\"></path><path d=\"M 147.85714721679688 148.00003051757812 L 153.2857208251953 148.2857208251953 L 163.85714721679688 147.71429443359375 L 169.2857208251953 147.1428680419922 L 177.00003051757812 145.4285888671875 L 183.5714569091797 143.71429443359375 L 189.2857208251953 142.00003051757812 L 193.00003051757812 140.85714721679688 L 195.2857208251953 140.00003051757812 L 197.85714721679688 139.1428680419922 L 202.42860412597656 137.71429443359375 L 207.5714569091797 137.71429443359375\" strokeWidth=\"3\" stroke=\"black\" fill=\"none\"></path><path d=\"M 166.71429443359375 109.71429443359375 L 165.85714721679688 134.5714569091797 L 161.85714721679688 169.14288330078125 L 154.42857360839844 207.14288330078125 L 146.42857360839844 242.28573608398438 L 140.14288330078125 269.71429443359375 L 134.42857360839844 283.7143249511719 L 129.85714721679688 290.2857360839844 L 127.85714721679688 292.2857360839844 L 126.42857360839844 292.57147216796875 L 125.85714721679688 283.7143249511719 L 131.5714569091797 250.00003051757812 L 139 210 L 149 174.28573608398438 L 160.42857360839844 141.4285888671875 L 174.14288330078125 112.57144165039062 L 186.42857360839844 92.85714721679688 L 197.00003051757812 80.57144165039062 L 205.85714721679688 72.85714721679688 L 213.2857208251953 69.14286804199219 L 218.14288330078125 69.14286804199219 L 222.14288330078125 73.42857360839844 L 228.14288330078125 90.85714721679688 L 231.2857208251953 120.00003051757812 L 231.85714721679688 154.28573608398438 L 232.71429443359375 183.71429443359375 L 232.42860412597656 206.28573608398438 L 231.5714569091797 221.14288330078125 L 230.42860412597656 229.4285888671875 L 229.5714569091797 233.71429443359375 L 229.2857208251953 238.00003051757812\" strokeWidth=\"3\" stroke=\"black\" fill=\"none\"></path><path d=\"M 166.71429443359375 109.71429443359375 L 165.85714721679688 134.5714569091797 L 161.85714721679688 169.14288330078125 L 154.42857360839844 207.14288330078125 L 146.42857360839844 242.28573608398438 L 140.14288330078125 269.71429443359375 L 134.42857360839844 283.7143249511719 L 129.85714721679688 290.2857360839844 L 127.85714721679688 292.2857360839844 L 126.42857360839844 292.57147216796875 L 125.85714721679688 283.7143249511719 L 131.5714569091797 250.00003051757812 L 139 210 L 149 174.28573608398438 L 160.42857360839844 141.4285888671875 L 174.14288330078125 112.57144165039062 L 186.42857360839844 92.85714721679688 L 197.00003051757812 80.57144165039062 L 205.85714721679688 72.85714721679688 L 213.2857208251953 69.14286804199219 L 218.14288330078125 69.14286804199219 L 222.14288330078125 73.42857360839844 L 228.14288330078125 90.85714721679688 L 231.2857208251953 120.00003051757812 L 231.85714721679688 154.28573608398438 L 232.71429443359375 183.71429443359375 L 232.42860412597656 206.28573608398438 L 231.5714569091797 221.14288330078125 L 230.42860412597656 229.4285888671875 L 229.5714569091797 233.71429443359375 L 229.2857208251953 238.00003051757812\" strokeWidth=\"3\" stroke=\"black\" fill=\"none\"></path></svg>",
+            "word": "The Eiffel Tower",
+            "winner": []
+          }
+        ],
+        "id": "sWtZ2C23zevqE_rsAAAE"
+      },
+      {
+        "playerName": "Yuh",
+        "playerAvatar": {
+          "avatarStyle": "Circle",
+          "topType": "LongHairNotTooLong",
+          "accessoriesType": "Prescription01",
+          "hairColor": "Platinum",
+          "facialHairType": "MoustacheFancy",
+          "facialHairColor": "Blonde",
+          "clotheType": "Hoodie",
+          "clotheColor": "PastelGreen",
+          "graphicType": "Deer",
+          "eyeType": "EyeRoll",
+          "eyebrowType": "DefaultNatural",
+          "mouthType": "Concerned",
+          "skinColor": "Tanned"
+        },
+        "roundWins": [],
+        "isCreator": false,
+        "gameKey": "late-dawn",
+        "draws": [
+          {
+            "round": 1,
+            "draw": "<svg xmlns=\"http://www.w3.org/2000/svg\" xlink=\"http://www.w3.org/1999/xlink\" height=\"375\" width=\"375\" viewBox=\"0 0 375 375\"><path d=\"M 120 263 L 122 248 L 128 225 L 134 199 L 140 175 L 145 154 L 150 135 L 158 110 L 169 89 L 176 76 L 182 68 L 189 62 L 196 59 L 201 58 L 205 58 L 207 61 L 210 73 L 212 91 L 214 118 L 215 154 L 215 189 L 215 222 L 217 248 L 220 265 L 222 277 L 222 283 L 222 285\" strokeWidth=\"3\" stroke=\"black\" fill=\"none\"></path><path d=\"M 120 179 L 140 179 L 164 176 L 187 171 L 210 165 L 228 159 L 250 152 L 267 145\" strokeWidth=\"3\" stroke=\"black\" fill=\"none\"></path></svg>",
+            "word": "The Eiffel Tower",
+            "winner": []
+          },
+          {
+            "round": 1,
+            "draw": "<svg xmlns=\"http://www.w3.org/2000/svg\" xlink=\"http://www.w3.org/1999/xlink\" height=\"375\" width=\"375\" viewBox=\"0 0 375 375\"><path d=\"M 120 263 L 122 248 L 128 225 L 134 199 L 140 175 L 145 154 L 150 135 L 158 110 L 169 89 L 176 76 L 182 68 L 189 62 L 196 59 L 201 58 L 205 58 L 207 61 L 210 73 L 212 91 L 214 118 L 215 154 L 215 189 L 215 222 L 217 248 L 220 265 L 222 277 L 222 283 L 222 285\" strokeWidth=\"3\" stroke=\"black\" fill=\"none\"></path><path d=\"M 120 179 L 140 179 L 164 176 L 187 171 L 210 165 L 228 159 L 250 152 L 267 145\" strokeWidth=\"3\" stroke=\"black\" fill=\"none\"></path><path d=\"M 132 224 L 145 221 L 160 216 L 180 212 L 220 207 L 240 206\" strokeWidth=\"3\" stroke=\"black\" fill=\"none\"></path></svg>",
+            "word": "The Eiffel Tower",
+            "winner": []
+          }
+        ],
+        "id": "uEr1zhiEi76VPBu_AAAF"
+      }
+    ]
+  },
+  "currentUser": {
+    "gameKey": "Late-Dawn",
+    "userAvatar": {
+      "avatarStyle": "Circle",
+      "topType": "LongHairStraight2",
+      "accessoriesType": "Blank",
+      "hairColor": "Auburn",
+      "facialHairType": "Blank",
+      "facialHairColor": "BlondeGolden",
+      "clotheType": "Hoodie",
+      "clotheColor": "Gray01",
+      "graphicType": "Bat",
+      "eyeType": "Happy",
+      "eyebrowType": "AngryNatural",
+      "mouthType": "Grimace",
+      "skinColor": "Pale"
+    },
+    "playerName": "Arol",
+    "isCreator": "createGame",
+    "userId": "OqYWdOhmEh4l0PtJAAAD"
+  }
+}
