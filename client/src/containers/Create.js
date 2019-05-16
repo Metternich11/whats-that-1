@@ -19,7 +19,6 @@ import Wrapper from "../components/Wrapper";
 // Util imports
 import generateAvatarProps from "../utils/generateAvatarProps";
 
-
 const Create = props => {
   const [playerName, setPlayerName] = useState("");
   const [userChoice, setUserChoice] = useState("");
@@ -45,16 +44,16 @@ const Create = props => {
     props.history.goBack();
   };
 
-  const refreshAvatar = (e) => {
+  const refreshAvatar = e => {
     e.preventDefault();
     let props = generateAvatarProps();
     setUserChoice(props);
-  }
+  };
 
   return (
     <Wrapper>
       <Form onSubmit={submitName}>
-        <FormLabel>Choose how sexy you are</FormLabel>
+        <FormLabel>Choose your look</FormLabel>
         <SpeechBubble inGame>Looking good!</SpeechBubble>
         <div>
           <AvatarContainer
@@ -62,7 +61,6 @@ const Create = props => {
           >
             <PlayerAvatar userChoice={userChoice} />
           </AvatarContainer>
-
         </div>
         <Button refresh type="" onClick={refreshAvatar}>
           <i className="fas fa-sync-alt" />

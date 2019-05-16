@@ -1,12 +1,12 @@
-import * as SocketTypes from '../actions/socketTypes';
-import * as ActionTypes from '../actions/gameTypes';
+import * as SocketTypes from "../actions/socketTypes";
+import * as ActionTypes from "../actions/gameTypes";
 
 const initialState = {
   word: [],
   join: {},
   inBetweenRounds: false,
   endGame: false,
-  guess: '',
+  guess: "",
   winners: [],
   rounds: []
 };
@@ -163,7 +163,9 @@ export default (state = initialState, action) => {
                 }).draw,
                 word: player.draws.find(draw => {
                   return draw.round === data.round.currentRound;
-                }).word
+                }).word,
+                playerName: player.playerName,
+                playerAvatar: player.playerAvatar
               }))
             }
           ]
