@@ -162,7 +162,7 @@ const gameModel = {
   getImagesFromGame: async gameKey => {
     const players = state.games[gameKey].players;
     const imagesFromRound = [];
-    
+
     players.forEach(player => {
       imagesFromRound.push(state.players[player].draws);
     });
