@@ -39,14 +39,20 @@ export const BetweenRounds = ({ history, game, currentUser }) => {
     <Wrapper>
       <WordToDraw inBetween>
         {/* <h3>{game.word}</h3> */}
-        <h2 className="gameHeader">Test</h2>
+        <h2 className="gameHeader">{game.word}</h2>
       </WordToDraw>
 
       <DrawingStack>
         {game.rounds[game.round - 1] &&
-          game.rounds[game.round - 1].drawings.map((draw, i) => (
+          game.rounds[game.round - 1].drawings.map((drawing, i) => (
             <PolaroidPicBackground key={i}>
-              <SimpleSvg key={i} image={draw.svg} />
+              <div key={i}>
+                <SimpleSvg image={drawing.svg} />
+                <div>
+                  <PlayerAvatar info={drawing} />
+                  <b>{drawing.playerName}</b> drew that!
+                </div>
+              </div>
             </PolaroidPicBackground>
           ))}
       </DrawingStack>

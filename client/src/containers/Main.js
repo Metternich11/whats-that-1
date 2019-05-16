@@ -26,8 +26,8 @@ export const Main = props => {
         <div>
           <Header>{`What's that?`}</Header>
           <Hero>
-            You draw, Zorb guesses. You have only 20 seconds per round to show
-            off your artistic skills. Can Zorb understand what you are trying to
+            You draw, BUGY guesses. You have only 20 seconds per round to show
+            off your artistic skills. Can BUGY understand what you are trying to
             draw? Let&apos;s get started!
           </Hero>
         </div>
