@@ -11,7 +11,7 @@ import Canvas from "../components/Canvas";
 import GameHeader from "../components/GameHeader";
 import LobbyWaiting from "../components/LobbyWaiting";
 import PlayerAvatar from "../components/PlayerAvatar";
-import PlayerEmptySlot from "../components/PlayerEmptySlot";
+// import PlayerEmptySlot from "../components/PlayerEmptySlot";
 import PlayerList from "../components/PlayerList";
 import Wrapper from "../components/Wrapper";
 import DeviceDetector from "../utils/deviceDetector";

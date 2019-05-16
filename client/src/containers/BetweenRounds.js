@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Countdown from "react-countdown-now";
 
 // Redux Imports
@@ -7,17 +7,20 @@ import { connect } from "react-redux";
 // Component & Container Imports
 import DrawingStack from "../components/DrawingStack";
 import PlayerAvatar from "../components/PlayerAvatar";
-import PlayerEmptySlot from "../components/PlayerEmptySlot";
+// import PlayerEmptySlot from "../components/PlayerEmptySlot";
 import PlayerList from "../components/PlayerList";
 import PolaroidPicBackground from "../components/PolaroidPicBackground";
 import TimeRemaining from "../components/TimeRemaining";
-import TestVG from "../components/TestVG";
 import WordToDraw from "../components/WordToDraw";
 import Wrapper from "../components/Wrapper";
+import styled from "styled-components";
+const DrawnImage = styled.img``;
 
 export const BetweenRounds = ({ history, game, currentUser }) => {
   const [count, setCount] = useState(0);
   const opponents = game.players;
+  const countRef = useRef(count);
+  countRef.current = count;
 
   useEffect(() => {
     if (count > 0) {
@@ -40,9 +43,12 @@ export const BetweenRounds = ({ history, game, currentUser }) => {
       </WordToDraw>
 
       <DrawingStack>
-        <PolaroidPicBackground>
-          <TestVG />
-        </PolaroidPicBackground>
+        {game.rounds[game.round - 1] &&
+          game.rounds[game.round - 1].drawings.map((draw, i) => (
+            <PolaroidPicBackground key={i}>
+              <SimpleSvg key={i} image={draw.svg} />
+            </PolaroidPicBackground>
+          ))}
       </DrawingStack>
 
       <PlayerList betweenRounds>
@@ -59,6 +65,14 @@ export const BetweenRounds = ({ history, game, currentUser }) => {
     </Wrapper>
   );
 };
+
+function SimpleSvg(props) {
+  const encodedImage = btoa(props.image);
+  const imageSrc = `data:image/svg+xml;base64,${encodedImage}`;
+  return (
+    <DrawnImage src={imageSrc} style={{ width: "100%", height: "100%" }} />
+  );
+}
 
 const mapStateToProps = state => ({
   game: state.game,

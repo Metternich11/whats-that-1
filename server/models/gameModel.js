@@ -153,7 +153,6 @@ const gameModel = {
   getImagesFromRound: async (gameKey, roundNumber) => {
     const players = await state.games[gameKey].players;
     const imagesFromRound = [];
-
     players.forEach(player => {
       imagesFromRound.push(state.players[player].draws[roundNumber - 1]);
     });
@@ -163,7 +162,7 @@ const gameModel = {
   getImagesFromGame: async gameKey => {
     const players = state.games[gameKey].players;
     const imagesFromRound = [];
-
+    
     players.forEach(player => {
       imagesFromRound.push(state.players[player].draws);
     });

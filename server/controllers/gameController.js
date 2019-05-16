@@ -33,8 +33,8 @@ const getWords = require('../helpers/requestWords');
 const requestQuickDraw = require('../helpers/requestGuess');
 
 const TOTALROUNDS = 2;
-const MillisecondsPerRound = 20000;
-const MillisecondsBetweenRounds = 5000;
+const MillisecondsPerRound = 10000;
+const MillisecondsBetweenRounds = 3000;
 const maxNumPlayers = 6;
 
 const GameController = () => {
@@ -90,7 +90,6 @@ const GameController = () => {
   const startCurrentRound = async gameKey => {
     if (gameExists(gameKey)) {
       const roundWord = getWords(1)[0];
-
       await startRound(gameKey, roundWord);
       timer(gameKey);
 
@@ -118,7 +117,6 @@ const GameController = () => {
   const createGame = async (socket, message) => {
     try {
       const gameKey = message.payload.gameKey;
-
       if (await gameExists(gameKey))
         return sendMessageToClient(
           socket,
@@ -130,6 +128,12 @@ const GameController = () => {
 
       joinRoom(socket, gameKey);
       sendMessageToClient(socket, handleMessage('gameCreated', { gameKey }));
+      sendMessageRoomFromServer(
+        handleMessage('playerJoin', {
+          players: await getPlayersFromGame(gameKey)
+        }),
+        gameKey
+      );
     } catch (error) {
       console.error(error);
       // TODO: Notify client

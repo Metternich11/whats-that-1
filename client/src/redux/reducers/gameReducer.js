@@ -30,7 +30,8 @@ export default (state = initialState, action) => {
           word: action.payload.payload.word,
           timer: action.payload.payload.timer,
           inBetweenRounds: !state.inBetweenRounds,
-          round: action.payload.payload.roundNum
+          round: action.payload.payload.roundNum,
+          guess: undefined
         };
       case SocketTypes.END_ROUND:
         return {
@@ -160,7 +161,10 @@ export default (state = initialState, action) => {
                 author: player.id,
                 svg: player.draws.find(draw => {
                   return draw.round === data.round.currentRound;
-                }).draw
+                }).draw,
+                word: player.draws.find(draw => {
+                  return draw.round === data.round.currentRound;
+                }).word
               }))
             }
           ]
