@@ -72,9 +72,15 @@ export const Lobby = ({ currentUser, game, startGame, history }) => {
 
       <PlayerList>
         {opponents &&
-          Object.values(opponents)
-            .filter(player => player.playerId !== currentUser.userId)
-            .map((player, index) => <PlayerAvatar key={index} info={player} />)}
+          Object.values(opponents).map((player, index) => {
+            if (player.playerId === currentUser.userId) return;
+            return (
+              <div key={player.playerId}>
+                <PlayerAvatar key={index} info={player} />
+                <h3>{player.playerName}</h3>
+              </div>
+            )
+        })}
       </PlayerList>
       <ShareButton url={shareUrl} />
     </Wrapper>
