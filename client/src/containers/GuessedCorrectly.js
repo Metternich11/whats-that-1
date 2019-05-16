@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Countdown from "react-countdown-now";
 import styled from "styled-components/macro";
 
 // Redux Imports
 import { connect } from "react-redux";
 
 // Component & Container Imports
-import TimeRemaining from "../components/TimeRemaining";
 import Wrapper from "../components/Wrapper";
 import SpeechBubble from "../components/SpeechBubble";
 import Zorb from "../components/Zorb";
@@ -34,10 +32,6 @@ export const GuessedCorrectly = ({ history, game }) => {
   }
    setCount(1)
 }, [game.endRound, game.endGame]);
-
-  const renderer = ({ seconds }) => {
-    return <span> {seconds} </span>;
-  };
 
   return (
     <Wrapper GuessedCorrectly>
@@ -73,12 +67,6 @@ export const GuessedCorrectly = ({ history, game }) => {
         })}
       </PlayerList>
 
-      <TimeRemaining>
-        <h2>
-          <Countdown date={Date.now() + 4000} renderer={renderer} />
-        </h2>{" "}
-        seconds left until the round ends.
-      </TimeRemaining>
     </Wrapper>
   );
 };

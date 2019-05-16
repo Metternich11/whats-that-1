@@ -11,7 +11,7 @@ import Results from '../containers/Results';
 import { nextTick } from 'q';
 
 
-const Canvas = ({ passDrawing, game }) => {
+const Canvas = ({ passDrawing, game, currentUser }) => {
 
   // arol tip: useReducer instead of having this mess of variables here.
   // arol tip #2: useReducer was just a cool way to handle this. But in order to fix this, it can be done with useState
@@ -103,15 +103,30 @@ const Canvas = ({ passDrawing, game }) => {
 
     if (count > 0) {
       // We already passed through here
-      if (game.endRound || game.rounds) {
-        // The round has finished
+      if (game.endRound) {
+        // The round has finishe
         const svg = quickdrawSvgRender(drawing, canvas.width, canvas.height);
         passDrawing(svg, 'passFinalDrawing');
         setCount(0);
       }
     }
     setCount(1);
-  }, [game.endRound, game.rounds]);
+  }, [game.endRound]);
+
+  useEffect(() => {
+    if (game.rounds && count > 0) {
+      let win = game.rounds.filter(round => {
+        return round.roundNum === game.round
+      })
+      .map(el => el.winners)
+      if (win.flat().includes(currentUser.userId)) {
+        const svg = quickdrawSvgRender(drawing, 375, 375);
+        passDrawing(svg, 'passFinalDrawing');
+        setCount(0);
+    }
+    setCount(1)
+  }
+}, [game.rounds]);
 
   // helper function to post to API
   const postDrawingHelper = () => {
@@ -170,7 +185,8 @@ const Canvas = ({ passDrawing, game }) => {
 };
 
 const mapStateToProps = state => ({
-  game: state.game
+  game: state.game,
+  currentUser: state.currentUser
 });
 
 const mapDispatchToProps = { passDrawing: Actions.passDrawing }

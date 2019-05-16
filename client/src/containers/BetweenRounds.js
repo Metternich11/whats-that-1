@@ -47,7 +47,6 @@ export const BetweenRounds = ({history, game, currentUser}) => {
   return (
     <Wrapper>
       <WordToDraw inBetween>
-        {/* <h3>{game.word}</h3> */}
         <h2 className='gameHeader'>{game.word}</h2>
       </WordToDraw>
 
@@ -64,15 +63,9 @@ export const BetweenRounds = ({history, game, currentUser}) => {
                 </Author>
               </div>
             </PolaroidPicBackground>
-          ))} */}
+          ))}
       </DrawingStack>
 
-      {/* <PlayerList betweenRounds>
-        {opponents &&
-          Object.values(opponents)
-            .filter(player => player.playerId !== currentUser.userId)
-            .map((player, index) => <PlayerAvatar key={index} info={player} />)}
-      </PlayerList> */}
 
       <TimeRemaining>
         Next round starts in{' '}
